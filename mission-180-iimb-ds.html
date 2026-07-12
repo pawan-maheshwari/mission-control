@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 180 — IIMB BSc Data Science · Jan 2028 Command Center</title>
+<meta name="description" content="18-month coaching program to crack the IIMB UG Admissions Test for BSc (Hons) Data Science — roadmap, milestones, quizzes, flashcards, games, mock interviews, cutoff intelligence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============ MISSION 180 DESIGN SYSTEM ============
+   Palette: examination-hall graph paper
+   --paper   #F5F7F4  graph-paper white
+   --grid    #DFE6DD  faint grid line
+   --ink     #17263B  answer-sheet ink navy
+   --marker  #C6371F  red checking-pen
+   --score   #1B7A4B  scoring green
+   --gold    #B98A1F  merit gold
+=====================================================*/
+:root{
+  --paper:#F5F7F4; --grid:#DFE6DD; --ink:#17263B; --ink-soft:#44536B;
+  --marker:#C6371F; --score:#1B7A4B; --gold:#B98A1F;
+  --card:#FFFFFF; --line:#CBD5CC;
+  --disp:'Archivo',sans-serif; --body:'Public Sans',sans-serif; --mono:'JetBrains Mono',monospace;
+  --r:10px; --shadow:0 2px 10px rgba(23,38,59,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); color:var(--ink); background:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px; line-height:1.6; font-size:16px;
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--marker);outline-offset:2px}
+
+/* ---------- header ---------- */
+header{
+  background:var(--ink); color:#F2F5F9; padding:26px 20px 20px;
+  border-bottom:5px solid var(--marker); position:relative; overflow:hidden;
+}
+header::after{content:"180";position:absolute;right:-18px;top:-42px;font-family:var(--disp);
+  font-weight:900;font-size:200px;font-stretch:62%;color:rgba(255,255,255,.05);line-height:1;pointer-events:none}
+.hwrap{max-width:1120px;margin:0 auto;position:relative;z-index:1}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8FA3C2}
+h1{font-family:var(--disp);font-weight:900;font-stretch:80%;font-size:clamp(30px,5.4vw,54px);
+  line-height:1.02;letter-spacing:-.01em;margin:6px 0 4px}
+h1 .accent{color:#FF6B4A}
+.subtitle{color:#B9C6DA;font-size:14px;max-width:640px}
+.countbar{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.count{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:var(--r);
+  padding:10px 16px;min-width:150px}
+.count .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8FA3C2}
+.count .val{font-family:var(--mono);font-weight:700;font-size:26px;color:#fff;line-height:1.2}
+.count .sub{font-size:11px;color:#8FA3C2}
+.count.hot{border-color:#FF6B4A}
+.count.hot .val{color:#FF8A6E}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:2px solid var(--ink);
+  overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+.nwrap{max-width:1120px;margin:0 auto;display:flex}
+nav button{
+  background:none;border:none;padding:13px 16px;font-family:var(--disp);font-weight:700;font-stretch:88%;
+  font-size:13.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-soft);
+  border-bottom:4px solid transparent;transition:color .15s,border-color .15s}
+nav button:hover{color:var(--ink)}
+nav button.on{color:var(--marker);border-bottom-color:var(--marker)}
+
+/* ---------- layout ---------- */
+main{max-width:1120px;margin:0 auto;padding:28px 20px 80px}
+section.tab{display:none}
+section.tab.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2{font-family:var(--disp);font-weight:900;font-stretch:80%;font-size:clamp(24px,3.4vw,34px);margin-bottom:4px}
+h3{font-family:var(--disp);font-weight:800;font-stretch:88%;font-size:19px;margin-bottom:8px}
+.lede{color:var(--ink-soft);font-size:14.5px;max-width:720px;margin-bottom:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);
+  padding:20px;margin-bottom:18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.tag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:3px 9px;border-radius:99px;border:1.5px solid currentColor;margin-bottom:8px}
+.tag.red{color:var(--marker)} .tag.grn{color:var(--score)} .tag.gld{color:var(--gold)} .tag.ink{color:var(--ink-soft)}
+.small{font-size:13px;color:var(--ink-soft)}
+.btn{background:var(--ink);color:#fff;border:none;border-radius:8px;padding:11px 20px;
+  font-family:var(--disp);font-weight:700;font-stretch:88%;font-size:14px;letter-spacing:.04em;text-transform:uppercase;
+  transition:transform .1s,background .15s}
+.btn:hover{background:var(--marker)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.btn.ghost:hover{color:var(--marker);border-color:var(--marker);background:transparent}
+.btn.grn{background:var(--score)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-family:var(--disp);font-weight:800;font-stretch:88%;text-align:left;font-size:12.5px;
+  letter-spacing:.06em;text-transform:uppercase;padding:9px 10px;border-bottom:2.5px solid var(--ink)}
+td{padding:9px 10px;border-bottom:1px solid var(--grid);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.mono{font-family:var(--mono)}
+.pill{font-family:var(--mono);font-size:12px;font-weight:700;padding:2px 10px;border-radius:99px}
+.pill.actual{background:#E3F1E8;color:var(--score)}
+.pill.proj{background:#FBEEE3;color:#A05B12}
+
+/* ---------- dashboard ---------- */
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow)}
+.stat .n{font-family:var(--mono);font-weight:700;font-size:30px;line-height:1.1}
+.stat .l{font-size:11.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em}
+.scoreband{position:relative;height:52px;border-radius:8px;background:linear-gradient(90deg,#E8EDE7 0 63%,#F6E3C9 63% 78%,#E3F1E8 78% 100%);
+  border:1.5px solid var(--line);margin:14px 0 6px}
+.scoreband .mark{position:absolute;top:-9px;bottom:-9px;width:3px;background:var(--marker)}
+.scoreband .zone-lbl{position:absolute;top:100%;margin-top:6px;font-family:var(--mono);font-size:10.5px;color:var(--ink-soft)}
+.week{border-left:4px solid var(--score);background:#F1F7F2;padding:14px 16px;border-radius:0 var(--r) var(--r) 0;margin-bottom:18px}
+
+/* ---------- roadmap ---------- */
+.phase{border:1px solid var(--line);border-radius:var(--r);background:var(--card);box-shadow:var(--shadow);
+  margin-bottom:16px;overflow:hidden}
+.phase-head{display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;background:#fff}
+.phase-head:hover{background:#FAFBF9}
+.ph-num{font-family:var(--mono);font-weight:700;font-size:13px;background:var(--ink);color:#fff;
+  border-radius:6px;padding:5px 10px;flex-shrink:0}
+.ph-title{font-family:var(--disp);font-weight:800;font-stretch:88%;font-size:17px;flex:1}
+.ph-dates{font-family:var(--mono);font-size:12px;color:var(--ink-soft);flex-shrink:0}
+.ph-body{display:none;padding:4px 18px 18px;border-top:1px dashed var(--grid)}
+.phase.open .ph-body{display:block}
+.ph-goal{background:#FDF3EF;border-left:3px solid var(--marker);padding:9px 13px;font-size:13.5px;
+  border-radius:0 8px 8px 0;margin:12px 0}
+.ph-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:12px}
+.ph-cols h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--marker);margin-bottom:6px}
+.ph-cols ul{list-style:none}
+.ph-cols li{font-size:13.5px;padding:4px 0 4px 18px;position:relative;border-bottom:1px dotted var(--grid)}
+.ph-cols li::before{content:"▸";position:absolute;left:0;color:var(--score)}
+
+/* ---------- milestones ---------- */
+.ms-progress{height:14px;background:#E8EDE7;border-radius:99px;overflow:hidden;border:1px solid var(--line);margin:8px 0 4px}
+.ms-progress .fill{height:100%;background:linear-gradient(90deg,var(--score),#2FA36B);width:0%;transition:width .4s ease;border-radius:99px}
+.ms-item{display:flex;gap:12px;align-items:flex-start;padding:11px 4px;border-bottom:1px dashed var(--grid)}
+.ms-item:last-child{border-bottom:none}
+.ms-check{width:24px;height:24px;flex-shrink:0;border:2.5px solid var(--ink-soft);border-radius:6px;background:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:15px;transition:all .15s}
+.ms-item.done .ms-check{background:var(--score);border-color:var(--score)}
+.ms-item.done .ms-t{text-decoration:line-through;color:var(--ink-soft)}
+.ms-t{font-weight:600;font-size:14.5px}
+.ms-d{font-family:var(--mono);font-size:11.5px;color:var(--marker)}
+.ms-note{font-size:12.5px;color:var(--ink-soft)}
+.ms-group-h{font-family:var(--disp);font-weight:800;font-stretch:88%;font-size:15px;margin:18px 0 4px;
+  padding-bottom:5px;border-bottom:2.5px solid var(--ink)}
+
+/* ---------- study ---------- */
+details.res{border:1px solid var(--line);border-radius:var(--r);background:#fff;margin-bottom:10px;box-shadow:var(--shadow)}
+details.res summary{padding:13px 16px;font-family:var(--disp);font-weight:800;font-stretch:88%;font-size:15px;
+  cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.res summary::after{content:"+";font-family:var(--mono);font-size:20px;color:var(--marker)}
+details.res[open] summary::after{content:"–"}
+details.res .rb{padding:0 16px 16px;border-top:1px dashed var(--grid)}
+
+/* ---------- quiz ---------- */
+.q-shell{max-width:760px}
+.q-meta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.q-timer{font-family:var(--mono);font-weight:700;font-size:22px;background:var(--ink);color:#fff;
+  padding:5px 14px;border-radius:8px}
+.q-timer.low{background:var(--marker);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.65}}
+.q-text{font-size:16.5px;font-weight:600;margin:12px 0 16px;line-height:1.55}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:8px;
+  padding:12px 14px;margin-bottom:9px;font-size:15px;transition:all .12s}
+.opt:hover{border-color:var(--ink)}
+.opt.sel{border-color:var(--ink);background:#EEF2F7;font-weight:600}
+.opt.correct{border-color:var(--score);background:#E3F1E8;font-weight:700}
+.opt.wrong{border-color:var(--marker);background:#FBE7E2}
+.expl{background:#FFF9EC;border-left:3px solid var(--gold);padding:11px 14px;border-radius:0 8px 8px 0;
+  font-size:13.5px;margin-top:10px}
+.q-result-big{font-family:var(--mono);font-weight:700;font-size:52px;line-height:1;color:var(--score)}
+
+/* ---------- flashcards ---------- */
+.fc-stage{perspective:1200px;max-width:560px;margin:0 auto 16px}
+.fc{position:relative;width:100%;min-height:260px;transform-style:preserve-3d;transition:transform .5s;cursor:pointer}
+.fc.flip{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:26px;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:var(--shadow)}
+.fc-front{background:var(--ink);color:#fff}
+.fc-front .fc-cat{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#8FA3C2;margin-bottom:12px}
+.fc-front .fc-q{font-family:var(--disp);font-weight:800;font-stretch:88%;font-size:21px;line-height:1.35}
+.fc-back{background:#fff;border:2.5px solid var(--score);transform:rotateY(180deg)}
+.fc-back .fc-a{font-size:16.5px;font-weight:600;line-height:1.5}
+.fc-back .fc-a .mono{color:var(--score);font-size:18px}
+.fc-nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.fc-count{font-family:var(--mono);font-size:13px;align-self:center;color:var(--ink-soft)}
+
+/* ---------- games ---------- */
+.g-num{font-family:var(--mono);font-weight:700;font-size:44px;text-align:center;margin:14px 0}
+.g-input{font-family:var(--mono);font-size:26px;text-align:center;width:200px;padding:10px;
+  border:2.5px solid var(--ink);border-radius:8px;display:block;margin:0 auto 14px}
+.g-hud{display:flex;justify-content:center;gap:20px;font-family:var(--mono);font-weight:700;font-size:17px;margin-bottom:8px}
+.g-hud .low{color:var(--marker)}
+.match-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;max-width:620px;margin:0 auto}
+@media(max-width:520px){.match-grid{grid-template-columns:repeat(2,1fr)}}
+.mtile{border:2px solid var(--line);border-radius:8px;background:#fff;min-height:64px;padding:8px;
+  font-size:12.5px;font-weight:600;display:flex;align-items:center;justify-content:center;text-align:center;transition:all .15s}
+.mtile:hover{border-color:var(--ink)}
+.mtile.sel{border-color:var(--marker);background:#FBE7E2}
+.mtile.done{border-color:var(--score);background:#E3F1E8;color:var(--score);pointer-events:none}
+
+/* ---------- interview ---------- */
+.iv-q{background:var(--ink);color:#fff;border-radius:var(--r);padding:22px;margin-bottom:14px}
+.iv-q .cat{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#8FA3C2}
+.iv-q .qq{font-family:var(--disp);font-weight:800;font-stretch:88%;font-size:20px;margin-top:8px;line-height:1.4}
+.rate{display:flex;gap:8px;margin:10px 0}
+.rate button{width:42px;height:42px;border-radius:8px;border:2px solid var(--line);background:#fff;
+  font-family:var(--mono);font-weight:700;font-size:16px}
+.rate button.on{background:var(--score);border-color:var(--score);color:#fff}
+.iv-tip{background:#F1F7F2;border-left:3px solid var(--score);padding:10px 14px;border-radius:0 8px 8px 0;font-size:13.5px;margin-top:10px}
+
+/* ---------- cutoffs ---------- */
+.co-chart{display:flex;align-items:flex-end;gap:16px;height:230px;padding:10px 6px 0;border-bottom:2.5px solid var(--ink);margin:16px 0 6px}
+.co-bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px}
+.co-bar .bar{width:100%;max-width:86px;border-radius:6px 6px 0 0;position:relative;transition:height .6s ease}
+.co-bar .bar.actual{background:var(--score)}
+.co-bar .bar.proj{background:repeating-linear-gradient(45deg,#E0A458,#E0A458 6px,#EDBE85 6px,#EDBE85 12px)}
+.co-bar .v{font-family:var(--mono);font-weight:700;font-size:15px}
+.co-bar .y{font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
+/* ---------- v2: reading library ---------- */
+.lib-progress-card{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.lib-progress-card .bar-wrap{flex:1;min-width:220px}
+.lesson-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px;margin-bottom:22px}
+.lesson-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:15px;box-shadow:var(--shadow);
+  cursor:pointer;transition:transform .12s,border-color .12s;position:relative}
+.lesson-card:hover{transform:translateY(-2px);border-color:var(--ink)}
+.lesson-card.readdone{border-color:var(--score)}
+.lesson-card .lc-sec{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--marker)}
+.lesson-card h4{font-family:var(--disp);font-weight:800;font-stretch:88%;font-size:15.5px;margin:5px 0 4px;line-height:1.3}
+.lesson-card .lc-meta{font-size:12px;color:var(--ink-soft)}
+.lesson-card .lc-done{position:absolute;top:10px;right:12px;color:var(--score);font-weight:900}
+.reader{background:#FFFDF8;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.reader-top{position:sticky;top:52px;z-index:10;background:#FFFDF8;border-bottom:1px solid var(--grid);padding:10px 18px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.read-meter{height:5px;background:var(--grid)}
+.read-meter .rm-fill{height:100%;background:var(--marker);width:0%;transition:width .15s}
+.reader-body{max-width:680px;margin:0 auto;padding:28px 22px 40px;font-size:var(--readsize,17px);line-height:1.75}
+.reader-body h3{font-size:24px;margin:4px 0 14px}
+.reader-body h5{font-family:var(--disp);font-weight:800;font-stretch:88%;font-size:16px;margin:22px 0 8px;color:var(--marker)}
+.reader-body p{margin-bottom:14px}
+.reader-body .ex{background:#F4F7F3;border:1px solid var(--grid);border-left:4px solid var(--score);
+  border-radius:0 8px 8px 0;padding:13px 16px;margin:14px 0;font-size:.94em}
+.reader-body .ex .exq{font-weight:700}
+.reader-body .trap{background:#FBEFEA;border-left:4px solid var(--marker);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0;font-size:.94em}
+.reader-body .kf{font-family:var(--mono);background:var(--ink);color:#fff;padding:2px 8px;border-radius:6px;font-size:.85em;white-space:nowrap}
+.rd-btn{background:none;border:1.5px solid var(--line);border-radius:7px;padding:5px 11px;font-size:13px;font-weight:700}
+.rd-btn:hover{border-color:var(--ink)}
+
+/* ---------- v2: video theater ---------- */
+.vid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.vid-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);
+  cursor:pointer;transition:transform .12s,border-color .12s;position:relative}
+.vid-card:hover{transform:translateY(-2px);border-color:var(--ink)}
+.vid-card.watched{border-color:var(--score)}
+.vid-thumb{position:relative;aspect-ratio:16/9;background:var(--ink)}
+.vid-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.vid-thumb .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:42px;
+  color:#fff;background:rgba(23,38,59,.28);transition:background .15s}
+.vid-card:hover .play{background:rgba(198,55,31,.45)}
+.vid-info{padding:11px 13px}
+.vid-info .vc-sec{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--marker)}
+.vid-info h4{font-family:var(--disp);font-weight:800;font-stretch:88%;font-size:14.5px;line-height:1.3;margin:4px 0}
+.vid-info .vc-by{font-size:12px;color:var(--ink-soft)}
+.vc-check{position:absolute;top:8px;right:10px;background:var(--score);color:#fff;border-radius:99px;
+  width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px}
+.theater{background:var(--ink);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);margin-bottom:14px}
+.theater .frame{aspect-ratio:16/9;width:100%;border:none;display:block}
+.theater-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 16px;color:#fff;flex-wrap:wrap}
+.theater-bar .tt{font-family:var(--disp);font-weight:800;font-stretch:88%;font-size:15px}
+
+/* ---------- v2: quiz palette / sections ---------- */
+.sec-strip{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.sec-chip{font-family:var(--mono);font-size:12px;font-weight:700;padding:6px 12px;border-radius:99px;border:2px solid var(--line);color:var(--ink-soft)}
+.sec-chip.now{border-color:var(--marker);color:var(--marker);background:#FBEFEA}
+.sec-chip.locked::after{content:" 🔒"} .sec-chip.done2::after{content:" ✓";color:var(--score)}
+.palette{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;margin:12px 0}
+.pal{height:36px;border-radius:7px;border:2px solid var(--line);background:#fff;font-family:var(--mono);font-weight:700;font-size:13px}
+.pal.cur{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+.pal.ansd{background:#E3F1E8;border-color:var(--score)}
+.pal.markd{background:#F3E9FB;border-color:#7A3FB8}
+.pal.ansd.markd{background:linear-gradient(135deg,#E3F1E8 50%,#F3E9FB 50%)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-soft);margin-bottom:6px}
+.legend span::before{content:"";display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px;border:1.5px solid var(--line)}
+.legend .l-a::before{background:#E3F1E8;border-color:var(--score)}
+.legend .l-m::before{background:#F3E9FB;border-color:#7A3FB8}
+.legend .l-n::before{background:#fff}
+
+/* ---------- v2: reports ---------- */
+.rep-bars{margin:10px 0}
+.rep-row{display:grid;grid-template-columns:130px 1fr 56px;gap:10px;align-items:center;margin-bottom:9px}
+.rep-row .rl{font-size:13px;font-weight:600}
+.rep-track{height:16px;background:#E8EDE7;border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.rep-track i{display:block;height:100%;border-radius:99px;background:var(--score);transition:width .5s}
+.rep-track i.warn{background:var(--gold)} .rep-track i.bad{background:var(--marker)}
+.rep-row .rv{font-family:var(--mono);font-size:13px;font-weight:700;text-align:right}
+.trend{display:flex;align-items:flex-end;gap:6px;height:120px;border-bottom:2px solid var(--ink);padding:4px 2px 0}
+.trend .tb{flex:1;max-width:44px;background:var(--score);border-radius:5px 5px 0 0;position:relative;min-height:4px}
+.trend .tb.below{background:var(--marker)}
+.trend .tb span{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10.5px;font-weight:700}
+.fb-box{background:#FFF9EC;border-left:4px solid var(--gold);border-radius:0 8px 8px 0;padding:14px 16px;margin-top:12px;font-size:14px}
+
+/* ---------- v2: floating chat ---------- */
+#chat-fab{position:fixed;right:18px;bottom:18px;z-index:200;width:60px;height:60px;border-radius:99px;border:none;
+  background:var(--marker);color:#fff;font-size:26px;box-shadow:0 6px 20px rgba(198,55,31,.4);transition:transform .15s}
+#chat-fab:hover{transform:scale(1.08)}
+#chat-panel{position:fixed;right:14px;bottom:88px;z-index:200;width:min(380px,calc(100vw - 28px));height:min(540px,calc(100vh - 120px));
+  background:#fff;border:2px solid var(--ink);border-radius:16px;box-shadow:0 16px 48px rgba(23,38,59,.3);
+  display:none;flex-direction:column;overflow:hidden}
+#chat-panel.open{display:flex}
+.chat-head{background:var(--ink);color:#fff;padding:13px 16px;display:flex;justify-content:space-between;align-items:center}
+.chat-head .ch-t{font-family:var(--disp);font-weight:800;font-stretch:88%;font-size:15px}
+.chat-head .ch-s{font-size:11px;color:#8FA3C2}
+.chat-head button{background:none;border:none;color:#fff;font-size:20px}
+#chat-log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#F7F9F6}
+.msg{max-width:86%;padding:9px 13px;border-radius:14px;font-size:13.5px;line-height:1.5}
+.msg.bot{background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+.msg.me{background:var(--ink);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.msg.bot a{color:var(--marker);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start}
+.chip{border:1.5px solid var(--marker);color:var(--marker);background:#fff;border-radius:99px;padding:5px 11px;font-size:12px;font-weight:600}
+.chip:hover{background:var(--marker);color:#fff}
+.chat-in{display:flex;gap:8px;padding:10px;border-top:1px solid var(--grid);background:#fff}
+.chat-in input{flex:1;border:1.5px solid var(--line);border-radius:9px;padding:9px 12px;font-size:14px;font-family:inherit}
+.chat-in button{background:var(--marker);border:none;color:#fff;border-radius:9px;padding:0 16px;font-weight:800}
+.footer-note{margin-top:40px;padding-top:16px;border-top:2px solid var(--ink);font-size:12px;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <div class="eyebrow">IIM Bangalore · BSc (Hons) Data Science · UG-AT Command Center</div>
+    <h1>MISSION <span class="accent">180</span> — CRACK IIMB · JAN 2028</h1>
+    <p class="subtitle">An 18-month coaching program engineered around one number: your raw score out of 180. Actual 2026 shortlist cutoff (General): 114. Your target: 135+. Everything below serves that number.</p>
+    <div class="countbar">
+      <div class="count hot"><div class="lbl">UG Admissions Test</div><div class="val" id="cd-test">—</div><div class="sub">expected ~11 Dec 2027</div></div>
+      <div class="count"><div class="lbl">Personal Interview</div><div class="val" id="cd-pi">—</div><div class="sub">expected ~22 Jan 2028</div></div>
+      <div class="count"><div class="lbl">Application Window</div><div class="val" id="cd-app">—</div><div class="sub">expected Oct 2027</div></div>
+      <div class="count"><div class="lbl">Study Weeks Left</div><div class="val" id="cd-weeks">—</div><div class="sub">to test day</div></div>
+    </div>
+  </div>
+</header>
+
+<nav aria-label="Sections"><div class="nwrap">
+  <button data-tab="dash" class="on">Dashboard</button>
+  <button data-tab="road">Roadmap</button>
+  <button data-tab="mile">Milestones</button>
+  <button data-tab="study">Reading &amp; Videos</button>
+  <button data-tab="quiz">Quiz Arena</button>
+  <button data-tab="cards">Memory Cards</button>
+  <button data-tab="games">Games</button>
+  <button data-tab="mock">Mock Interview</button>
+  <button data-tab="report">Reports</button>
+  <button data-tab="cut">Cutoff Intel</button>
+</div></nav>
+
+<main>
+
+<!-- ================= DASHBOARD ================= -->
+<section class="tab on" id="tab-dash">
+  <h2>Mission Dashboard</h2>
+  <p class="lede">The exam: 60 MCQs · 180 marks · 120 minutes · +3 correct, −1 wrong. Three sections — English Comprehension (15Q), Quantitative Aptitude &amp; Data Interpretation (30Q), Logical Reasoning (15Q). QADI is the filtering section: a pre-set minimum QADI score decides the first shortlist. Final selection = 60% test + 40% interview.</p>
+
+  <div class="statgrid">
+    <div class="stat"><div class="n" style="color:var(--marker)">40</div><div class="l">DS seats nationally</div></div>
+    <div class="stat"><div class="n">114</div><div class="l">2026 actual cutoff (Gen, /180)</div></div>
+    <div class="stat"><div class="n" style="color:var(--score)">135+</div><div class="l">Your target score</div></div>
+    <div class="stat"><div class="n">60:40</div><div class="l">Test : Interview weight</div></div>
+    <div class="stat"><div class="n" id="stat-ms">0%</div><div class="l">Milestones complete</div></div>
+    <div class="stat"><div class="n" id="stat-quiz">—</div><div class="l">Best quiz score /180</div></div>
+  </div>
+
+  <div class="card">
+    <h3>The Score Band — where you must land</h3>
+    <div class="scoreband" id="scoreband">
+      <div class="mark" style="left:63.3%"></div>
+      <span class="zone-lbl" style="left:2%">0 — Danger zone</span>
+      <span class="zone-lbl" style="left:58%">114 · 2026 cutoff</span>
+      <span class="zone-lbl" style="left:80%">135–180 · Safe zone</span>
+    </div>
+    <p class="small" style="margin-top:26px">Strategy: 45 accurate attempts (of 60) with ≥90% accuracy ≈ 130–135. Accuracy beats attempts — every wrong answer costs 1 mark AND forfeits 3. In QADI, treat every question as non-negotiable: it is the only section with a sectional cutoff.</p>
+  </div>
+
+  <div class="week">
+    <strong style="font-family:var(--disp)">📌 This week's operating rhythm (default template)</strong>
+    <p class="small" style="margin-top:6px">Mon–Fri: 45 min QADI concepts + 30 min drills · Sat: 1 sectional test + error log review · Sun: 30 min RC reading + 30 min LR sets + flashcard sweep + one game session here. Log everything in the Milestones tab. OODA it: Observe (mock data) → Orient (error log) → Decide (weak-area plan) → Act (drills).</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <span class="tag red">Program Facts</span>
+      <table>
+        <tr><td>Program</td><td><strong>BSc (Hons) Data Science</strong>, minors in Economics &amp; Business Studies</td></tr>
+        <tr><td>Duration</td><td>4 years, residential (3-yr exit option, NEP)</td></tr>
+        <tr><td>Campus</td><td>Jigani, Bengaluru (~27–30 km from Bannerghatta)</td></tr>
+        <tr><td>Fee</td><td>₹8.5 L/year (tuition + hostel + exam; mess extra)</td></tr>
+        <tr><td>Eligibility</td><td>Class XII with Maths compulsory; ≥60% in Maths; ≤20 yrs on 1 Aug of intake year (Gen)</td></tr>
+        <tr><td>Exam fee</td><td>₹3,000 (Gen/EWS/OBC-NCL) · ₹1,500 (SC/ST/PwD)</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <span class="tag grn">Jan-28 Campaign Timeline (projected from 2026 cycle)</span>
+      <table>
+        <tr><td class="mono">Oct–Nov 2027</td><td>Application window opens on ug.iimb.ac.in</td></tr>
+        <tr><td class="mono">~11 Dec 2027</td><td><strong>IIMB UG Admissions Test</strong> (2026 test was 2nd Sat of Dec)</td></tr>
+        <tr><td class="mono">Early Jan 2028</td><td>Scorecard + first shortlist (QADI cutoff applied, +5 gender diversity in pre-PI score)</td></tr>
+        <tr><td class="mono">22 Jan–2 Feb 2028</td><td><strong>Personal Interviews</strong>, in person at IIMB</td></tr>
+        <tr><td class="mono">~28 Feb 2028</td><td>Final offers (composite 60:40)</td></tr>
+        <tr><td class="mono">Aug 2028</td><td>Session begins, Jigani campus</td></tr>
+      </table>
+      <p class="small" style="margin-top:8px">⚠️ Dates are projections mirroring the 2026-27 cycle. Verify on ug.iimb.ac.in when the 2028 notification drops (~July 2027).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ROADMAP ================= -->
+<section class="tab" id="tab-road">
+  <h2>The 18-Month Roadmap</h2>
+  <p class="lede">Six phases from July 2026 to the interview room in January 2028. Each phase has a single measurable exit gate — you do not move on until you clear it. Tap a phase to expand.</p>
+  <div id="phases"></div>
+</section>
+
+<!-- ================= MILESTONES ================= -->
+<section class="tab" id="tab-mile">
+  <h2>Milestone Tracker</h2>
+  <p class="lede">36 checkpoints, saved on this device. Export a backup JSON before switching devices.</p>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center">
+      <strong class="mono" id="ms-count">0 / 36 complete</strong>
+      <span>
+        <button class="btn ghost" id="ms-export" style="padding:8px 14px;font-size:12px">Export backup</button>
+        <button class="btn ghost" id="ms-import" style="padding:8px 14px;font-size:12px">Import</button>
+        <button class="btn ghost" id="ms-reset" style="padding:8px 14px;font-size:12px">Reset</button>
+      </span>
+    </div>
+    <div class="ms-progress"><div class="fill" id="ms-fill"></div></div>
+  </div>
+  <div id="ms-list"></div>
+</section>
+
+<!-- ================= STUDY ================= -->
+<section class="tab" id="tab-study">
+  <h2>Reading &amp; Video Library</h2>
+  <p class="lede">Everything happens inside the app — read full lessons in the distraction-free reader, watch curated videos in the built-in theater. Your progress feeds the Reports tab.</p>
+
+  <div class="card lib-progress-card">
+    <div class="bar-wrap">
+      <strong style="font-family:var(--disp);font-size:14px">📖 Lessons read</strong>
+      <div class="ms-progress"><div class="fill" id="lib-read-fill"></div></div>
+      <span class="small mono" id="lib-read-txt">0 / 0</span>
+    </div>
+    <div class="bar-wrap">
+      <strong style="font-family:var(--disp);font-size:14px">🎬 Videos watched</strong>
+      <div class="ms-progress"><div class="fill" id="lib-vid-fill"></div></div>
+      <span class="small mono" id="lib-vid-txt">0 / 0</span>
+    </div>
+  </div>
+
+  <div id="lib-home">
+    <h3 style="margin-top:8px">📖 Reading Library</h3>
+    <p class="small" style="margin-bottom:12px">Tap a lesson to open the reader. The red meter tracks how far you've read; finish and mark it complete.</p>
+    <div class="lesson-grid" id="lesson-grid"></div>
+
+    <h3>🎬 Video Theater</h3>
+    <p class="small" style="margin-bottom:12px">Plays right here — no leaving the app. Mark watched when done.</p>
+    <div id="theater-slot"></div>
+    <div class="vid-grid" id="vid-grid"></div>
+
+    <details class="res" style="margin-top:22px"><summary>📚 Companion book list (offline reading)</summary><div class="rb" id="reslist"></div></details>
+  </div>
+
+  <div id="lib-reader" style="display:none"></div>
+</section>
+
+<!-- ================= REPORTS ================= -->
+<section class="tab" id="tab-report">
+  <h2>Reports &amp; Feedback</h2>
+  <p class="lede">Your whole campaign on one page — mock trend against the cutoff line, section-wise accuracy, engagement, and the coach's verdict. Data updates every time you train.</p>
+  <div id="repbox"></div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section class="tab" id="tab-quiz">
+  <h2>Quiz Arena</h2>
+  <p class="lede">Built to mirror the real UG-AT: locked sections in exam order (English Comprehension → QADI → Logical Reasoning), independent sectional timers, a question palette with mark-for-review, and +3/−1/0 scoring. When a section's clock dies, it's gone — exactly like test day.</p>
+  <div class="q-shell" id="quizbox" style="max-width:860px"></div>
+</section>
+
+<!-- ================= FLASHCARDS ================= -->
+<section class="tab" id="tab-cards">
+  <h2>Memory Cards</h2>
+  <p class="lede">44 high-frequency cards — QADI formulas, LR patterns, vocab, and program facts for the interview. Tap the card to flip. Mark "Got it" to retire a card this session; shuffle to restart.</p>
+  <div style="text-align:center;margin-bottom:12px">
+    <button class="btn ghost fc-filter on" data-f="all" style="padding:7px 14px;font-size:12px">All</button>
+    <button class="btn ghost fc-filter" data-f="QADI" style="padding:7px 14px;font-size:12px">QADI</button>
+    <button class="btn ghost fc-filter" data-f="LR" style="padding:7px 14px;font-size:12px">LR</button>
+    <button class="btn ghost fc-filter" data-f="Vocab" style="padding:7px 14px;font-size:12px">Vocab</button>
+    <button class="btn ghost fc-filter" data-f="PI" style="padding:7px 14px;font-size:12px">Interview</button>
+  </div>
+  <div class="fc-stage"><div class="fc" id="fc"><div class="fc-face fc-front" id="fc-front"></div><div class="fc-face fc-back" id="fc-back"></div></div></div>
+  <div class="fc-nav">
+    <button class="btn ghost" id="fc-prev">← Prev</button>
+    <span class="fc-count" id="fc-count"></span>
+    <button class="btn ghost" id="fc-next">Next →</button>
+    <button class="btn grn" id="fc-got">✓ Got it</button>
+    <button class="btn ghost" id="fc-shuf">Shuffle</button>
+  </div>
+</section>
+
+<!-- ================= GAMES ================= -->
+<section class="tab" id="tab-games">
+  <h2>Training Games</h2>
+  <p class="lede">Speed is a trained muscle. Math Sprint builds the mental-arithmetic pace QADI demands; Formula Match hardwires recall under time pressure.</p>
+  <div class="grid2">
+    <div class="card">
+      <span class="tag red">Game 01</span>
+      <h3>⚡ Math Sprint — 60 seconds</h3>
+      <p class="small">Rapid arithmetic: percentages, fractions, squares, products. Each correct answer = +10, streak bonus every 5. Target: 150+ points.</p>
+      <div id="sprintbox" style="margin-top:12px"></div>
+    </div>
+    <div class="card">
+      <span class="tag red">Game 02</span>
+      <h3>🧩 Formula Match</h3>
+      <p class="small">Match 8 concepts to their formulas against the clock. Under 45 seconds = elite recall.</p>
+      <div id="matchbox" style="margin-top:12px"></div>
+    </div>
+    <div class="card">
+      <span class="tag red">Game 03</span>
+      <h3>🎯 The Estimator — DI reflexes</h3>
+      <p class="small">The 2026 paper's DI was calculation-heavy. Train approximation: see a fraction, snap-judge the closest percentage. 10 rounds, 8 seconds each.</p>
+      <div id="estbox" style="margin-top:12px"></div>
+    </div>
+    <div class="card">
+      <span class="tag red">Game 04</span>
+      <h3>🔢 Sequence Hunter — LR patterns</h3>
+      <p class="small">Number series under the gun: 8 sequences, 15 seconds each. Pattern-spotting is the whole LR section in miniature.</p>
+      <div id="seqbox" style="margin-top:12px"></div>
+    </div>
+    <div class="card">
+      <span class="tag red">Game 05</span>
+      <h3>📚 Vocab Blitz — EC ammo</h3>
+      <p class="small">12 words, 6 seconds each: pick the synonym before the timer eats the points. Builds the vocabulary reflex VA questions reward.</p>
+      <div id="vbbox" style="margin-top:12px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MOCK INTERVIEW ================= -->
+<section class="tab" id="tab-mock">
+  <h2>Mock Interview Studio</h2>
+  <p class="lede">The PI is 40% of your composite score — it can rescue a borderline test score or sink a great one. Panels probe motivation, math fundamentals, data-science curiosity, academics, and current affairs. Run a 6-question session: speak your answer aloud (2 minutes each), then self-rate 1–5 against the rubric.</p>
+  <div class="grid2" style="margin-bottom:16px">
+    <div class="card">
+      <span class="tag gld">Scoring Rubric (rate yourself honestly)</span>
+      <table>
+        <tr><td class="mono">5</td><td>Structured, specific, confident; concrete examples; natural close</td></tr>
+        <tr><td class="mono">4</td><td>Clear and relevant, minor rambling or one missed opportunity</td></tr>
+        <tr><td class="mono">3</td><td>Adequate but generic; could apply to any candidate</td></tr>
+        <tr><td class="mono">2</td><td>Vague, hesitant, or factually shaky</td></tr>
+        <tr><td class="mono">1</td><td>Off-topic, memorized-sounding, or blank</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <span class="tag gld">Panel intel from cycle 1 (2026)</span>
+      <ul style="list-style:none;font-size:13.5px">
+        <li style="padding:4px 0;border-bottom:1px dotted var(--grid)">▸ In-person at IIMB, ~Jan 22–Feb 2 window</li>
+        <li style="padding:4px 0;border-bottom:1px dotted var(--grid)">▸ Class X &amp; XII academic record is reviewed in the PI</li>
+        <li style="padding:4px 0;border-bottom:1px dotted var(--grid)">▸ Assesses communication, analytical ability, motivation &amp; program fit</li>
+        <li style="padding:4px 0">▸ "Why IIMB BSc and not engineering/BBA?" is near-certain — this is explicitly NOT a BBA</li>
+      </ul>
+    </div>
+  </div>
+  <div id="ivbox"></div>
+  <div class="card" id="ivlog-card">
+    <h3>Session Log</h3>
+    <div id="ivlog" class="small">No sessions recorded yet.</div>
+  </div>
+</section>
+
+<!-- ================= CUTOFFS ================= -->
+<section class="tab" id="tab-cut">
+  <h2>Cutoff Intelligence</h2>
+  <p class="lede">Only one real data point exists — the inaugural 2026 cycle. Everything beyond it is a modelled projection with stated assumptions. Plan for the pessimistic band.</p>
+
+  <div class="card">
+    <h3>First-shortlist overall cutoff, General category (raw score /180)</h3>
+    <div class="co-chart" id="cochart"></div>
+    <p class="small"><span class="pill actual">ACTUAL</span> official · <span class="pill proj">PROJECTED</span> modelled band midpoint (see assumptions below)</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <span class="tag grn">2026 Cycle — What Actually Happened</span>
+      <table>
+        <tr><td>Test date</td><td class="mono">13 Dec 2025</td></tr>
+        <tr><td>Overall cutoff (Gen)</td><td class="mono"><strong>114 / 180</strong></td></tr>
+        <tr><td>Sectional rule</td><td>Minimum score in <strong>QADI only</strong>; no EC/LR sectional cutoff, but positive raw score required in all sections</td></tr>
+        <tr><td>Reported QADI bar</td><td class="mono">~85th percentile (Gen)</td></tr>
+        <tr><td>Gender diversity</td><td class="mono">+5 marks in pre-PI score only</td></tr>
+        <tr><td>Shortlist ratio</td><td class="mono">~1:5 (≈400 PI calls / 80 seats)</td></tr>
+        <tr><td>Paper difficulty</td><td>Moderate; VARC easiest, LR easy-but-lengthy, QADI toughest &amp; calculation-heavy</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <span class="tag gld">Projection Model &amp; Assumptions</span>
+      <p class="small">Drivers pushing cutoffs UP each year: (1) awareness — year 1 had a short 5-month runway from announcement to test; coaching institutes now run dedicated batches; (2) JEE/IPMAT crossover aspirants with heavy quant training; (3) fixed 40 DS seats even as applicant pool grows toward IIMB's stated scale-up. Drivers DOWN: possible seat expansion (IIMB plans 640 by 2031) and tougher papers depressing raw scores. Net model: +6 to +9 raw marks/year, tapering.</p>
+      <table style="margin-top:8px">
+        <tr><th>Cycle</th><th>Projected Gen cutoff</th><th>Your prep target</th></tr>
+        <tr><td class="mono">2027 (Dec '26 test)</td><td class="mono">120–126</td><td class="mono">130</td></tr>
+        <tr><td class="mono"><strong>2028 (Dec '27 test) ← YOURS</strong></td><td class="mono"><strong>126–135</strong></td><td class="mono"><strong>135–140</strong></td></tr>
+        <tr><td class="mono">2029 (Dec '28 test)</td><td class="mono">132–140</td><td class="mono">—</td></tr>
+      </table>
+      <p class="small" style="margin-top:8px">Translation for test day: <strong>~45–47 correct out of 60 with ≤3 wrong.</strong> If difficulty spikes, percentile protects you — chase accuracy, not the raw number.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag ink">Reading The Composite Score</span>
+    <p class="small">Final rank = 0.6 × (test score, normalized) + 0.4 × (PI score). At 40 seats, a 10-percentile PI swing ≈ several ranks. The winning profile: 130+ raw score AND a rehearsed, authentic interview. Neither alone is enough. Academic consistency in Class X/XII marks is reviewed at PI stage — protect your board scores; the 60%-in-Maths eligibility floor is a hard gate.</p>
+  </div>
+</section>
+
+<p class="footer-note">Mission 180 · Built for the IIMB UG Admissions Test (BSc Hons Data Science, Jan-2028 target). 2026 cutoff and exam-pattern facts are from the inaugural cycle (test: 13 Dec 2025; cutoffs published Jan 2026). All 2027–2029 figures are projections, not official data. Always verify dates and policy on ug.iimb.ac.in. Practice questions are original items written in the style of the test — not actual exam questions.</p>
+</main>
+
+<!-- ================= FLOATING COACH ================= -->
+<button id="chat-fab" aria-label="Open coach assistant" title="Ask the coach">🧭</button>
+<div id="chat-panel" role="dialog" aria-label="Coach assistant">
+  <div class="chat-head">
+    <div><div class="ch-t">Coach 180</div><div class="ch-s">Course guide · answers from your training material</div></div>
+    <button id="chat-close" aria-label="Close">✕</button>
+  </div>
+  <div id="chat-log"></div>
+  <div class="chat-in">
+    <input id="chat-input" type="text" placeholder="Ask about the exam, roadmap, formulas…" autocomplete="off">
+    <button id="chat-send">➤</button>
+  </div>
+</div>
+<script>
+/* ============================ DATA ============================ */
+const PHASES=[
+{n:"P1",t:"Foundation — Own the NCERT Core",d:"Jul – Oct 2026 (16 wks)",goal:"Exit gate: score 60%+ on a Class X–XII NCERT maths diagnostic and read 20 minutes of editorial-grade English daily without fatigue.",
+ read:["NCERT Maths IX & X — full revision (number systems, ratio, percentages, mensuration, statistics, probability)","NCERT Maths XI ch: Sets, Sequences & Series, Permutations & Combinations, Statistics","Word Power Made Easy (Norman Lewis) — 1 session/week","The Hindu / Mint editorials — 20 min daily"],
+ drill:["100 mental-math sums daily (Math Sprint game here)","Tables to 30, squares to 40, cubes to 20, fraction↔percent conversions cold","2 RC passages/week, untimed, focus on main-idea + inference","Basic LR: series, coding-decoding, blood relations, directions"],
+ out:["Diagnostic test scored & error-logged","Personal formula notebook started (feeds the Memory Cards)","Vocabulary log: 200 words"]},
+{n:"P2",t:"Build — Aptitude Engine Online",d:"Nov 2026 – Feb 2027 (16 wks)",goal:"Exit gate: 70%+ accuracy on chapter-level QADI tests across arithmetic, and 12 LR sets/week at 80% accuracy.",
+ read:["Quantitative Aptitude — RS Aggarwal (arithmetic block: %, profit-loss, SI/CI, ratio, averages, mixtures, time-speed-distance, time & work)","How to Prepare for Logical Reasoning for CAT — Arun Sharma (Level 1 only)","RC: 3 timed passages/week from IPMAT/CLAT-grade material"],
+ drill:["Topic tests after every chapter — log every error with a one-line cause","DI foundations: tables, bar, pie, line — 3 sets/week with calculation discipline (no calculator)","Quiz Arena Sprint mode 2×/week"],
+ out:["Arithmetic complete & tested","Error log ≥ 150 entries, classified: concept / calculation / misread","Flashcard deck fully memorized once"]},
+{n:"P3",t:"Advance — Algebra, Modern Math & DI Depth",d:"Mar – Jun 2027 (17 wks)",goal:"Exit gate: full QADI sectional (30Q/60min) at 60%+ score; first full-length mock attempted for baseline.",
+ read:["Algebra: linear/quadratic equations, inequalities, functions, logarithms, progressions","Modern math: P&C, probability, set theory & Venn (IIMB loves these — DS program DNA)","Geometry & mensuration essentials; number properties","Arun Sharma LR Level 2; puzzle-heavy sets (arrangements, grouping, games & tournaments)"],
+ drill:["Alternate-day sectionals: QADI / LR / EC rotation","Calculation speed: 2-digit multiplication, % of numbers, approximation drills","Start IPMAT (IIM Indore/Rohtak) previous-year papers — nearest cousin exams"],
+ out:["Baseline full mock score recorded (expect 70–90; that's normal here)","Weak-topic list frozen to top 5 for targeted attack"]},
+{n:"P4",t:"Mock Intensive — Test Like It's Real",d:"Jul – Oct 2027 (17 wks)",goal:"Exit gate: 3 consecutive full mocks ≥ 120/180 with QADI ≥ 55/90. Application filed the day the window opens (Oct 2027).",
+ read:["IIMB UG-AT 2026 & 2027 actual papers / memory-based papers — dissect every question","One mock/week (Jul–Aug) → two/week (Sep–Oct), full 120-min simulation, morning slot","GK-lite: tech & data-science news weekly (interview ammo, not test content)"],
+ drill:["48-hour rule: every mock fully analyzed within 48h — re-solve every error","Skip discipline: mark-and-move in 40 seconds if no path is visible","Section time budget: EC 25 min · QADI 60 min · LR 30 min · 5 min buffer"],
+ out:["Mock tracker: 12+ full mocks logged","IIMB UG application submitted + documents verified","Admit-card checklist ready"]},
+{n:"P5",t:"Peak — Taper & Strike",d:"Nov – 11 Dec 2027 (6 wks)",goal:"Exit gate: walk in calm. Last mock 5 days out, then only light revision.",
+ read:["Formula notebook + error log ONLY — no new material after 15 Nov","2 mocks/week until 1 Dec, then taper: 1 light sectional every other day"],
+ drill:["Sleep protocol: fixed wake time matching test-day schedule from 25 Nov","Test-day dry run: travel route to centre, documents pouch, snack plan","Daily 10-min flashcard sweep + 1 Math Sprint (keep the engine warm, not hot)"],
+ out:["Test taken 11 Dec 2027 (expected) — then 48h full rest, guilt-free"]},
+{n:"P6",t:"PI Sprint — The Final 40%",d:"Mid Dec 2027 – Jan 2028 (5 wks)",goal:"Exit gate: 10 recorded mock interviews, each reviewed; story bank of 12 polished answers.",
+ read:["Program deep-dive: IIMB UG curriculum, Jigani campus, 3-yr exit, minors structure — know it cold","Data science literacy: what is ML vs AI, one dataset story you can narrate, why DS + economics together","Current affairs: 8 weeks of tech/economy headlines; 2 opinions you can defend"],
+ drill:["Mock Interview Studio here: 3 sessions/week, self-rated","2 sessions with an adult panel (parent/mentor) in formal setting","Class XI–XII maths viva prep: expect 'solve this on paper' moments"],
+ out:["Story bank: Why DS · Why IIMB · Why not engineering · strength/weakness · a failure · a project (DISHA/portfolio counts!)","Documents portfolio: originals + copies, formal attire test-fitted","PI attended ~22 Jan–2 Feb 2028 → offers ~28 Feb 2028"]}
+];
+
+const MILES=[
+["Foundation · P1","Jul 2026","Take the NCERT diagnostic test and build error log v1"],
+["Foundation · P1","Jul 2026","Set the weekly operating rhythm (Mon–Fri drills, Sat test, Sun review)"],
+["Foundation · P1","Aug 2026","NCERT IX–X maths revision complete"],
+["Foundation · P1","Sep 2026","NCERT XI target chapters (Sets, P&C, Series, Statistics) complete"],
+["Foundation · P1","Oct 2026","Mental math: 40 correct sums in Math Sprint format under pressure"],
+["Foundation · P1","Oct 2026","EXIT GATE: 60%+ on NCERT re-diagnostic"],
+["Build · P2","Nov 2026","RS Aggarwal arithmetic block: percentages → averages done + tested"],
+["Build · P2","Dec 2026","Ratio, mixtures, TSD, time & work done + tested"],
+["Build · P2","Dec 2026","(Optional recon) Watch the Dec 2026 UG-AT cycle: pattern, difficulty chatter, cutoff"],
+["Build · P2","Jan 2027","DI foundations: 25 sets completed across all chart types"],
+["Build · P2","Feb 2027","LR Level 1 complete at 80% accuracy"],
+["Build · P2","Feb 2027","EXIT GATE: chapter-level QADI accuracy ≥ 70%"],
+["Advance · P3","Mar 2027","Algebra block complete + tested"],
+["Advance · P3","Apr 2027","P&C + probability + Venn complete (DS-flavored topics — overweight these)"],
+["Advance · P3","May 2027","Geometry/mensuration + number properties complete"],
+["Advance · P3","May 2027","5 IPMAT previous-year papers attempted"],
+["Advance · P3","Jun 2027","First FULL 120-min mock — baseline recorded"],
+["Advance · P3","Jun 2027","EXIT GATE: QADI sectional ≥ 60% in timed conditions"],
+["Mock Intensive · P4","Jul 2027","Mock 1–4 done, each analyzed within 48h"],
+["Mock Intensive · P4","Jul 2027","2028 admission notification released — read policy doc line by line"],
+["Mock Intensive · P4","Aug 2027","Mock 5–8 done; skip discipline habit locked (40-sec rule)"],
+["Mock Intensive · P4","Sep 2027","Crossing 110/180 consistently"],
+["Mock Intensive · P4","Oct 2027","APPLICATION SUBMITTED on ug.iimb.ac.in (day window opens)"],
+["Mock Intensive · P4","Oct 2027","EXIT GATE: 3 consecutive mocks ≥ 120, QADI ≥ 55/90"],
+["Peak · P5","Nov 2027","Admit card downloaded; centre travel dry-run done"],
+["Peak · P5","Nov 2027","No-new-material lockdown from 15 Nov — notebook + errors only"],
+["Peak · P5","Dec 2027","Final mock (5 days out) + taper begins"],
+["Peak · P5","11 Dec 2027","🎯 TEST DAY — execute the plan, chase accuracy"],
+["PI Sprint · P6","Dec 2027","Story bank v1 drafted: 12 core answers written out"],
+["PI Sprint · P6","Dec 2027","Program knowledge test: can explain curriculum, minors, exit option cold"],
+["PI Sprint · P6","Jan 2028","Scorecard + shortlist result checked on portal"],
+["PI Sprint · P6","Jan 2028","10 mock interview sessions complete (Studio + live panels)"],
+["PI Sprint · P6","Jan 2028","Documents portfolio + formal attire ready"],
+["PI Sprint · P6","Jan 2028","🎤 PERSONAL INTERVIEW attended (~22 Jan–2 Feb)"],
+["PI Sprint · P6","Feb 2028","Final offer checked (~28 Feb); acceptance + fee before deadline"],
+["PI Sprint · P6","Mar 2028","If waitlisted: track waitlist movement weekly — seats do move"]
+];
+
+const RES=[
+{t:"📐 QADI — Books & Core Reading (the 90-mark section)",b:`<table>
+<tr><th>Resource</th><th>Use for</th><th>When</th></tr>
+<tr><td><strong>NCERT Maths IX–XII</strong></td><td>The official syllabus anchor — exam draws from Class X–XII NCERT topics</td><td class="mono">P1</td></tr>
+<tr><td><strong>Quantitative Aptitude — RS Aggarwal</strong></td><td>Arithmetic volume & pattern recognition</td><td class="mono">P2</td></tr>
+<tr><td><strong>Quantum CAT — Sarvesh Verma</strong> (selective)</td><td>Algebra, P&C, probability depth</td><td class="mono">P3</td></tr>
+<tr><td><strong>IPMAT (Indore/Rohtak) prev-year papers</strong></td><td>Closest exam cousins for difficulty calibration</td><td class="mono">P3–P4</td></tr>
+<tr><td><strong>IIMB UG-AT 2026/2027 papers & analyses</strong></td><td>The real thing — dissect every question type</td><td class="mono">P4</td></tr></table>`},
+{t:"🧠 LR & DI — Books and Set Practice",b:`<table>
+<tr><th>Resource</th><th>Use for</th><th>When</th></tr>
+<tr><td><strong>A Modern Approach to Verbal & Non-Verbal Reasoning — RS Aggarwal</strong></td><td>Foundation patterns: series, coding, arrangements</td><td class="mono">P1–P2</td></tr>
+<tr><td><strong>Arun Sharma LRDI (Levels 1→2)</strong></td><td>Set-based puzzles, tournaments, grouping</td><td class="mono">P2–P3</td></tr>
+<tr><td><strong>DI sets — tables/bar/pie/line, calculator-free</strong></td><td>2026 paper's DI was calculation-heavy; precision under time is the skill</td><td class="mono">P2–P4</td></tr></table>`},
+{t:"📖 English Comprehension — Reading Program",b:`<table>
+<tr><th>Resource</th><th>Use for</th><th>When</th></tr>
+<tr><td><strong>The Hindu / Mint editorials, 20 min daily</strong></td><td>RC endurance + the essay-ish passages the 2026 paper used (tech vs society themes)</td><td class="mono">P1→test day</td></tr>
+<tr><td><strong>Word Power Made Easy — Norman Lewis</strong></td><td>Vocabulary system, roots-based</td><td class="mono">P1–P2</td></tr>
+<tr><td><strong>Wren & Martin (selective chapters)</strong></td><td>Grammar accuracy for VA questions</td><td class="mono">P2</td></tr>
+<tr><td><strong>Aeon / Scientific American essays, 1/week</strong></td><td>Dense-passage stamina; the 2026 RCs ran 230–280 words on abstract themes</td><td class="mono">P3–P4</td></tr></table>`},
+{t:"🎥 Video Channels — mapped by job-to-be-done",b:`<table>
+<tr><th>Channel / Series</th><th>Job</th></tr>
+<tr><td><strong>Khan Academy (Math, Class IX–XII playlists)</strong></td><td>Concept repair when a chapter fights back</td></tr>
+<tr><td><strong>Rodha (YouTube)</strong></td><td>Percentages, ratio, TSD taught for speed — CAT-grade arithmetic intuition</td></tr>
+<tr><td><strong>IPMAT-focused channels (SuperGrads, Career Launcher IPM)</strong></td><td>UG-aptitude-exam strategy, mock debriefs, IIMB UG-AT analyses</td></tr>
+<tr><td><strong>3Blue1Brown — 'Essence of' series</strong></td><td>Why-it-works intuition + genuine interview ammo about loving mathematics</td></tr>
+<tr><td><strong>StatQuest (Josh Starmer)</strong></td><td>Statistics & ML concepts in plain language — PI-stage data-science literacy</td></tr>
+<tr><td><strong>CrashCourse Statistics</strong></td><td>Painless stats overview aligned to the DS program's DNA</td></tr></table>
+<p class="small" style="margin-top:8px">Rule: videos are for repair and inspiration, never a substitute for solving. Max 30% of study time on video.</p>`},
+{t:"🧪 Mock Test Sources",b:`<table>
+<tr><th>Source</th><th>Notes</th></tr>
+<tr><td><strong>Official IIMB UG sample/past papers</strong> (ug.iimb.ac.in)</td><td>Highest-fidelity signal; the FAQ + policy doc are also PI reading</td></tr>
+<tr><td><strong>IIMB UG-AT mock series</strong> (SuperGrads/Toprankers, Career Launcher, IMS, Cracku)</td><td>Dedicated UG-AT series now exist post-2026; pick one full series (10–15 mocks)</td></tr>
+<tr><td><strong>IPMAT mock series</strong></td><td>Supplementary volume; slightly different pattern — use for stamina, score on your own scale</td></tr></table>`}
+];
+</script>
+
+<script>
+/* Quiz bank: s = EC | QADI | LR. Original practice items in test style. */
+const QBANK=[
+{s:"QADI",q:"A shirt is marked 25% above cost and sold at a 12% discount on the marked price. The profit percent is:",o:["10%","12%","13%","15%"],a:0,e:"MP = 1.25C; SP = 0.88 × 1.25C = 1.10C → 10% profit."},
+{s:"QADI",q:"If 3ˣ = 81 and 2ʸ = 32, then x + y =",o:["8","9","10","7"],a:1,e:"3⁴=81 → x=4; 2⁵=32 → y=5; sum = 9."},
+{s:"QADI",q:"The average of 11 numbers is 50. If the average of the first six is 49 and of the last six is 52, the sixth number is:",o:["56","54","50","58"],a:0,e:"6×49 + 6×52 − 11×50 = 294+312−550 = 56 (the overlap term)."},
+{s:"QADI",q:"A train 240 m long crosses a pole in 12 s. Time to cross a 360 m platform:",o:["24 s","30 s","28 s","32 s"],a:1,e:"Speed = 240/12 = 20 m/s; distance = 240+360 = 600 m; t = 600/20 = 30 s."},
+{s:"QADI",q:"In how many ways can the letters of DATA be arranged?",o:["24","12","6","36"],a:1,e:"4!/2! = 12 (two A's identical)."},
+{s:"QADI",q:"Two dice are rolled. Probability the sum is 9:",o:["1/6","1/12","1/9","5/36"],a:2,e:"Favourable: (3,6)(4,5)(5,4)(6,3) = 4/36 = 1/9."},
+{s:"QADI",q:"A can do a job in 12 days, B in 18 days. Working together, they finish in:",o:["7.2 days","7.5 days","6.8 days","8 days"],a:0,e:"Rate = 1/12 + 1/18 = 5/36 → 36/5 = 7.2 days."},
+{s:"QADI",q:"Simple interest on a sum at 8% p.a. for 3 years is ₹2,400. The sum is:",o:["₹9,000","₹10,000","₹12,000","₹8,000"],a:1,e:"SI = P·r·t/100 → 2400 = P×24/100 → P = ₹10,000."},
+{s:"QADI",q:"If x + 1/x = 5, then x² + 1/x² =",o:["25","27","23","21"],a:2,e:"(x+1/x)² = x²+1/x²+2 → 25−2 = 23."},
+{s:"QADI",q:"The ratio of milk to water in 60 L of mixture is 2:1. Water added to make it 1:2:",o:["40 L","50 L","60 L","70 L"],a:2,e:"Milk = 40 L stays fixed. For 1:2 → water = 80 L; already 20 L → add 60 L."},
+{s:"QADI",q:"A number increased by 20% and then decreased by 20% shows a net change of:",o:["0%","−4%","+4%","−2%"],a:1,e:"1.2 × 0.8 = 0.96 → net −4%. Successive % change: a+b+ab/100."},
+{s:"QADI",q:"How many 3-digit numbers are divisible by 7?",o:["128","127","130","126"],a:0,e:"First 105, last 994: (994−105)/7 + 1 = 128."},
+{s:"QADI",q:"The median of 3, 8, 6, 4, 8, 5, 7 is:",o:["5","6","7","8"],a:1,e:"Sorted: 3,4,5,6,7,8,8 → middle (4th) value = 6."},
+{s:"QADI",q:"DI: A pie chart shows a firm's ₹72 lakh cost split — Salaries 40%, Rent 15%, Tech 25%, Other 20%. Tech exceeds Rent by:",o:["₹6.2 L","₹7.2 L","₹8.4 L","₹9.0 L"],a:1,e:"(25−15)% of 72 = 10% of 72 = ₹7.2 lakh."},
+{s:"QADI",q:"DI: Sales grew from 250 units (2024) to 320 (2025) to 400 (2026). Growth 2025→2026 vs 2024→2025 is:",o:["Equal","Lower","Higher","Cannot say"],a:1,e:"2024→25: 70/250 = 28%. 2025→26: 80/320 = 25%. Lower."},
+{s:"QADI",q:"log₁₀ 8 + log₁₀ 125 =",o:["2","3","4","5"],a:1,e:"log(8×125) = log 1000 = 3."},
+{s:"QADI",q:"From a group of 5 boys and 4 girls, a committee of 3 with at least 2 girls can be formed in:",o:["30 ways","34 ways","40 ways","24 ways"],a:1,e:"(⁴C₂×⁵C₁) + ⁴C₃ = 30 + 4 = 34."},
+{s:"QADI",q:"A car covers half a distance at 40 km/h and half at 60 km/h. Average speed:",o:["50 km/h","48 km/h","52 km/h","45 km/h"],a:1,e:"Harmonic mean: 2×40×60/(40+60) = 48 km/h."},
+{s:"QADI",q:"If the compound interest on a sum for 2 years at 10% p.a. is ₹420, the sum is:",o:["₹2,000","₹2,100","₹1,900","₹2,200"],a:0,e:"CI factor = 1.1² − 1 = 0.21 → P = 420/0.21 = ₹2,000."},
+{s:"QADI",q:"Set A has 30 elements, B has 40, A∪B has 55. Then A∩B has:",o:["10","15","20","25"],a:1,e:"n(A∩B) = 30+40−55 = 15."},
+{s:"LR",q:"Series: 3, 7, 15, 31, 63, ?",o:["95","127","125","117"],a:1,e:"Each term = 2×prev + 1 → 127."},
+{s:"LR",q:"In a code, CLOUD is written as DMPVE. How is RAIN written?",o:["SBJO","SBIO","QZHM","SBJM"],a:0,e:"Each letter +1: R→S, A→B, I→J, N→O."},
+{s:"LR",q:"Pointing to a photo, Meera says, 'She is the daughter of my grandfather's only son.' The person is Meera's:",o:["Cousin","Sister","Aunt","Niece"],a:1,e:"Grandfather's only son = Meera's father; his daughter = her sister (or Meera herself)."},
+{s:"LR",q:"A walks 5 km north, turns right and walks 3 km, turns right and walks 5 km. Distance from start:",o:["3 km","5 km","8 km","13 km"],a:0,e:"North 5, East 3, South 5 → net 3 km east."},
+{s:"LR",q:"Five friends sit in a row. P is left of Q but right of R. S is right of Q, T is between Q and S. Who is in the middle?",o:["Q","T","P","S"],a:0,e:"Order: R P Q T S → Q is 3rd of 5."},
+{s:"LR",q:"Statement: All data scientists are analysts. Some analysts are coders. Conclusion I: Some data scientists are coders. II: Some coders are analysts. Which follows?",o:["Only I","Only II","Both","Neither"],a:1,e:"II is the valid converse of 'some analysts are coders'. I doesn't follow — the overlap isn't guaranteed."},
+{s:"LR",q:"Odd one out: 8, 27, 64, 100, 125",o:["27","64","100","125"],a:2,e:"All others are perfect cubes; 100 is not."},
+{s:"LR",q:"If Monday falls on the 4th of a month, the 25th of that month is a:",o:["Sunday","Monday","Thursday","Friday"],a:1,e:"25−4 = 21 days = exactly 3 weeks → same day, Monday."},
+{s:"LR",q:"Clock: the angle between the hands at 3:30 is:",o:["75°","90°","105°","60°"],a:0,e:"|30H − 5.5M| = |90 − 165| = 75°."},
+{s:"LR",q:"Four teams A–D play round-robin (each plays each once). Total matches:",o:["6","8","12","4"],a:0,e:"⁴C₂ = 6."},
+{s:"LR",q:"Series: Z, X, U, Q, L, ?",o:["G","F","H","E"],a:1,e:"Gaps of −2,−3,−4,−5,−6 → L−6 = F."},
+{s:"LR",q:"In a class, Ravi's rank is 14th from the top and 27th from the bottom. Students in class:",o:["40","41","39","42"],a:0,e:"14 + 27 − 1 = 40."},
+{s:"EC",q:"Choose the word closest in meaning to PRAGMATIC:",o:["Idealistic","Practical","Stubborn","Dogmatic"],a:1,e:"Pragmatic = dealing with things realistically/practically."},
+{s:"EC",q:"Choose the word opposite in meaning to AUGMENT:",o:["Amplify","Diminish","Sustain","Extend"],a:1,e:"Augment = increase; opposite = diminish."},
+{s:"EC",q:"Fill in: The committee was ____ by the sheer volume of data, yet its report remained remarkably ____.",o:["overwhelmed … lucid","assisted … opaque","confused … muddled","daunted … verbose"],a:0,e:"'Yet' signals contrast: overwhelmed input vs a clear (lucid) output."},
+{s:"EC",q:"Spot the grammatically correct sentence:",o:["Each of the students have submitted their projects.","Each of the students has submitted their project.","Each of the students are submitting the project.","Each students has submitted the project."],a:1,e:"'Each' takes a singular verb: has."},
+{s:"EC",q:"Mini-RC: 'Automation does not so much destroy work as redistribute it — away from routine tasks and toward judgment, empathy and oversight.' The author's central claim is that automation:",o:["eliminates most jobs permanently","shifts the nature of human work","mainly affects empathetic roles","reduces the need for oversight"],a:1,e:"'Redistribute… toward judgment, empathy and oversight' = the character of work changes."},
+{s:"EC",q:"Choose the correctly spelt word:",o:["Occurence","Occurrence","Ocurrence","Occurrance"],a:1,e:"Double c, double r: occurrence."},
+{s:"EC",q:"Idiom 'to bite the bullet' means:",o:["to act aggressively","to face a difficult situation bravely","to make a hasty decision","to withdraw from a challenge"],a:1,e:"It means to endure something painful or difficult with courage."},
+{s:"EC",q:"Mini-RC: 'Data, like water, takes the shape of the vessel that holds it; the design of a database is therefore never neutral.' The analogy implies that:",o:["databases purify information","how we store data shapes what it can say","data has no fixed properties","vessels are better than databases"],a:1,e:"The vessel (schema/design) determines the shape — storage choices influence meaning."},
+{s:"EC",q:"Choose the option that best completes: 'Far from being a ____, the three-year exit option gives students genuine ____.'",o:["benefit … burden","compromise … flexibility","feature … rigidity","gamble … uncertainty"],a:1,e:"'Far from being X' needs a negative-ish X countered by a positive: compromise → flexibility."},
+{s:"EC",q:"Synonym of METICULOUS:",o:["Careless","Painstaking","Rapid","Generous"],a:1,e:"Meticulous = showing great attention to detail; painstaking."}
+];
+
+const CARDS=[
+["QADI","Successive % change a% then b%","Net = a + b + ab/100 <span class='mono'>(e.g., +20, −20 → −4%)</span>"],
+["QADI","Profit % (on cost)","(SP − CP)/CP × 100"],
+["QADI","Discount chain 10% + 20%","≠ 30%. Net = 28% <span class='mono'>(0.9 × 0.8 = 0.72)</span>"],
+["QADI","Simple Interest","SI = P·R·T / 100"],
+["QADI","Compound Interest amount","A = P(1 + r/100)ᵗ"],
+["QADI","Average speed, equal distances","Harmonic mean: 2ab/(a+b)"],
+["QADI","Train crossing a platform","Distance = train length + platform length"],
+["QADI","Work: A in a days, B in b days","Together: ab/(a+b) days"],
+["QADI","(a+b)² and (a−b)²","a² + 2ab + b² · a² − 2ab + b²"],
+["QADI","a³ + b³","(a + b)(a² − ab + b²)"],
+["QADI","x + 1/x = k → x² + 1/x²","k² − 2"],
+["QADI","ⁿPᵣ and ⁿCᵣ","n!/(n−r)! · n!/[r!(n−r)!]"],
+["QADI","Arrangements of a word with repeats","n! / (p!·q!…) for repeated letters"],
+["QADI","P(A∪B)","P(A) + P(B) − P(A∩B)"],
+["QADI","Sum of first n naturals","n(n+1)/2"],
+["QADI","Sum of AP","Sₙ = n/2 × [2a + (n−1)d]"],
+["QADI","GP sum (r ≠ 1)","Sₙ = a(rⁿ − 1)/(r − 1)"],
+["QADI","log a + log b · log aⁿ","log(ab) · n·log a"],
+["QADI","n(A∪B) sets","n(A) + n(B) − n(A∩B)"],
+["QADI","Median (odd n / even n)","Middle value / mean of two middle values (sorted!)"],
+["QADI","Circle: area & circumference","πr² · 2πr"],
+["QADI","Speed conversion","km/h × 5/18 = m/s"],
+["QADI","Dividend-Divisor identity","Dividend = Divisor × Quotient + Remainder"],
+["QADI","% ↔ fraction anchors","12.5%=1/8 · 16.67%=1/6 · 33.3%=1/3 · 37.5%=3/8"],
+["LR","Clock angle at H:M","|30H − 5.5M| degrees"],
+["LR","Rank formula","Total = rank from top + rank from bottom − 1"],
+["LR","Round-robin matches, n teams","ⁿC₂ = n(n−1)/2"],
+["LR","Calendar: odd days in ordinary/leap year","1 odd day / 2 odd days"],
+["LR","Letter position hack","EJOTY = 5,10,15,20,25 (anchor letters)"],
+["LR","Syllogism trap","'Some A are B' ⇒ 'Some B are A' ✓ · but never ⇒ 'Some A are C' via B"],
+["LR","Direction problems","Always draw. Net displacement = Pythagoras on net x, y"],
+["LR","Cube painted, cut into n³","0-face painted = (n−2)³ · 3-face = 8 corners"],
+["Vocab","Pragmatic / Prudent","Practical-minded / Wisely cautious"],
+["Vocab","Lucid / Opaque","Crystal clear / Hard to understand"],
+["Vocab","Augment / Curtail","Increase / Cut short"],
+["Vocab","Meticulous / Cursory","Detail-obsessed / Hasty and superficial"],
+["Vocab","Candid / Evasive","Frank, honest / Avoiding the point"],
+["Vocab","Ephemeral / Perennial","Short-lived / Everlasting"],
+["PI","Exam pattern (say it cold)","60 Q · 180 marks · 120 min · +3/−1 · EC 15, QADI 30, LR 15"],
+["PI","Selection weights","Test 60% + Personal Interview 40% = composite score"],
+["PI","2026 shortlist rule","QADI sectional cutoff only; positive score in all sections; Gen overall cutoff 114/180"],
+["PI","Program structure","4-yr BSc (Hons) DS + minors in Economics & Business · 3-yr exit (NEP) · residential, Jigani"],
+["PI","Why DS at IIMB (frame)","Rigorous quant (stochastic processes, algorithms) + business context — analyst who understands decisions, not just models"],
+["PI","Fee & intake","₹8.5 L/yr (first 2 yrs) · 40 seats per major · inaugural batch Aug 2026"]
+];
+
+const IVQ=[
+["Personal","Tell us about yourself in 90 seconds.","Structure: hook → academics → one project/passion with a number in it → why you're here. End on IIMB DS."],
+["Motivation","Why BSc Data Science at IIMB and not engineering at an IIT/NIT?","Contrast paths honestly: you want data + decisions + economics, not core engineering. Cite the minors, faculty, cohort of 40. Never trash the alternative."],
+["Motivation","This is a brand-new program with no alumni or placement record. Why risk it?","Reframe: first-cohort advantage — faculty attention, shaping culture, IIMB brand + alumni network. Show you researched the curriculum, not the ranking."],
+["Academics","What is the difference between mean, median and mode? When is median a better summary than mean?","Median resists outliers — e.g., income data. Offer a concrete example with numbers."],
+["Academics","Solve mentally: a price rises 25% then falls 20%. Net change?","0% — 1.25 × 0.8 = 1. Explain the successive-change formula while you answer; panels reward visible method."],
+["Data Science","In one minute: what is machine learning, to your grandmother?","Analogy over jargon: learning from examples rather than explicit rules. E.g., showing 1,000 mango photos vs describing a mango."],
+["Data Science","Give one example where data misleads people.","Options: correlation ≠ causation, survivorship bias, misleading chart axes. Tell it as a story with a real-ish example."],
+["Data Science","Why does this program pair Data Science with Economics?","Data answers 'what is happening'; economics frames 'why and what should we do'. Decisions live at the intersection — that's the program's thesis."],
+["Personal","Tell us about a failure and what you changed after it.","Pick a real one with stakes. Structure: situation → what went wrong → the specific change → later evidence it worked."],
+["Personal","What do you do outside academics? Go deep on one thing.","Depth beats lists. One pursuit, your progression in it, and one thing it taught you that transfers."],
+["Current Affairs","Name a recent development in AI that interests you and why.","Have 2 ready. Explain in plain words, add one implication for India, one open question you have."],
+["Motivation","Where do you see yourself after this degree — job or further study?","Both doors open is fine, but show a direction: analytics/consulting/policy/MS abroad. Tie it back to the 4-yr honours + research exposure."],
+["Academics","Your Class X/XII marks show a dip in [subject]. Explain.","Own it in one sentence, pivot to the fix and the upward trend. Never blame the teacher or the paper."],
+["Data Science","What is the difference between AI and ML?","AI = broad goal of machines doing intelligent tasks; ML = the dominant technique, learning patterns from data. Bonus: one example of non-ML AI (rule-based systems)."],
+["Personal","You have 40 classmates for four years in a residential campus. What do you bring to that community?","Concrete contributions: a skill you'll teach, a club you'd start, how you handle conflict. Specifics beat adjectives."],
+["Current Affairs","Should India regulate AI? Give a one-minute view.","Take a position with one supporting argument and one acknowledged trade-off. Balanced ≠ fence-sitting."],
+["Academics","What is probability? Toss two coins — probability of at least one head?","3/4. Walk the sample space aloud: HH, HT, TH, TT. Composure on easy math is what's being tested."],
+["Motivation","If you don't get through this year, what's your plan?","Show resilience + a real plan B (retake within age limit / strong alternative program) without sounding indifferent to this one."]
+];
+
+const MATCHPAIRS=[
+["2ab/(a+b)","Avg speed, equal distances"],
+["n(n+1)/2","Sum of first n naturals"],
+["|30H − 5.5M|","Clock hands angle"],
+["ⁿC₂","Round-robin match count"],
+["a+b+ab/100","Successive % change"],
+["P(1+r/100)ᵗ","Compound amount"],
+["k²−2","x²+1/x² when x+1/x=k"],
+["top+bottom−1","Total from two ranks"]
+];
+</script>
+
+<script>
+/* ===================== V2 DATA ===================== */
+const LESSONS=[
+{id:"pct",sec:"QADI",t:"Percentages & Successive Change",min:7,h:`
+<h5>Why this chapter decides your QADI score</h5>
+<p>Percentages are the operating system of QADI — profit-loss, interest, DI charts and mixtures all compile down to them. Master two skills: instant fraction↔percent conversion, and the successive-change formula.</p>
+<h5>The anchor table (memorize cold)</h5>
+<p><span class="kf">1/8 = 12.5%</span> <span class="kf">1/6 = 16.67%</span> <span class="kf">1/4 = 25%</span> <span class="kf">1/3 = 33.3%</span> <span class="kf">3/8 = 37.5%</span> <span class="kf">5/8 = 62.5%</span> <span class="kf">5/6 = 83.3%</span></p>
+<p>To find 37.5% of 480, don't multiply by 0.375 — think 3/8 of 480 = 180. This one habit halves your DI time.</p>
+<h5>Successive change</h5>
+<p>Two changes of a% then b% give a net change of <span class="kf">a + b + ab/100</span>. Signs matter: a 20% rise then 20% fall is 20 − 20 − 4 = <strong>−4%</strong>, never zero.</p>
+<div class="ex"><div class="exq">Worked: A price rises 25% and then falls 12%. Net?</div>25 − 12 − 3 = <strong>+10%</strong>. (ab/100 = 25×12/100 = 3.)</div>
+<h5>Multiplier thinking</h5>
+<p>Convert every change to a multiplier: +25% → ×1.25, −12% → ×0.88. Chains become products: 1.25 × 0.88 = 1.10. In the exam, multipliers beat formulas because they never confuse you about the base.</p>
+<div class="ex"><div class="exq">Worked: A shirt marked 25% above cost sells at a 12% discount. Profit %?</div>SP = C × 1.25 × 0.88 = 1.10C → <strong>10%</strong>. This exact structure appeared in our mock bank — recognize it in 5 seconds.</div>
+<div class="trap"><strong>Trap:</strong> "By what % must a price that rose 25% fall to return to normal?" Not 25%. The base changed: fall = 25/125 = <strong>20%</strong>. Percentage change is always measured on the CURRENT base.</div>
+<h5>Speed drill prescription</h5>
+<p>Daily: 10 conversions (fraction→%), 5 successive-change snaps, 5 "restore the base" questions. Two weeks of this and percentage questions become free marks.</p>`},
+{id:"ratio",sec:"QADI",t:"Ratio, Proportion & Mixtures",min:7,h:`
+<h5>Ratios are recipes</h5>
+<p>A ratio 2:3 doesn't tell you quantities — it tells you the recipe. Actual amounts are 2k and 3k. Nearly every ratio question is solved by writing k explicitly and hunting for the equation that pins it down.</p>
+<div class="ex"><div class="exq">Worked: Milk:water = 2:1 in 60 L. How much water to make it 1:2?</div>Milk = 40, water = 20. Milk stays 40; for 1:2 we need water = 80 → add <strong>60 L</strong>. Key move: identify the quantity that does NOT change.</div>
+<h5>Proportion shortcuts</h5>
+<p>If a/b = c/d then <span class="kf">ad = bc</span>. Componendo-dividendo: <span class="kf">(a+b)/(a−b) = (c+d)/(c−d)</span> — a two-second tool for equations like (x+3)/(x−3) = 5/2.</p>
+<h5>Alligation — the cross method</h5>
+<p>Mixing two things priced p₁ and p₂ to get mean price m: the ratio of quantities is <span class="kf">(p₂ − m) : (m − p₁)</span>. Draw the X. It works for prices, percentages, speeds, average marks — anything linear.</p>
+<div class="ex"><div class="exq">Worked: Tea at ₹200/kg mixed with tea at ₹350/kg to sell at ₹260/kg. Ratio?</div>(350−260):(260−200) = 90:60 = <strong>3:2</strong> of cheap:costly.</div>
+<div class="trap"><strong>Trap:</strong> When mixture is REMOVED and replaced, both components leave in the current ratio. Removing 10 L from a 40:20 mix removes it as 2:1 — not 10 L of water.</div>
+<h5>Partnership & shares</h5>
+<p>Profit shares follow money × time. ₹30k for 8 months vs ₹40k for 6 months → 240 : 240 → equal shares. Multiply first, simplify last.</p>`},
+{id:"tsd",sec:"QADI",t:"Time, Speed & Distance",min:8,h:`
+<h5>One identity, three costumes</h5>
+<p><span class="kf">Distance = Speed × Time</span>. Every TSD question is this identity wearing a costume: trains, boats, races, or clocks. Your first job is always: whose distance, whose speed, whose time?</p>
+<h5>Unit hygiene</h5>
+<p><span class="kf">km/h × 5/18 = m/s</span>. Trains give lengths in metres and speeds in km/h precisely to punish sloppy units. Convert before you compute, every time.</p>
+<div class="ex"><div class="exq">Worked: A 240 m train crosses a pole in 12 s. Time to cross a 360 m platform?</div>Speed = 240/12 = 20 m/s. Crossing a platform means covering train + platform = 600 m → <strong>30 s</strong>. A pole = train length only; a platform/bridge/another train = sum of lengths.</div>
+<h5>Average speed ≠ average of speeds</h5>
+<p>Equal distances at speeds a and b: <span class="kf">avg = 2ab/(a+b)</span> (harmonic mean — always closer to the slower speed). Equal times: simple mean (a+b)/2.</p>
+<div class="ex"><div class="exq">Worked: Half distance at 40, half at 60 km/h.</div>2×40×60/100 = <strong>48 km/h</strong>, not 50.</div>
+<h5>Relative speed</h5>
+<p>Opposite directions: speeds add. Same direction: subtract. Two trains crossing each other cover the SUM of their lengths at their relative speed. Boats: downstream = b + s, upstream = b − s; <span class="kf">b = (d + u)/2, s = (d − u)/2</span>.</p>
+<div class="trap"><strong>Trap:</strong> "A beats B by 20 m in a 100 m race" means when A finishes 100, B is at 80 — their speeds are in ratio 5:4. Races are ratio questions, not time questions.</div>
+<h5>Proportion instincts</h5>
+<p>Fixed distance → speed and time vary inversely. If speed becomes 4/5, time becomes 5/4 — i.e., +25%. Train yourself to jump straight to the ratio without an equation.</p>`},
+{id:"work",sec:"QADI",t:"Time & Work",min:6,h:`
+<h5>The one-day rate</h5>
+<p>Everything reduces to: work per day. A finishes in 12 days → A does 1/12 per day. Together, rates ADD. A (1/12) + B (1/18) = 5/36 → together <span class="kf">36/5 = 7.2 days</span>.</p>
+<h5>The LCM upgrade (exam speed)</h5>
+<p>Fractions are slow. Set total work = LCM of the days. A in 12, B in 18 → work = 36 units. A does 3/day, B does 2/day → together 5/day → 36/5 days. Whole numbers, zero fraction errors.</p>
+<div class="ex"><div class="exq">Worked: A does a job in 10 days, B in 15. They start together; A leaves after 2 days. Total time?</div>Work = 30 units. A=3, B=2. First 2 days: 10 units. Remaining 20 by B alone: 10 days. Total <strong>12 days</strong>.</div>
+<h5>Pipes are the same chapter</h5>
+<p>An inlet is a positive rate, a leak is a negative rate. Fill in 6 h with a drain that empties in 9 h: 1/6 − 1/9 = 1/18 → 18 hours.</p>
+<h5>Efficiency ratios</h5>
+<p>"A is twice as efficient as B" → rates 2:1 → times 1:2. Efficiency and time are inverse. "A is 50% more efficient" → rates 3:2 → times 2:3.</p>
+<div class="trap"><strong>Trap:</strong> Man-days problems (M₁D₁H₁/W₁ = M₂D₂H₂/W₂) assume identical workers. If the question mixes men and boys with different rates, convert everyone into one currency first (e.g., 1 man = 2 boys).</div>`},
+{id:"avg",sec:"QADI",t:"Averages & Weighted Thinking",min:6,h:`
+<h5>Average = level water</h5>
+<p>The average is the level the values would settle at if pooled. Total = average × count — this reverse form solves 80% of questions. Averages move only when a value differs from the current level, and by (difference ÷ count).</p>
+<div class="ex"><div class="exq">Worked: Average of 11 numbers is 50; first six average 49, last six 52. The sixth number?</div>6×49 + 6×52 = 606 counts the sixth number twice. 606 − 550 = <strong>56</strong>. The "overlap" pattern — the exam loves it.</div>
+<h5>The deviation shortcut</h5>
+<p>Don't add 47, 52, 49, 55, 48. Guess 50, track deviations: −3, +2, −1, +5, −2 → sum +1 → average 50.2. This is how toppers add.</p>
+<h5>Weighted average</h5>
+<p><span class="kf">W.Avg = (n₁a₁ + n₂a₂)/(n₁ + n₂)</span> — and note it's the same mathematics as alligation. A class of 30 boys (avg 60) and 20 girls (avg 70): (1800+1400)/50 = 64. The answer always sits closer to the bigger group.</p>
+<div class="ex"><div class="exq">Worked: A batsman's average after 16 innings is 30. He scores 98 in the 17th. New average?</div>New avg = 30 + (98 − 30)/17 = 30 + 4 = <strong>34</strong>. One division, no totals.</div>
+<div class="trap"><strong>Trap:</strong> "Average age of a family stays the same after 5 years" is impossible unless membership changed — watch for a birth, death or departure hidden in the sentence.</div>`},
+{id:"pnc",sec:"QADI",t:"P&C and Probability — the DS-flavored chapter",min:9,h:`
+<h5>Why overweight this chapter</h5>
+<p>This is a Data Science entrance run by IIM Bangalore. Counting and probability are the mathematical DNA of the program — expect them, and expect the interview to poke at them too.</p>
+<h5>The only two questions that matter</h5>
+<p>Every counting problem asks: (1) does ORDER matter? (2) is REPETITION allowed? Order matters → permutation <span class="kf">ⁿPᵣ = n!/(n−r)!</span>. Order doesn't → combination <span class="kf">ⁿCᵣ = n!/r!(n−r)!</span>. Selecting a committee = C; arranging a queue = P.</p>
+<div class="ex"><div class="exq">Worked: Arrangements of DATA?</div>4 letters with A repeated twice → 4!/2! = <strong>12</strong>. Divide by factorial of each repeat.</div>
+<h5>"At least one" — go through the back door</h5>
+<p><span class="kf">P(at least one) = 1 − P(none)</span>. Counting "at least" directly means adding many cases; the complement is one subtraction.</p>
+<div class="ex"><div class="exq">Worked: Committee of 3 from 5 boys, 4 girls with at least 2 girls?</div>Exactly 2 girls: ⁴C₂×⁵C₁ = 30. Exactly 3 girls: ⁴C₃ = 4. Total <strong>34</strong>.</div>
+<h5>Probability = favourable ÷ total</h5>
+<p>For dice, WRITE the sample space size (36 for two dice) and list favourable outcomes. Sum of 9: (3,6)(4,5)(5,4)(6,3) → 4/36 = 1/9. Two coins, at least one head: 1 − 1/4 = 3/4.</p>
+<p>Addition rule: <span class="kf">P(A∪B) = P(A) + P(B) − P(A∩B)</span>. Independent events multiply: P(A∩B) = P(A)·P(B).</p>
+<div class="trap"><strong>Trap:</strong> Cards drawn "one after another WITHOUT replacement" change the denominator each draw: 4/52 × 3/51, not (4/52)². Read the replacement clause twice.</div>
+<h5>Circular arrangements</h5>
+<p>n people around a table: <span class="kf">(n−1)!</span> — fixing one person kills the rotations. If a necklace/garland can flip, divide by 2.</p>`},
+{id:"arr",sec:"LR",t:"Arrangements & Puzzle Sets",min:8,h:`
+<h5>The 2026 lesson: easy but LENGTHY</h5>
+<p>Candidates rated LR "easy but slightly lengthy" — the section is a reading-speed and bookkeeping test. Your weapon is a fast, consistent NOTATION, not cleverness.</p>
+<h5>Linear arrangements</h5>
+<p>Draw slots immediately: _ _ _ _ _. Process clues in two passes — first the absolute clues ("R sits at an end"), then the relative ones ("P is left of Q"). Standard convention: "left of" in a row facing you means to YOUR left unless the set specifies facing direction.</p>
+<div class="ex"><div class="exq">Worked: Five friends. P is left of Q but right of R; S is right of Q; T is between Q and S. Middle person?</div>R P Q T S → <strong>Q</strong>. Build the chain fragment by fragment: R–P–Q first, then hang T and S.</div>
+<h5>Circular arrangements</h5>
+<p>Draw the circle with 6/8 spokes BEFORE reading clues. Facing centre: left = clockwise... no — left = anti-clockwise is the trap everyone debates. Settle it once: facing centre, your LEFT hand points CLOCKWISE? Sit in a circle mentally: facing in, your left is the clockwise direction. Lock this convention in practice so test day has zero debate.</p>
+<h5>Grouping & selection sets</h5>
+<p>Conditions like "if J is selected, K is rejected" are if-then rules. Make a small table of banned pairs and forced pairs, then test options against it — elimination beats construction on MCQs.</p>
+<h5>Tournaments</h5>
+<p>Round-robin, n teams: <span class="kf">ⁿC₂ matches</span>. Knockout with n players: exactly n−1 matches (each match kills one player). These two facts answer half of all tournament questions instantly.</p>
+<div class="trap"><strong>Trap:</strong> In lengthy sets, the killer is re-reading. Encode every clue into your diagram the FIRST time you read it; the clue text should never be read twice.</div>`},
+{id:"ser",sec:"LR",t:"Series, Coding & Directions",min:7,h:`
+<h5>Number series — a checklist, not inspiration</h5>
+<p>Run this fixed ladder: (1) differences — constant? (2) second differences? (3) ratios — geometric? (4) mixed: ×2+1, ×2−1 patterns, (5) squares/cubes ±k, (6) alternating/interleaved series. The answer is almost always on rungs 1–4.</p>
+<div class="ex"><div class="exq">Worked: 3, 7, 15, 31, 63, ?</div>Differences 4, 8, 16, 32 double → next diff 64 → <strong>127</strong>. (Or spot: each term = 2×previous + 1.)</div>
+<h5>Letter series — EJOTY</h5>
+<p>Memorize anchor positions: <span class="kf">E=5, J=10, O=15, T=20, Y=25</span>. Any letter's number is within 2 hops of an anchor. Z, X, U, Q, L → gaps −2, −3, −4, −5 → next gap −6 → <strong>F</strong>.</p>
+<h5>Coding-decoding</h5>
+<p>Test the three standard machines in order: fixed shift (+1, −1, +2), reversal (A↔Z, i.e., position ↔ 27−position), and positional/word-based mapping. CLOUD → DMPVE is a +1 shift; RAIN → <strong>SBJO</strong>.</p>
+<h5>Directions</h5>
+<p>Always draw a compass cross and trace. Final answer = straight-line displacement: net east-west and north-south, then Pythagoras if both are non-zero. 5 N, 3 E, 5 S → net 3 E → 3 km.</p>
+<h5>Blood relations</h5>
+<p>Decode from the END of the sentence backwards, and draw the tree with symbols (△ male, ○ female). "Daughter of my grandfather's only son" → grandfather's only son = my father → his daughter = my sister (or me).</p>
+<div class="trap"><strong>Trap:</strong> Calendar questions: an ordinary year shifts the weekday by 1, a leap year by 2. "Same date next year" is rarely the same day.</div>`},
+{id:"syl",sec:"LR",t:"Syllogisms & Logical Deduction",min:6,h:`
+<h5>Draw, never "feel"</h5>
+<p>Every syllogism is a Venn diagram question. "All A are B" → A inside B. "Some A are B" → overlapping circles. "No A is B" → disjoint circles. A conclusion follows only if it is TRUE IN EVERY possible diagram consistent with the statements.</p>
+<div class="ex"><div class="exq">Worked: All data scientists are analysts. Some analysts are coders. Does "Some data scientists are coders" follow?</div><strong>No.</strong> Draw the version where the coder-overlap sits entirely outside the data-scientist circle — possible, so the conclusion fails. "Some coders are analysts" DOES follow (valid converse of a some-statement).</div>
+<h5>The conversion rules</h5>
+<p>Valid: "Some A are B" ⇒ "Some B are A" · "No A is B" ⇒ "No B is A". Invalid: "All A are B" ⇒ "All B are A" (classic trap). "All A are B" does yield "Some B are A".</p>
+<h5>Either-or cases</h5>
+<p>When two conclusions are individually non-following but exhaustive and mutually exclusive (typically an "Some A are B" / "No A is B" pair on the same terms), the answer is "either I or II follows". This pattern is deliberately planted — recognize the shape.</p>
+<h5>Statement–conclusion & assumptions</h5>
+<p>An assumption is what MUST be true for the argument to work — not what is merely consistent with it. Test by negation: if negating the option destroys the argument, it's the assumption.</p>
+<div class="trap"><strong>Trap:</strong> Real-world knowledge is poison. "All apples are blue; this is an apple" concludes it is blue. Inside the question, the statements are the only universe.</div>`},
+{id:"rc",sec:"EC",t:"Reading Comprehension — the 2026 playbook",min:8,h:`
+<h5>Know the enemy</h5>
+<p>The 2026 paper carried two RC sets of roughly 230–280 words with four questions each, on reflective themes (society, technology vs values) — short passages, inference-flavored questions, generous time. EC was rated the easiest section. That means one thing: <strong>this section exists to be maxed.</strong> Target 13+/15.</p>
+<h5>The two-read method for short passages</h5>
+<p>Pass 1 (60–75 s): read for the author's POINT — what is being claimed, and what is the author's attitude (praising, warning, weighing)? Pass 2: return to lines only as questions demand. For 250-word passages, skimming strategies are overkill; genuine reading wins.</p>
+<h5>Question triage</h5>
+<p><em>Main idea:</em> the answer covers the WHOLE passage — options that are true-but-narrow are the trap. <em>Inference:</em> must be forced by the text; "could be true" is not "must be true". <em>Vocab-in-context:</em> re-read the sentence with each option substituted. <em>Tone:</em> extreme words (condemns, glorifies) are usually wrong; measured words (examines, cautions) usually right.</p>
+<div class="ex"><div class="exq">Worked: "Automation does not so much destroy work as redistribute it — toward judgment, empathy and oversight." Central claim?</div>Not "jobs vanish" (contradicted by "not so much destroy"), but <strong>the nature of work shifts</strong>. The pivot phrase "not so much X as Y" hands you the answer: Y.</div>
+<h5>The daily endurance program</h5>
+<p>20 minutes of editorial reading daily (The Hindu, Mint, Aeon essays). After each: one-sentence summary of the author's point, from memory. This single habit builds the comprehension muscle no question bank can.</p>
+<div class="trap"><strong>Trap:</strong> Answering from your opinion about technology/society instead of the author's. If you feel strongly about the passage topic, slow down — the test is baiting you.</div>`},
+{id:"gram",sec:"EC",t:"Grammar & Vocabulary Toolkit",min:7,h:`
+<h5>The high-yield grammar dozen</h5>
+<p>VA questions recycle a short list of rules: (1) <strong>Subject–verb agreement:</strong> Each/Every/Either takes singular — "Each of the students HAS". The verb agrees with the subject, not the nearest noun: "The bouquet of roses IS". (2) <strong>Neither…nor:</strong> verb agrees with the NEARER subject. (3) <strong>Pronoun case:</strong> between you and ME. (4) <strong>Tense consistency</strong> within a sentence. (5) <strong>Fewer vs less</strong> (countable vs mass). (6) <strong>Comparatives:</strong> "better than any OTHER student".</p>
+<div class="ex"><div class="exq">Worked: Spot the correct sentence — "Each of the students have/has submitted…"</div><strong>has</strong>. "Each" is grammatically singular no matter how many students follow it.</div>
+<h5>Vocabulary by roots, not lists</h5>
+<p>Roots multiply words: <span class="kf">bene</span> (good) → benevolent, benefactor · <span class="kf">mal</span> (bad) → malice, malign · <span class="kf">chron</span> (time) → chronic, anachronism · <span class="kf">dict</span> (say) → contradict, edict · <span class="kf">spec</span> (look) → introspect, circumspect. One root session/week (Norman Lewis) beats memorizing 50 unconnected words.</p>
+<h5>Fill-in-the-blank logic</h5>
+<p>The connector is the answer key: <em>yet/but/although</em> demand contrast between blanks; <em>because/therefore</em> demand agreement. "Overwhelmed by data, YET the report remained ____" → the blank must oppose overwhelmed → lucid.</p>
+<h5>Idioms that keep appearing</h5>
+<p>Bite the bullet (face it bravely) · a red herring (distraction) · take with a grain of salt (be skeptical) · the last straw (final tolerable point) · once in a blue moon (rarely) · let the cat out of the bag (reveal a secret).</p>
+<div class="trap"><strong>Trap:</strong> Spelling questions favour double-letter words: occurrence, accommodation, embarrassment, millennium, questionnaire. Write each correctly three times — the hand remembers.</div>`}
+];
+
+const VIDEOS=[
+{id:"e4PTvXtz4GM",sec:"Mental Math",t:"Faster Than a Calculator",by:"Arthur Benjamin · TEDxOxford",why:"The ceiling of mental arithmetic — and why speed is learnable."},
+{id:"M4vqr3_ROIk",sec:"Mental Math",t:"Lightning Calculation & Other 'Mathemagic'",by:"Arthur Benjamin · TED",why:"Squaring tricks you can actually steal for QADI."},
+{id:"HZGCoVF3YvM",sec:"Probability",t:"Bayes Theorem, Visualized",by:"3Blue1Brown",why:"Conditional probability intuition — QADI topic, PI ammunition."},
+{id:"fNk_zzaMoSs",sec:"Maths Intuition",t:"Vectors — Essence of Linear Algebra Ch.1",by:"3Blue1Brown",why:"The mathematics under all of data science, made visual."},
+{id:"WUvTyaaNkzM",sec:"Maths Intuition",t:"Essence of Calculus Ch.1",by:"3Blue1Brown",why:"See derivatives instead of memorizing them."},
+{id:"aircAruvnKk",sec:"DS Literacy",t:"But What IS a Neural Network?",by:"3Blue1Brown",why:"The single best answer-builder for 'explain ML to us' at the PI."},
+{id:"Gv9_4yMHFhI",sec:"DS Literacy",t:"A Gentle Introduction to Machine Learning",by:"StatQuest",why:"Plain-language ML vocabulary for interview answers."},
+{id:"N5vJSNXPEwA",sec:"LR Puzzles",t:"The Prisoner Hat Riddle",by:"TED-Ed",why:"Pure deduction under constraints — LR thinking in 5 minutes."},
+{id:"7yDmGnA8Hw0",sec:"LR Puzzles",t:"The Bridge Riddle",by:"TED-Ed",why:"Optimization logic — the same muscle as arrangement sets."},
+{id:"094y1Z2wpJg",sec:"Maths Intuition",t:"The Simplest Math Problem No One Can Solve",by:"Veritasium",why:"Why mathematicians love problems — genuine PI-grade enthusiasm fuel."}
+];
+
+/* extra exam-bank questions → totals: EC 16 · QADI 32 · LR 17 */
+const QBANK2=[
+{s:"QADI",q:"A sum doubles in 8 years at simple interest. In how many years will it triple?",o:["12","16","20","24"],a:1,e:"Doubling means SI = P in 8 yrs → rate 12.5%. Tripling needs SI = 2P → 16 years."},
+{s:"QADI",q:"If 40% of a number exceeds 25% of it by 54, the number is:",o:["320","340","360","400"],a:2,e:"15% of N = 54 → N = 360."},
+{s:"QADI",q:"The smallest number which when divided by 12, 15 and 20 leaves remainder 5 in each case:",o:["60","65","125","185"],a:1,e:"LCM(12,15,20)=60; add 5 → 65."},
+{s:"QADI",q:"A shopkeeper uses a 900 g weight instead of 1 kg and sells at cost price. His profit % is:",o:["10%","11.1%","9%","12.5%"],a:1,e:"Gain/true cost = 100/900 = 11.1%."},
+{s:"QADI",q:"If x² − 5x + 6 = 0, the values of x are:",o:["2, 3","−2, −3","1, 6","−1, −6"],a:0,e:"(x−2)(x−3)=0 → x = 2 or 3."},
+{s:"QADI",q:"The 15th term of the AP 7, 11, 15, … is:",o:["59","63","67","71"],a:1,e:"a + 14d = 7 + 56 = 63."},
+{s:"QADI",q:"Three coins are tossed. Probability of exactly two heads:",o:["1/4","3/8","1/2","1/8"],a:1,e:"HHT, HTH, THH = 3 of 8 outcomes."},
+{s:"QADI",q:"A alone finishes work in 15 days, B alone in 10. B works 4 days and leaves. Days A needs to finish the rest:",o:["8","9","10","7"],a:1,e:"Work 30 units: B does 3/day ×4 = 12; A (2/day) needs 18/2 = 9 days."},
+{s:"QADI",q:"DI: A bar chart shows quarterly revenue (₹ cr): Q1 48, Q2 60, Q3 54, Q4 78. Q4 as % of annual total:",o:["30%","32.5%","35%","28%"],a:1,e:"Total 240; 78/240 = 32.5%."},
+{s:"QADI",q:"DI (same data): The largest quarter-on-quarter % growth occurred in:",o:["Q2","Q3","Q4","Q1"],a:2,e:"Q2: +25%; Q3: −10%; Q4: 24/54 ≈ +44.4% → Q4."},
+{s:"QADI",q:"If the price of sugar rises 25%, by what % must consumption fall to keep expenditure unchanged?",o:["25%","20%","30%","22.5%"],a:1,e:"Fall = 25/125 = 20%."},
+{s:"QADI",q:"√(0.0064) equals:",o:["0.8","0.08","0.008","0.4"],a:1,e:"0.0064 = 64/10000 → √ = 8/100 = 0.08."},
+{s:"LR",q:"Statements: All squares are rectangles. All rectangles are polygons. Conclusion I: All squares are polygons. II: Some polygons are squares. Which follows?",o:["Only I","Only II","Both","Neither"],a:2,e:"Chained 'all' statements are transitive → I follows; I implies II."},
+{s:"LR",q:"Six people P–U in two rows of three, facing each other. P faces S, Q is right of P (facing you: same row), T is not opposite Q. Who faces Q?",o:["U","T","S","Cannot determine"],a:0,e:"P's row: P, Q, R (some order); T not opposite Q leaves U opposite Q."},
+{s:"LR",q:"Find the next: 2, 6, 12, 20, 30, ?",o:["40","42","44","38"],a:1,e:"n(n+1) pattern: 6×7 = 42 (differences 4,6,8,10,12)."},
+{s:"LR",q:"If 'PEN' is coded as 35 (sum of letter positions: P=16, E=5, N=14), then 'INK' is coded as:",o:["32","34","33","30"],a:1,e:"I=9, N=14, K=11 → 9+14+11 = 34."},
+{s:"LR",q:"A cube painted red is cut into 27 small cubes. How many have exactly two painted faces?",o:["8","12","6","10"],a:1,e:"Edge cubes (excluding corners): 12 for a 3×3×3 cube."},
+{s:"EC",q:"Choose the word closest in meaning to CIRCUMSPECT:",o:["Reckless","Cautious","Talkative","Indirect"],a:1,e:"Circumspect (spec = look; circum = around) = wary, careful."},
+{s:"EC",q:"Choose the opposite of EPHEMERAL:",o:["Fleeting","Enduring","Fragile","Transparent"],a:1,e:"Ephemeral = short-lived; opposite = enduring/perennial."},
+{s:"EC",q:"Identify the error: 'The number of applicants for the new IIMB programme were far higher than expected.'",o:["The number","were","far higher","No error"],a:1,e:"'The number of…' takes a singular verb: was."},
+{s:"EC",q:"Fill in: 'Although the dataset was enormous, the insights it yielded were surprisingly ____.'",o:["voluminous","meagre","abundant","complex"],a:1,e:"'Although' forces contrast with enormous → meagre."},
+{s:"EC",q:"Mini-RC: 'A model that explains everything after the fact but predicts nothing before it is a mirror, not a telescope.' The author values models that:",o:["describe the past richly","reflect reality accurately","make testable predictions","avoid complexity"],a:2,e:"The telescope metaphor = seeing ahead; prediction is the prized function."},
+{s:"EC",q:"The idiom 'a red herring' refers to:",o:["a rare discovery","a misleading distraction","an obvious clue","a fatal mistake"],a:1,e:"A red herring diverts attention from the real issue."}
+];
+
+/* game banks */
+const SEQBANK=[
+[[2,6,12,20,30],42],[[3,7,15,31,63],127],[[1,4,9,16,25],36],[[2,3,5,8,13],21],
+[[5,10,20,40,80],160],[[1,8,27,64],125],[[81,27,9,3],1],[[2,5,10,17,26],37],
+[[7,12,19,28,39],52],[[4,6,10,18,34],66],[[100,96,88,76],60],[[1,2,6,24,120],720],
+[[13,17,19,23,29],31],[[6,11,21,41,81],161]
+];
+const VBANK=[
+["PRAGMATIC","Practical",["Idealistic","Practical","Rigid","Vague"]],
+["LUCID","Clear",["Clear","Heavy","Loud","Hidden"]],
+["AUGMENT","Increase",["Increase","Divide","Repair","Predict"]],
+["METICULOUS","Painstaking",["Careless","Painstaking","Generous","Sudden"]],
+["CANDID","Frank",["Secretive","Frank","Sweet","Angry"]],
+["EPHEMERAL","Short-lived",["Eternal","Short-lived","Massive","Glowing"]],
+["CIRCUMSPECT","Cautious",["Cautious","Circular","Famous","Careless"]],
+["BENEVOLENT","Kind",["Kind","Wealthy","Strict","Ancient"]],
+["OPAQUE","Unclear",["Transparent","Unclear","Shiny","Thin"]],
+["CURTAIL","Cut short",["Extend","Cut short","Decorate","Question"]],
+["PERENNIAL","Everlasting",["Everlasting","Seasonal","Fragile","Colorful"]],
+["EVASIVE","Avoiding the point",["Direct","Avoiding the point","Invasive","Supportive"]],
+["MALIGN","Speak ill of",["Praise","Speak ill of","Align","Heal"]],
+["PRUDENT","Wisely careful",["Wisely careful","Proud","Rapid","Rude"]],
+["VERBOSE","Wordy",["Brief","Wordy","Loud","Green"]],
+["ANACHRONISM","Out of its time",["Out of its time","Perfect timing","A repetition","A contradiction"]],
+["EDICT","Official order",["Official order","Quiet exit","Building","Guess"]],
+["INTROSPECT","Look inward",["Look inward","Look around","Interrupt","Introduce"]]
+];
+
+/* chat knowledge base */
+const KB=[
+{k:["pattern","format","structure","marks","marking","question","how many"],a:"<strong>Exam pattern:</strong> 60 MCQs · 180 marks · 120 min · +3 correct, −1 wrong. Sections in order: English Comprehension (15Q) → QADI (30Q) → Logical Reasoning (15Q). QADI is the only section with a cutoff — and it decides the shortlist. Try a full mock in the <a data-go='quiz'>Quiz Arena</a>."},
+{k:["cutoff","cut off","cut-off","score needed","safe score","114"],a:"<strong>Cutoff intel:</strong> 2026 actual (Gen): <strong>114/180</strong> overall, QADI sectional minimum, positive score in every section. Your Jan-28 target: <strong>135+</strong> (~45–47 correct, ≤3 wrong). Projections: 2028 band 126–135. Full chart in <a data-go='cut'>Cutoff Intel</a>."},
+{k:["roadmap","plan","schedule","phase","month","timeline","when"],a:"<strong>Roadmap:</strong> 6 phases — P1 Foundation (Jul–Oct '26) → P2 Build → P3 Advance → P4 Mock Intensive → P5 Peak (test ~11 Dec '27) → P6 PI Sprint (Jan '28). Each has an exit gate you must clear before moving on. Open the <a data-go='road'>Roadmap</a>."},
+{k:["interview","pi","personal interview","panel"],a:"<strong>PI facts:</strong> 40% of your composite score, in-person at IIMB (~22 Jan–2 Feb 2028 projected). Panels probe motivation, math fundamentals, DS curiosity — and your Class X/XII record. Drill in the <a data-go='mock'>Mock Interview Studio</a>; the flashcards' 'Interview' filter has the must-know facts."},
+{k:["eligib","age","60%","maths compulsory","qualify","apply","application","fee","cost","₹"],a:"<strong>Eligibility & fees:</strong> Class XII with Maths compulsory, ≥60% in Maths, ≤20 yrs on 1 Aug of intake year (Gen). Program fee ₹8.5 L/yr (tuition+hostel+exam); test fee ₹3,000 (Gen/EWS/OBC-NCL). Application window for your cycle: ~Oct–Nov 2027 on ug.iimb.ac.in."},
+{k:["percent","percentage","successive"],a:"<strong>Percentages:</strong> net of two changes = a + b + ab/100; think in multipliers (+25% → ×1.25). Full lesson with worked examples: <a data-go='study' data-lesson='pct'>open the Percentages lesson</a>."},
+{k:["ratio","mixture","alligation"],a:"<strong>Ratio & mixtures:</strong> write quantities as 2k, 3k; alligation cross gives mixing ratio (p₂−m):(m−p₁). Lesson: <a data-go='study' data-lesson='ratio'>Ratio, Proportion & Mixtures</a>."},
+{k:["speed","train","distance","tsd","boat","stream"],a:"<strong>TSD:</strong> km/h × 5/18 = m/s; platform = train + platform length; equal distances → avg speed 2ab/(a+b). Lesson: <a data-go='study' data-lesson='tsd'>Time, Speed & Distance</a>."},
+{k:["work","pipe","cistern","efficien"],a:"<strong>Time & Work:</strong> use LCM units — total work = LCM of days, add daily rates. Leaks are negative rates. Lesson: <a data-go='study' data-lesson='work'>Time & Work</a>."},
+{k:["average","mean"],a:"<strong>Averages:</strong> total = avg × count; use the deviation shortcut; overlap questions (first-6/last-6) count the middle value twice. Lesson: <a data-go='study' data-lesson='avg'>Averages</a>."},
+{k:["probab","permutation","combination","p&c","dice","coin","cards"],a:"<strong>P&C / Probability:</strong> order matters → P, doesn't → C; 'at least one' = 1 − P(none); two dice = 36 outcomes. This is DS-DNA — overweight it. Lesson: <a data-go='study' data-lesson='pnc'>P&C and Probability</a>."},
+{k:["syllog","conclusion","statement","venn"],a:"<strong>Syllogisms:</strong> draw the Venn; a conclusion must hold in EVERY valid diagram. 'Some A are B' ⇒ 'Some B are A' ✓; 'All A are B' ⇏ 'All B are A'. Lesson: <a data-go='study' data-lesson='syl'>Syllogisms</a>."},
+{k:["series","coding","direction","blood","arrangement","puzzle","seating"],a:"<strong>LR patterns:</strong> run the series checklist (differences → 2nd differences → ratios); EJOTY for letters; draw every arrangement. Lessons: <a data-go='study' data-lesson='ser'>Series & Coding</a> and <a data-go='study' data-lesson='arr'>Arrangements</a>."},
+{k:["reading","rc","comprehension","english","vocab","grammar"],a:"<strong>EC strategy:</strong> 2026 RCs were short (230–280 words) and the section was the easiest — target 13+/15. Two-read method + daily editorials. Lessons: <a data-go='study' data-lesson='rc'>RC Playbook</a> · <a data-go='study' data-lesson='gram'>Grammar & Vocab</a>."},
+{k:["video","watch","theater","youtube"],a:"The <a data-go='study'>Video Theater</a> plays everything in-app: mental math (Arthur Benjamin), probability & calculus intuition (3Blue1Brown), ML literacy for the PI (StatQuest), and LR riddles (TED-Ed). Mark each watched to feed your progress meter."},
+{k:["book","read what","material","rs aggarwal","arun sharma","ncert"],a:"<strong>Reading:</strong> in-app lessons first (Reading Library), then offline: NCERT IX–XII (the syllabus anchor), RS Aggarwal arithmetic, Arun Sharma LRDI, IPMAT past papers, and the official IIMB UG-AT papers. Book list sits at the bottom of <a data-go='study'>the library</a>."},
+{k:["game","play","sprint","practice fun"],a:"Five training games in the <a data-go='games'>Games tab</a>: Math Sprint (arithmetic pace), Formula Match (recall), The Estimator (DI approximation), Sequence Hunter (LR patterns), Vocab Blitz (EC ammo). High scores are saved and appear in your Report."},
+{k:["report","progress","how am i doing","feedback","performance"],a:"Your <a data-go='report'>Report</a> aggregates everything: mock trend vs the 114 cutoff line, section-wise accuracy, game bests, interview ratings, and a coach's verdict with next actions."},
+{k:["milestone","track","checklist"],a:"36 dated checkpoints in the <a data-go='mile'>Milestone tracker</a> — from the NCERT diagnostic (Jul '26) to accepting your offer (Mar '28). Tick them as you go; export a backup JSON before switching devices."},
+{k:["seats","intake","how many students","selection","weight","composite"],a:"<strong>Selection:</strong> 40 seats for DS (80 total UG). Composite = 60% test + 40% PI; shortlist ratio ran ~1:5 in cycle 1, with a +5 gender-diversity weight in the pre-PI score."},
+{k:["campus","jigani","hostel","residential"],a:"The program is fully residential at IIMB's Jigani campus (~27–30 km from the Bannerghatta campus), with tuition + hostel + exam fees inside the ₹8.5 L/yr fee (mess extra)."},
+{k:["hello","hi","hey","namaste"],a:"Hello! I'm Coach 180 — your guide to this course. Ask me about the exam pattern, cutoffs, any QADI/LR/EC topic, or where to find things. Try the quick buttons below. 👇"},
+{k:["exit option","3 year","three year","minor","curriculum","degree"],a:"<strong>Program:</strong> 4-yr BSc (Hons) Data Science with minors in Economics & Business Studies; NEP-aligned 3-year exit option for a basic BSc. Rigorous quant core — stochastic processes, algorithms, data structures — plus applied business learning."}
+];
+</script>
+
+<script>
+/* ============================ ENGINE ============================ */
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const esc=t=>String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+
+/* --- safe storage (localStorage may be unavailable in some sandboxes) --- */
+const MEM={};
+const store={
+  get(k){try{const v=localStorage.getItem(k);return v!==null?v:(k in MEM?MEM[k]:null)}catch(e){return k in MEM?MEM[k]:null}},
+  set(k,v){MEM[k]=v;try{localStorage.setItem(k,v)}catch(e){}}
+};
+
+/* --- countdowns --- */
+const D_TEST=new Date("2027-12-11T09:00:00+05:30"),
+      D_PI =new Date("2028-01-22T09:00:00+05:30"),
+      D_APP=new Date("2027-10-11T09:00:00+05:30");
+function days(to){return Math.max(0,Math.ceil((to-new Date())/864e5))}
+function tickCounts(){
+  $("#cd-test").textContent=days(D_TEST)+" days";
+  $("#cd-pi").textContent=days(D_PI)+" days";
+  $("#cd-app").textContent=days(D_APP)+" days";
+  $("#cd-weeks").textContent=Math.floor(days(D_TEST)/7)+" wks";
+}
+tickCounts(); setInterval(tickCounts,6e4);
+
+/* --- tabs --- */
+$$("nav button").forEach(b=>b.onclick=()=>{
+  $$("nav button").forEach(x=>x.classList.remove("on"));
+  $$("section.tab").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); $("#tab-"+b.dataset.tab).classList.add("on");
+  window.scrollTo({top:0});
+});
+
+/* --- roadmap --- */
+$("#phases").innerHTML=PHASES.map((p,i)=>`
+<div class="phase${i===0?" open":""}">
+  <div class="phase-head" role="button" tabindex="0" aria-expanded="${i===0}">
+    <span class="ph-num">${p.n}</span><span class="ph-title">${p.t}</span><span class="ph-dates">${p.d}</span>
+  </div>
+  <div class="ph-body">
+    <div class="ph-goal">🎯 ${p.goal}</div>
+    <div class="ph-cols">
+      <div><h4>Read &amp; Watch</h4><ul>${p.read.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+      <div><h4>Drill</h4><ul>${p.drill.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+      <div><h4>Deliverables</h4><ul>${p.out.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+    </div>
+  </div>
+</div>`).join("");
+$$(".phase-head").forEach(h=>{
+  const t=()=>h.parentElement.classList.toggle("open");
+  h.onclick=t; h.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();t()}};
+});
+
+/* --- milestones --- */
+let msState=[];
+try{msState=JSON.parse(store.get("m180_ms")||"[]")}catch(e){msState=[]}
+if(msState.length!==MILES.length)msState=MILES.map((_,i)=>msState[i]||false);
+function renderMS(){
+  let html="",last="";
+  MILES.forEach((m,i)=>{
+    if(m[0]!==last){html+=`<div class="ms-group-h">${m[0]}</div>`;last=m[0]}
+    html+=`<div class="ms-item${msState[i]?" done":""}" data-i="${i}">
+      <div class="ms-check" role="checkbox" aria-checked="${msState[i]}" tabindex="0">${msState[i]?"✓":""}</div>
+      <div><div class="ms-t">${m[2]}</div><div class="ms-d">${m[1]}</div></div></div>`;
+  });
+  $("#ms-list").innerHTML=`<div class="card">${html}</div>`;
+  const done=msState.filter(Boolean).length,pct=Math.round(done/MILES.length*100);
+  $("#ms-count").textContent=`${done} / ${MILES.length} complete`;
+  $("#ms-fill").style.width=pct+"%";
+  $("#stat-ms").textContent=pct+"%";
+  $$(".ms-item").forEach(el=>{
+    const tog=()=>{const i=+el.dataset.i;msState[i]=!msState[i];store.set("m180_ms",JSON.stringify(msState));renderMS()};
+    el.querySelector(".ms-check").onclick=tog;
+    el.querySelector(".ms-check").onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();tog()}};
+  });
+}
+renderMS();
+$("#ms-export").onclick=()=>{
+  const blob=new Blob([JSON.stringify({ms:msState,quizBest:store.get("m180_qbest"),iv:store.get("m180_iv")})],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mission180-backup.json";a.click();
+};
+$("#ms-import").onclick=()=>{
+  const inp=document.createElement("input");inp.type="file";inp.accept=".json";
+  inp.onchange=()=>{const f=inp.files[0];if(!f)return;const r=new FileReader();
+    r.onload=()=>{try{const d=JSON.parse(r.result);
+      if(Array.isArray(d.ms)){msState=MILES.map((_,i)=>!!d.ms[i]);store.set("m180_ms",JSON.stringify(msState))}
+      if(d.quizBest)store.set("m180_qbest",d.quizBest);
+      if(d.iv)store.set("m180_iv",d.iv);
+      renderMS();renderQuizHome();renderIVLog();
+    }catch(e){alert("That file could not be read as a Mission 180 backup.")}};
+    r.readAsText(f)};
+  inp.click();
+};
+$("#ms-reset").onclick=()=>{if(confirm("Reset all 36 milestones to unchecked?")){msState=MILES.map(()=>false);store.set("m180_ms",JSON.stringify(msState));renderMS()}};
+
+/* --- study resources: rendered by v2 library --- */
+
+/* --- quiz engine v2: sectional, exam-faithful --- */
+function pick(arr,n){const c=[...arr];const out=[];while(out.length<n&&c.length)out.push(c.splice(Math.floor(Math.random()*c.length),1)[0]);return out}
+const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+let Q={mode:null,secs:[],si:0,idx:0,timer:null};
+
+function buildSections(mode){
+  const ec=QBANK.filter(q=>q.s==="EC"),qa=QBANK.filter(q=>q.s==="QADI"),lr=QBANK.filter(q=>q.s==="LR");
+  if(mode==="sprint")return[{n:"Mixed",items:pick(QBANK,10),t:20*60}];
+  if(mode==="half")return[
+    {n:"EC",items:pick(ec,7),t:15*60},
+    {n:"QADI",items:pick(qa,15),t:30*60},
+    {n:"LR",items:pick(lr,8),t:15*60}];
+  return[ /* full: real exam shape */
+    {n:"EC",items:pick(ec,15),t:30*60},
+    {n:"QADI",items:pick(qa,30),t:60*60},
+    {n:"LR",items:pick(lr,15),t:30*60}];
+}
+function renderQuizHome(){
+  const best=store.get("m180_qbest");
+  $("#stat-quiz").textContent=best||"—";
+  $("#quizbox").innerHTML=`
+  <div class="card">
+    <h3>Choose your battle</h3>
+    <p class="small">Best full/half-mock so far: <strong class="mono">${best?best+" / 180 (scaled)":"none yet"}</strong>. Sections lock in exam order — once a section's timer ends or you submit it, there is no going back. Mark questions for review inside a section using the palette.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+      <button class="btn ghost" id="q-sprint">⚡ Sprint · 10Q / 20 min · mixed</button>
+      <button class="btn" id="q-half">🏃 Half-Mock · 30Q / 60 min · 3 sections</button>
+      <button class="btn grn" id="q-full">🏁 FULL MOCK · 60Q / 120 min · real pattern</button>
+    </div>
+    <p class="small" style="margin-top:10px">Full mock = EC 15Q/30 min → QADI 30Q/60 min → LR 15Q/30 min · +3 / −1 / 0.</p>
+  </div>`;
+  $("#q-sprint").onclick=()=>startQuiz("sprint");
+  $("#q-half").onclick=()=>startQuiz("half");
+  $("#q-full").onclick=()=>startQuiz("full");
+}
+function startQuiz(mode){
+  Q={mode,secs:buildSections(mode),si:0,idx:0,timer:null};
+  Q.secs.forEach(s=>{s.ans=s.items.map(()=>null);s.mark=s.items.map(()=>false);s.left=s.t;s.done=false});
+  startSectionTimer();renderQ();
+}
+function startSectionTimer(){
+  clearInterval(Q.timer);
+  Q.timer=setInterval(()=>{
+    const s=Q.secs[Q.si];s.left--;
+    const el=$("#qt");if(el){el.textContent=fmt(s.left);if(s.left<=120)el.classList.add("low")}
+    if(s.left<=0)submitSection(true);
+  },1000);
+}
+function renderQ(){
+  const s=Q.secs[Q.si],q=s.items[Q.idx];
+  $("#quizbox").innerHTML=`
+  <div class="card">
+    <div class="sec-strip">${Q.secs.map((x,i)=>`<span class="sec-chip${i===Q.si?" now":i<Q.si?" done2":" locked"}">${x.n} · ${x.items.length}Q</span>`).join("")}</div>
+    <div class="q-meta">
+      <span class="mono"><strong>Q ${Q.idx+1} / ${s.items.length}</strong> · Section: ${s.n}</span>
+      <span class="q-timer" id="qt">${fmt(s.left)}</span>
+    </div>
+    <div class="legend"><span class="l-a">Answered</span><span class="l-m">Marked for review</span><span class="l-n">Not answered</span></div>
+    <div class="palette">${s.items.map((_,i)=>`<button class="pal${i===Q.idx?" cur":""}${s.ans[i]!==null?" ansd":""}${s.mark[i]?" markd":""}" data-i="${i}">${i+1}</button>`).join("")}</div>
+    <div class="q-text">${q.q}</div>
+    ${q.o.map((o,i)=>`<button class="opt${s.ans[Q.idx]===i?" sel":""}" data-i="${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join("")}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;justify-content:space-between">
+      <span>
+        <button class="btn ghost" id="q-mark" style="padding:10px 14px">${s.mark[Q.idx]?"Unmark":"Mark for review"}</button>
+        <button class="btn ghost" id="q-clear" style="padding:10px 14px">Clear answer</button>
+      </span>
+      <span>
+        <button class="btn" id="q-save">${Q.idx<s.items.length-1?"Save & Next →":"Save"}</button>
+        <button class="btn grn" id="q-subsec">Submit section</button>
+      </span>
+    </div>
+  </div>`;
+  $$("#quizbox .opt").forEach(b=>b.onclick=()=>{s.ans[Q.idx]=+b.dataset.i;renderQ()});
+  $$("#quizbox .pal").forEach(b=>b.onclick=()=>{Q.idx=+b.dataset.i;renderQ()});
+  $("#q-mark").onclick=()=>{s.mark[Q.idx]=!s.mark[Q.idx];renderQ()};
+  $("#q-clear").onclick=()=>{s.ans[Q.idx]=null;renderQ()};
+  $("#q-save").onclick=()=>{if(Q.idx<s.items.length-1){Q.idx++;renderQ()}};
+  $("#q-subsec").onclick=()=>{
+    const un=s.ans.filter(a=>a===null).length;
+    if(un&&!confirm(`${un} question(s) unanswered in ${s.n}. Submit this section anyway? You cannot return.`))return;
+    submitSection(false);
+  };
+}
+function submitSection(auto){
+  const s=Q.secs[Q.si];s.done=true;
+  if(Q.si<Q.secs.length-1){
+    Q.si++;Q.idx=0;
+    const nx=Q.secs[Q.si];
+    clearInterval(Q.timer);
+    $("#quizbox").innerHTML=`<div class="card" style="text-align:center">
+      <span class="tag ink">${auto?"⏱ Time over — section auto-submitted":"Section submitted"}</span>
+      <h3 style="margin-top:8px">Next: ${nx.n} — ${nx.items.length} questions · ${nx.t/60} minutes</h3>
+      <p class="small">The clock starts when you enter. Breathe once. Go.</p>
+      <button class="btn grn" id="q-enter" style="margin-top:8px">Enter ${nx.n} →</button></div>`;
+    $("#q-enter").onclick=()=>{startSectionTimer();renderQ()};
+  } else finishQuiz(auto);
+}
+function finishQuiz(){
+  clearInterval(Q.timer);
+  let c=0,w=0,sk=0;const secRes=[];
+  Q.secs.forEach(s=>{
+    let sc=0,sw=0,ssk=0;
+    s.items.forEach((q,i)=>{if(s.ans[i]===null)ssk++;else if(s.ans[i]===q.a)sc++;else sw++});
+    c+=sc;w+=sw;sk+=ssk;
+    secRes.push({n:s.n==="Mixed"?"QADI":s.n,c:sc,w:sw,sk:ssk,raw:sc*3-sw,max:s.items.length*3});
+  });
+  const raw=c*3-w,max=Q.secs.reduce((a,s)=>a+s.items.length*3,0),scaled=Math.round(raw/max*180);
+  /* log attempt for reports */
+  let hist=[];try{hist=JSON.parse(store.get("m180_qhist")||"[]")}catch(e){}
+  hist.push({d:new Date().toISOString().slice(0,10),mode:Q.mode,raw,scaled,c,w,sk,
+    sec:Q.mode==="sprint"?[]:secRes.map(s=>({n:s.n,c:s.c,w:s.w}))});
+  hist=hist.slice(-40);store.set("m180_qhist",JSON.stringify(hist));
+  if(Q.mode!=="sprint"){const best=+(store.get("m180_qbest")||-999);if(scaled>best)store.set("m180_qbest",String(scaled))}
+  const verdict=scaled>=135?["🏆 Safe-zone pace. Hold this.","var(--score)"]
+    :scaled>=114?["📈 Above the 2026 cutoff — push toward 135.","var(--gold)"]
+    :["🔧 Below the 2026 bar. Error log, then drills — this is fixable.","var(--marker)"];
+  $("#quizbox").innerHTML=`
+  <div class="card" style="text-align:center">
+    <span class="tag ink">${Q.mode==="full"?"Full Mock":Q.mode==="half"?"Half-Mock":"Sprint"} Result</span>
+    <div class="q-result-big" style="color:${verdict[1]}">${raw} <span style="font-size:22px;color:var(--ink-soft)">/ ${max}</span></div>
+    <p class="mono" style="margin:6px 0">scaled to exam: <strong>${scaled} / 180</strong></p>
+    <p class="small">✓ ${c} (+${c*3}) · ✗ ${w} (−${w}) · − ${sk} skipped · accuracy ${c+w?Math.round(c/(c+w)*100):0}%</p>
+    ${Q.mode!=="sprint"?`<table style="max-width:420px;margin:10px auto"><tr><th>Section</th><th>✓</th><th>✗</th><th>–</th><th>Score</th></tr>
+      ${secRes.map(s=>`<tr><td>${s.n}</td><td class="mono">${s.c}</td><td class="mono">${s.w}</td><td class="mono">${s.sk}</td><td class="mono"><strong>${s.raw}/${s.max}</strong></td></tr>`).join("")}</table>`:""}
+    <p style="font-weight:700;margin:10px 0;color:${verdict[1]}">${verdict[0]}</p>
+    <button class="btn" id="q-rev">Review answers</button>
+    <button class="btn ghost" id="q-again">New test</button>
+  </div>`;
+  $("#stat-quiz").textContent=store.get("m180_qbest")||"—";
+  $("#q-again").onclick=renderQuizHome;
+  $("#q-rev").onclick=()=>{
+    let html="",n=0;
+    Q.secs.forEach(s=>s.items.forEach((q,i)=>{
+      n++;const u=s.ans[i];
+      html+=`<div class="card">
+        <div class="small mono">Q${n} · ${q.s} · ${u===null?"skipped":u===q.a?"✓ correct":"✗ wrong"}</div>
+        <div class="q-text" style="font-size:15px">${q.q}</div>
+        ${q.o.map((o,j)=>`<div class="opt ${j===q.a?"correct":(u===j?"wrong":"")}" style="cursor:default">${String.fromCharCode(65+j)}. ${o}</div>`).join("")}
+        <div class="expl"><strong>Why:</strong> ${q.e}</div></div>`;
+    }));
+    $("#quizbox").innerHTML=html+`<button class="btn" id="q-again2">Back to Quiz Arena</button>`;
+    $("#q-again2").onclick=renderQuizHome;
+  };
+}
+renderQuizHome();
+
+/* --- flashcards --- */
+let deck=[...CARDS],fi=0,flipped=false;
+function fcRender(){
+  if(!deck.length){$("#fc-front").innerHTML=`<div class="fc-q">Deck cleared! 🎉<br>Shuffle to run it again.</div>`;$("#fc-back").innerHTML="";$("#fc-count").textContent="0 left";return}
+  fi=((fi%deck.length)+deck.length)%deck.length;
+  const c=deck[fi];
+  $("#fc").classList.remove("flip");flipped=false;
+  $("#fc-front").innerHTML=`<div class="fc-cat">${c[0]}</div><div class="fc-q">${c[1]}</div><div class="fc-cat" style="margin-top:14px">tap to flip</div>`;
+  $("#fc-back").innerHTML=`<div class="fc-a">${c[2]}</div>`;
+  $("#fc-count").textContent=`${fi+1} / ${deck.length}`;
+}
+$("#fc").onclick=()=>{flipped=!flipped;$("#fc").classList.toggle("flip",flipped)};
+$("#fc-prev").onclick=()=>{fi--;fcRender()};
+$("#fc-next").onclick=()=>{fi++;fcRender()};
+$("#fc-got").onclick=()=>{if(deck.length){deck.splice(fi,1);fcRender()}};
+$("#fc-shuf").onclick=()=>{const f=document.querySelector(".fc-filter.on").dataset.f;deck=CARDS.filter(c=>f==="all"||c[0]===f);deck.sort(()=>Math.random()-.5);fi=0;fcRender()};
+$$(".fc-filter").forEach(b=>b.onclick=()=>{$$(".fc-filter").forEach(x=>x.classList.remove("on"));b.classList.add("on");deck=CARDS.filter(c=>b.dataset.f==="all"||c[0]===b.dataset.f);fi=0;fcRender()});
+fcRender();
+
+/* --- game 1: math sprint --- */
+let G={on:false,score:0,streak:0,t:60,timer:null,ans:0};
+function gGen(){
+  const kind=Math.floor(Math.random()*5);let q,a;
+  const r=(n)=>Math.floor(Math.random()*n)+1;
+  if(kind===0){const x=r(40)+10;q=`${x}² = ?`;a=x*x}
+  else if(kind===1){const p=[5,10,12.5,20,25,40,50,75][Math.floor(Math.random()*8)],n=r(20)*20;q=`${p}% of ${n} = ?`;a=p*n/100}
+  else if(kind===2){const x=r(80)+19,y=r(9)+2;q=`${x} × ${y} = ?`;a=x*y}
+  else if(kind===3){const y=r(11)+3,x=y*(r(12)+3);q=`${x} ÷ ${y} = ?`;a=x/y}
+  else {const x=r(400)+99,y=r(300)+50;q=`${x} + ${y} = ?`;a=x+y}
+  G.ans=a;return q;
+}
+function gHome(){
+  const hi=store.get("m180_sprint")||0;
+  $("#sprintbox").innerHTML=`<p class="mono" style="text-align:center">High score: <strong>${hi}</strong></p>
+  <div style="text-align:center;margin-top:8px"><button class="btn" id="g-start">Start 60-second sprint</button></div>`;
+  $("#g-start").onclick=gStart;
+}
+function gStart(){
+  G={on:true,score:0,streak:0,t:60,timer:null,ans:0};
+  G.timer=setInterval(()=>{G.t--;const e=$("#g-t");if(e){e.textContent=G.t;if(G.t<=10)e.classList.add("low")}if(G.t<=0)gEnd()},1000);
+  gNext();
+}
+function gNext(){
+  const q=gGen();
+  $("#sprintbox").innerHTML=`
+    <div class="g-hud"><span>⏱ <span id="g-t">${G.t}</span>s</span><span>⭐ <span id="g-s">${G.score}</span></span><span>🔥 ${G.streak}</span></div>
+    <div class="g-num">${q}</div>
+    <input class="g-input" id="g-in" type="number" step="any" inputmode="decimal" autocomplete="off">
+    <div style="text-align:center"><button class="btn" id="g-go">Check (Enter)</button></div>`;
+  const inp=$("#g-in");inp.focus();
+  const check=()=>{
+    if(!G.on)return;
+    const v=parseFloat(inp.value);
+    if(Math.abs(v-G.ans)<0.001){G.score+=10;G.streak++;if(G.streak%5===0)G.score+=20}
+    else{G.streak=0}
+    gNext();
+  };
+  $("#g-go").onclick=check;
+  inp.onkeydown=e=>{if(e.key==="Enter")check()};
+}
+function gEnd(){
+  clearInterval(G.timer);G.on=false;
+  const hi=Math.max(+(store.get("m180_sprint")||0),G.score);
+  store.set("m180_sprint",String(hi));
+  $("#sprintbox").innerHTML=`<div style="text-align:center">
+    <div class="g-num" style="color:${G.score>=150?"var(--score)":"var(--marker)"}">${G.score} pts</div>
+    <p class="small">${G.score>=150?"Elite pace — QADI-ready arithmetic. 🏆":"Under 150 — daily sprints until this is easy."}</p>
+    <p class="mono small">High score: ${hi}</p>
+    <button class="btn" id="g-re">Run it again</button></div>`;
+  $("#g-re").onclick=gStart;
+}
+gHome();
+
+/* --- game 2: formula match --- */
+let M={sel:null,left:0,t0:0,timer:null};
+function mStart(){
+  const tiles=[];
+  MATCHPAIRS.forEach((p,i)=>{tiles.push({id:i,txt:p[0]});tiles.push({id:i,txt:p[1]})});
+  tiles.sort(()=>Math.random()-.5);
+  M={sel:null,left:MATCHPAIRS.length,t0:Date.now(),timer:null};
+  $("#matchbox").innerHTML=`<div class="g-hud"><span>⏱ <span id="m-t">0.0</span>s</span><span>Pairs left: <span id="m-l">${M.left}</span></span></div>
+  <div class="match-grid">${tiles.map((t,i)=>`<button class="mtile" data-id="${t.id}" data-k="${i}">${t.txt}</button>`).join("")}</div>`;
+  M.timer=setInterval(()=>{const e=$("#m-t");if(e)e.textContent=((Date.now()-M.t0)/1000).toFixed(1)},100);
+  $$("#matchbox .mtile").forEach(b=>b.onclick=()=>{
+    if(b.classList.contains("done"))return;
+    if(M.sel===null){M.sel=b;b.classList.add("sel");return}
+    if(M.sel===b){b.classList.remove("sel");M.sel=null;return}
+    if(M.sel.dataset.id===b.dataset.id){
+      M.sel.classList.remove("sel");M.sel.classList.add("done");b.classList.add("done");M.sel=null;M.left--;
+      $("#m-l").textContent=M.left;
+      if(M.left===0){clearInterval(M.timer);const t=((Date.now()-M.t0)/1000).toFixed(1);
+        $("#matchbox").insertAdjacentHTML("beforeend",`<p style="text-align:center;font-weight:700;margin-top:12px;color:${t<45?"var(--score)":"var(--marker)"}">${t}s — ${t<45?"elite recall 🏆":"drill the flashcards and retry"} <button class="btn ghost" id="m-re" style="margin-left:8px;padding:7px 14px;font-size:12px">Replay</button></p>`);
+        $("#m-re").onclick=mStart;
+      }
+    } else {
+      const a=M.sel;a.classList.add("sel");b.classList.add("sel");
+      setTimeout(()=>{a.classList.remove("sel");b.classList.remove("sel")},350);
+      M.sel=null;
+    }
+  });
+}
+$("#matchbox").innerHTML=`<div style="text-align:center"><button class="btn" id="m-start">Start matching</button></div>`;
+$("#m-start").onclick=mStart;
+
+/* --- mock interview --- */
+let IV={items:[],idx:0,rates:[],t:0,timer:null};
+function ivHome(){
+  $("#ivbox").innerHTML=`<div class="card" style="text-align:center">
+    <h3>Ready when you are</h3>
+    <p class="small">6 questions · 2 minutes each · answer out loud, then rate yourself. Sit up. Phone away. Treat it as real.</p>
+    <button class="btn" id="iv-start" style="margin-top:10px">🎤 Start mock interview</button></div>`;
+  $("#iv-start").onclick=ivStart;
+}
+function ivStart(){
+  IV={items:pick(IVQ,6),idx:0,rates:Array(6).fill(0),t:120,timer:null};
+  ivQ();
+}
+function ivQ(){
+  clearInterval(IV.timer);IV.t=120;
+  const q=IV.items[IV.idx];
+  $("#ivbox").innerHTML=`
+  <div class="iv-q">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span class="cat">Question ${IV.idx+1} / 6 · ${q[0]}</span>
+      <span class="q-timer" id="iv-t" style="background:rgba(255,255,255,.12)">${fmt(IV.t)}</span>
+    </div>
+    <div class="qq">${q[1]}</div>
+  </div>
+  <div class="card">
+    <strong>Now rate your spoken answer (1–5):</strong>
+    <div class="rate" id="iv-rate">${[1,2,3,4,5].map(n=>`<button data-n="${n}">${n}</button>`).join("")}</div>
+    <div class="iv-tip"><strong>Coach's note:</strong> ${q[2]}</div>
+    <div style="margin-top:14px;text-align:right">
+      <button class="btn" id="iv-next">${IV.idx<5?"Next question →":"Finish session"}</button>
+    </div>
+  </div>`;
+  IV.timer=setInterval(()=>{IV.t--;const e=$("#iv-t");if(e){e.textContent=fmt(IV.t);if(IV.t<=15)e.classList.add("low")}if(IV.t<=0)clearInterval(IV.timer)},1000);
+  $$("#iv-rate button").forEach(b=>b.onclick=()=>{
+    IV.rates[IV.idx]=+b.dataset.n;
+    $$("#iv-rate button").forEach(x=>x.classList.toggle("on",+x.dataset.n<=+b.dataset.n));
+  });
+  $("#iv-next").onclick=()=>{
+    if(!IV.rates[IV.idx]){alert("Rate your answer first — honesty is the whole drill.");return}
+    if(IV.idx<5){IV.idx++;ivQ()}else ivEnd();
+  };
+}
+function ivEnd(){
+  clearInterval(IV.timer);
+  const avg=(IV.rates.reduce((a,b)=>a+b,0)/6).toFixed(1);
+  const pct=Math.round(avg/5*100);
+  let log=[];try{log=JSON.parse(store.get("m180_iv")||"[]")}catch(e){}
+  log.unshift({d:new Date().toISOString().slice(0,10),avg});
+  log=log.slice(0,15);
+  store.set("m180_iv",JSON.stringify(log));
+  $("#ivbox").innerHTML=`<div class="card" style="text-align:center">
+    <span class="tag gld">Session complete</span>
+    <div class="q-result-big" style="color:${avg>=4?"var(--score)":avg>=3?"var(--gold)":"var(--marker)"}">${avg} / 5</div>
+    <p class="small">≈ ${pct}% of the interview's 40% weight. ${avg>=4?"Panel-ready trajectory.":avg>=3?"Solid base — sharpen specificity and structure.":"Rebuild the story bank; answers are still generic."}</p>
+    <button class="btn" id="iv-again">Run another session</button></div>`;
+  $("#iv-again").onclick=ivStart;
+  renderIVLog();
+}
+function renderIVLog(){
+  let log=[];try{log=JSON.parse(store.get("m180_iv")||"[]")}catch(e){}
+  $("#ivlog").innerHTML=log.length
+    ? `<table><tr><th>Date</th><th>Avg self-rating</th></tr>${log.map(l=>`<tr><td class="mono">${l.d}</td><td class="mono">${l.avg} / 5</td></tr>`).join("")}</table>`
+    : "No sessions recorded yet.";
+}
+ivHome();renderIVLog();
+
+/* --- cutoff chart --- */
+const CO=[
+ {y:"2026",v:114,actual:true},
+ {y:"2027",v:123,actual:false,band:"120–126"},
+ {y:"2028",v:130,actual:false,band:"126–135"},
+ {y:"2029",v:136,actual:false,band:"132–140"}
+];
+$("#cochart").innerHTML=CO.map(c=>`
+ <div class="co-bar">
+   <span class="v">${c.v}${c.actual?"":"*"}</span>
+   <div class="bar ${c.actual?"actual":"proj"}" style="height:${c.v/180*190}px" title="${c.band||"official"}"></div>
+   <span class="y">${c.y}${c.actual?"":" ("+c.band+")"}</span>
+ </div>`).join("");
+</script>
+
+<script>
+/* ===================== V2 ENGINE ===================== */
+QBANK.push(...QBANK2);
+
+/* ---------- reading library ---------- */
+let readDone=[];try{readDone=JSON.parse(store.get("m180_read")||"[]")}catch(e){readDone=[]}
+let vidDone=[];try{vidDone=JSON.parse(store.get("m180_vids")||"[]")}catch(e){vidDone=[]}
+let readerSize=17;
+
+function libProgress(){
+  const rp=Math.round(readDone.length/LESSONS.length*100), vp=Math.round(vidDone.length/VIDEOS.length*100);
+  $("#lib-read-fill").style.width=rp+"%"; $("#lib-read-txt").textContent=`${readDone.length} / ${LESSONS.length} · ${rp}%`;
+  $("#lib-vid-fill").style.width=vp+"%"; $("#lib-vid-txt").textContent=`${vidDone.length} / ${VIDEOS.length} · ${vp}%`;
+}
+function renderLessonGrid(){
+  $("#lesson-grid").innerHTML=LESSONS.map(l=>`
+   <div class="lesson-card${readDone.includes(l.id)?" readdone":""}" data-l="${l.id}" role="button" tabindex="0">
+     ${readDone.includes(l.id)?'<span class="lc-done">✓</span>':""}
+     <div class="lc-sec">${l.sec}</div><h4>${l.t}</h4>
+     <div class="lc-meta">${l.min} min read</div>
+   </div>`).join("");
+  $$("#lesson-grid .lesson-card").forEach(c=>{
+    const go=()=>openLesson(c.dataset.l);
+    c.onclick=go; c.onkeydown=e=>{if(e.key==="Enter"){go()}};
+  });
+  libProgress();
+}
+function openLesson(id){
+  const i=LESSONS.findIndex(l=>l.id===id), l=LESSONS[i];
+  $("#lib-home").style.display="none";
+  const rd=$("#lib-reader"); rd.style.display="block";
+  rd.innerHTML=`
+  <div class="reader">
+    <div class="read-meter"><div class="rm-fill" id="rm-fill"></div></div>
+    <div class="reader-top">
+      <button class="rd-btn" id="rd-back">← Library</button>
+      <span class="mono small" id="rd-pct">0% read</span>
+      <span>
+        <button class="rd-btn" id="rd-minus">A−</button>
+        <button class="rd-btn" id="rd-plus">A+</button>
+        <button class="rd-btn" id="rd-done" style="border-color:var(--score);color:var(--score)">${readDone.includes(id)?"✓ Completed":"Mark as read"}</button>
+      </span>
+    </div>
+    <div class="reader-body" id="rd-body" style="--readsize:${readerSize}px">
+      <div class="lc-sec" style="font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--marker)">${l.sec} · Lesson ${i+1} of ${LESSONS.length} · ${l.min} min</div>
+      <h3>${l.t}</h3>
+      ${l.h}
+      <div style="display:flex;justify-content:space-between;margin-top:30px;gap:10px;flex-wrap:wrap">
+        ${i>0?`<button class="btn ghost" id="rd-prev">← ${LESSONS[i-1].t}</button>`:"<span></span>"}
+        ${i<LESSONS.length-1?`<button class="btn" id="rd-next">${LESSONS[i+1].t} →</button>`:""}
+      </div>
+    </div>
+  </div>`;
+  window.scrollTo({top:0});
+  $("#rd-back").onclick=closeLesson;
+  $("#rd-minus").onclick=()=>{readerSize=Math.max(14,readerSize-1);$("#rd-body").style.setProperty("--readsize",readerSize+"px")};
+  $("#rd-plus").onclick=()=>{readerSize=Math.min(22,readerSize+1);$("#rd-body").style.setProperty("--readsize",readerSize+"px")};
+  $("#rd-done").onclick=()=>{
+    if(!readDone.includes(id)){readDone.push(id);store.set("m180_read",JSON.stringify(readDone));$("#rd-done").textContent="✓ Completed"}
+  };
+  if($("#rd-prev"))$("#rd-prev").onclick=()=>openLesson(LESSONS[i-1].id);
+  if($("#rd-next"))$("#rd-next").onclick=()=>{markScrollComplete(id);openLesson(LESSONS[i+1].id)};
+  window.onscroll=()=>{
+    const el=$("#rd-body");if(!el)return;
+    const total=el.offsetTop+el.offsetHeight-window.innerHeight;
+    const pct=Math.min(100,Math.max(0,Math.round(window.scrollY/Math.max(1,total)*100)));
+    if($("#rm-fill")){$("#rm-fill").style.width=pct+"%";$("#rd-pct").textContent=pct+"% read"}
+    if(pct>=96&&!readDone.includes(id)){readDone.push(id);store.set("m180_read",JSON.stringify(readDone));if($("#rd-done"))$("#rd-done").textContent="✓ Completed"}
+  };
+}
+function markScrollComplete(id){if(!readDone.includes(id)){readDone.push(id);store.set("m180_read",JSON.stringify(readDone))}}
+function closeLesson(){
+  window.onscroll=null;
+  $("#lib-reader").style.display="none";$("#lib-reader").innerHTML="";
+  $("#lib-home").style.display="block";
+  renderLessonGrid();
+}
+
+/* ---------- video theater ---------- */
+function renderVids(){
+  $("#vid-grid").innerHTML=VIDEOS.map(v=>`
+   <div class="vid-card${vidDone.includes(v.id)?" watched":""}" data-v="${v.id}" role="button" tabindex="0">
+     ${vidDone.includes(v.id)?'<span class="vc-check">✓</span>':""}
+     <div class="vid-thumb"><img loading="lazy" src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" alt=""><div class="play">▶</div></div>
+     <div class="vid-info"><div class="vc-sec">${v.sec}</div><h4>${v.t}</h4><div class="vc-by">${v.by}</div></div>
+   </div>`).join("");
+  $$("#vid-grid .vid-card").forEach(c=>{
+    const go=()=>playVid(c.dataset.v);
+    c.onclick=go;c.onkeydown=e=>{if(e.key==="Enter")go()};
+  });
+  libProgress();
+}
+function playVid(id){
+  const v=VIDEOS.find(x=>x.id===id);
+  $("#theater-slot").innerHTML=`
+  <div class="theater">
+    <iframe class="frame" src="https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1&autoplay=1" title="${v.t}"
+      allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    <div class="theater-bar">
+      <div><div class="tt">${v.t}</div><div class="small" style="color:#8FA3C2">${v.by} — ${v.why}</div></div>
+      <span>
+        <button class="btn grn" id="th-done" style="padding:8px 14px;font-size:12px">${vidDone.includes(id)?"✓ Watched":"Mark watched"}</button>
+        <button class="btn ghost" id="th-close" style="padding:8px 14px;font-size:12px;color:#fff;border-color:#fff">Close</button>
+      </span>
+    </div>
+  </div>`;
+  try{const sl=$("#theater-slot");if(sl.scrollIntoView)sl.scrollIntoView({behavior:"smooth",block:"center"})}catch(e){}
+  $("#th-done").onclick=()=>{
+    if(!vidDone.includes(id)){vidDone.push(id);store.set("m180_vids",JSON.stringify(vidDone));$("#th-done").textContent="✓ Watched";renderVids()}
+  };
+  $("#th-close").onclick=()=>{$("#theater-slot").innerHTML=""};
+}
+renderLessonGrid();renderVids();
+$("#reslist").innerHTML=RES.map(r=>`<h4 style="font-family:var(--disp);font-weight:800;font-stretch:88%;margin:14px 0 6px">${r.t}</h4>${r.b}`).join("");
+
+/* ---------- game 3: the estimator ---------- */
+let E={on:false,round:0,score:0,timer:null,t:8,ans:0};
+function estGen(){
+  const den=Math.floor(Math.random()*1400)+300;
+  const pct=[8,12,17,22,28,33,38,44,52,58,63,68,72,78][Math.floor(Math.random()*14)];
+  const num=Math.round(den*pct/100);
+  const opts=[pct-10,pct-5,pct,pct+5].sort(()=>Math.random()-.5);
+  return{q:`${num} / ${den}`,ans:pct,opts};
+}
+function estHome(){
+  const hi=store.get("m180_est")||0;
+  $("#estbox").innerHTML=`<p class="mono" style="text-align:center">High score: <strong>${hi}</strong> / 100</p>
+  <div style="text-align:center;margin-top:8px"><button class="btn" id="e-start">Start 10 rounds</button></div>`;
+  $("#e-start").onclick=()=>{E={on:true,round:0,score:0,timer:null,t:8,ans:0};estNext()};
+}
+function estNext(){
+  if(E.round>=10)return estEnd();
+  clearInterval(E.timer);E.t=8;E.round++;
+  const g=estGen();E.ans=g.ans;
+  $("#estbox").innerHTML=`
+   <div class="g-hud"><span>R ${E.round}/10</span><span>⭐ ${E.score}</span><span>⏱ <span id="e-t">8</span>s</span></div>
+   <div class="g-num" style="font-size:36px">${g.q} ≈ ?</div>
+   <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+     ${g.opts.map(o=>`<button class="btn ghost e-opt" data-v="${o}" style="padding:10px 18px">${o}%</button>`).join("")}
+   </div>`;
+  E.timer=setInterval(()=>{E.t--;const el=$("#e-t");if(el){el.textContent=E.t;if(E.t<=3)el.style.color="var(--marker)"}if(E.t<=0)estNext()},1000);
+  $$("#estbox .e-opt").forEach(b=>b.onclick=()=>{if(+b.dataset.v===E.ans)E.score+=10;estNext()});
+}
+function estEnd(){
+  clearInterval(E.timer);E.on=false;
+  const hi=Math.max(+(store.get("m180_est")||0),E.score);store.set("m180_est",String(hi));
+  $("#estbox").innerHTML=`<div style="text-align:center"><div class="g-num" style="color:${E.score>=70?"var(--score)":"var(--marker)"}">${E.score} / 100</div>
+  <p class="small">${E.score>=70?"DI-grade approximation. 🏆":"Practice the fraction↔% anchors (Percentages lesson) and retry."}</p>
+  <p class="mono small">High score: ${hi}</p><button class="btn" id="e-re">Play again</button></div>`;
+  $("#e-re").onclick=()=>{E={on:true,round:0,score:0,timer:null,t:8,ans:0};estNext()};
+}
+estHome();
+
+/* ---------- game 4: sequence hunter ---------- */
+let S2={on:false,items:[],round:0,score:0,timer:null,t:15};
+function seqHome(){
+  const hi=store.get("m180_seq")||0;
+  $("#seqbox").innerHTML=`<p class="mono" style="text-align:center">High score: <strong>${hi}</strong> / 80</p>
+  <div style="text-align:center;margin-top:8px"><button class="btn" id="s-start">Hunt 8 sequences</button></div>`;
+  $("#s-start").onclick=()=>{S2={on:true,items:pick(SEQBANK,8),round:0,score:0,timer:null,t:15};seqNext()};
+}
+function seqNext(){
+  if(S2.round>=8)return seqEnd();
+  clearInterval(S2.timer);S2.t=15;S2.round++;
+  const [seq,ans]=S2.items[S2.round-1];
+  $("#seqbox").innerHTML=`
+   <div class="g-hud"><span>R ${S2.round}/8</span><span>⭐ ${S2.score}</span><span>⏱ <span id="s-t">15</span>s</span></div>
+   <div class="g-num" style="font-size:30px">${seq.join(", ")}, <span style="color:var(--marker)">?</span></div>
+   <input class="g-input" id="s-in" type="number" inputmode="numeric" autocomplete="off">
+   <div style="text-align:center"><button class="btn" id="s-go">Check (Enter)</button></div>`;
+  const inp=$("#s-in");inp.focus();
+  S2.timer=setInterval(()=>{S2.t--;const el=$("#s-t");if(el){el.textContent=S2.t;if(S2.t<=5)el.style.color="var(--marker)"}if(S2.t<=0)seqNext()},1000);
+  const check=()=>{if(+inp.value===ans)S2.score+=10;seqNext()};
+  $("#s-go").onclick=check;inp.onkeydown=e=>{if(e.key==="Enter")check()};
+}
+function seqEnd(){
+  clearInterval(S2.timer);S2.on=false;
+  const hi=Math.max(+(store.get("m180_seq")||0),S2.score);store.set("m180_seq",String(hi));
+  $("#seqbox").innerHTML=`<div style="text-align:center"><div class="g-num" style="color:${S2.score>=60?"var(--score)":"var(--marker)"}">${S2.score} / 80</div>
+  <p class="small">${S2.score>=60?"Pattern radar online. 🏆":"Run the Series lesson's checklist: differences → 2nd differences → ratios."}</p>
+  <p class="mono small">High score: ${hi}</p><button class="btn" id="s-re">Hunt again</button></div>`;
+  $("#s-re").onclick=()=>{S2={on:true,items:pick(SEQBANK,8),round:0,score:0,timer:null,t:15};seqNext()};
+}
+seqHome();
+
+/* ---------- game 5: vocab blitz ---------- */
+let VB={on:false,items:[],round:0,score:0,timer:null,t:6};
+function vbHome(){
+  const hi=store.get("m180_vb")||0;
+  $("#vbbox").innerHTML=`<p class="mono" style="text-align:center">High score: <strong>${hi}</strong> / 120</p>
+  <div style="text-align:center;margin-top:8px"><button class="btn" id="v-start">Start blitz</button></div>`;
+  $("#v-start").onclick=()=>{VB={on:true,items:pick(VBANK,12),round:0,score:0,timer:null,t:6};vbNext()};
+}
+function vbNext(){
+  if(VB.round>=12)return vbEnd();
+  clearInterval(VB.timer);VB.t=6;VB.round++;
+  const [w,ans,opts]=VB.items[VB.round-1];
+  const shuffled=[...opts].sort(()=>Math.random()-.5);
+  $("#vbbox").innerHTML=`
+   <div class="g-hud"><span>R ${VB.round}/12</span><span>⭐ ${VB.score}</span><span>⏱ <span id="v-t">6</span>s</span></div>
+   <div class="g-num" style="font-size:30px;letter-spacing:.06em">${w}</div>
+   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:420px;margin:0 auto">
+     ${shuffled.map(o=>`<button class="btn ghost v-opt" data-v="${o}" style="padding:10px 8px;font-size:12.5px">${o}</button>`).join("")}
+   </div>`;
+  VB.timer=setInterval(()=>{VB.t--;const el=$("#v-t");if(el){el.textContent=VB.t;if(VB.t<=2)el.style.color="var(--marker)"}if(VB.t<=0)vbNext()},1000);
+  $$("#vbbox .v-opt").forEach(b=>b.onclick=()=>{if(b.dataset.v===ans)VB.score+=10;vbNext()});
+}
+function vbEnd(){
+  clearInterval(VB.timer);VB.on=false;
+  const hi=Math.max(+(store.get("m180_vb")||0),VB.score);store.set("m180_vb",String(hi));
+  $("#vbbox").innerHTML=`<div style="text-align:center"><div class="g-num" style="color:${VB.score>=90?"var(--score)":"var(--marker)"}">${VB.score} / 120</div>
+  <p class="small">${VB.score>=90?"Word arsenal loaded. 🏆":"Flip through the Vocab flashcards and read the Grammar & Vocab lesson."}</p>
+  <p class="mono small">High score: ${hi}</p><button class="btn" id="v-re">Blitz again</button></div>`;
+  $("#v-re").onclick=()=>{VB={on:true,items:pick(VBANK,12),round:0,score:0,timer:null,t:6};vbNext()};
+}
+vbHome();
+
+/* ---------- reports & feedback ---------- */
+function bar(label,pct,val,cls){
+  return `<div class="rep-row"><span class="rl">${label}</span>
+    <div class="rep-track"><i class="${cls||""}" style="width:${Math.min(100,pct)}%"></i></div>
+    <span class="rv">${val}</span></div>`;
+}
+function renderReport(){
+  let hist=[];try{hist=JSON.parse(store.get("m180_qhist")||"[]")}catch(e){}
+  let ivlog=[];try{ivlog=JSON.parse(store.get("m180_iv")||"[]")}catch(e){}
+  const mocks=hist.filter(h=>h.mode!=="sprint");
+  const msPct=Math.round(msState.filter(Boolean).length/MILES.length*100);
+  const rdPct=Math.round(readDone.length/LESSONS.length*100);
+  const vdPct=Math.round(vidDone.length/VIDEOS.length*100);
+
+  /* section accuracy across all attempts */
+  const agg={EC:{c:0,w:0},QADI:{c:0,w:0},LR:{c:0,w:0}};
+  hist.forEach(h=>(h.sec||[]).forEach(s=>{if(agg[s.n]){agg[s.n].c+=s.c;agg[s.n].w+=s.w}}));
+  const acc=n=>{const a=agg[n];return a.c+a.w?Math.round(a.c/(a.c+a.w)*100):null};
+  const accCls=p=>p===null?"":p>=85?"":p>=70?"warn":"bad";
+
+  const last10=mocks.slice(-10);
+  const trend=last10.length?`<div class="trend">${last10.map(h=>`<div class="tb${h.scaled<114?" below":""}" style="height:${Math.max(4,h.scaled/180*100)}%"><span>${h.scaled}</span></div>`).join("")}</div>
+    <p class="small" style="margin-top:6px">Last ${last10.length} mock(s), scaled to /180. Red bars fall below the 2026 cutoff (114). Target line: 135.</p>`
+    :`<p class="small">No mocks yet — run a Half-Mock or Full Mock in the Quiz Arena to start your trend line.</p>`;
+
+  /* coach feedback */
+  const fb=[];
+  const bestScaled=mocks.length?Math.max(...mocks.map(h=>h.scaled)):null;
+  if(!mocks.length)fb.push("No mock data yet. Nothing in this report matters more than your first full-length attempt — take one this week to set the baseline.");
+  else{
+    if(bestScaled>=135)fb.push(`Best mock ${bestScaled}/180 — safe-zone pace. Your job now is consistency: three in a row above 135, not one peak.`);
+    else if(bestScaled>=114)fb.push(`Best mock ${bestScaled}/180 — above the 2026 cutoff but below the projected 2028 band (126–135). Push attempts up only where accuracy holds.`);
+    else fb.push(`Best mock ${bestScaled}/180 — below the 114 bar. Do not panic and do not add mocks; go back to lessons + error log until sectional accuracy recovers.`);
+    const worst=["EC","QADI","LR"].map(n=>[n,acc(n)]).filter(x=>x[1]!==null).sort((a,b)=>a[1]-b[1])[0];
+    if(worst)fb.push(`Weakest section: ${worst[0]} at ${worst[1]}% accuracy. ${worst[0]==="QADI"?"This is the shortlist filter — divert 60% of study hours here until it exceeds 85%.":worst[0]==="LR"?"LR is a notation problem, not an intelligence problem — re-read the Arrangements lesson and slow the first read of every set.":"EC is the cheapest section to fix: daily editorials + the RC playbook. Target 13+/15."}`);
+    const wrongs=hist.reduce((a,h)=>a+(h.w||0),0),atts=hist.reduce((a,h)=>a+(h.c||0)+(h.w||0),0);
+    if(atts>20&&wrongs/atts>0.25)fb.push(`Accuracy alert: ${Math.round(wrongs/atts*100)}% of your attempts are wrong. At −1 per error, this profile loses to a more selective test-taker every time. Enforce the 40-second skip rule.`);
+  }
+  if(msPct<30)fb.push("Milestone completion is low — the roadmap only works if the tracker is honest. Tick or re-plan, but don't drift.");
+  if(rdPct<50)fb.push("Under half the lesson library read. Lessons are the concept layer under every drill — one lesson per study day closes this fast.");
+  if(ivlog.length===0)fb.push("Zero interview sessions logged. The PI is 40% of the composite — start one session/week now; it compounds.");
+  else if(+ivlog[0].avg<3.5)fb.push(`Latest interview self-rating ${ivlog[0].avg}/5 — answers are still generic. Rebuild the story bank with specifics: names, numbers, outcomes.`);
+  if(!fb.length)fb.push("All systems green. Maintain the rhythm, protect sleep, and keep the error log ruthless.");
+
+  $("#repbox").innerHTML=`
+  <div class="grid2">
+    <div class="card"><span class="tag red">Mock Trend vs Cutoff</span>${trend}</div>
+    <div class="card"><span class="tag red">Section Accuracy (all attempts)</span>
+      <div class="rep-bars">
+        ${bar("English Comp.",acc("EC")??0,acc("EC")===null?"—":acc("EC")+"%",accCls(acc("EC")))}
+        ${bar("QADI",acc("QADI")??0,acc("QADI")===null?"—":acc("QADI")+"%",accCls(acc("QADI")))}
+        ${bar("Logical Reasoning",acc("LR")??0,acc("LR")===null?"—":acc("LR")+"%",accCls(acc("LR")))}
+      </div>
+      <p class="small">Green ≥85% (exam-grade) · amber 70–84% · red &lt;70%. QADI must be green — it is the shortlist filter.</p>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card"><span class="tag grn">Engagement</span>
+      <div class="rep-bars">
+        ${bar("Milestones",msPct,msPct+"%")}
+        ${bar("Lessons read",rdPct,rdPct+"%")}
+        ${bar("Videos watched",vdPct,vdPct+"%")}
+        ${bar("Interview sessions",Math.min(100,ivlog.length*10),ivlog.length+" run")}
+      </div>
+    </div>
+    <div class="card"><span class="tag grn">Game Bests</span>
+      <table>
+        <tr><td>⚡ Math Sprint</td><td class="mono">${store.get("m180_sprint")||"—"} pts</td></tr>
+        <tr><td>🎯 The Estimator</td><td class="mono">${store.get("m180_est")||"—"} / 100</td></tr>
+        <tr><td>🔢 Sequence Hunter</td><td class="mono">${store.get("m180_seq")||"—"} / 80</td></tr>
+        <tr><td>📚 Vocab Blitz</td><td class="mono">${store.get("m180_vb")||"—"} / 120</td></tr>
+        <tr><td>🏁 Best mock (scaled)</td><td class="mono">${bestScaled??"—"} / 180</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="card"><span class="tag gld">Coach's Verdict</span>
+    ${fb.map(f=>`<div class="fb-box">${f}</div>`).join("")}
+    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn ghost" onclick="window.print()" style="padding:9px 16px;font-size:12px">🖨 Print report</button>
+      <button class="btn ghost" id="rep-exp" style="padding:9px 16px;font-size:12px">⬇ Export data JSON</button>
+    </div>
+  </div>
+  ${hist.length?`<div class="card"><span class="tag ink">Attempt History</span>
+   <table><tr><th>Date</th><th>Mode</th><th>Raw</th><th>Scaled /180</th><th>✓/✗/–</th></tr>
+   ${hist.slice(-15).reverse().map(h=>`<tr><td class="mono">${h.d}</td><td>${h.mode}</td><td class="mono">${h.raw}</td><td class="mono" style="color:${h.scaled>=135?"var(--score)":h.scaled>=114?"var(--gold)":"var(--marker)"}"><strong>${h.scaled}</strong></td><td class="mono">${h.c}/${h.w}/${h.sk}</td></tr>`).join("")}</table></div>`:""}`;
+  $("#rep-exp").onclick=()=>{
+    const blob=new Blob([JSON.stringify({ms:msState,hist,iv:ivlog,read:readDone,vids:vidDone,
+      games:{sprint:store.get("m180_sprint"),est:store.get("m180_est"),seq:store.get("m180_seq"),vb:store.get("m180_vb")}},null,2)],{type:"application/json"});
+    const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mission180-report.json";a.click();
+  };
+}
+$$("nav button").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.tab==="report")renderReport()}));
+
+/* ---------- floating coach ---------- */
+const CHIPS=[["Exam pattern","pattern"],["Cutoffs","cutoff"],["My roadmap","roadmap"],["PI prep","interview"],["Where do I start?","start"]];
+function openTab(id){
+  $$("nav button").forEach(x=>x.classList.toggle("on",x.dataset.tab===id));
+  $$("section.tab").forEach(x=>x.classList.remove("on"));
+  $("#tab-"+id).classList.add("on");
+  if(id==="report")renderReport();
+  window.scrollTo({top:0});
+}
+function botSay(html,withChips){
+  const log=$("#chat-log");
+  const m=document.createElement("div");m.className="msg bot";m.innerHTML=html;log.appendChild(m);
+  m.querySelectorAll("a[data-go]").forEach(a=>{a.href="javascript:void(0)";a.onclick=()=>{
+    openTab(a.dataset.go);
+    if(a.dataset.lesson){setTimeout(()=>openLesson(a.dataset.lesson),60)}
+    $("#chat-panel").classList.remove("open");
+  }});
+  if(withChips){
+    const c=document.createElement("div");c.className="chips";
+    c.innerHTML=CHIPS.map(x=>`<button class="chip" data-q="${x[1]}">${x[0]}</button>`).join("");
+    log.appendChild(c);
+    c.querySelectorAll(".chip").forEach(b=>b.onclick=()=>ask(b.dataset.q,b.textContent));
+  }
+  log.scrollTop=log.scrollHeight;
+}
+function meSay(t){const log=$("#chat-log");const m=document.createElement("div");m.className="msg me";m.textContent=t;log.appendChild(m);log.scrollTop=log.scrollHeight}
+function answer(qRaw){
+  const q=qRaw.toLowerCase();
+  if(/^(where.*start|start|begin|kaise|how do i begin)/.test(q))
+    return "Start here: (1) open the <a data-go='road'>Roadmap</a> and read Phase 1's exit gate, (2) tick your first <a data-go='mile'>milestone</a> — the diagnostic, (3) read the <a data-go='study' data-lesson='pct'>Percentages lesson</a> tonight, (4) end with one 60-second <a data-go='games'>Math Sprint</a>. That's day one done.";
+  let best=null,bestScore=0;
+  KB.forEach(item=>{let s=0;item.k.forEach(k=>{if(q.includes(k))s+=k.length});if(s>bestScore){bestScore=s;best=item}});
+  if(best)return best.a;
+  return "I can help with anything already inside this course: the exam pattern, cutoffs, the 6-phase roadmap, any QADI/LR/EC lesson topic, PI prep, or where a feature lives. Try one of the buttons below, or ask e.g. <em>\"how do syllogisms work\"</em> or <em>\"what score do I need\"</em>.";
+}
+function ask(q,label){meSay(label||q);setTimeout(()=>botSay(answer(q),false),260)}
+$("#chat-fab").onclick=()=>{
+  const p=$("#chat-panel");p.classList.toggle("open");
+  if(p.classList.contains("open")&&!$("#chat-log").children.length){
+    botSay("👋 I'm <strong>Coach 180</strong> — I know this whole course: the roadmap, every lesson, the exam rules and the cutoff math. What do you need?",true);
+    $("#chat-input").focus();
+  }
+};
+$("#chat-close").onclick=()=>$("#chat-panel").classList.remove("open");
+$("#chat-send").onclick=()=>{const v=$("#chat-input").value.trim();if(!v)return;$("#chat-input").value="";ask(v)};
+$("#chat-input").onkeydown=e=>{if(e.key==="Enter")$("#chat-send").click()};
+</script>
+
+
+<!-- ===================== Mission Control · shared dock =====================
+     Injected navigation. Standalone: shows a dock back to the hub and across
+     to the sibling mission. Inside the Mission Control console: stays hidden,
+     because the console already has the bar.
+========================================================================= -->
+<style>
+#mcDock{
+  position:fixed;left:14px;bottom:16px;z-index:9000;display:flex;align-items:stretch;
+  font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;
+  background:#0E1524;color:#ECE7DA;border:1px solid #2A3557;border-radius:999px;
+  box-shadow:0 10px 28px rgba(0,0,0,.4);overflow:hidden;letter-spacing:.04em;
+}
+#mcDock a{display:flex;align-items:center;gap:8px;padding:9px 15px;color:#ECE7DA;text-decoration:none;white-space:nowrap;transition:background .15s}
+#mcDock a:hover{background:#1E2947}
+#mcDock a+a{border-left:1px solid #2A3557}
+#mcDock .mcdot{width:8px;height:8px;border-radius:50%;flex:none}
+#mcDock a:focus-visible{outline:2px solid #E3A83B;outline-offset:-2px}
+@media (max-width:600px){#mcDock{left:10px;bottom:10px;font-size:11px}#mcDock a{padding:8px 11px}}
+@media print{#mcDock{display:none}}
+</style>
+<script>
+(function(){
+  if (window.self !== window.top) return;              /* embedded in the hub console */
+  var SELF = "iimb";
+  var OTHER = (SELF === "isi")
+    ? { href:"mission-180-iimb-ds.html", label:"Mission 180", color:"#FF6B4A" }
+    : { href:"isi-coach.html",           label:"ISI Coach",   color:"#E3A83B" };
+  function mount(){
+    if (document.getElementById("mcDock")) return;
+    var d = document.createElement("div");
+    d.id = "mcDock";
+    d.innerHTML =
+      '<a href="index.html" title="Back to Mission Control">&#9664;&nbsp;Mission Control</a>' +
+      '<a href="' + OTHER.href + '" title="Switch mission"><span class="mcdot" style="background:' + OTHER.color + '"></span>' + OTHER.label + '</a>';
+    document.body.appendChild(d);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount);
+  else mount();
+})();
+</script>
+<!-- =================== end Mission Control shared dock =================== -->
+</body>
+</html>

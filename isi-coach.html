@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISI Coach · Professor Sigma — Bhavin's Road to ISI 2028</title>
+<meta name="description" content="A personal AI coach for cracking the ISI Admission Test (B.Stat / B.Math) — syllabus mastery, ISI-style practice, mock tests and a 22-month roadmap.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --board:#16211C;         /* deep chalkboard green-black */
+  --board-2:#1D2B24;       /* raised panel */
+  --board-3:#243530;       /* hover panel */
+  --line:#35473F;          /* chalk-dust hairline */
+  --chalk:#F2EFE6;         /* primary ink */
+  --chalk-dim:#B9C2B6;     /* secondary ink */
+  --chalk-faint:#7E8A80;   /* tertiary ink */
+  --brass:#E3A83B;         /* marigold brass accent */
+  --brass-deep:#B97F1E;
+  --graph:#84A9C0;         /* graph-paper blue */
+  --verm:#D0553C;          /* vermilion — used sparingly */
+  --green-ok:#7FB77E;
+  --radius:14px;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --font-display:"Fraunces",Georgia,serif;
+  --font-body:"IBM Plex Sans",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--board);
+  color:var(--chalk);
+  font-family:var(--font-body);
+  font-size:16px;line-height:1.6;
+  min-height:100vh;
+  background-image:
+    radial-gradient(ellipse at 20% -10%, rgba(132,169,192,.07), transparent 55%),
+    radial-gradient(ellipse at 90% 110%, rgba(227,168,59,.05), transparent 50%);
+}
+::selection{background:var(--brass);color:var(--board)}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit}
+a{color:var(--graph)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+
+/* ---------- graph-paper texture utility ---------- */
+.graphpaper{
+  background-image:
+    linear-gradient(rgba(132,169,192,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(132,169,192,.06) 1px, transparent 1px);
+  background-size:24px 24px;
+}
+
+/* ---------- header ---------- */
+header{
+  border-bottom:1px solid var(--line);
+  padding:14px clamp(16px,4vw,40px);
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  position:sticky;top:0;z-index:50;
+  background:rgba(22,33,28,.92);backdrop-filter:blur(10px);
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .sig{font-family:var(--font-display);font-weight:900;font-size:26px;color:var(--brass);
+  width:44px;height:44px;border:2px solid var(--brass);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brand h1{font-family:var(--font-display);font-weight:700;font-size:20px;letter-spacing:.2px}
+.brand h1 small{display:block;font-family:var(--font-mono);font-size:11px;font-weight:400;color:var(--chalk-faint);letter-spacing:.12em;text-transform:uppercase}
+.countpill{
+  margin-left:auto;display:flex;align-items:center;gap:10px;
+  font-family:var(--font-mono);font-size:13px;color:var(--chalk-dim);
+  border:1px solid var(--line);border-radius:999px;padding:7px 16px;background:var(--board-2);
+}
+.countpill b{color:var(--brass);font-size:16px}
+
+/* ---------- nav tabs ---------- */
+nav{display:flex;gap:4px;padding:10px clamp(16px,4vw,40px) 0;border-bottom:1px solid var(--line);
+  overflow-x:auto;scrollbar-width:none;background:var(--board)}
+nav::-webkit-scrollbar{display:none}
+.tabbtn{
+  background:none;border:none;color:var(--chalk-dim);font-size:14.5px;font-weight:500;
+  padding:10px 16px;border-radius:10px 10px 0 0;white-space:nowrap;position:relative;
+  transition:color .15s;
+}
+.tabbtn:hover{color:var(--chalk)}
+.tabbtn.active{color:var(--brass)}
+.tabbtn.active::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;background:var(--brass)}
+
+main{max-width:1180px;margin:0 auto;padding:28px clamp(14px,4vw,40px) 80px}
+.tabpanel{display:none}
+.tabpanel.active{display:block;animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ---------- generic cards ---------- */
+.card{background:var(--board-2);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.card h3{font-family:var(--font-display);font-weight:700;font-size:19px;margin-bottom:6px}
+.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);margin-bottom:8px}
+.muted{color:var(--chalk-dim);font-size:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:860px){.grid2,.grid3{grid-template-columns:1fr}}
+
+.btn{
+  border:1px solid var(--line);background:var(--board-3);color:var(--chalk);
+  padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;
+  transition:transform .12s, background .15s, border-color .15s;
+}
+.btn:hover{background:#2B4038;border-color:var(--chalk-faint);transform:translateY(-1px)}
+.btn.brass{background:var(--brass);border-color:var(--brass);color:#241A05}
+.btn.brass:hover{background:#EFBB5B}
+.btn.ghost{background:transparent}
+.btn.small{padding:6px 12px;font-size:12.5px;border-radius:8px}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+/* ---------- coach / avatar ---------- */
+.coach-hero{
+  display:grid;grid-template-columns:340px 1fr;gap:22px;align-items:stretch;
+}
+@media(max-width:900px){.coach-hero{grid-template-columns:1fr}}
+.avatar-card{
+  background:linear-gradient(180deg,#1B2A24,#141F1A);
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;display:flex;flex-direction:column;align-items:center;gap:10px;
+  position:relative;overflow:hidden;
+}
+.avatar-card .boardframe{
+  width:100%;border:6px solid #5A4632;border-radius:10px;background:#152019;
+  box-shadow:inset 0 0 40px rgba(0,0,0,.5);position:relative;
+}
+#avatarSVG{width:100%;height:auto;display:block}
+.avatar-name{font-family:var(--font-display);font-weight:700;font-size:20px;margin-top:4px}
+.avatar-role{font-family:var(--font-mono);font-size:11.5px;color:var(--chalk-faint);letter-spacing:.1em;text-transform:uppercase;text-align:center}
+.voice-row{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;justify-content:center}
+.speech-status{font-family:var(--font-mono);font-size:11px;color:var(--brass);min-height:16px}
+
+.chatwrap{display:flex;flex-direction:column;background:var(--board-2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;min-height:520px}
+.chatlog{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px;max-height:560px}
+.msg{max-width:82%;padding:12px 16px;border-radius:14px;font-size:14.5px;line-height:1.55;white-space:pre-wrap}
+.msg.bot{background:var(--board-3);border:1px solid var(--line);border-top-left-radius:4px;align-self:flex-start}
+.msg.user{background:var(--brass);color:#241A05;border-top-right-radius:4px;align-self:flex-end;font-weight:500}
+.msg.bot b{color:var(--brass)}
+.msg .mth{font-family:var(--font-mono);font-size:13.5px;color:var(--graph)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding:0 20px 12px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--chalk-dim);border-radius:999px;padding:6px 13px;font-size:12.5px;transition:all .15s}
+.chip:hover{border-color:var(--brass);color:var(--brass)}
+.chatinput{display:flex;gap:10px;padding:14px;border-top:1px solid var(--line);background:var(--board)}
+.chatinput input{
+  flex:1;background:var(--board-2);border:1px solid var(--line);border-radius:10px;
+  padding:12px 16px;color:var(--chalk);font-size:14.5px;
+}
+.chatinput input::placeholder{color:var(--chalk-faint)}
+
+/* ---------- syllabus ---------- */
+.syl-section{margin-bottom:22px}
+.syl-head{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--board-2);
+  border:1px solid var(--line);border-radius:12px;cursor:pointer;user-select:none}
+.syl-head h4{font-family:var(--font-display);font-size:17px;font-weight:700;flex:1}
+.syl-head .pct{font-family:var(--font-mono);font-size:13px;color:var(--brass)}
+.syl-body{display:none;padding:8px 4px}
+.syl-section.open .syl-body{display:block}
+.syl-section.open .caret{transform:rotate(90deg)}
+.caret{transition:transform .2s;color:var(--chalk-faint)}
+.topic-row{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+.topic-row:last-child{border-bottom:none}
+.topic-row .tname{flex:1;font-size:14.5px;min-width:200px}
+.mastery{display:flex;gap:5px}
+.mdot{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);background:transparent;transition:all .15s;font-size:0}
+.mdot:hover{border-color:var(--brass)}
+.mdot.on{background:var(--brass);border-color:var(--brass)}
+.mlabel{font-family:var(--font-mono);font-size:11px;color:var(--chalk-faint);width:92px;text-align:right}
+.progressbar{height:7px;background:var(--board);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.progressbar i{display:block;height:100%;background:linear-gradient(90deg,var(--brass-deep),var(--brass));border-radius:99px;transition:width .4s ease}
+
+/* ---------- practice ---------- */
+.qcard{background:var(--board-2);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:18px}
+.qmeta{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;padding:4px 10px;border-radius:6px;border:1px solid var(--line);color:var(--chalk-dim)}
+.tag.brass{color:var(--brass);border-color:var(--brass-deep)}
+.tag.verm{color:var(--verm);border-color:var(--verm)}
+.qtext{font-size:16px;line-height:1.7;margin-bottom:16px}
+.qtext .m{font-family:var(--font-mono);color:var(--graph);font-size:14.5px}
+.opt{display:block;width:100%;text-align:left;background:var(--board);border:1px solid var(--line);
+  border-radius:10px;padding:13px 16px;margin-bottom:10px;color:var(--chalk);font-size:14.5px;transition:all .15s}
+.opt:hover{border-color:var(--brass)}
+.opt.sel{border-color:var(--brass);background:rgba(227,168,59,.1)}
+.opt.correct{border-color:var(--green-ok);background:rgba(127,183,126,.12)}
+.opt.wrong{border-color:var(--verm);background:rgba(208,85,60,.1)}
+.solution{margin-top:14px;border-left:3px solid var(--brass);padding:12px 16px;background:var(--board);
+  border-radius:0 10px 10px 0;font-size:14px;color:var(--chalk-dim);display:none;white-space:pre-wrap}
+.solution.show{display:block}
+.timerbox{font-family:var(--font-mono);font-size:15px;color:var(--brass)}
+
+/* ---------- mock ---------- */
+.mock-topbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px;
+  background:var(--board-2);border:1px solid var(--line);border-radius:12px;padding:14px 18px;position:sticky;top:74px;z-index:40}
+.omr{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.omr button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--board);color:var(--chalk-dim);font-family:var(--font-mono);font-size:12px}
+.omr button.answered{background:var(--brass);color:#241A05;border-color:var(--brass);font-weight:600}
+.omr button.current{outline:2px solid var(--graph)}
+.scorebig{font-family:var(--font-display);font-size:52px;font-weight:900;color:var(--brass);line-height:1}
+
+/* ---------- plan ---------- */
+.phase{display:grid;grid-template-columns:150px 1fr;gap:18px;padding:20px 0;border-bottom:1px dashed var(--line)}
+.phase:last-child{border-bottom:none}
+.phase .when{font-family:var(--font-mono);font-size:12.5px;color:var(--brass);letter-spacing:.05em;padding-top:3px}
+.phase h4{font-family:var(--font-display);font-size:18px;font-weight:700;margin-bottom:6px}
+.phase.now{background:linear-gradient(90deg,rgba(227,168,59,.07),transparent);border-radius:12px;padding:20px 16px;border:1px solid var(--brass-deep)}
+.phase ul{margin:8px 0 0 18px;color:var(--chalk-dim);font-size:14px}
+.phase li{margin-bottom:4px}
+@media(max-width:700px){.phase{grid-template-columns:1fr;gap:6px}}
+.weekgrid{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:12px}
+.weekgrid th,.weekgrid td{border:1px solid var(--line);padding:9px 12px;text-align:left}
+.weekgrid th{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass);background:var(--board)}
+.weekgrid td{color:var(--chalk-dim)}
+
+/* ---------- progress ---------- */
+.statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+@media(max-width:860px){.statrow{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--board-2);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.stat .v{font-family:var(--font-display);font-size:30px;font-weight:900;color:var(--brass)}
+.stat .l{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--chalk-faint)}
+.chartbox{background:var(--board-2);border:1px solid var(--line);border-radius:var(--radius);padding:20px;height:340px}
+.chartbox h3{font-family:var(--font-display);font-size:16px;margin-bottom:10px}
+.chartbox canvas{max-height:270px}
+
+/* ---------- resources ---------- */
+.res-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.res-item:last-child{border-bottom:none}
+.res-item .ic{font-family:var(--font-display);font-weight:900;color:var(--brass);font-size:20px;width:34px;flex-shrink:0;text-align:center}
+.res-item b{display:block;font-size:15px}
+.res-item span{color:var(--chalk-dim);font-size:13.5px}
+
+footer{border-top:1px solid var(--line);padding:22px clamp(16px,4vw,40px);text-align:center;
+  font-size:13px;color:var(--chalk-faint)}
+footer a{color:var(--brass);text-decoration:none}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--brass);color:#241A05;font-weight:600;padding:12px 22px;border-radius:12px;
+  box-shadow:var(--shadow);transition:transform .3s ease;z-index:100;font-size:14px}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ---------- avatar life ---------- */
+.msg.typing{opacity:.6;letter-spacing:4px;animation:tpulse 1.1s ease-in-out infinite}
+@keyframes tpulse{50%{opacity:.22}}
+#breatheGroup{animation:breathe 4.8s ease-in-out infinite}
+@keyframes breathe{50%{transform:translateY(-1.6px)}}
+#headGroup,#writeArm{transition:transform .35s ease}
+#browG{transition:transform .28s ease}
+#glint{transition:opacity .25s ease}
+#waves,#thoughts{transition:opacity .3s ease}
+
+/* ---------- lessons ---------- */
+[hidden]{display:none !important}
+.lesson-filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.lfilter{background:transparent;border:1px solid var(--line);color:var(--chalk-faint);
+  border-radius:999px;padding:6px 14px;font-size:12.5px;cursor:pointer;font-family:var(--font-mono)}
+.lfilter:hover{color:var(--chalk);border-color:var(--brass)}
+.lfilter.on{background:var(--brass);border-color:var(--brass);color:#241A05;font-weight:600}
+.lesson-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.lesson-card{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:16px 18px;cursor:pointer;display:flex;flex-direction:column;gap:6px;color:var(--chalk);
+  transition:transform .15s ease, border-color .15s ease}
+.lesson-card:hover{transform:translateY(-2px);border-color:var(--brass)}
+.lesson-card.read{border-color:rgba(227,168,59,.55)}
+.lesson-card .l-area{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--graph)}
+.lesson-card .l-title{font-family:var(--font-display);font-weight:700;font-size:17px;line-height:1.25}
+.lesson-card .l-blurb{font-size:13px;color:var(--chalk-faint);line-height:1.45}
+.lesson-card .l-meta{font-family:var(--font-mono);font-size:11px;color:var(--brass);margin-top:2px}
+.lesson-reader .l-h{font-family:var(--font-display);font-size:26px;margin:6px 0 2px}
+.lesson-reader h4{font-family:var(--font-display);color:var(--brass);font-size:16px;margin:20px 0 6px}
+.lesson-reader p{font-size:14.5px;line-height:1.7;color:var(--chalk)}
+.lesson-reader .thm,.lesson-reader .ex,.lesson-reader .trap,.lesson-reader .drill{
+  border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0;
+  font-size:14px;line-height:1.7}
+.lesson-reader .thm{border-left:3px solid var(--graph);background:rgba(132,169,192,.07)}
+.lesson-reader .ex{border-left:3px solid var(--brass);background:rgba(227,168,59,.06)}
+.lesson-reader .trap{border-left:3px solid var(--verm, #D0553C);background:rgba(208,85,60,.07)}
+.lesson-reader .drill{border-left:3px solid #7FA88A;background:rgba(127,168,138,.08);font-family:var(--font-mono);font-size:12.8px}
+
+/* ---------- scroll to top ---------- */
+#toTop{position:fixed;right:22px;bottom:26px;width:46px;height:46px;border-radius:50%;
+  background:var(--brass);color:#241A05;border:none;font-size:20px;cursor:pointer;z-index:90;
+  box-shadow:var(--shadow);opacity:0;pointer-events:none;transform:translateY(12px);
+  transition:opacity .25s ease, transform .25s ease}
+#toTop.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+#toTop:hover{filter:brightness(1.08)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="sig" aria-hidden="true">σ</div>
+    <h1>ISI Coach<small>Bhavin · B.Stat / B.Math · Target 2028</small></h1>
+  </div>
+  <div class="countpill" id="countPill" title="Days to expected ISI Admission Test 2028">
+    <span>ISI Admission Test</span><b id="daysLeft">—</b><span>days</span>
+  </div>
+</header>
+
+<nav role="tablist" aria-label="Sections">
+  <button class="tabbtn active" data-tab="coach">🎓 Coach</button>
+  <button class="tabbtn" data-tab="lessons">📜 Lessons</button>
+  <button class="tabbtn" data-tab="syllabus">📖 Syllabus</button>
+  <button class="tabbtn" data-tab="practice">✏️ Practice</button>
+  <button class="tabbtn" data-tab="mock">⏱ Mock Test</button>
+  <button class="tabbtn" data-tab="plan">🗺 Roadmap</button>
+  <button class="tabbtn" data-tab="progress">📈 Progress</button>
+  <button class="tabbtn" data-tab="resources">📚 Resources</button>
+</nav>
+
+<main>
+
+<!-- ================= COACH ================= -->
+<section class="tabpanel active" id="tab-coach">
+  <div class="coach-hero">
+    <div class="avatar-card graphpaper">
+      <div class="boardframe">
+        <svg id="avatarSVG" viewBox="0 0 300 300" role="img" aria-label="Professor Sigma, your ISI coach">
+          <defs>
+            <filter id="chalkRough" x="-5%" y="-5%" width="110%" height="110%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" result="n"/>
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="1.1"/>
+            </filter>
+            <linearGradient id="rimlight" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#F2EFE6" stop-opacity=".55"/>
+              <stop offset="1" stop-color="#F2EFE6" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- chalkboard -->
+          <rect width="300" height="300" fill="#141F18"/>
+          <rect x="3" y="3" width="294" height="294" fill="none" stroke="#2A382F" stroke-width="2"/>
+          <g font-family="Georgia, 'Times New Roman', serif" filter="url(#chalkRough)">
+            <text id="boardLine1" x="16" y="46" fill="#E8E2CE" font-size="14.5" opacity=".95"></text>
+            <text id="boardLine2" x="16" y="72" fill="#93A9BA" font-size="11.5" opacity=".65"></text>
+          </g>
+          <path id="normalCurve" d="M16,270 C42,270 50,216 80,216 C110,216 118,270 144,270"
+                fill="none" stroke="#84A9C0" stroke-width="1.3" stroke-dasharray="300" stroke-dashoffset="300" opacity=".45"/>
+          <line x1="14" y1="271" x2="286" y2="271" stroke="#3A4A44" stroke-width="1"/>
+          <!-- thought symbols (thinking mode) -->
+          <g id="thoughts" font-family="Georgia, serif" fill="#B9C2B6" opacity="0">
+            <text id="th1" x="238" y="46" font-size="15">Σ</text>
+            <text id="th2" x="258" y="30" font-size="13">∫</text>
+            <text id="th3" x="276" y="48" font-size="13">π</text>
+          </g>
+          <!-- Professor Sigma: classical profile, ink silhouette with chalk rim-light -->
+          <g id="breatheGroup">
+          <g id="profGroup">
+            <!-- writing arm (behind bust), sweeps as he writes -->
+            <g id="writeArm">
+              <path id="armPath" d="M196,252 C150,224 116,180 100,136 C92,113 88,88 90,66"
+                    stroke="#101815" stroke-width="17" fill="none" stroke-linecap="round"/>
+              <path d="M196,252 C150,224 116,180 100,136 C92,113 88,88 90,66"
+                    stroke="#F2EFE6" stroke-width="19" fill="none" stroke-linecap="round" opacity=".3"/>
+              <circle id="handC" cx="90" cy="63" r="7" fill="#C9BFA6"/>
+              <rect id="chalkStick" x="76" y="52" width="13" height="4.6" rx="2.3" fill="#F6F3E8" transform="rotate(24 82 54)"/>
+            </g>
+            <g id="headGroup">
+              <!-- bust silhouette: profile facing the board -->
+              <path id="bust" d="M138,300
+                C138,270 143,250 154,238
+                C165,227 186,215 203,208
+                C201,200 199,192 196,184
+                C186,186 174,183 165,176
+                C155,168 152,157 158,149
+                C155,144 156,139 160,135
+                C157,133 157,130 160,127
+                C156,126 152,124 148,121
+                L156,113
+                C160,109 162,105 160,101
+                L166,98
+                C169,93 168,87 170,80
+                C176,61 191,51 211,50
+                C239,49 264,66 269,97
+                C273,120 266,141 253,149
+                C253,161 251,170 247,178
+                C263,187 276,199 276,234
+                L276,300 Z" fill="#0F1713" stroke="#EDE8DA" stroke-width="2" stroke-opacity=".85"/>
+              <!-- chalk rim-light along the profile -->
+              <path d="M203,208 C201,200 199,192 196,184 C186,186 174,183 165,176 C155,168 152,157 158,149 C155,144 156,139 160,135 C157,133 157,130 160,127 C156,126 152,124 148,121 L156,113 C160,109 162,105 160,101 L166,98 C169,93 168,87 170,80 C176,61 191,51 211,50"
+                    fill="none" stroke="#EDE8DA" stroke-width="1.6" opacity=".8"/>
+              <!-- swept silver hair -->
+              <path d="M170,80 C176,61 191,51 211,50 C239,49 264,66 269,97 C270,108 269,119 266,127 C266,102 254,74 226,64 C205,57 182,63 173,80 Z" fill="#B4BBB0"/>
+              <path d="M178,70 C192,58 214,55 232,61" stroke="#7E877D" stroke-width="1.4" fill="none" opacity=".9"/>
+              <path d="M174,80 C188,66 214,61 238,69" stroke="#7E877D" stroke-width="1.2" fill="none" opacity=".7"/>
+              <!-- silver beard along jaw and chin -->
+              <path d="M160,127 C154,133 150,142 151,152 C152,164 160,175 172,180 C182,184 192,185 197,184 C199,191 201,199 203,207 C216,201 224,191 226,179 C228,164 220,150 206,142 C192,134 172,128 160,127 Z" fill="#B4BBB0"/>
+              <path d="M162,140 C160,150 163,161 171,168" stroke="#7E877D" stroke-width="1.2" fill="none" opacity=".8"/>
+              <path d="M176,140 C174,151 178,162 187,169" stroke="#7E877D" stroke-width="1.1" fill="none" opacity=".7"/>
+              <path d="M192,146 C192,156 197,165 205,170" stroke="#7E877D" stroke-width="1.1" fill="none" opacity=".6"/>
+              <!-- moustache hint at the lip line -->
+              <path d="M158,132 C164,129 172,129 178,132" stroke="#A9B0A6" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <!-- speech waves at the lips -->
+              <g id="waves" opacity="0" stroke="#E8E2CE" fill="none" stroke-linecap="round">
+                <path d="M146,132 C142,135 142,141 146,144" stroke-width="1.6"/>
+                <path d="M139,128 C133,133 133,143 139,148" stroke-width="1.4" opacity=".7"/>
+                <path d="M132,124 C124,131 124,145 132,152" stroke-width="1.2" opacity=".45"/>
+              </g>
+              <!-- brow: single expressive chalk stroke -->
+              <g id="browG"><path id="browLine" d="M158,94 C164,90 174,89 181,92" stroke="#B9C2B6" stroke-width="3.2" fill="none" stroke-linecap="round"/></g>
+              <!-- eye: lid line that blinks -->
+              <path id="eyeLid" d="M163,104 C167,101 173,101 176,104" stroke="#EDE8DA" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <!-- gold spectacles in profile -->
+              <g id="specs">
+                <circle cx="171" cy="106" r="11.5" fill="none" stroke="#E3A83B" stroke-width="2.2"/>
+                <line x1="182" y1="103" x2="234" y2="107" stroke="#E3A83B" stroke-width="2"/>
+                <line x1="160" y1="105" x2="156" y2="107" stroke="#E3A83B" stroke-width="1.8"/>
+                <line id="glint" x1="165" y1="112" x2="176" y2="100" stroke="#F6F3E8" stroke-width="1.6" opacity="0"/>
+              </g>
+              <path d="M228,108 C234,106 237,112 233,118 C230,121 227,118 227,113 Z" fill="none" stroke="#B9C2B6" stroke-width="1.6"/>
+              <!-- collar + tie knot at the neck -->
+              <path d="M203,208 C210,204 217,199 222,193 L226,201 C220,207 212,212 205,215 Z" fill="#EDE8DA"/>
+              <path d="M206,214 L214,208 L220,216 L210,224 Z" fill="#B9822E"/>
+            </g>
+            <!-- blazer front line + pocket square -->
+            <path d="M203,208 C190,224 176,252 172,300" stroke="#EDE8DA" stroke-width="1.4" fill="none" opacity=".55"/>
+            <path d="M236,262 L252,262 L244,250 Z" fill="#EDE8DA"/>
+            <line x1="233" y1="263" x2="255" y2="263" stroke="#EDE8DA" stroke-width="1.2" opacity=".8"/>
+          </g>
+          </g>
+        </svg>
+      </div>
+      <div class="avatar-name">Professor Sigma</div>
+      <div class="avatar-role">Statistics · 15 years at the blackboard<br>Mentor for the ISI Admission Test</div>
+      <div class="voice-row">
+        <button class="btn small" id="voiceToggle" aria-pressed="true">🔊 Voice: On</button>
+        <button class="btn small ghost" id="stopSpeak">◼ Stop</button>
+      </div>
+      <div class="speech-status" id="speechStatus" aria-live="polite"></div>
+    </div>
+
+    <div class="chatwrap">
+      <div class="chatlog" id="chatlog" aria-live="polite"></div>
+      <div class="chips" id="chipRow">
+        <button class="chip" data-ask="What should I study today?">Today's plan</button>
+        <button class="chip" data-ask="Explain the ISI exam pattern">Exam pattern</button>
+        <button class="chip" data-ask="How do I write proofs for UGB?">Proof writing</button>
+        <button class="chip" data-ask="Give me a problem to solve">Give me a problem</button>
+        <button class="chip" data-ask="Explain AM-GM inequality">Teach: AM–GM</button>
+        <button class="chip" data-ask="I feel demotivated">Motivate me</button>
+      </div>
+      <div class="chatinput">
+        <input id="chatInput" type="text" placeholder="Ask Professor Sigma anything — a topic, a strategy, a doubt…" aria-label="Message Professor Sigma" autocomplete="off">
+        <button class="btn brass" id="sendBtn">Send</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SYLLABUS ================= -->
+<section class="tabpanel" id="tab-syllabus">
+  <div class="card" style="margin-bottom:20px">
+    <div class="eyebrow">UGA + UGB · Class XI–XII Mathematics, ISI depth</div>
+    <h3>Syllabus Mastery Tracker</h3>
+    <p class="muted">Rate each topic from 0 (not started) to 4 (exam-ready). Professor Sigma uses these ratings to plan your day and pick your practice. Saved on this device.</p>
+    <div style="margin-top:14px;display:flex;align-items:center;gap:14px">
+      <div class="progressbar" style="flex:1"><i id="overallBar" style="width:0%"></i></div>
+      <span class="timerbox" id="overallPct">0%</span>
+    </div>
+  </div>
+  <div id="syllabusList"></div>
+</section>
+
+<!-- ================= PRACTICE ================= -->
+<section class="tabpanel" id="tab-practice">
+  <div class="grid2" style="margin-bottom:20px">
+    <div class="card">
+      <div class="eyebrow">UGA style · Objective</div>
+      <h3>MCQ Drill</h3>
+      <p class="muted">ISI-style multiple choice. +4 correct, −1 wrong — just like Paper I. Pick a topic or drill your weakest.</p>
+      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+        <select id="drillTopic" class="btn" style="background:var(--board)">
+          <option value="all">All topics</option>
+        </select>
+        <button class="btn brass" id="startDrill">Start drill</button>
+        <button class="btn" id="weakDrill">Drill my weak topics</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="eyebrow">UGB style · Subjective</div>
+      <h3>Proof Workshop</h3>
+      <p class="muted">Paper II rewards rigorous written arguments. Attempt on paper first, then reveal the hint, then the full solution — and grade yourself honestly.</p>
+      <button class="btn brass" style="margin-top:14px" id="startProof">Open a proof problem</button>
+    </div>
+  </div>
+  <div id="practiceArea"></div>
+</section>
+
+<!-- ================= MOCK ================= -->
+<section class="tabpanel" id="tab-mock">
+  <div class="card" id="mockIntro">
+    <div class="eyebrow">Full simulation · Paper I (UGA)</div>
+    <h3>Mock Test — 30 questions · 120 minutes</h3>
+    <p class="muted">Exactly the Paper I format: 30 MCQs, 120 marks, negative marking on wrong answers, an OMR palette to navigate. Sit somewhere quiet, keep rough sheets ready, and treat it like the 10:30 AM hall in Kolkata.</p>
+    <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
+      <button class="btn brass" id="startMock">Begin mock test</button>
+      <span class="muted" id="mockHistoryNote"></span>
+    </div>
+  </div>
+  <div id="mockArea"></div>
+</section>
+
+<!-- ================= PLAN ================= -->
+<section class="tabpanel" id="tab-plan">
+  <div class="card" style="margin-bottom:20px">
+    <div class="eyebrow">July 2026 → May 2028</div>
+    <h3>The 22-Month Road to ISI</h3>
+    <p class="muted">Application opens ~February 2028; the Admission Test is expected on the second Sunday of May 2028, with Paper I (UGA) 10:30–12:30 and Paper II (UGB) 14:00–16:00. The plan below works backwards from that hall.</p>
+  </div>
+  <div class="card" id="phaseList" style="margin-bottom:20px"></div>
+  <div class="card">
+    <div class="eyebrow">Rhythm</div>
+    <h3>A Sample Week (current phase)</h3>
+    <table class="weekgrid" id="weekTable"></table>
+  </div>
+</section>
+
+<!-- ================= PROGRESS ================= -->
+<section class="tabpanel" id="tab-progress">
+  <div class="statrow">
+    <div class="stat"><div class="v" id="stStreak">0</div><div class="l">Day streak</div></div>
+    <div class="stat"><div class="v" id="stSolved">0</div><div class="l">Problems attempted</div></div>
+    <div class="stat"><div class="v" id="stAcc">—</div><div class="l">Drill accuracy</div></div>
+    <div class="stat"><div class="v" id="stMockBest">—</div><div class="l">Best mock / 120</div></div>
+  </div>
+  <div style="display:flex;justify-content:flex-end;margin-bottom:14px">
+    <button class="btn brass" id="checkinBtn">✅ Check in for today</button>
+  </div>
+  <div class="grid2">
+    <div class="chartbox"><h3>Mastery by area</h3><canvas id="masteryChart"></canvas></div>
+    <div class="chartbox"><h3>Mock test trend</h3><canvas id="mockChart"></canvas></div>
+  </div>
+</section>
+
+<!-- ================= RESOURCES ================= -->
+<!-- ================= LESSONS ================= -->
+<section class="tabpanel" id="tab-lessons">
+  <div class="card" style="margin-bottom:16px">
+    <div class="eyebrow">The reading room</div>
+    <h3 style="margin:0 0 4px">Professor Sigma's Lecture Notes</h3>
+    <p style="margin:0;color:var(--chalk-faint);font-size:14px">Eighteen full lessons — theory, worked ISI-style examples, traps, and exam strategy. Read one, then drill it in Practice. <span id="lessonProgress" style="color:var(--brass);font-family:var(--font-mono);font-size:12.5px"></span></p>
+    <div class="lesson-filters" id="lessonFilters"></div>
+  </div>
+  <div id="lessonList" class="lesson-grid"></div>
+  <div id="lessonReader" class="card lesson-reader" hidden>
+    <button class="btn small ghost" id="lessonBack">← All lessons</button>
+    <div id="lessonBody"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+      <button class="btn small" id="lessonReadBtn">✓ Mark as read</button>
+      <button class="btn small brass" id="lessonDrillBtn">✏️ Practice this area</button>
+      <button class="btn small ghost" id="lessonNextBtn">Next lesson →</button>
+    </div>
+  </div>
+</section>
+
+<section class="tabpanel" id="tab-resources">
+  <div class="grid2">
+    <div class="card">
+      <div class="eyebrow">The bookshelf</div>
+      <h3>Books that build ISI muscle</h3>
+      <div id="bookList"></div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:18px">
+        <div class="eyebrow">Official</div>
+        <h3>Primary sources</h3>
+        <div class="res-item"><div class="ic">σ</div><div><b><a href="https://admission.isical.ac.in/" target="_blank" rel="noopener">admission.isical.ac.in</a></b><span>Notification, application portal, dates, brochure. Application for 2028 expected to open ~February 2028.</span></div></div>
+        <div class="res-item"><div class="ic">∫</div><div><b><a href="https://admission.isical.ac.in/syllabus-qp.html" target="_blank" rel="noopener">Official syllabus &amp; sample papers</a></b><span>UGA/UGB syllabus PDFs and past question papers — the single most valuable practice source.</span></div></div>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Field notes</div>
+        <h3>Professor Sigma's strategy laws</h3>
+        <div id="lawList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Built with ❤️ for Bhavin by <a href="https://www.linkedin.com/in/pawan-maheshwari-4b9b4715" target="_blank" rel="noopener">Pawan Maheshwari</a> · Planet AI · All data stays on this device · Verify dates at <a href="https://admission.isical.ac.in/" target="_blank" rel="noopener">admission.isical.ac.in</a>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   ISI COACH — DATA LAYER
+   All content original, written in the style of the ISI Admission Test.
+   ===================================================================== */
+
+const EXAM_DATE = "2028-05-14T10:30:00+05:30"; // expected: 2nd Sunday of May 2028 (verify on official portal)
+
+const SYLLABUS = [
+  { area:"Algebra", topics:[
+    "Sets, functions and relations",
+    "Prime numbers, divisibility, factorisation of integers",
+    "Rational and irrational numbers",
+    "Permutations and combinations",
+    "Binomial theorem",
+    "Logarithms",
+    "Polynomials & Remainder Theorem",
+    "Quadratic equations: roots and coefficients",
+    "Theory of equations (higher degree)",
+    "AP, GP and series",
+    "Inequalities: AM–GM–HM, Cauchy–Schwarz",
+    "Complex numbers & De Moivre",
+    "Matrices and determinants",
+    "Mathematical induction"
+  ]},
+  { area:"Geometry & Trigonometry", topics:[
+    "Plane geometry: triangles, similarity, circles",
+    "Coordinate geometry: straight lines",
+    "Coordinate geometry: circles & conics (basic)",
+    "Locus problems",
+    "Trigonometric identities & equations",
+    "Heights, distances & solution of triangles",
+    "Vectors (basic)"
+  ]},
+  { area:"Calculus", topics:[
+    "Functions: domain, range, composition",
+    "Limits and continuity",
+    "Differentiation & applications",
+    "Maxima–minima, tangents & normals",
+    "Curve sketching & counting roots",
+    "Integration: techniques",
+    "Definite integrals & properties",
+    "Areas under curves"
+  ]},
+  { area:"Number Theory & Combinatorics", topics:[
+    "Modular arithmetic & remainders",
+    "GCD, LCM, Euclidean algorithm",
+    "Pigeonhole principle",
+    "Counting arguments & bijections",
+    "Elementary probability",
+    "Conditional probability"
+  ]},
+  { area:"Proof Craft (UGB)", topics:[
+    "Direct proof & contradiction",
+    "Induction proofs (writing them fully)",
+    "Existence & uniqueness arguments",
+    "IVT / continuity arguments",
+    "Inequality proofs",
+    "Presentation: rigour, notation, structure"
+  ]}
+];
+const MASTERY_LABELS = ["Not started","Seen it","Can solve easy","Comfortable","Exam-ready"];
+
+/* ---------------- MCQ BANK (UGA style: +4 / −1) ---------------- */
+const MCQS = [
+ {t:"Algebra", q:"The number of real roots of the equation x⁵ + x³ + x + 1 = 0 is", o:["0","1","3","5"], a:1,
+  s:"Let f(x)=x⁵+x³+x+1. Then f′(x)=5x⁴+3x²+1 > 0 for all x, so f is strictly increasing — it can cross zero at most once. Since f(−1)=−2<0 and f(0)=1>0, it crosses exactly once. Answer: 1."},
+ {t:"Algebra", q:"If α, β are the roots of x² − px + 1 = 0 and α³ + β³ = 18, where p is a positive integer, then p equals", o:["2","3","4","6"], a:1,
+  s:"α+β=p, αβ=1. So α³+β³=(α+β)³−3αβ(α+β)=p³−3p. Solve p³−3p=18: p=3 gives 27−9=18. ✓"},
+ {t:"Number Theory & Combinatorics", q:"The number of integers n, 1 ≤ n ≤ 100, for which n² + 3n + 2 is divisible by 6 is", o:["33","50","67","100"], a:2,
+  s:"n²+3n+2=(n+1)(n+2), a product of two consecutive integers — always even. It is divisible by 3 unless n ≡ 0 (mod 3). There are 33 multiples of 3 in 1..100, so the count is 100 − 33 = 67."},
+ {t:"Number Theory & Combinatorics", q:"The remainder when 7¹⁰⁰ is divided by 100 is", o:["1","7","43","49"], a:0,
+  s:"7⁴ = 2401 ≡ 1 (mod 100). Since 100 = 4·25, 7¹⁰⁰ = (7⁴)²⁵ ≡ 1²⁵ = 1 (mod 100)."},
+ {t:"Algebra", q:"The number of real solutions of 2ˣ = x² is", o:["1","2","3","4"], a:2,
+  s:"x=2 and x=4 work (4=4, 16=16). For x<0, 2ˣ is small and positive while x² decreases through it — exactly one crossing near x≈−0.77. Total: 3. Sketch both curves to see it."},
+ {t:"Algebra", q:"If log₂3 = a and log₃5 = b, then log₁₀2 equals", o:["1/(a+b)","1/(1+ab)","ab/(1+ab)","(1+ab)/ab"], a:1,
+  s:"log₂5 = log₂3 · log₃5 = ab. Then log₂10 = log₂2 + log₂5 = 1 + ab, and log₁₀2 = 1/log₂10 = 1/(1+ab)."},
+ {t:"Algebra", q:"The number of complex numbers z satisfying z̄ = z² is", o:["1","2","3","4"], a:3,
+  s:"Taking modulus: |z| = |z|², so |z| = 0 or 1. z=0 works. If |z|=1 then z̄ = 1/z, so 1/z = z², i.e. z³ = 1 — three cube roots of unity. Total 4."},
+ {t:"Algebra", q:"A is a 2×2 real matrix with A² = I and A ≠ ±I. Then trace(A) equals", o:["−2","0","1","2"], a:1,
+  s:"A satisfies x²−1=0, so its eigenvalues are among {1,−1}. If both were 1 (or both −1), A would equal I (or −I) since A is diagonalisable. Hence eigenvalues are 1 and −1: trace = 0."},
+ {t:"Number Theory & Combinatorics", q:"The number of distinct arrangements of the letters of the word STATISTICS is", o:["25200","50400","75600","100800"], a:1,
+  s:"Letters: S×3, T×3, I×2, A, C — ten letters. Arrangements = 10!/(3!·3!·2!) = 3628800/72 = 50400."},
+ {t:"Number Theory & Combinatorics", q:"A fair coin is tossed 6 times. The probability that no two heads are consecutive is", o:["13/64","21/64","11/32","1/2"], a:1,
+  s:"Binary strings of length n with no two adjacent 1s number F(n+2) (Fibonacci). For n=6: F(8)=21. Probability = 21/64."},
+ {t:"Number Theory & Combinatorics", q:"The number of subsets of {1, 2, …, 10} (including the empty set) containing no two consecutive integers is", o:["89","121","144","233"], a:2,
+  s:"Classic recurrence: aₙ = aₙ₋₁ + aₙ₋₂ (either 10 is out, or 10 is in and 9 is out). With a₀=1, a₁=2, we get a₁₀ = F(12) = 144."},
+ {t:"Number Theory & Combinatorics", q:"Two fair dice are rolled. Given that at least one die shows 4, the probability that the sum is 7 is", o:["1/6","2/11","1/9","1/3"], a:1,
+  s:"Outcomes with at least one 4: 11 (six with die1=4, six with die2=4, minus the double-counted (4,4)). Favourable: (3,4) and (4,3). Probability = 2/11."},
+ {t:"Number Theory & Combinatorics", q:"The number of strictly increasing functions from {1,2,3} to {1,2,…,6} is", o:["18","20","24","120"], a:1,
+  s:"A strictly increasing function is determined by choosing its 3 output values: C(6,3) = 20."},
+ {t:"Geometry & Trigonometry", q:"The maximum value of sin x + cos x + sin x·cos x is", o:["√2","3/2","√2 + 1/2","2"], a:2,
+  s:"Put t = sin x + cos x ∈ [−√2, √2]; then sin x cos x = (t²−1)/2. f(t)= t + (t²−1)/2 is increasing for t > −1, so max at t = √2: value √2 + (2−1)/2 = √2 + 1/2."},
+ {t:"Geometry & Trigonometry", q:"The area of the triangle with sides 13, 14, 15 is", o:["72","84","90","96"], a:1,
+  s:"Heron: s = 21, area = √(21·8·7·6) = √7056 = 84."},
+ {t:"Geometry & Trigonometry", q:"The length of the shortest chord of the circle x² + y² = 25 passing through the point (3, 0) is", o:["6","8","4√2","10"], a:1,
+  s:"The shortest chord through an interior point is perpendicular to the line joining the centre to the point. Half-length = √(r² − d²) = √(25−9) = 4, so the chord is 8."},
+ {t:"Geometry & Trigonometry", q:"The number of real solutions of sin x = x/10 is", o:["3","5","7","9"], a:2,
+  s:"Solutions lie in [−10,10] since |sin x| ≤ 1. Sketch both curves. For x > 0: one crossing in (0,π) (the sine falls back through the line), and two in (2π,3π) since the line's value ≈0.79 is below the peak 1 there; the next hump starts past 10. So 3 strictly positive solutions. Add x = 0 and, by odd symmetry, 3 negative ones: 3 + 1 + 3 = 7."},
+ {t:"Geometry & Trigonometry", q:"If tan θ + cot θ = 4, then tan²θ + cot²θ equals", o:["12","14","16","18"], a:1,
+  s:"Square it: tan²θ + 2 + cot²θ = 16, so tan²θ + cot²θ = 14."},
+ {t:"Calculus", q:"lim(x→0) (eˣ − 1 − x)/x² equals", o:["0","1/2","1","2"], a:1,
+  s:"Expand eˣ = 1 + x + x²/2 + … . The numerator is x²/2 + O(x³), so the limit is 1/2. (Or apply L'Hôpital twice.)"},
+ {t:"Calculus", q:"The equation x³ − 3x + k = 0 has three distinct real roots if and only if", o:["k > 2","k < −2","−2 < k < 2","|k| ≥ 2"], a:2,
+  s:"f(x)=x³−3x+k has local max f(−1)=k+2 and local min f(1)=k−2. Three distinct roots need the max positive and min negative: (k+2)>0 and (k−2)<0, i.e. −2 < k < 2."},
+ {t:"Calculus", q:"∫₀¹ x(1−x)⁹ dx equals", o:["1/90","1/110","1/100","1/132"], a:1,
+  s:"Substitute u = 1−x: ∫₀¹ (1−u)u⁹ du = 1/10 − 1/11 = 1/110. (This is the Beta integral B(2,10) = 1!·9!/11!.)"},
+ {t:"Calculus", q:"The number of points where f(x) = |x−1| + |x−2| + |x−3| is not differentiable is", o:["1","2","3","0"], a:2,
+  s:"Each |x−a| contributes a corner at x=a and the corners don't cancel (the slope jumps by 2 at each). Non-differentiable at x = 1, 2, 3: three points."},
+ {t:"Calculus", q:"The number of tangents to y = x² passing through the point (0, −4) is", o:["0","1","2","3"], a:2,
+  s:"Tangent at (a, a²): y = 2ax − a². Through (0,−4): −4 = −a², so a = ±2 — two tangents."},
+ {t:"Calculus", q:"If f(x) = xˣ for x > 0, then f′(1) equals", o:["0","1","e","1/e"], a:1,
+  s:"ln f = x ln x ⇒ f′/f = 1 + ln x ⇒ f′(x) = xˣ(1 + ln x). At x=1: 1·(1+0) = 1."},
+ {t:"Calculus", q:"∫₀^π x sin x dx equals", o:["π/2","π","2π","2"], a:1,
+  s:"Integrate by parts: [−x cos x]₀^π + ∫₀^π cos x dx = π + 0 = π."},
+ {t:"Calculus", q:"If f is continuous on [0,1] and f(x) + f(1−x) = 2 for all x, then ∫₀¹ f(x)dx equals", o:["1/2","1","2","cannot be determined"], a:1,
+  s:"Let I = ∫₀¹f. By the reflection x → 1−x, I = ∫₀¹ f(1−x)dx. Adding: 2I = ∫₀¹ 2 dx = 2, so I = 1."},
+ {t:"Number Theory & Combinatorics", q:"The number of trailing zeros of 100! is", o:["20","24","25","26"], a:1,
+  s:"Count factors of 5: ⌊100/5⌋ + ⌊100/25⌋ = 20 + 4 = 24 (twos are plentiful)."},
+ {t:"Number Theory & Combinatorics", q:"The number of digits of 2¹⁵ · 5¹² is", o:["12","13","14","15"], a:1,
+  s:"2¹⁵·5¹² = 2³·10¹² = 8 followed by twelve zeros — 13 digits."},
+ {t:"Algebra", q:"The value of Σₖ₌₁⁹⁹ 1/(k(k+1)) is", o:["98/99","99/100","1","100/101"], a:1,
+  s:"Telescoping: 1/(k(k+1)) = 1/k − 1/(k+1). The sum collapses to 1 − 1/100 = 99/100."},
+ {t:"Algebra", q:"The minimum value of (x² + 2)/√(x² + 1) over all real x is", o:["√2","2","3/√2","5/2"], a:1,
+  s:"Let t = √(x²+1) ≥ 1. The expression is (t²+1)/t = t + 1/t, which for t ≥ 1 is minimised at t = 1 (AM–GM equality), giving 2. Attained at x = 0."},
+ {t:"Algebra", q:"If f(x+y) = f(x)f(y) for all real x, y and f(1) = 2, then f(5) equals", o:["10","16","25","32"], a:3,
+  s:"f(n) = f(1)ⁿ for positive integers by repeated application: f(5) = 2⁵ = 32."},
+ {t:"Number Theory & Combinatorics", q:"The number of onto functions from {1,2,3,4} to {1,2} is", o:["8","14","16","24"], a:1,
+  s:"All functions: 2⁴ = 16. Subtract the two constant (non-onto) ones: 16 − 2 = 14."}
+];
+
+/* ---------------- PROOF BANK (UGB style) ---------------- */
+const PROOFS = [
+ {t:"Algebra", q:"Prove that √2 + √3 is irrational.",
+  h:"Suppose it equals a rational r and isolate one surd, then square.",
+  s:"Suppose √2+√3 = r ∈ ℚ. Then √3 = r − √2; squaring, 3 = r² − 2r√2 + 2, so √2 = (r²−1)/(2r) — rational (r ≠ 0). But √2 is irrational (standard contradiction via even/odd on p² = 2q²). Contradiction. ∎"},
+ {t:"Number Theory & Combinatorics", q:"Show that among any 6 people, there exist 3 mutual acquaintances or 3 mutual strangers.",
+  h:"Fix one person; by pigeonhole they know (or don't know) at least 3 of the other five.",
+  s:"Fix person P. Of the other 5, by pigeonhole at least 3 fall in one class — say P knows A, B, C. If any pair among A,B,C know each other, that pair with P forms 3 mutual acquaintances. Otherwise A,B,C are 3 mutual strangers. The 'P knows none of 3' case is symmetric. ∎ (This is R(3,3) ≤ 6.)"},
+ {t:"Number Theory & Combinatorics", q:"Prove that n⁵ − n is divisible by 30 for every integer n.",
+  h:"Factor, then check divisibility by 2, 3 and 5 separately.",
+  s:"n⁵−n = n(n−1)(n+1)(n²+1). Among n−1, n, n+1 are a multiple of 2 and of 3. For 5: by Fermat's little theorem n⁵ ≡ n (mod 5). Since 2, 3, 5 are pairwise coprime, 30 | n⁵−n. ∎"},
+ {t:"Algebra", q:"Let a, b, c be positive reals with abc = 1. Prove that a + b + c ≥ 3.",
+  h:"One inequality rules this domain.",
+  s:"By AM–GM, (a+b+c)/3 ≥ (abc)^{1/3} = 1, hence a+b+c ≥ 3, with equality iff a = b = c = 1. In UGB, quote AM–GM precisely and state the equality case — that last line earns marks. ∎"},
+ {t:"Calculus", q:"Let f : [0,1] → [0,1] be continuous. Prove that f has a fixed point.",
+  h:"Study g(x) = f(x) − x at the endpoints.",
+  s:"Let g(x) = f(x) − x, continuous on [0,1]. g(0) = f(0) ≥ 0 and g(1) = f(1) − 1 ≤ 0. If either is 0 we are done; otherwise g(0) > 0 > g(1), and by the Intermediate Value Theorem there is c ∈ (0,1) with g(c) = 0, i.e. f(c) = c. ∎"},
+ {t:"Algebra", q:"Prove that for every integer n ≥ 2,  1 + 1/√2 + 1/√3 + ⋯ + 1/√n > √n.",
+  h:"Compare each term with √k − √(k−1), or induct.",
+  s:"Induction. Base n=2: 1 + 1/√2 ≈ 1.707 > √2 ≈ 1.414. Step: assume Sₙ > √n. Then Sₙ₊₁ > √n + 1/√(n+1). It suffices that √n + 1/√(n+1) ≥ √(n+1), i.e. √n·√(n+1) + 1 ≥ n+1, i.e. √(n²+n) ≥ n — true. ∎"},
+ {t:"Number Theory & Combinatorics", q:"Prove the identity C(n,0)² + C(n,1)² + ⋯ + C(n,n)² = C(2n, n).",
+  h:"Count committees of n people chosen from n men and n women.",
+  s:"From n men and n women choose a committee of n. Direct count: C(2n,n). Alternatively, classify by the number k of men: C(n,k) ways to pick men and C(n,n−k) = C(n,k) ways to pick women, contributing C(n,k)². Summing over k gives the identity. Double counting — an ISI favourite. ∎"},
+ {t:"Number Theory & Combinatorics", q:"Show that any 51 numbers chosen from {1, 2, …, 100} must contain two numbers that are coprime.",
+  h:"Pair the numbers as (1,2), (3,4), …, (99,100).",
+  s:"Partition {1,…,100} into 50 pairs of consecutive integers. Choosing 51 numbers forces, by pigeonhole, two from the same pair — and consecutive integers are always coprime (any common divisor divides their difference 1). ∎"},
+ {t:"Geometry & Trigonometry", q:"Prove that the three medians of a triangle are concurrent.",
+  h:"Use position vectors of the vertices; find the point (A+B+C)/3 on each median.",
+  s:"Let the vertices have position vectors A, B, C. The median from A goes to the midpoint (B+C)/2; the point G = (A+B+C)/3 lies on it since G = A + (2/3)[(B+C)/2 − A]. By symmetry of the formula, G lies on all three medians — so they meet at the centroid, which divides each median 2:1. ∎"},
+ {t:"Algebra", q:"Prove that 2ⁿ > n² for every integer n ≥ 5.",
+  h:"Induction; in the step you will need (n+1)² < 2n² for n ≥ 3.",
+  s:"Base: 2⁵ = 32 > 25. Step: assume 2ⁿ > n². Then 2ⁿ⁺¹ = 2·2ⁿ > 2n². It remains to check 2n² ≥ (n+1)², i.e. n² − 2n − 1 ≥ 0, true for n ≥ 3. Hence 2ⁿ⁺¹ > (n+1)². ∎"},
+ {t:"Geometry & Trigonometry", q:"Prove that tan 1° is irrational.",
+  h:"If tan 1° were rational, what does the tangent addition formula say about tan 2°, tan 3°, …?",
+  s:"Suppose tan 1° ∈ ℚ. The addition formula tan(a+b) = (tan a + tan b)/(1 − tan a·tan b) shows: if tan a and tan b are rational, so is tan(a+b) (when defined). Inductively tan 2°, tan 3°, …, tan 30° would all be rational. But tan 30° = 1/√3 is irrational. Contradiction. ∎"},
+ {t:"Calculus", q:"Show that the equation x⁷ + 2x − 5 = 0 has exactly one real root, and that it lies in (1, 2).",
+  h:"Existence by IVT; uniqueness by monotonicity.",
+  s:"Let f(x) = x⁷ + 2x − 5. f(1) = −2 < 0 and f(2) = 127 > 0, so by IVT a root exists in (1,2). f′(x) = 7x⁶ + 2 > 0 everywhere, so f is strictly increasing and can vanish at most once. Exactly one real root, in (1,2). ∎ (Existence + uniqueness: the classic two-paragraph UGB answer.)"}
+];
+
+/* ---------------- ROADMAP ---------------- */
+const PHASES = [
+ {id:1, when:"Jul – Dec 2026", name:"Foundation", from:"2026-07-01", to:"2026-12-31",
+  goals:["Finish Class XI maths at full depth — NCERT plus Challenge and Thrill of Pre-College Mathematics.",
+         "Daily 30-minute mental maths & speed arithmetic ritual.",
+         "Learn to write your first real proofs: induction, contradiction, pigeonhole.",
+         "Sunday habit: one hard problem attempted for a full hour before looking anywhere."],
+  week:[["Mon–Fri","1.5 hr: XI topic of the week (theory + solved examples)","45 min: problem set on yesterday's topic"],
+        ["Sat","2 hr: mixed problem set from the week","1 hr: proof-writing practice (one UGB-style problem)"],
+        ["Sun","1 hr: the Sunday Hard Problem","30 min: review error log + rate topics in the Syllabus tab"]]},
+ {id:2, when:"Jan – Jun 2027", name:"Core Mastery", from:"2027-01-01", to:"2027-06-30",
+  goals:["Class XII topics to ISI depth: calculus, coordinate geometry, probability.",
+         "Hall & Knight (algebra) and S.L. Loney (coordinate geometry) selected chapters.",
+         "Begin TOMATO objective problems — 10 per week, timed.",
+         "Board exam balance: ISI prep is 60%, boards 40% this phase."],
+  week:[["Mon–Fri","1.5 hr: XII topic (theory + ISI-depth examples)","45 min: TOMATO objective set, timed at 4 min/question"],
+        ["Sat","2 hr: full-chapter problem sweep","1 hr: one UGB proof, written out completely"],
+        ["Sun","1.5 hr: MCQ Drill in this app on weak topics","30 min: error log + syllabus ratings"]]},
+ {id:3, when:"Jul – Nov 2027", name:"Advanced Problem Craft", from:"2027-07-01", to:"2027-11-30",
+  goals:["TOMATO subjective + Test of Mathematics at the 10+2 Level, cover to cover.",
+         "Olympiad-flavoured topics: functional equations, harder inequalities, combinatorial arguments.",
+         "Two UGB proofs written fully every week — rigour over speed.",
+         "Monthly 2-hour timed paper from this app or past papers."],
+  week:[["Mon–Fri","1 hr: advanced topic study","1 hr: 6–8 hard problems, no time limit, full attempts"],
+        ["Sat","2.5 hr: two complete UGB proofs, exam handwriting","30 min: compare with model solutions, mark yourself"],
+        ["Sun","2 hr: timed mixed MCQ set (20 questions)","30 min: error log ritual"]]},
+ {id:4, when:"Dec 2027 – Feb 2028", name:"Past Papers & Mocks — the January Gate", from:"2027-12-01", to:"2028-02-29",
+  goals:["Solve 10+ years of actual ISI past papers under strict exam timing.",
+         "★ January 2028 target: consistently scoring at qualifying level in full mocks.",
+         "Weekly full mock (UGA here or on paper + one UGB paper) every Sunday, 10:30 AM sharp.",
+         "Submit the ISI application the week the portal opens (~February 2028)."],
+  week:[["Mon–Wed","2 hr: re-solve every mock error from scratch","30 min: formula & trap notebook"],
+        ["Thu–Sat","2 hr: past paper sections, timed","30 min: speed drills on strong topics (protect your marks)"],
+        ["Sun","4 hr: FULL MOCK — UGA 10:30–12:30, break, UGB 14:00–16:00","Evening: cold review, update charts"]]},
+ {id:5, when:"Mar – May 2028", name:"Peak & Polish", from:"2028-03-01", to:"2028-05-14",
+  goals:["Taper volume, raise precision: error rate below 10% on attempted MCQs.",
+         "Rebuild every past mistake into a one-line lesson; revise that notebook weekly.",
+         "Interview preparation: explain your favourite proofs aloud; know why you want ISI.",
+         "Final week: sleep, light revision, exam-day rehearsal — hall ticket, route, timing."],
+  week:[["Mon–Fri","1.5 hr: revision cycles by area","45 min: 10 MCQs at match pace"],
+        ["Sat","2 hr: one last-phase mock (alternate UGA/UGB weeks)","30 min: review"],
+        ["Sun","Rest, walk, light reading of your lesson notebook","Visualise the hall: 10:30 AM, second Sunday of May"]]}
+];
+
+/* ---------------- RESOURCES ---------------- */
+const BOOKS = [
+ ["T","Test of Mathematics at the 10+2 Level (TOMATO) — ISI","The house style, from the source. Objective section in Phase 2, subjective in Phase 3."],
+ ["S","ISI Entrance: Past Papers & Solutions — S.K. Saha","Ten-plus years of real papers with worked solutions. Your Phase 4 spine."],
+ ["C","Challenge and Thrill of Pre-College Mathematics — Krishnamurthy et al.","Builds the proof instinct early. Phase 1 companion."],
+ ["H","Higher Algebra — Hall & Knight","Theory of equations, series, inequalities at the depth UGA assumes."],
+ ["L","Coordinate Geometry — S.L. Loney","Locus and circle problems the ISI way. Selected chapters, Phase 2."],
+ ["E","An Excursion in Mathematics — Bhaskaracharya Pratishthana","Olympiad bridge for Phase 3: number theory, combinatorics, geometry."],
+ ["N","NCERT Mathematics XI & XII","Non-negotiable base layer. Every ISI topper knows these cold."]
+];
+const LAWS = [
+ ["1","The −1 is a tax on ego.","In UGA, an unsure guess costs you. Attempt when you can eliminate two options; skip when you can't. Accuracy beats coverage."],
+ ["2","UGB is graded on paper, not in your head.","'I knew the idea' earns zero. Write every logical step; state theorems by name; close with the equality case or conclusion line."],
+ ["3","Past papers are the syllabus.","The official topic list tells you what; ten years of papers tell you how deep. Phase 4 exists for this reason."],
+ ["4","One hard problem beats ten easy ones.","ISI selects for thinkers. The Sunday Hard Problem — one hour, no help — is the single highest-yield habit in this plan."],
+ ["5","The error log is the real textbook.","Every mistake gets one line: the trap, and the lesson. Re-read weekly. By May 2028 that notebook is worth more than any book above."],
+ ["6","Both papers must clear.","UGB is evaluated only if UGA clears the cutoff — but the interview weighs both. Never let proof practice slide because MCQs feel more measurable."]
+];
+
+/* ---------------- COACH KNOWLEDGE BASE ---------------- */
+const KB = [
+ {k:["am-gm","am gm","amgm","inequality","inequalities"], title:"AM–GM Inequality",
+  body:"For positive reals a₁,…,aₙ:  (a₁+⋯+aₙ)/n ≥ (a₁⋯aₙ)^(1/n), with equality iff all aᵢ are equal.\n\nHow ISI uses it: minimising expressions like x + 4/x (min 4 at x=2), or proving a+b+c ≥ 3 when abc=1.\n\nExam tip: in UGB, always state the equality condition — it's where the marks hide. Try: minimise (x²+2)/√(x²+1). (It's in the MCQ drill.)"},
+ {k:["quadratic","roots and coefficients","vieta"], title:"Roots & Coefficients (Vieta)",
+  body:"For x² − px + q = 0 with roots α, β: α+β = p, αβ = q.\nPower sums follow: α²+β² = p²−2q; α³+β³ = p³−3pq.\n\nISI pattern: they rarely ask you to find roots — they ask about symmetric functions of roots, or when roots are real/equal/integer. Discriminant + Vieta together solve 80% of these."},
+ {k:["induction"], title:"Mathematical Induction",
+  body:"Three visible parts in a UGB answer:\n1. Base case, computed explicitly.\n2. Hypothesis: 'Assume P(n) holds for some n ≥ …'.\n3. Step: derive P(n+1), pointing to exactly where the hypothesis is used.\n\nClassic ISI: prove 2ⁿ > n² for n ≥ 5 (in the Proof Workshop). Trap: forgetting the side inequality the step needs — find it before writing."},
+ {k:["pigeonhole"], title:"Pigeonhole Principle",
+  body:"If n+1 objects sit in n boxes, some box holds two.\n\nThe art is choosing the boxes. Example: any 51 numbers from 1..100 contain two coprime numbers — the boxes are the 50 pairs (1,2),(3,4),…,(99,100); consecutive integers are coprime.\n\nWhenever a problem says 'show there exist two…', try pigeonhole first."},
+ {k:["permutation","combination","pnc","counting"], title:"Counting (P&C)",
+  body:"Four master moves:\n• Product rule for staged choices\n• Division for overcounted symmetry (arrangements of STATISTICS = 10!/(3!3!2!))\n• Complement: 'at least one' = total − none\n• Bijection: recount the same set a smarter way (committee proofs)\n\nISI loves restricted arrangements — 'no two adjacent' usually means gaps or Fibonacci."},
+ {k:["probability","conditional"], title:"Probability essentials",
+  body:"P(A|B) = P(A∩B)/P(B). Bayes is just this used twice.\n\nISI trap: 'given at least one die shows 4' — the sample space shrinks to 11 outcomes, not 12 (don't double-count (4,4)). Enumerate small spaces completely; it's faster and safer than formulas."},
+ {k:["binomial"], title:"Binomial Theorem",
+  body:"(1+x)ⁿ = Σ C(n,k)xᵏ. The exam uses three tricks:\n• Substitute x = 1, −1, or i to evaluate sums\n• Differentiate/integrate then substitute for weighted sums like Σ k·C(n,k) = n·2ⁿ⁻¹\n• Compare coefficients for identities like Σ C(n,k)² = C(2n,n)"},
+ {k:["complex","de moivre"], title:"Complex Numbers",
+  body:"Write z = re^{iθ}. De Moivre: zⁿ = rⁿe^{inθ}.\n\nRoots of unity are ISI's favourite: the n-th roots sum to 0 and multiply to (−1)^{n+1}. Sample: how many z satisfy z̄ = z²? Take modulus first (|z| ∈ {0,1}), then argument — answer 4. Modulus-first is the standard opening move."},
+ {k:["limit","limits","continuity"], title:"Limits & Continuity",
+  body:"Order of weapons: (1) algebraic simplification, (2) standard limits (sin x/x → 1, (eˣ−1)/x → 1), (3) series expansion, (4) L'Hôpital last.\n\nSeries expansion is fastest for things like (eˣ−1−x)/x² → 1/2.\n\nContinuity on a closed interval buys you IVT and extreme values — the engines behind most UGB existence proofs."},
+ {k:["ivt","intermediate value","fixed point"], title:"IVT & existence arguments",
+  body:"If f is continuous on [a,b] and f(a), f(b) have opposite signs, a root exists between.\n\nThe UGB template: existence by IVT, uniqueness by monotonicity (f′ > 0). See 'x⁷ + 2x − 5 = 0' in the Proof Workshop — a complete model answer."},
+ {k:["maxima","minima","tangent","derivative","differentiation"], title:"Maxima–Minima & Tangents",
+  body:"Critical points where f′ = 0 or f′ undefined — then classify by sign change or f″.\n\nRoot counting via shape: x³−3x+k has 3 real roots iff local max > 0 > local min, giving −2 < k < 2. Sketch first, compute second — ISI questions are designed to reward the sketch."},
+ {k:["integration","definite integral"], title:"Definite Integral Tricks",
+  body:"The reflection property ∫₀ᵃ f(x)dx = ∫₀ᵃ f(a−x)dx cracks half of ISI's integrals.\n\nExample: if f(x)+f(1−x)=2, then ∫₀¹f = 1 — add the integral to its reflection.\nAlso keep ready: ∫₀¹ xᵐ(1−x)ⁿ dx = m!n!/(m+n+1)! (Beta pattern)."},
+ {k:["modular","remainder","number theory","fermat"], title:"Modular Arithmetic",
+  body:"Work with remainders, not numbers. Find the cycle: powers of 7 mod 100 cycle with period 4 (7⁴ ≡ 1), so 7¹⁰⁰ ≡ 1.\n\nFermat's little theorem: a^p ≡ a (mod p) for prime p — the engine behind 'n⁵−n divisible by 30'.\nTrailing zeros of n! = Σ⌊n/5ᵏ⌋."},
+ {k:["functional equation"], title:"Functional Equations",
+  body:"Opening moves: substitute x=0, y=0, x=y, y=−x. Look for the four archetypes:\nf(x+y)=f(x)+f(y) → linear; f(x+y)=f(x)f(y) → exponential; f(xy)=f(x)+f(y) → log; f(xy)=f(x)f(y) → power.\n\nAt ISI level, deduce values at integers/rationals step by step and say so explicitly in UGB."},
+ {k:["circle","coordinate geometry","locus"], title:"Circles & Locus",
+  body:"x²+y²+2gx+2fy+c=0: centre (−g,−f), radius √(g²+f²−c).\n\nChord geometry: half-chord² = r² − (distance from centre)². Shortest chord through an interior point ⊥ the centre line.\n\nLocus method: name the moving point (h,k), translate the condition into an equation, replace (h,k) → (x,y)."},
+ {k:["trigonometry","identities","trig"], title:"Trigonometric Equations",
+  body:"The t-substitution t = sin x + cos x (so sin x cos x = (t²−1)/2, t ∈ [−√2,√2]) converts many problems to one-variable calculus.\n\nCounting solutions of sin x = x/k: bound x by |sin| ≤ 1, then count hump crossings on a sketch. Sketching IS the method."},
+ {k:["proof","ugb","subjective","rigour","paper 2","paper ii"], title:"Writing UGB Proofs",
+  body:"The examiner reads ~200 scripts. Make yours effortless to mark:\n1. First line: state what you will prove.\n2. Name every theorem you invoke (IVT, AM–GM, pigeonhole).\n3. One idea per paragraph; display key equations on their own line.\n4. Close explicitly: 'Hence proved' / equality case / the boxed value.\n\nTrain by writing two full proofs a week from Phase 3 — the Proof Workshop grades your honesty."},
+ {k:["pattern","exam pattern","uga","format","marking"], title:"The ISI Exam Pattern",
+  body:"Two papers, one day (expected second Sunday of May 2028):\n• Paper I (UGA), 10:30–12:30 — 30 MCQs, 120 marks, negative marking for wrong answers.\n• Paper II (UGB), 14:00–16:00 — ~8 subjective problems, full written solutions.\n\nUGB is evaluated only if UGA clears the cutoff; qualify both, then an interview decides with your written score. Strategy: UGA accuracy first, UGB rigour always. Verify each year's brochure at admission.isical.ac.in."},
+ {k:["books","resources","study material","tomato"], title:"The Bookshelf",
+  body:"Phase 1: NCERT XI + Challenge and Thrill.\nPhase 2: Hall & Knight, S.L. Loney, TOMATO objective.\nPhase 3: TOMATO subjective + Excursion in Mathematics.\nPhase 4: S.K. Saha past papers — the spine.\nFull annotated list is in the Resources tab."},
+ {k:["interview"], title:"The ISI Interview",
+  body:"After both papers clear, a panel interview probes how you think, live. They give a problem and watch you reason aloud.\n\nTrain from Phase 5: explain your favourite proofs to a wall (or to me), out loud, step by step. Saying 'I don't know, but here's what I'd try' — honestly — scores better than bluffing. Know why you want ISI in one true sentence."}
+];
+
+/* Motivation lines — the Professor's chalk-dust pep talks */
+const PEP = [
+ "Bhavin, listen. Every ISI topper was once exactly where you are — staring at a problem that refused to open. The difference is they stared longer. Sit back down. One more attempt.",
+ "In statistics we say: the trend matters more than the point. One bad day is a point. Your months of work are the trend. The trend is up. Continue.",
+ "Mahalanobis built this institute measuring things nobody thought could be measured. You are measuring yourself daily — that already puts you ahead of thousands.",
+ "You don't need to be brilliant today. You need to be honest with the error log and present at the desk. Brilliance is compound interest on exactly those two habits.",
+ "The exam hall on that May morning will hold hundreds of nervous students. It will also hold one who spent 22 months preparing deliberately. Make sure that one is you.",
+ "Hard is the point, Bhavin. If TOMATO felt easy, the degree would be worth less. Struggle is the tuition fee — and you're paying it in advance."
+];
+</script>
+
+<script>
+/* =====================================================================
+   ISI COACH — APPLICATION LOGIC
+   Zero backend. All state in localStorage. Exposed as window.ISICoach
+   for the test harness.
+   ===================================================================== */
+(function(){
+"use strict";
+
+/* ---------------- state ---------------- */
+const LS_KEY = "isiCoachBhavin_v1";
+/* ---------------- LESSONS: full lecture notes (readings) ---------------- */
+const LESSONS = [
+{id:"L1", area:"Algebra", title:"Quadratics & Vieta's Relations", mins:12,
+blurb:"Roots without solving — the single most reused trick in UGA.",
+body:`<h4>Why ISI loves this</h4><p>ISI rarely asks you to <i>solve</i> a quadratic. It asks about <b>relationships between roots</b> — sums of powers, conditions on coefficients, symmetric expressions. Vieta lets you answer without ever finding the roots.</p>
+<div class="thm"><b>Key results.</b> For ax²+bx+c=0 with roots α, β:<br>α+β = −b/a &nbsp;·&nbsp; αβ = c/a &nbsp;·&nbsp; (α−β)² = (α+β)² − 4αβ<br>Power sums: t₁ = α+β, t₂ = t₁²−2αβ, and tₙ = (α+β)tₙ₋₁ − (αβ)tₙ₋₂.<br>For cubics x³+px²+qx+r: Σα = −p, Σαβ = q, αβγ = −r.</div>
+<div class="ex"><b>Worked example 1.</b> α, β are roots of x²−3x+1=0. Find α⁵+β⁵.<br><b>Solution.</b> s=3, p=1. t₁=3, t₂=9−2=7. Recurrence tₙ=3tₙ₋₁−tₙ₋₂: t₃=21−3=18, t₄=54−7=47, t₅=141−18=<b>123</b>. No root was ever computed.</div>
+<div class="ex"><b>Worked example 2.</b> For which p do the roots of x²+px+12=0 differ by 1?<br><b>Solution.</b> (α−β)² = p²−48 = 1 ⟹ p² = 49 ⟹ <b>p = ±7</b>.</div>
+<div class="trap"><b>Traps.</b> (1) Vieta needs the leading coefficient — divide by a first. (2) "Real roots" requires the discriminant check <i>separately</i>; Vieta holds even for complex roots. (3) For "one root is double the other", set β=2α and use both Vieta equations.</div>
+<div class="drill">Drill: Practice tab → Algebra. Target: any symmetric function of roots in under 90 seconds.</div>`},
+
+{id:"L2", area:"Algebra", title:"Inequalities: AM–GM & Cauchy–Schwarz", mins:14,
+blurb:"Two lines that solve half of all ISI minimum/maximum problems.",
+body:`<h4>Why ISI loves this</h4><p>Minimum-value MCQs and UGB "show that" inequalities almost always fall to AM–GM or Cauchy–Schwarz. Recognising <i>which</i> one — and where equality holds — is the whole game.</p>
+<div class="thm"><b>AM–GM.</b> For positive reals, (a₁+…+aₙ)/n ≥ (a₁⋯aₙ)^(1/n), equality iff all equal.<br><b>Cauchy–Schwarz.</b> (Σaᵢbᵢ)² ≤ (Σaᵢ²)(Σbᵢ²), equality iff proportional.</div>
+<div class="ex"><b>Worked example 1.</b> Minimum of x + 4/x for x &gt; 0.<br><b>Solution.</b> AM–GM: x + 4/x ≥ 2√4 = <b>4</b>, equality at x = 2. Always state the equality point — ISI options often test whether the bound is achieved.</div>
+<div class="ex"><b>Worked example 2.</b> Show (x+y)(1/x + 1/y) ≥ 4 for x, y &gt; 0.<br><b>Solution.</b> Expand: 2 + x/y + y/x ≥ 2 + 2 = 4 by AM–GM on x/y and y/x. Equality iff x = y.</div>
+<div class="ex"><b>Worked example 3.</b> If a²+b²=1, the maximum of a+b?<br><b>Solution.</b> Cauchy: (a+b)² ≤ (1²+1²)(a²+b²) = 2, so max = <b>√2</b> at a=b=1/√2.</div>
+<div class="trap"><b>Traps.</b> AM–GM needs <i>positive</i> terms. If abc=1 appears, expect AM–GM: a+b+c ≥ 3(abc)^(1/3) = 3. If squares and products mix, think Cauchy first.</div>
+<div class="drill">Drill: derive equality conditions every single time — a bound without its equality case loses UGB marks.</div>`},
+
+{id:"L3", area:"Algebra", title:"Complex Numbers & De Moivre", mins:13,
+blurb:"Polar form turns nasty powers into arithmetic on angles.",
+body:`<h4>Why ISI loves this</h4><p>Powers of complex numbers, roots of unity, and equations mixing z with z̄ appear in nearly every UGA paper. The move is always the same: switch to polar form, or take modulus on both sides.</p>
+<div class="thm"><b>Key results.</b> z = r(cos θ + i sin θ) ⟹ zⁿ = rⁿ(cos nθ + i sin nθ).<br>The n-th roots of unity sum to 0 and multiply to (−1)ⁿ⁺¹.<br>|z̄| = |z|, z·z̄ = |z|².</div>
+<div class="ex"><b>Worked example 1.</b> Compute (1+i)¹⁰.<br><b>Solution.</b> 1+i = √2 (cos π/4 + i sin π/4). So (1+i)¹⁰ = 2⁵(cos 10π/4 + i sin 10π/4) = 32(cos 5π/2 + i sin 5π/2) = 32(0 + i) = <b>32i</b>.</div>
+<div class="ex"><b>Worked example 2.</b> How many z satisfy z̄ = z²?<br><b>Solution.</b> Take modulus: |z| = |z|² ⟹ |z| = 0 or 1. If |z|=1, multiply both sides by z: z z̄ = z³ ⟹ z³ = 1 — three cube roots of unity. With z = 0: <b>4 solutions</b>.</div>
+<div class="trap"><b>Traps.</b> (1) Taking modulus is information-losing — check candidates back in the original equation. (2) arg(z) is defined up to 2π; count roots inside one full turn only. (3) i has period 4: reduce exponents mod 4 instantly.</div>
+<div class="drill">Drill: compute (1+i√3)⁶ and the sum 1 + ω + ω² for ω a primitive cube root of unity (answers: 64, 0).</div>`},
+
+{id:"L4", area:"Algebra", title:"Polynomials: Roots, Remainders, Factors", mins:12,
+blurb:"Remainder theorem and root-counting — evaluation beats division.",
+body:`<h4>Why ISI loves this</h4><p>ISI asks for remainders of huge-degree polynomials and for the number of real roots. Long division is never the intended path — evaluation and shape analysis are.</p>
+<div class="thm"><b>Key results.</b> Remainder of p(x) ÷ (x−a) is p(a).<br>Dividing by a quadratic leaves remainder ax+b — pin it down by evaluating at both roots of the divisor.<br>A degree-n polynomial has at most n real roots; sign changes + monotonicity count them exactly.</div>
+<div class="ex"><b>Worked example 1.</b> Remainder when p(x) = x¹⁰⁰ − 2x + 1 is divided by x² − 1.<br><b>Solution.</b> Write p(x) = q(x)(x²−1) + ax + b. At x=1: p(1) = 0 = a+b. At x=−1: p(−1) = 1+2+1 = 4 = −a+b. So b=2, a=−2: remainder <b>−2x+2</b>.</div>
+<div class="ex"><b>Worked example 2.</b> For how many real k does x³−3x+k = 0 have three distinct real roots?<br><b>Solution.</b> f(x)=x³−3x has local max f(−1)=2 and local min f(1)=−2. Three distinct roots need the horizontal line −k strictly between: <b>−2 &lt; k &lt; 2</b>.</div>
+<div class="trap"><b>Traps.</b> (1) "At most n roots" is over ℝ; over intervals use IVT + derivative. (2) Repeated roots: p and p′ share the root. (3) Integer-coefficient polynomials: rational roots must divide the constant term over the leading coefficient.</div>
+<div class="drill">Drill: sketch the cubic's shape before touching algebra — the local max/min values answer most root-count questions.</div>`},
+
+{id:"L5", area:"Algebra", title:"Sequences & Series: Telescoping and Bounds", mins:12,
+blurb:"When a sum looks impossible, make it collapse.",
+body:`<h4>Why ISI loves this</h4><p>ISI sums are engineered to telescope or to be bounded by a clean integral/inequality. Recognising the collapsing structure is a signature UGA/UGB skill.</p>
+<div class="thm"><b>Key results.</b> 1/(k(k+1)) = 1/k − 1/(k+1).<br>1/((2k−1)(2k+1)) = ½(1/(2k−1) − 1/(2k+1)).<br>Σk = n(n+1)/2, Σk² = n(n+1)(2n+1)/6, Σk³ = (n(n+1)/2)².<br>GP: a(rⁿ−1)/(r−1).</div>
+<div class="ex"><b>Worked example 1.</b> Evaluate 1/(1·3) + 1/(3·5) + … + 1/((2n−1)(2n+1)).<br><b>Solution.</b> Each term is ½(1/(2k−1) − 1/(2k+1)); the sum collapses to ½(1 − 1/(2n+1)) = <b>n/(2n+1)</b>.</div>
+<div class="ex"><b>Worked example 2.</b> Show Σₖ₌₁ⁿ 1/√k &gt; √n for n ≥ 2.<br><b>Solution.</b> Each of the n terms satisfies 1/√k ≥ 1/√n, so the sum ≥ n/√n = √n, with strict inequality since the first term 1 &gt; 1/√n. This term-by-term bounding is a UGB staple.</div>
+<div class="trap"><b>Traps.</b> (1) Always write the first two and last two terms of a telescope — off-by-one errors kill the answer. (2) For alternating series, pair terms. (3) If partial fractions feel forced, try writing k = (k+1) − 1 inside the numerator.</div>
+<div class="drill">Drill: Σ k·k! = (n+1)! − 1 — prove it by writing k = (k+1) − 1. Under two minutes.</div>`},
+
+{id:"L6", area:"Geometry & Trigonometry", title:"Triangle Geometry Essentials", mins:14,
+blurb:"Sine rule, cosine rule, Heron — the complete triangle toolkit.",
+body:`<h4>Why ISI loves this</h4><p>Triangle problems test whether you pick the <i>right</i> tool: cosine rule when three sides meet one angle, sine rule when angles dominate, Heron when only sides are known.</p>
+<div class="thm"><b>Key results.</b> Cosine rule: c² = a² + b² − 2ab cos C.<br>Sine rule: a/sin A = b/sin B = c/sin C = 2R.<br>Heron: Area = √(s(s−a)(s−b)(s−c)), s the semi-perimeter.<br>Area = ½ab sin C = rs (r the inradius).</div>
+<div class="ex"><b>Worked example 1.</b> Area of the triangle with sides 13, 14, 15.<br><b>Solution.</b> s = 21. Area = √(21·8·7·6) = √7056 = <b>84</b>. (This triangle is an ISI regular — memorise it.)</div>
+<div class="ex"><b>Worked example 2.</b> Sides 5, 6, 7 — the cosine of the largest angle?<br><b>Solution.</b> Largest angle faces side 7. cos C = (25 + 36 − 49)/(2·5·6) = 12/60 = <b>1/5</b>. Positive, so the triangle is acute — a frequent follow-up.</div>
+<div class="trap"><b>Traps.</b> (1) The largest angle is opposite the largest side — check acuteness by the sign of the cosine. (2) The ambiguous case of the sine rule (two triangles) appears when given two sides and a non-included angle. (3) Area = rs and Area = abc/4R convert between inradius and circumradius instantly.</div>
+<div class="drill">Drill: for 13–14–15, also find R = abc/(4·84) = 65/8 and r = 84/21 = 4.</div>`},
+
+{id:"L7", area:"Geometry & Trigonometry", title:"Coordinate Geometry: Circles & Locus", mins:13,
+blurb:"Translate geometric conditions into equations — then read the answer off.",
+body:`<h4>Why ISI loves this</h4><p>Locus problems are algebra wearing geometry's clothes. Set the condition, square carefully, simplify — the equation's form (circle? line?) IS the answer.</p>
+<div class="thm"><b>Key results.</b> Circle: x² + y² + 2gx + 2fy + c = 0, centre (−g, −f), radius √(g²+f²−c).<br>Tangent length from P(x₁,y₁): √(x₁² + y₁² + 2gx₁ + 2fy₁ + c).<br>Perpendicular distance from (x₁,y₁) to ax+by+c=0: |ax₁+by₁+c|/√(a²+b²).</div>
+<div class="ex"><b>Worked example 1.</b> Length of the tangent from (7, 1) to x² + y² = 25.<br><b>Solution.</b> √(49 + 1 − 25) = √25 = <b>5</b>. One line, if you know the formula.</div>
+<div class="ex"><b>Worked example 2.</b> Find the locus of P whose distance from the origin is twice its distance from (3, 0).<br><b>Solution.</b> x² + y² = 4[(x−3)² + y²] ⟹ 3x² + 3y² − 24x + 36 = 0 ⟹ x² + y² − 8x + 12 = 0: a <b>circle</b>, centre (4, 0), radius 2. (A ratio-of-distances locus is always a circle — the circle of Apollonius.)</div>
+<div class="trap"><b>Traps.</b> (1) Squaring can add phantom points — verify the locus's extremes. (2) A line is tangent to a circle iff distance from centre = radius; use this instead of solving simultaneously. (3) For "circle through three points", plug all three into the general form and solve the 3×3 linear system.</div>
+<div class="drill">Drill: derive the Apollonius circle for ratio k : 1 in general — it collapses to a line exactly when k = 1.</div>`},
+
+{id:"L8", area:"Geometry & Trigonometry", title:"Trig Identities & Counting Solutions", mins:13,
+blurb:"Factor, never divide — and count roots by drawing, not solving.",
+body:`<h4>Why ISI loves this</h4><p>ISI trig questions ask <i>how many</i> solutions, not what they are. Graph both sides, count crossings. And in equations, dividing by cos x silently discards solutions — ISI sets traps for exactly this.</p>
+<div class="thm"><b>Key results.</b> sin θ = sin α ⟹ θ = nπ + (−1)ⁿα. cos θ = cos α ⟹ θ = 2nπ ± α.<br>sin 2x = 2 sin x cos x, cos 2x = 1 − 2sin²x.<br>a sin x + b cos x has range [−√(a²+b²), √(a²+b²)].</div>
+<div class="ex"><b>Worked example 1.</b> How many real solutions does sin x = x/10 have?<br><b>Solution.</b> The line y = x/10 exits the band |y| ≤ 1 at |x| = 10 ≈ 3.18π. Count crossings with the sine wave on [0, 10]: three positive-side arches give 3 crossings after x = 0; by odd symmetry 3 more negative; plus x = 0 itself: <b>7 solutions</b>.</div>
+<div class="ex"><b>Worked example 2.</b> Solve sin 2x = cos x on [0, 2π].<br><b>Solution.</b> 2 sin x cos x − cos x = 0 ⟹ cos x (2 sin x − 1) = 0. cos x = 0: x = π/2, 3π/2. sin x = ½: x = π/6, 5π/6. <b>Four solutions</b>. Dividing by cos x would have lost two of them.</div>
+<div class="trap"><b>Traps.</b> (1) Never divide by a trig factor — move everything to one side and factor. (2) Check interval endpoints separately. (3) For sin x = f(x) counting problems, mark where |f(x)| crosses 1 — solutions can only live inside.</div>
+<div class="drill">Drill: count solutions of cos x = x/5 (answer: 3) purely by sketch, no computation.</div>`},
+
+{id:"L9", area:"Calculus", title:"Limits, Continuity & the IVT", mins:13,
+blurb:"Standard limits by pattern, existence of roots by sign change.",
+body:`<h4>Why ISI loves this</h4><p>UGA tests standard limits under light disguise; UGB tests whether you can <i>prove</i> a root exists. The Intermediate Value Theorem is the most-cited theorem in ISI subjective answers.</p>
+<div class="thm"><b>Key results.</b> lim sin x / x = 1, lim (1+x)^(1/x) = e, lim (eˣ−1)/x = 1, lim (aˣ−1)/x = ln a (all as x→0).<br><b>IVT.</b> f continuous on [a,b] with f(a)·f(b) &lt; 0 ⟹ some c in (a,b) with f(c) = 0.<br>If moreover f′ &gt; 0 throughout, that root is unique.</div>
+<div class="ex"><b>Worked example 1.</b> lim (√(1+x) − 1)/x as x → 0.<br><b>Solution.</b> Multiply by the conjugate: (1+x−1)/(x(√(1+x)+1)) = 1/(√(1+x)+1) → <b>1/2</b>.</div>
+<div class="ex"><b>Worked example 2.</b> Show x⁷ + 2x − 5 = 0 has exactly one real root, and locate it between consecutive integers.<br><b>Solution.</b> f(1) = −2 &lt; 0, f(2) = 127 &gt; 0: IVT gives a root in <b>(1, 2)</b>. f′(x) = 7x⁶ + 2 &gt; 0 everywhere, so f is strictly increasing: the root is unique. Two sentences, full marks.</div>
+<div class="trap"><b>Traps.</b> (1) IVT needs continuity — say it. (2) Sign change gives <i>existence</i>; monotonicity gives <i>uniqueness</i> — ISI wants both halves stated. (3) For 0/0 forms, try conjugates and standard-limit substitution before anything heavier.</div>
+<div class="drill">Drill: prove x = cos x has a solution in (0, π/2) — the function g(x) = x − cos x changes sign.</div>`},
+
+{id:"L10", area:"Calculus", title:"Differentiation: Monotonicity & Extrema", mins:14,
+blurb:"The derivative's sign chart answers 'how many roots' and 'what's the max'.",
+body:`<h4>Why ISI loves this</h4><p>Maxima–minima and root-counting through shape analysis dominate ISI calculus. The workflow is fixed: differentiate, find critical points, build the sign chart, evaluate at critical points and endpoints.</p>
+<div class="thm"><b>Key results.</b> f′ &gt; 0 on an interval ⟹ strictly increasing there.<br>Interior max/min ⟹ f′ = 0 (Fermat). Compare with endpoint values on closed intervals.<br>Cubic x³ + px + q: local extremes at ±√(−p/3) when p &lt; 0 — their values decide the number of real roots.</div>
+<div class="ex"><b>Worked example 1.</b> Maximum of f(x) = x(1−x) on [0, 1].<br><b>Solution.</b> f′ = 1 − 2x = 0 at x = ½; f(½) = <b>1/4</b>; endpoints give 0. (AM–GM confirms: x(1−x) ≤ ((x+1−x)/2)² = ¼.)</div>
+<div class="ex"><b>Worked example 2.</b> Find the local extremes of f(x) = x³ − 3x and use them.<br><b>Solution.</b> f′ = 3x² − 3 = 0 at x = ±1. f(−1) = 2 (local max), f(1) = −2 (local min). Consequence: x³ − 3x = c has 3 real roots iff −2 &lt; c &lt; 2, 2 roots at |c| = 2, else 1. One sign chart, a whole family of answers.</div>
+<div class="trap"><b>Traps.</b> (1) f′(c) = 0 does not mean extremum (x³ at 0). (2) On closed intervals the max may sit at an endpoint where f′ ≠ 0. (3) "Strictly increasing" tolerates isolated zeros of f′ — but in UGB, justify that carefully.</div>
+<div class="drill">Drill: minimise x² + 16/x for x &gt; 0 both by calculus and by AM–GM on x²/2 + x²/2 + 16/x... then trust whichever you can defend. (Answer: 12 at x = 2.)</div>`},
+
+{id:"L11", area:"Calculus", title:"Definite Integrals & Their Properties", mins:13,
+blurb:"The king property and symmetry solve what antiderivatives cannot.",
+body:`<h4>Why ISI loves this</h4><p>ISI integrals are chosen so that brute-force antidifferentiation is slow or impossible, but a symmetry property finishes in three lines. Learn to see the reflection.</p>
+<div class="thm"><b>Key results.</b> King property: ∫₀ᵃ f(x) dx = ∫₀ᵃ f(a−x) dx.<br>Odd function on [−a, a] integrates to 0; even function: twice the half.<br>∫₀¹ xᵐ(1−x)ⁿ dx = m! n!/(m+n+1)! (the Beta pattern — derivable by substitution or repeated parts).</div>
+<div class="ex"><b>Worked example 1.</b> ∫₀¹ x(1−x)⁹ dx.<br><b>Solution.</b> Substitute u = 1−x: ∫₀¹ (1−u)u⁹ du = 1/10 − 1/11 = <b>1/110</b>. (Or the Beta pattern: 1!·9!/11! = 1/110.)</div>
+<div class="ex"><b>Worked example 2.</b> I = ∫₀^(π/2) sin x/(sin x + cos x) dx.<br><b>Solution.</b> By the king property, I also equals ∫₀^(π/2) cos x/(sin x + cos x) dx. Adding: 2I = ∫₀^(π/2) 1 dx = π/2, so I = <b>π/4</b>. The classic "add it to its reflection" move.</div>
+<div class="trap"><b>Traps.</b> (1) Check odd/even before integrating anything on symmetric intervals. (2) |x| and greatest-integer integrands: split the interval at the corners. (3) The king property changes the integrand, not the limits — write the substitution once to convince the examiner.</div>
+<div class="drill">Drill: ∫₋₁¹ x³cos x dx (answer instantly: 0 — odd × even is odd).</div>`},
+
+{id:"L12", area:"Number Theory & Combinatorics", title:"Divisibility & Modular Arithmetic", mins:14,
+blurb:"Huge powers, last digits, factorial zeros — all fall to mod.",
+body:`<h4>Why ISI loves this</h4><p>"Find the remainder when 7¹⁰⁰ is divided by 100" is unanswerable by computation and trivial by cycles. Modular arithmetic converts astronomy into clockwork.</p>
+<div class="thm"><b>Key results.</b> Powers cycle mod n — find the cycle length, reduce the exponent.<br>Trailing zeros of n! = ⌊n/5⌋ + ⌊n/25⌋ + ⌊n/125⌋ + …<br>n⁵ − n is divisible by 30 (factor as n(n−1)(n+1)(n²+1) and harvest 2, 3, 5).<br>Divisibility by 9/11: digit sums / alternating digit sums.</div>
+<div class="ex"><b>Worked example 1.</b> Remainder of 7¹⁰⁰ mod 100.<br><b>Solution.</b> 7² = 49, 7³ = 343 ≡ 43, 7⁴ = 2401 ≡ <b>1</b> (mod 100). So 7¹⁰⁰ = (7⁴)²⁵ ≡ 1²⁵ = <b>1</b>. The whole problem was finding that 7⁴ = 2401.</div>
+<div class="ex"><b>Worked example 2.</b> How many zeros end 100!?<br><b>Solution.</b> Count factors of 5: ⌊100/5⌋ + ⌊100/25⌋ = 20 + 4 = <b>24</b>. (Twos are abundant; fives are the bottleneck.)</div>
+<div class="trap"><b>Traps.</b> (1) Reduce the <i>base</i> mod n before hunting cycles. (2) The cycle of a mod n starts from a¹, not a⁰ — index carefully. (3) For mod 100 questions, sometimes split into mod 4 and mod 25 and recombine (CRT thinking) — mention it in UGB, use cycles in UGA.</div>
+<div class="drill">Drill: last two digits of 3⁴⁰ (3²⁰ ≡ 01 pattern: 3⁴=81, 3⁵≡43, ... faster: 3¹⁰ = 59049 ≡ 49, 3²⁰ ≡ 49² = 2401 ≡ 1, so 3⁴⁰ ≡ 1 — answer 01).</div>`},
+
+{id:"L13", area:"Number Theory & Combinatorics", title:"Permutations & Combinations", mins:14,
+blurb:"Repeated letters, forced gaps, complementary counting.",
+body:`<h4>Why ISI loves this</h4><p>ISI counting problems are short to state and easy to double-count. The professional habits: divide out repeats, build gaps for separation constraints, and count the complement when "at least" appears.</p>
+<div class="thm"><b>Key results.</b> Arrangements of a word with repeats: n!/(n₁! n₂! …).<br>Choose-then-arrange beats arrange-then-fix.<br>"No two adjacent": place the rest, insert into gaps — C(gaps, items).<br>Subsets of {1..n} with no two consecutive elements: Fibonacci F(n+2).</div>
+<div class="ex"><b>Worked example 1.</b> Number of arrangements of STATISTICS.<br><b>Solution.</b> Ten letters: S×3, T×3, I×2, A, C. 10!/(3!·3!·2!) = 3628800/72 = <b>50400</b>.</div>
+<div class="ex"><b>Worked example 2.</b> How many subsets of {1, 2, …, 10} contain no two consecutive integers?<br><b>Solution.</b> Let g(n) count them: either n is out (g(n−1) ways) or n is in, forcing n−1 out (g(n−2) ways). g(n) = g(n−1) + g(n−2), g(0)=1, g(1)=2 — Fibonacci shifted: g(10) = F(12) = <b>144</b>.</div>
+<div class="trap"><b>Traps.</b> (1) "At least one" ⟹ complement. (2) Circular arrangements: (n−1)!, and halve if flips are identical. (3) Identical objects into distinct boxes is stars-and-bars: C(n+k−1, k−1) — distinct objects is kⁿ. Never mix them.</div>
+<div class="drill">Drill: words from MISSISSIPPI (11!/(4!4!2!) = 34650) — under 60 seconds, no calculator slips.</div>`},
+
+{id:"L14", area:"Number Theory & Combinatorics", title:"Binomial Theorem & Identities", mins:12,
+blurb:"Coefficient-hunting and the generating-function squint.",
+body:`<h4>Why ISI loves this</h4><p>Binomial identities look like magic until you read both sides as coefficients of the same polynomial. That single idea — compare coefficients — proves most of them in two lines.</p>
+<div class="thm"><b>Key results.</b> (1+x)ⁿ = Σ C(n,k) xᵏ.<br>Σ C(n,k) = 2ⁿ; alternating sum = 0; even-index sum = odd-index sum = 2ⁿ⁻¹.<br>Σ C(n,k)² = C(2n, n) — coefficient of xⁿ in (1+x)ⁿ(1+x)ⁿ.<br>k·C(n,k) = n·C(n−1, k−1).</div>
+<div class="ex"><b>Worked example 1.</b> Evaluate C(10,0) + C(10,2) + C(10,4) + … + C(10,10).<br><b>Solution.</b> Even-index sum = 2¹⁰⁻¹ = <b>512</b>. (Add and subtract the expansions at x = 1 and x = −1.)</div>
+<div class="ex"><b>Worked example 2.</b> Prove Σₖ C(n,k)² = C(2n,n).<br><b>Solution.</b> In (1+x)²ⁿ = (1+x)ⁿ(1+x)ⁿ, the coefficient of xⁿ on the left is C(2n,n); on the right it is Σₖ C(n,k)C(n,n−k) = Σₖ C(n,k)². Done. In UGB, also offer the committee interpretation: choose n people from n men and n women.</div>
+<div class="trap"><b>Traps.</b> (1) The general term of (a + b)ⁿ is C(n,k) aⁿ⁻ᵏ bᵏ — watch which power you index. (2) For the greatest coefficient/term, compare consecutive term ratios. (3) Differentiate or integrate (1+x)ⁿ to reach ΣkC(n,k) = n2ⁿ⁻¹ and ΣC(n,k)/(k+1) = (2ⁿ⁺¹−1)/(n+1).</div>
+<div class="drill">Drill: coefficient of x⁵ in (1+x)³(1+x)⁴... don't expand — it's C(7,5) = 21.</div>`},
+
+{id:"L15", area:"Number Theory & Combinatorics", title:"Pigeonhole, Parity & Invariants", mins:13,
+blurb:"Existence without construction — ISI's favourite proof flavour.",
+body:`<h4>Why ISI loves this</h4><p>UGB frequently asks you to prove something <i>must</i> happen with no way to compute it. Pigeonhole, parity and invariants are the three levers. The craft is choosing the holes.</p>
+<div class="thm"><b>Key results.</b> Pigeonhole: n+1 objects in n classes force a shared class.<br>Parity: an odd quantity cannot equal an even one — track it through every allowed move.<br>Invariant: find something moves never change; if start ≠ target on that quantity, impossible.</div>
+<div class="ex"><b>Worked example 1.</b> Any 51 numbers chosen from {1, …, 100} contain two that are coprime.<br><b>Solution.</b> Partition into 50 holes: {1,2}, {3,4}, …, {99,100}. Fifty-one numbers force two in one hole — consecutive integers, hence coprime (any common divisor divides their difference 1). The insight was inventing the pairing.</div>
+<div class="ex"><b>Worked example 2.</b> Remove two opposite corners of a chessboard. Can 31 dominoes tile the rest?<br><b>Solution.</b> No. Each domino covers one black and one white square — an invariant. Opposite corners share a colour, leaving 32 of one colour and 30 of the other. 31 dominoes would need 31 of each. Impossible.</div>
+<div class="trap"><b>Traps.</b> (1) State the holes explicitly — "by pigeonhole" without naming the partition earns nothing in UGB. (2) Parity arguments must check the <i>starting</i> parity. (3) If a process seems to always stall, hunt for a monovariant (a quantity that only decreases).</div>
+<div class="drill">Drill: among any 5 integers, some 3 have a sum divisible by 3 (holes = residues mod 3; handle "all three residues" and "three in one residue" cases).</div>`},
+
+{id:"L16", area:"Proof Craft (UGB)", title:"Mathematical Induction Masterclass", mins:14,
+blurb:"Base, hypothesis, step — and the inequality that makes the step work.",
+body:`<h4>Why ISI loves this</h4><p>Induction is UGB's bread and butter, and the marks hide in the <i>step's algebra</i>. Most students write the skeleton correctly and then wave hands at the one inequality that mattered.</p>
+<div class="thm"><b>The template.</b> (1) Base case, verified numerically. (2) Hypothesis: assume P(k) for some k ≥ base. (3) Step: prove P(k+1) <i>using</i> the hypothesis, with every inequality justified. (4) Conclude by the principle of induction. Strong induction: assume P(base), …, P(k) all at once — needed when the recurrence looks back more than one step.</div>
+<div class="ex"><b>Worked example.</b> Prove 2ⁿ &gt; n² for all n ≥ 5.<br><b>Solution.</b> <i>Base:</i> 2⁵ = 32 &gt; 25. ✓<br><i>Step:</i> assume 2ᵏ &gt; k² for some k ≥ 5. Then 2ᵏ⁺¹ = 2·2ᵏ &gt; 2k². It remains to show 2k² ≥ (k+1)², i.e. k² − 2k − 1 ≥ 0, i.e. (k−1)² ≥ 2 — true for k ≥ 3, hence for k ≥ 5. So 2ᵏ⁺¹ &gt; (k+1)². ∎<br>The entire proof lives in the line 2k² ≥ (k+1)². That is what the examiner reads first.</div>
+<div class="trap"><b>Traps.</b> (1) Check the base matches where the claim starts (n ≥ 5, not n ≥ 1). (2) The step must genuinely invoke the hypothesis — if it doesn't, you proved it directly (fine!) or wrongly. (3) Divisibility inductions: write the P(k+1) quantity as (something)·P(k)-quantity + (visibly divisible remainder).</div>
+<div class="drill">Drill: prove 30 | n⁵ − n by induction AND by factoring — then decide which write-up is shorter. (Factoring wins; knowing both is the point.)</div>`},
+
+{id:"L17", area:"Proof Craft (UGB)", title:"Contradiction & the Extremal Principle", mins:13,
+blurb:"Assume the opposite; or stare at the smallest counterexample until it confesses.",
+body:`<h4>Why ISI loves this</h4><p>Irrationality proofs, "no integer solutions", and existence arguments all run on contradiction. Its refined cousin — take a <i>minimal</i> counterexample and derive a smaller one — closes doors that direct arguments cannot.</p>
+<div class="thm"><b>The template.</b> Suppose, for contradiction, the negation. Derive consequences until two collide. Conclude the negation is false. <br><b>Extremal principle:</b> among all counterexamples/configurations, pick the one minimising something (size, denominator, sum). Show a smaller one exists — contradiction with minimality.</div>
+<div class="ex"><b>Worked example 1.</b> √2 is irrational.<br><b>Solution.</b> Suppose √2 = p/q in lowest terms. Then p² = 2q², so p is even: p = 2m. Then 4m² = 2q² gives q² = 2m², so q is even too — contradicting lowest terms. ∎ The phrase "in lowest terms" IS the extremal principle: we chose the minimal denominator.</div>
+<div class="ex"><b>Worked example 2.</b> Show x² + y² = 3(u² + v²) has no nonzero integer solutions.<br><b>Solution.</b> Take a nonzero solution minimising x² + y². Squares are 0 or 1 mod 3, and x² + y² ≡ 0 (mod 3) forces x ≡ y ≡ 0 (mod 3). Write x = 3x′, y = 3y′: 9(x′² + y′²) = 3(u² + v²) ⟹ u² + v² = 3(x′² + y′²) — a strictly smaller nonzero solution. Contradiction: infinite descent.</div>
+<div class="trap"><b>Traps.</b> (1) Negate correctly: the negation of "all" is "some", of "some" is "none". (2) State clearly what object you minimise. (3) Contradiction proofs must end by naming the contradiction — don't let the examiner hunt for it.</div>
+<div class="drill">Drill: prove tan 1° is irrational (if rational, repeated tan addition makes tan 2°, tan 4°, … tan 32°, then tan 60° = √3 rational — contradiction).</div>`},
+
+{id:"L18", area:"Proof Craft (UGB)", title:"Writing a UGB Solution That Scores", mins:15,
+blurb:"The examiner reads 200 scripts. Make yours effortless to mark.",
+body:`<h4>Why this decides your rank</h4><p>UGB answers are marked by humans against a rubric of key steps. Two students with the same ideas can differ by half the marks purely on write-up. This lesson is about the write-up.</p>
+<div class="thm"><b>The scoring layout.</b> (1) <i>Claim line</i> — restate precisely what will be proved. (2) <i>Setup</i> — introduce every symbol ("Let n be a positive integer…"). (3) <i>The idea, named</i> — "We use induction on n" / "By the IVT applied to f on [1,2]". (4) <i>The argument</i> — one logical move per line, inequalities justified. (5) <i>Closure</i> — "which contradicts…", "hence by induction…", ∎.</div>
+<div class="ex"><b>Before / after.</b><br><i>Before (loses marks):</i> "f(1) is negative and f(2) is positive so there is a root and derivative positive so one root."<br><i>After (scores):</i> "f(x) = x⁷ + 2x − 5 is a polynomial, hence continuous on [1,2]. f(1) = −2 &lt; 0 and f(2) = 127 &gt; 0, so by the Intermediate Value Theorem there exists c ∈ (1,2) with f(c) = 0. Moreover f′(x) = 7x⁶ + 2 &gt; 0 for all real x, so f is strictly increasing and the root is unique. ∎" — Same idea. Different marks.</div>
+<div class="trap"><b>The seven deadly sins.</b> Unquantified variables ("for x" — which x?); using the claim to prove the claim; "clearly/obviously" at the hard step; arithmetic done in the head; skipping the equality case of an inequality; proofs of the converse; and no conclusion line. Purge all seven.</div>
+<div class="drill">Drill: after every proof you write, spend 60 seconds as the examiner. Can each line be checked against only the lines above it? If not, repair before moving on. Also attempt 2–3 UGB problems weekly under a 45-minute clock from Phase 2 onward.</div>`}
+];
+
+function defaultState(){
+  return {
+    mastery:{},              // topicKey -> 0..4
+    drill:{attempted:0, correct:0},
+    mocks:[],                // {date, score, correct, wrong, skipped}
+    streak:{last:null, count:0},
+    doubts:[],               // logged doubt strings
+    readLessons:{}           // lessonId -> true
+  };
+}
+function loadState(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return defaultState();
+    const st = Object.assign(defaultState(), JSON.parse(raw));
+    st.drill = Object.assign({attempted:0,correct:0}, st.drill);
+    st.streak = Object.assign({last:null,count:0}, st.streak);
+    st.readLessons = st.readLessons || {};
+    return st;
+  }catch(e){ return defaultState(); }
+}
+let S = loadState();
+function save(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(S)); }catch(e){} }
+
+/* ---------------- pure helpers (tested) ---------------- */
+function topicKey(area, topic){ return area + "::" + topic; }
+
+function daysUntil(dateStr, now){
+  const target = new Date(dateStr).getTime();
+  const cur = (now ? new Date(now) : new Date()).getTime();
+  return Math.max(0, Math.ceil((target - cur) / 86400000));
+}
+
+function mockScore(answers, questions){
+  // answers: array of option index or null; ISI Paper I: +4 correct, −1 wrong, 0 skipped
+  let correct=0, wrong=0, skipped=0;
+  questions.forEach((q,i)=>{
+    if(answers[i]===null || answers[i]===undefined) skipped++;
+    else if(answers[i]===q.a) correct++;
+    else wrong++;
+  });
+  return { score: correct*4 - wrong, correct, wrong, skipped, total: questions.length };
+}
+
+function areaMastery(state){
+  // returns [{area, pct}] average mastery per syllabus area
+  return SYLLABUS.map(sec=>{
+    const vals = sec.topics.map(t => state.mastery[topicKey(sec.area,t)] || 0);
+    const pct = Math.round(100 * vals.reduce((a,b)=>a+b,0) / (vals.length*4));
+    return { area: sec.area, pct };
+  });
+}
+function overallMastery(state){
+  const per = areaMastery(state);
+  return Math.round(per.reduce((a,x)=>a+x.pct,0)/per.length);
+}
+function weakestAreas(state, n){
+  return areaMastery(state).slice().sort((a,b)=>a.pct-b.pct).slice(0, n||2);
+}
+function currentPhase(now){
+  const t = (now? new Date(now): new Date()).getTime();
+  for(const p of PHASES){
+    if(t <= new Date(p.to+"T23:59:59").getTime()) return p;
+  }
+  return PHASES[PHASES.length-1];
+}
+function shuffle(arr, seed){
+  // Fisher–Yates; deterministic when seed provided (mulberry32)
+  const a = arr.slice();
+  let rand;
+  if(seed !== undefined){
+    let s = seed>>>0;
+    rand = function(){ s|=0; s=(s+0x6D2B79F5)|0; let t=Math.imul(s^(s>>>15),1|s); t=(t+Math.imul(t^(t>>>7),61|t))^t; return ((t^(t>>>14))>>>0)/4294967296; };
+  } else rand = Math.random;
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(rand()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function todayStr(d){ return (d? new Date(d): new Date()).toISOString().slice(0,10); }
+function registerCheckin(state, dateStr){
+  const today = dateStr || todayStr();
+  if(state.streak.last === today) return {changed:false, count:state.streak.count};
+  const y = new Date(today+"T00:00:00"); y.setDate(y.getDate()-1);
+  const yesterday = y.toISOString().slice(0,10);
+  state.streak.count = (state.streak.last === yesterday) ? state.streak.count+1 : 1;
+  state.streak.last = today;
+  return {changed:true, count:state.streak.count};
+}
+
+/* ---------------- coach brain ---------------- */
+function coachReply(inputRaw, state, now){
+  const input = (inputRaw||"").toLowerCase().trim();
+  if(!input) return "Ask me something, Bhavin — a topic, a strategy, or just how to start today.";
+
+  // intents first
+  if(/^(hi|hello|hey|namaste|namaskar|good (morning|afternoon|evening))\b/.test(input)){
+    const d = daysUntil(EXAM_DATE, now);
+    return "Namaskar, Bhavin! Professor Sigma here — chalk in hand. " + d + " days to the hall. Shall we look at today's plan, or is there a topic on your mind?";
+  }
+  if(/(demotiv|give up|quit|can'?t do|too hard|hopeless|stressed|anxious|scared|tired|burn|low|sad)/.test(input)){
+    return PEP[Math.floor(Math.random()*PEP.length)] + "\n\nAnd if it helps — tell me which topic is causing the trouble, and we'll break it together.";
+  }
+  if(/(today|plan for|what should i (study|do)|schedule|start with)/.test(input)){
+    const ph = currentPhase(now);
+    const weak = weakestAreas(state, 2);
+    const d = daysUntil(EXAM_DATE, now);
+    let out = "Here's today's prescription (" + d + " days out, Phase " + ph.id + " — " + ph.name + "):\n\n";
+    out += "1. Core block (90 min): " + ph.goals[0] + "\n";
+    out += "2. Problem block (45 min): drill your weakest areas — right now that's " + weak.map(w=>w.area+" ("+w.pct+"%)").join(" and ") + ". Use the Practice tab; I'll pick the questions.\n";
+    out += "3. Closing ritual (15 min): error log, then update your Syllabus ratings so tomorrow's prescription improves.\n\n";
+    out += "One honest hour beats three distracted ones. Check in on the Progress tab when done — the streak is watching.";
+    return out;
+  }
+  if(/(give me a problem|one problem|challenge me|test me|quiz me)/.test(input)){
+    const q = MCQS[Math.floor(Math.random()*MCQS.length)];
+    return "Chalk ready? Try this (" + q.t + "):\n\n" + q.q + "\n\n(A) " + q.o[0] + "   (B) " + q.o[1] + "   (C) " + q.o[2] + "   (D) " + q.o[3] + "\n\nWork it on paper — 4 minutes, match pace. The full drill with solutions is in the Practice tab.";
+  }
+  if(/(how many days|days left|countdown|when is the exam|exam date)/.test(input)){
+    return daysUntil(EXAM_DATE, now) + " days until the expected 2028 Admission Test (second Sunday of May — Paper I at 10:30 AM). The application portal should open around February 2028; we'll confirm every date on admission.isical.ac.in when the notification arrives.";
+  }
+  if(/(doubt:|note:|remember:)/.test(input)){
+    const d = inputRaw.split(":").slice(1).join(":").trim();
+    if(d){ state.doubts.push({d, when: todayStr()}); save(); }
+    return "Noted in the doubt ledger: “" + d + "”. Bring it to your teacher or ask me to explain the underlying topic — unresolved doubts compound like bad debt.";
+  }
+  if(/(who are you|about you|your name)/.test(input)){
+    return "Professor Sigma — fifteen years of chalk dust, statistics, and watching students walk into ISI. My job: keep you on the 22-month road, teach the concepts UGA and UGB actually test, and be honest with you when honesty is the useful thing. My office hours are: always.";
+  }
+  if(/(thank|thanks|dhanyavad)/.test(input)){
+    return "Thank me in May 2028, from the admit list. Back to work — what's next?";
+  }
+
+  // knowledge base lookup — score by keyword hits
+  let best=null, bestScore=0;
+  for(const item of KB){
+    let score = 0;
+    for(const kw of item.k){ if(input.includes(kw)) score += kw.length; }
+    if(score > bestScore){ best = item; bestScore = score; }
+  }
+  if(best) return "📖 " + best.title + "\n\n" + best.body;
+
+  // fallback
+  return "Good question — and I want to answer it precisely rather than vaguely. I teach best on these: AM–GM, Vieta, induction, pigeonhole, counting, probability, binomial theorem, complex numbers, limits, IVT, maxima–minima, definite integrals, modular arithmetic, functional equations, circles & locus, trigonometric equations, UGB proof writing, the exam pattern, books, and the interview.\n\nName one of those, or log it with “doubt: …” and I'll keep it in your ledger for your teacher.";
+}
+
+/* expose for tests */
+window.ISICoach = { topicKey, daysUntil, mockScore, areaMastery, overallMastery, weakestAreas,
+  currentPhase, shuffle, registerCheckin, coachReply, loadState, defaultState,
+  data:{ SYLLABUS, MCQS, PROOFS, PHASES, KB, LESSONS, EXAM_DATE, MASTERY_LABELS },
+  _state: ()=>S };
+
+/* =====================================================================
+   UI LAYER (skipped safely under jsdom if elements missing)
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+function toast(msg){
+  const t = $("#toast"); if(!t) return;
+  t.textContent = msg; t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"), 2400);
+}
+
+/* ---------------- tabs ---------------- */
+$$(".tabbtn").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    $$(".tabbtn").forEach(x=>x.classList.remove("active"));
+    $$(".tabpanel").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    const p = $("#tab-"+b.dataset.tab); if(p) p.classList.add("active");
+    if(b.dataset.tab==="progress") renderProgress();
+  });
+});
+
+/* ---------------- countdown ---------------- */
+function renderCountdown(){
+  const el = $("#daysLeft"); if(el) el.textContent = daysUntil(EXAM_DATE);
+}
+
+/* ---------------- avatar engine: profile silhouette, moods, chalk-writing ---------------- */
+let voiceOn = true, speakTimer = null, thinkTimer = null, chalkTimer = null, glintTimer = null;
+let avatarMood = "idle", pendingMood = "idle";
+
+const EYE_OPEN  = "M163,104 C167,101 173,101 176,104";
+const EYE_SHUT  = "M162,105 L177,105";
+function blink(){
+  const e=$("#eyeLid"); if(!e) return;
+  e.setAttribute("d", EYE_SHUT);
+  setTimeout(()=>e.setAttribute("d", EYE_OPEN), 130);
+}
+setInterval(()=>{ if(Math.random()<0.65) blink(); }, 3400);
+
+/* occasional glint sweeping across the gold lens */
+function glint(){
+  const g=$("#glint"); if(!g) return;
+  g.setAttribute("opacity","0.9");
+  setTimeout(()=>g.setAttribute("opacity","0"), 260);
+}
+setInterval(()=>{ if(avatarMood!=="think" && Math.random()<0.5) glint(); }, 7000);
+
+function setBrow(mode){
+  const b=$("#browG"); if(!b) return;
+  if(mode==="think") b.setAttribute("transform","translate(0,-3.5)");
+  else if(mode==="stern") b.setAttribute("transform","translate(0,2.5)");
+  else if(mode==="happy") b.setAttribute("transform","translate(0,-2)");
+  else b.removeAttribute("transform");
+}
+function setWaves(on){ const w=$("#waves"); if(w) w.setAttribute("opacity", on? "1":"0"); }
+function setThoughts(on){ const t=$("#thoughts"); if(t) t.setAttribute("opacity", on? "1":"0"); }
+
+function drawCurveOnce(){
+  const c=$("#normalCurve"); if(!c) return;
+  c.style.transition="stroke-dashoffset 2.2s ease"; requestAnimationFrame(()=>c.style.strokeDashoffset="0");
+}
+
+/* he physically writes on the board: the arm sweeps with the text */
+function armSweep(progress){    // 0..1 across the line being written
+  const a=$("#writeArm"); if(!a) return;
+  a.setAttribute("transform", "rotate("+(-3 + progress*17).toFixed(1)+" 196 252)");
+}
+function chalkWrite(line){
+  const l1=$("#boardLine1"), l2=$("#boardLine2"); if(!l1||!line) return;
+  if(l2) l2.textContent = l1.textContent;
+  clearInterval(chalkTimer); l1.textContent="";
+  let i=0;
+  chalkTimer=setInterval(()=>{
+    l1.textContent = line.slice(0, ++i);
+    armSweep(Math.min(1, i/line.length));
+    if(i>=line.length){
+      clearInterval(chalkTimer);
+      setTimeout(()=>armSweep(0.15), 700);   // hand settles back near the board
+    }
+  }, 46);
+}
+function boardFor(text){
+  const t=text.toLowerCase();
+  const M=[
+    [/am[\u2013-]?gm|arithmetic mean/, "(a+b)/2 \u2265 \u221a(ab)"],
+    [/vieta/, "\u03b1+\u03b2 = \u2212b/a,  \u03b1\u03b2 = c/a"],
+    [/de moivre|complex/, "(cos \u03b8 + i sin \u03b8)\u207f"],
+    [/pigeonhole/, "n+1 pigeons \u2192 n holes"],
+    [/intermediate value|ivt/, "f(a)\u00b7f(b) < 0 \u21d2 \u2203c: f(c)=0"],
+    [/induction/, "P(1) \u2227 (P(k)\u21d2P(k+1))"],
+    [/binomial/, "(1+x)\u207f = \u03a3 C(n,k)\u00b7x\u1d4f"],
+    [/probabilit/, "P(A\u222aB)=P(A)+P(B)\u2212P(A\u2229B)"],
+    [/integral|integrat/, "\u222b\u2080\u00b9 x\u207f dx = 1/(n+1)"],
+    [/modular|remainder| mod /, "a \u2261 b (mod n)"],
+    [/limit/, "lim sin x\u2044x = 1"],
+    [/negative mark|guess/, "blind guess \u21d2 E < 0. Don't."],
+    [/mock|uga|paper/, "UGA: 30 Q \u00b7 +4 / \u22121 \u00b7 120 min"],
+    [/combinat|permut|arrange/, "\u207fP\u1d63 = n!/(n\u2212r)!"],
+    [/functional equation/, "f(x+y) = f(x)+f(y)"],
+    [/circle|locus/, "x\u00b2 + y\u00b2 + 2gx + 2fy + c = 0"],
+    [/trig/, "sin\u00b2\u03b8 + cos\u00b2\u03b8 = 1"]
+  ];
+  for(const [re,f] of M) if(re.test(t)) return f;
+  return null;
+}
+
+function setAvatarMood(mode){
+  avatarMood=mode;
+  const head=$("#headGroup"), st=$("#speechStatus");
+  if(thinkTimer){ clearInterval(thinkTimer); thinkTimer=null; }
+  setThoughts(false); setWaves(false);
+  if(mode==="think"){
+    setBrow("think"); setThoughts(true);
+    if(head) head.setAttribute("transform","rotate(-2.5 200 150)");
+    let k=0;
+    thinkTimer=setInterval(()=>{                     // symbols pulse, chalk taps
+      k++;
+      ["#th1","#th2","#th3"].forEach((id,j)=>{ const el=$(id); if(el) el.setAttribute("opacity", (k+j)%3===0? "1":"0.35"); });
+      armSweep(k%2? 0.12 : 0.18);
+    }, 300);
+    if(st) st.textContent="Professor Sigma is thinking\u2026";
+  } else if(mode==="happy"){
+    setBrow("happy"); glint();
+    if(head) head.setAttribute("transform","rotate(1.5 200 150)");
+    if(st) st.textContent="";
+    setTimeout(()=>{ if(avatarMood==="happy") setAvatarMood("idle"); }, 2800);
+  } else if(mode==="stern"){
+    setBrow("stern");
+    if(head) head.setAttribute("transform","rotate(-1.5 200 150)");
+    if(st) st.textContent="";
+    setTimeout(()=>{ if(avatarMood==="stern") setAvatarMood("idle"); }, 2800);
+  } else {
+    setBrow("idle");
+    if(head) head.setAttribute("transform","rotate(0 200 150)");
+    armSweep(0.15);
+    if(st) st.textContent="";
+  }
+}
+
+function startMouth(){                                // speaking: waves + professorial nod
+  const head=$("#headGroup");
+  if(thinkTimer){ clearInterval(thinkTimer); thinkTimer=null; }
+  setThoughts(false);
+  avatarMood="speak"; setBrow("idle"); setWaves(true);
+  if(speakTimer){ clearInterval(speakTimer); speakTimer=null; }
+  let i=0;
+  speakTimer=setInterval(()=>{
+    i++;
+    const w=$("#waves"); if(w) w.setAttribute("opacity", i%2? "1":"0.45");
+    if(head && i%3===0) head.setAttribute("transform","rotate("+(Math.random()*2.4-1.2).toFixed(1)+" 200 150)");
+  }, 160);
+}
+function stopMouth(){
+  if(speakTimer){ clearInterval(speakTimer); speakTimer=null; }
+  setWaves(false);
+  setAvatarMood(pendingMood); pendingMood="idle";
+}
+function speak(text){
+  if(!voiceOn || typeof speechSynthesis==="undefined") return;
+  speechSynthesis.cancel();
+  const clean = text.replace(/[📖★✅◼🔊]/g,"").replace(/\n+/g,". ").slice(0,600);
+  const u = new SpeechSynthesisUtterance(clean);
+  const vs = speechSynthesis.getVoices();
+  u.voice = vs.find(v=>/en[-_]IN/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null;
+  u.rate=0.97; u.pitch=0.9;
+  u.onstart=()=>{ startMouth(); const s=$("#speechStatus"); if(s) s.textContent="Professor Sigma is speaking…"; };
+  u.onend=u.onerror=()=>{ stopMouth(); const s=$("#speechStatus"); if(s) s.textContent=""; };
+  speechSynthesis.speak(u);
+}
+const vt=$("#voiceToggle");
+if(vt) vt.addEventListener("click", ()=>{
+  voiceOn=!voiceOn;
+  vt.textContent = voiceOn ? "🔊 Voice: On" : "🔇 Voice: Off";
+  vt.setAttribute("aria-pressed", String(voiceOn));
+  if(!voiceOn && typeof speechSynthesis!=="undefined"){ speechSynthesis.cancel(); stopMouth(); }
+});
+const sb=$("#stopSpeak");
+if(sb) sb.addEventListener("click", ()=>{ if(typeof speechSynthesis!=="undefined") speechSynthesis.cancel(); stopMouth(); });
+
+/* ---------------- chat ---------------- */
+function addMsg(text, who){
+  const log=$("#chatlog"); if(!log) return;
+  const d=document.createElement("div");
+  d.className="msg "+who;
+  d.textContent=text;
+  log.appendChild(d);
+  log.scrollTop=log.scrollHeight;
+}
+function botSay(text){
+  addMsg(text,"bot");
+  const f=boardFor(text); if(f) chalkWrite(f);
+  pendingMood = /well done|excellent|correct|bravo|shabash|proud|great/i.test(text) ? "happy"
+              : /negative|penalt|careful|don'?t guess|warning|discipline|never/i.test(text) ? "stern"
+              : "idle";
+  speak(text);
+  if(!voiceOn || typeof speechSynthesis==="undefined"){ setAvatarMood(pendingMood); pendingMood="idle"; }
+}
+function handleSend(txt){
+  const input=$("#chatInput");
+  const msg = txt !== undefined ? txt : (input ? input.value.trim() : "");
+  if(!msg) return;
+  addMsg(msg,"user");
+  if(input) input.value="";
+  setAvatarMood("think");
+  const log=$("#chatlog"); let tip=null;
+  if(log){
+    tip=document.createElement("div"); tip.className="msg bot typing"; tip.textContent="· · ·";
+    log.appendChild(tip); log.scrollTop=log.scrollHeight;
+  }
+  setTimeout(()=>{ if(tip) tip.remove(); botSay(coachReply(msg, S)); }, 480);
+}
+const send=$("#sendBtn");
+if(send) send.addEventListener("click", ()=>handleSend());
+const ci=$("#chatInput");
+if(ci) ci.addEventListener("keydown", e=>{ if(e.key==="Enter") handleSend(); });
+$$(".chip").forEach(c=>c.addEventListener("click", ()=>handleSend(c.dataset.ask)));
+
+/* ---------------- syllabus tab ---------------- */
+function renderSyllabus(){
+  const wrap=$("#syllabusList"); if(!wrap) return;
+  wrap.innerHTML="";
+  SYLLABUS.forEach((sec,si)=>{
+    const div=document.createElement("div");
+    div.className="syl-section"+(si===0?" open":"");
+    const per = areaMastery(S).find(a=>a.area===sec.area);
+    let rows="";
+    sec.topics.forEach(t=>{
+      const key=topicKey(sec.area,t);
+      const v=S.mastery[key]||0;
+      let dots="";
+      for(let i=1;i<=4;i++) dots+=`<button class="mdot${v>=i?" on":""}" data-key="${key}" data-v="${i}" aria-label="Set mastery ${i} for ${t}">${i}</button>`;
+      rows+=`<div class="topic-row"><span class="tname">${t}</span><span class="mastery">${dots}</span><span class="mlabel">${MASTERY_LABELS[v]}</span></div>`;
+    });
+    div.innerHTML=`
+      <div class="syl-head" role="button" tabindex="0">
+        <span class="caret">▶</span><h4>${sec.area}</h4><span class="pct">${per.pct}% ready</span>
+      </div>
+      <div class="syl-body card" style="margin-top:8px">${rows}</div>`;
+    wrap.appendChild(div);
+  });
+  // handlers
+  $$(".syl-head").forEach(h=>{
+    const tog=()=>h.parentElement.classList.toggle("open");
+    h.addEventListener("click",tog);
+    h.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();tog();} });
+  });
+  $$(".mdot").forEach(d=>d.addEventListener("click",()=>{
+    const key=d.dataset.key, v=+d.dataset.v;
+    S.mastery[key] = (S.mastery[key]===v) ? v-1 : v;  // click same dot to step down
+    save(); renderSyllabus(); renderOverall();
+  }));
+  renderOverall();
+}
+function renderOverall(){
+  const pct=overallMastery(S);
+  const bar=$("#overallBar"), lab=$("#overallPct");
+  if(bar) bar.style.width=pct+"%";
+  if(lab) lab.textContent=pct+"%";
+}
+
+/* ---------------- practice: MCQ drill ---------------- */
+let drill=null;
+function populateTopics(){
+  const sel=$("#drillTopic"); if(!sel) return;
+  [...new Set(MCQS.map(q=>q.t))].forEach(t=>{
+    const o=document.createElement("option"); o.value=t; o.textContent=t; sel.appendChild(o);
+  });
+}
+function startDrill(topic){
+  let pool = topic==="all" ? MCQS : MCQS.filter(q=>q.t===topic);
+  if(!pool.length) pool = MCQS;
+  drill={ qs: shuffle(pool).slice(0,8), i:0, score:0, correct:0 };
+  renderDrillQ();
+}
+function weakTopicForDrill(){
+  const weak = weakestAreas(S,1)[0].area;
+  return MCQS.some(q=>q.t===weak) ? weak : "all";
+}
+function renderDrillQ(){
+  const area=$("#practiceArea"); if(!area||!drill) return;
+  if(drill.i>=drill.qs.length){
+    area.innerHTML=`<div class="qcard" style="text-align:center">
+      <div class="eyebrow">Drill complete</div>
+      <div class="scorebig">${drill.score}</div>
+      <p class="muted">points · ${drill.correct}/${drill.qs.length} correct (+4 / −1 scoring)</p>
+      <p class="muted" style="margin-top:8px">${drill.correct/drill.qs.length>=0.7 ? "Strong accuracy. Raise the difficulty — attempt with a 3-minute clock next round." : "Below 70% — in the real UGA that negative marking bites. Re-read the solutions you missed, then rate those topics honestly in the Syllabus tab."}</p>
+      <button class="btn brass" style="margin-top:14px" onclick="document.getElementById('startDrill').click()">Drill again</button>
+    </div>`;
+    return;
+  }
+  const q=drill.qs[drill.i];
+  area.innerHTML=`<div class="qcard">
+    <div class="qmeta">
+      <span class="tag brass">Q ${drill.i+1} / ${drill.qs.length}</span>
+      <span class="tag">${q.t}</span>
+      <span class="tag verm">+4 / −1</span>
+      <span class="timerbox" style="margin-left:auto" id="qTimer">4:00</span>
+    </div>
+    <div class="qtext">${q.q}</div>
+    <div id="optBox">
+      ${q.o.map((o,i)=>`<button class="opt" data-i="${i}">${"ABCD"[i]}.&nbsp; ${o}</button>`).join("")}
+    </div>
+    <div style="display:flex;gap:10px;margin-top:6px">
+      <button class="btn small ghost" id="skipQ">Skip (0 marks)</button>
+    </div>
+    <div class="solution" id="solBox"></div>
+    <div style="display:none;margin-top:14px" id="nextRow">
+      <button class="btn brass" id="nextQ">Next question →</button>
+    </div>
+  </div>`;
+  // per-question timer (4 min, match pace)
+  let secs=240;
+  const tEl=$("#qTimer");
+  const tick=setInterval(()=>{
+    secs--; if(secs<0){ clearInterval(tick); lockDrillQ(q,null,true); return; }
+    if(tEl) tEl.textContent = Math.floor(secs/60)+":"+String(secs%60).padStart(2,"0");
+    if(secs<=30 && tEl) tEl.style.color="var(--verm)";
+  },1000);
+  const cleanup=()=>clearInterval(tick);
+  $$("#optBox .opt").forEach(b=>b.addEventListener("click",()=>{ cleanup(); lockDrillQ(q,+b.dataset.i,false); }));
+  const sk=$("#skipQ"); if(sk) sk.addEventListener("click",()=>{ cleanup(); lockDrillQ(q,null,false); });
+}
+function lockDrillQ(q, pick, timedOut){
+  S.drill.attempted++;
+  $$("#optBox .opt").forEach((b,i)=>{
+    b.disabled=true;
+    if(i===q.a) b.classList.add("correct");
+    if(pick!==null && i===pick && pick!==q.a) b.classList.add("wrong");
+  });
+  if(pick===q.a){ drill.score+=4; drill.correct++; S.drill.correct++; }
+  else if(pick!==null){ drill.score-=1; }
+  const sol=$("#solBox");
+  if(sol){ sol.textContent=(timedOut?"⏱ Time! ":"")+"Solution:  "+q.s; sol.classList.add("show"); }
+  const nr=$("#nextRow"); if(nr) nr.style.display="block";
+  const nq=$("#nextQ"); if(nq) nq.addEventListener("click",()=>{ drill.i++; renderDrillQ(); });
+  save();
+}
+const sd=$("#startDrill");
+if(sd) sd.addEventListener("click",()=>startDrill($("#drillTopic").value));
+const wd=$("#weakDrill");
+if(wd) wd.addEventListener("click",()=>{ toast("Drilling your weakest area: "+weakTopicForDrill()); startDrill(weakTopicForDrill()); });
+
+/* ---------------- practice: proof workshop ---------------- */
+let proofIdx = Math.floor(Math.random()*PROOFS.length);
+function renderProof(){
+  const area=$("#practiceArea"); if(!area) return;
+  const p=PROOFS[proofIdx % PROOFS.length];
+  area.innerHTML=`<div class="qcard">
+    <div class="qmeta">
+      <span class="tag brass">UGB · Proof ${ (proofIdx % PROOFS.length)+1 } / ${PROOFS.length}</span>
+      <span class="tag">${p.t}</span>
+      <span class="tag">Write it fully on paper first</span>
+    </div>
+    <div class="qtext" style="font-size:17px">${p.q}</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn" id="showHint">💡 Hint</button>
+      <button class="btn" id="showSol">📜 Model solution</button>
+      <button class="btn ghost" id="nextProof">Another problem →</button>
+    </div>
+    <div class="solution" id="hintBox"></div>
+    <div class="solution" id="proofSolBox"></div>
+    <div id="gradeRow" style="display:none;margin-top:14px">
+      <p class="muted">Now grade your written attempt honestly:</p>
+      <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap">
+        <button class="btn small" data-g="full">✔ Complete & rigorous</button>
+        <button class="btn small" data-g="idea">≈ Right idea, gaps in writing</button>
+        <button class="btn small" data-g="miss">✘ Didn't get it</button>
+      </div>
+    </div>
+  </div>`;
+  const hb=$("#showHint");
+  if(hb) hb.addEventListener("click",()=>{ const x=$("#hintBox"); x.textContent="Hint:  "+p.h; x.classList.add("show"); });
+  const sbtn=$("#showSol");
+  if(sbtn) sbtn.addEventListener("click",()=>{
+    const x=$("#proofSolBox"); x.textContent=p.s; x.classList.add("show");
+    $("#gradeRow").style.display="block";
+  });
+  const np=$("#nextProof");
+  if(np) np.addEventListener("click",()=>{ proofIdx++; renderProof(); });
+  $$("#gradeRow [data-g]").forEach(b=>b.addEventListener("click",()=>{
+    S.drill.attempted++;
+    if(b.dataset.g==="full") S.drill.correct++;
+    save();
+    toast(b.dataset.g==="full" ? "Logged. That's UGB money in the bank." :
+          b.dataset.g==="idea" ? "Logged. The gap between idea and marks is writing practice — do one more this week." :
+          "Logged honestly — that's how toppers are built. Re-read the solution tomorrow and re-attempt blind.");
+    proofIdx++; renderProof();
+  }));
+}
+const sp=$("#startProof");
+if(sp) sp.addEventListener("click",renderProof);
+
+/* ---------------- mock test ---------------- */
+let mock=null, mockTick=null;
+function startMock(){
+  mock={ qs: shuffle(MCQS).slice(0,30), ans: Array(30).fill(null), i:0, secs:120*60, done:false };
+  const intro=$("#mockIntro"); if(intro) intro.style.display="none";
+  renderMock();
+  clearInterval(mockTick);
+  mockTick=setInterval(()=>{
+    if(!mock||mock.done) return clearInterval(mockTick);
+    mock.secs--;
+    const el=$("#mockTimer");
+    if(el){
+      const h=Math.floor(mock.secs/3600), m=Math.floor(mock.secs%3600/60), s=mock.secs%60;
+      el.textContent=`${h}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+      if(mock.secs<=300) el.style.color="var(--verm)";
+    }
+    if(mock.secs<=0) finishMock();
+  },1000);
+}
+function renderMock(){
+  const area=$("#mockArea"); if(!area||!mock) return;
+  const q=mock.qs[mock.i];
+  area.innerHTML=`
+  <div class="mock-topbar">
+    <span class="tag brass">Paper I · UGA simulation</span>
+    <span class="timerbox" id="mockTimer">2:00:00</span>
+    <span class="muted">Answered: <b id="ansCount">${mock.ans.filter(a=>a!==null).length}</b>/30</span>
+    <button class="btn small verm" style="margin-left:auto;border-color:var(--verm);color:var(--verm);background:transparent" id="submitMock">Submit paper</button>
+  </div>
+  <div class="qcard">
+    <div class="qmeta">
+      <span class="tag brass">Q ${mock.i+1} / 30</span><span class="tag">${q.t}</span><span class="tag verm">+4 / −1</span>
+    </div>
+    <div class="qtext">${q.q}</div>
+    <div id="mockOpts">
+      ${q.o.map((o,i)=>`<button class="opt${mock.ans[mock.i]===i?" sel":""}" data-i="${i}">${"ABCD"[i]}.&nbsp; ${o}</button>`).join("")}
+    </div>
+    <div style="display:flex;gap:10px;margin-top:6px;flex-wrap:wrap">
+      <button class="btn small" id="mPrev" ${mock.i===0?"disabled":""}>← Previous</button>
+      <button class="btn small" id="mClear">Clear response</button>
+      <button class="btn small brass" id="mNext" ${mock.i===29?"disabled":""}>Save & next →</button>
+    </div>
+    <div class="omr" id="omr">${mock.qs.map((_,i)=>`<button data-i="${i}" class="${mock.ans[i]!==null?"answered":""}${i===mock.i?" current":""}" aria-label="Go to question ${i+1}">${i+1}</button>`).join("")}</div>
+  </div>`;
+  $$("#mockOpts .opt").forEach(b=>b.addEventListener("click",()=>{
+    mock.ans[mock.i]= (mock.ans[mock.i]===+b.dataset.i)? null : +b.dataset.i;
+    renderMock();
+  }));
+  const pv=$("#mPrev"); if(pv) pv.addEventListener("click",()=>{ mock.i--; renderMock(); });
+  const nx=$("#mNext"); if(nx) nx.addEventListener("click",()=>{ mock.i++; renderMock(); });
+  const cl=$("#mClear"); if(cl) cl.addEventListener("click",()=>{ mock.ans[mock.i]=null; renderMock(); });
+  $$("#omr button").forEach(b=>b.addEventListener("click",()=>{ mock.i=+b.dataset.i; renderMock(); }));
+  const sm=$("#submitMock"); if(sm) sm.addEventListener("click",()=>{
+    if(confirm("Submit the paper? Unanswered questions score 0.")) finishMock();
+  });
+}
+function finishMock(){
+  if(!mock||mock.done) return;
+  mock.done=true; clearInterval(mockTick);
+  const r=mockScore(mock.ans, mock.qs);
+  S.mocks.push({date: todayStr(), score:r.score, correct:r.correct, wrong:r.wrong, skipped:r.skipped});
+  save();
+  const area=$("#mockArea"); if(!area) return;
+  const acc = (r.correct+r.wrong)>0 ? Math.round(100*r.correct/(r.correct+r.wrong)) : 0;
+  let verdict;
+  if(r.score>=72) verdict="Outstanding zone. At this level the real cutoff should be comfortably behind you — now protect it with UGB rigour.";
+  else if(r.score>=48) verdict="Solid clearing territory in most years. Push accuracy above 80% and this becomes safe.";
+  else if(r.score>=24) verdict="Foundation is visible but the negative marking is eating you. Attempt fewer, attempt surer.";
+  else verdict="Early days — exactly why we mock. Every question below has a full solution: re-solve all 30 tonight.";
+  area.innerHTML=`<div class="qcard" style="text-align:center">
+      <div class="eyebrow">Paper I result</div>
+      <div class="scorebig">${r.score}<span style="font-size:20px;color:var(--chalk-faint)"> / 120</span></div>
+      <p class="muted" style="margin-top:8px">✔ ${r.correct} correct (+${r.correct*4}) &nbsp; ✘ ${r.wrong} wrong (−${r.wrong}) &nbsp; ○ ${r.skipped} skipped · Accuracy on attempts: ${acc}%</p>
+      <p style="max-width:560px;margin:14px auto 0;color:var(--chalk-dim)">${verdict}</p>
+      <button class="btn brass" style="margin-top:16px" id="reviewMock">Review all solutions</button>
+      <button class="btn" style="margin-top:16px" onclick="location.hash='';document.querySelector('[data-tab=progress]').click()">See trend →</button>
+    </div>
+    <div id="reviewList"></div>`;
+  const rv=$("#reviewMock");
+  if(rv) rv.addEventListener("click",()=>{
+    const list=$("#reviewList");
+    list.innerHTML = mock.qs.map((q,i)=>{
+      const my=mock.ans[i];
+      const ok=my===q.a;
+      return `<div class="qcard">
+        <div class="qmeta"><span class="tag">Q${i+1} · ${q.t}</span>
+          <span class="tag ${ok?"brass":"verm"}">${my===null?"Skipped":(ok?"Correct +4":"Wrong −1")}</span></div>
+        <div class="qtext">${q.q}</div>
+        <p class="muted">Your answer: <b>${my===null?"—":"ABCD"[my]}</b> · Correct: <b style="color:var(--green-ok)">${"ABCD"[q.a]}. ${q.o[q.a]}</b></p>
+        <div class="solution show">${q.s}</div>
+      </div>`;
+    }).join("");
+    rv.style.display="none";
+  });
+  const intro=$("#mockIntro"); if(intro) intro.style.display="";
+  renderMockNote();
+}
+const smk=$("#startMock"); if(smk) smk.addEventListener("click",startMock);
+function renderMockNote(){
+  const n=$("#mockHistoryNote"); if(!n) return;
+  if(S.mocks.length){
+    const best=Math.max(...S.mocks.map(m=>m.score));
+    n.textContent=`${S.mocks.length} mock${S.mocks.length>1?"s":""} taken · best ${best}/120`;
+  }
+}
+
+/* ---------------- plan tab ---------------- */
+function renderPlan(){
+  const list=$("#phaseList"); if(!list) return;
+  const cur=currentPhase();
+  list.innerHTML = PHASES.map(p=>`
+    <div class="phase${p.id===cur.id?" now":""}">
+      <div class="when">PHASE ${p.id}<br>${p.when}${p.id===cur.id?"<br><b style='color:var(--brass)'>● NOW</b>":""}</div>
+      <div>
+        <h4>${p.name}</h4>
+        <ul>${p.goals.map(g=>`<li>${g}</li>`).join("")}</ul>
+      </div>
+    </div>`).join("");
+  const wt=$("#weekTable");
+  if(wt) wt.innerHTML = `<tr><th>Days</th><th>Block 1</th><th>Block 2</th></tr>` +
+    cur.week.map(r=>`<tr><td style="color:var(--brass);font-family:var(--font-mono);font-size:12px">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+}
+
+/* ---------------- lessons tab ---------------- */
+let lessonFilter="All", openLessonId=null;
+function lessonAreas(){ return ["All", ...Array.from(new Set(LESSONS.map(l=>l.area)))]; }
+function renderLessonProgress(){
+  const el=$("#lessonProgress"); if(!el) return;
+  const n=Object.keys(S.readLessons).filter(k=>S.readLessons[k]).length;
+  el.textContent = "· "+n+" / "+LESSONS.length+" read";
+}
+function renderLessons(){
+  const fl=$("#lessonFilters"), list=$("#lessonList"); if(!list) return;
+  if(fl) fl.innerHTML = lessonAreas().map(a=>
+    `<button class="lfilter${a===lessonFilter?" on":""}" data-area="${a}">${a}</button>`).join("");
+  const items = LESSONS.filter(l=>lessonFilter==="All"||l.area===lessonFilter);
+  list.innerHTML = items.map(l=>{
+    const read = !!S.readLessons[l.id];
+    return `<button class="lesson-card${read?" read":""}" data-lesson="${l.id}">
+      <span class="l-area">${l.area}</span>
+      <span class="l-title">${l.title}</span>
+      <span class="l-blurb">${l.blurb}</span>
+      <span class="l-meta">${read?"✓ Read":"○ Unread"} · ${l.mins} min</span>
+    </button>`;
+  }).join("");
+  renderLessonProgress();
+  if(fl) $$("#lessonFilters .lfilter").forEach(b=>b.addEventListener("click",()=>{
+    lessonFilter=b.dataset.area; closeLesson(); renderLessons();
+  }));
+  $$("#lessonList .lesson-card").forEach(b=>b.addEventListener("click",()=>openLesson(b.dataset.lesson)));
+}
+function openLesson(id){
+  const l=LESSONS.find(x=>x.id===id); if(!l) return;
+  openLessonId=id;
+  const list=$("#lessonList"), rd=$("#lessonReader"), body=$("#lessonBody");
+  if(list) list.hidden=true;
+  if(rd) rd.hidden=false;
+  if(body) body.innerHTML = `<div class="eyebrow">${l.area} · ${l.mins} min read</div><h3 class="l-h">${l.title}</h3>`+l.body;
+  const rb=$("#lessonReadBtn");
+  if(rb) rb.textContent = S.readLessons[id] ? "✓ Read — tap to unmark" : "✓ Mark as read";
+  if(rd && rd.scrollIntoView) rd.scrollIntoView({behavior:"smooth", block:"start"});
+  chalkWrite(l.title);
+}
+function gotoTab(name){
+  $$(".tabbtn").forEach(x=>x.classList.toggle("active", x.dataset.tab===name));
+  $$(".tabpanel").forEach(x=>x.classList.toggle("active", x.id==="tab-"+name));
+  try{ window.scrollTo({top:0,behavior:"smooth"}); }catch(e){}
+}
+function closeLesson(){
+  openLessonId=null;
+  const list=$("#lessonList"), rd=$("#lessonReader");
+  if(rd) rd.hidden=true;
+  if(list) list.hidden=false;
+}
+const lb=$("#lessonBack");
+if(lb) lb.addEventListener("click", ()=>{ closeLesson(); renderLessons(); });
+const lrb=$("#lessonReadBtn");
+if(lrb) lrb.addEventListener("click", ()=>{
+  if(!openLessonId) return;
+  S.readLessons[openLessonId] = !S.readLessons[openLessonId];
+  save();
+  lrb.textContent = S.readLessons[openLessonId] ? "✓ Read — tap to unmark" : "✓ Mark as read";
+  renderLessonProgress();
+  if(S.readLessons[openLessonId]) toast("Lesson logged. Now drill it in Practice.");
+});
+const lnb=$("#lessonNextBtn");
+if(lnb) lnb.addEventListener("click", ()=>{
+  const items = LESSONS.filter(l=>lessonFilter==="All"||l.area===lessonFilter);
+  const i = items.findIndex(l=>l.id===openLessonId);
+  const next = items[(i+1) % items.length];
+  openLesson(next.id);
+});
+const ldb=$("#lessonDrillBtn");
+if(ldb) ldb.addEventListener("click", ()=>{
+  const l=LESSONS.find(x=>x.id===openLessonId); if(!l) return;
+  const area = l.area==="Proof Craft (UGB)" ? "all" : l.area;   // proofs drill via workshop; MCQs from all
+  gotoTab("practice");
+  const sel=$("#drillTopic");
+  if(sel && [...sel.options].some(o=>o.value===area)) sel.value=area;
+  startDrill(area);
+  toast(l.area==="Proof Craft (UGB)" ? "Proof craft: scroll to the Proof Workshop below." : "Drill loaded: "+l.title);
+});
+
+/* ---------------- progress tab ---------------- */
+let chM=null, chK=null;
+function renderProgress(){
+  const st=$("#stStreak"); if(st) st.textContent=S.streak.count;
+  const sv=$("#stSolved"); if(sv) sv.textContent=S.drill.attempted;
+  const sa=$("#stAcc"); if(sa) sa.textContent = S.drill.attempted? Math.round(100*S.drill.correct/S.drill.attempted)+"%":"—";
+  const sm=$("#stMockBest"); if(sm) sm.textContent = S.mocks.length? Math.max(...S.mocks.map(m=>m.score)) : "—";
+  if(typeof Chart==="undefined") return;
+  const per=areaMastery(S);
+  const gridC="rgba(53,71,63,.8)", tickC="#B9C2B6";
+  if(chM) chM.destroy();
+  const mc=$("#masteryChart");
+  if(mc) chM=new Chart(mc,{type:"bar",
+    data:{labels:per.map(p=>p.area.replace(" & ","&")), datasets:[{data:per.map(p=>p.pct), backgroundColor:"#E3A83B", borderRadius:6}]},
+    options:{plugins:{legend:{display:false}}, scales:{y:{min:0,max:100,grid:{color:gridC},ticks:{color:tickC}}, x:{grid:{display:false},ticks:{color:tickC,font:{size:10}}}}}});
+  if(chK) chK.destroy();
+  const kc=$("#mockChart");
+  if(kc) chK=new Chart(kc,{type:"line",
+    data:{labels:S.mocks.map((m,i)=>"M"+(i+1)), datasets:[{data:S.mocks.map(m=>m.score), borderColor:"#84A9C0", backgroundColor:"rgba(132,169,192,.15)", fill:true, tension:.3, pointBackgroundColor:"#E3A83B", pointRadius:5}]},
+    options:{plugins:{legend:{display:false}}, scales:{y:{min:-10,max:120,grid:{color:gridC},ticks:{color:tickC}}, x:{grid:{display:false},ticks:{color:tickC}}}}});
+}
+const cb=$("#checkinBtn");
+if(cb) cb.addEventListener("click",()=>{
+  const r=registerCheckin(S); save(); renderProgress();
+  toast(r.changed? ("Checked in — day "+r.count+" 🔥") : "Already checked in today. See you tomorrow, same desk.");
+});
+
+/* ---------------- resources tab ---------------- */
+function renderResources(){
+  const bl=$("#bookList");
+  if(bl) bl.innerHTML = BOOKS.map(b=>`<div class="res-item"><div class="ic">${b[0]}</div><div><b>${b[1]}</b><span>${b[2]}</span></div></div>`).join("");
+  const ll=$("#lawList");
+  if(ll) ll.innerHTML = LAWS.map(l=>`<div class="res-item"><div class="ic">${l[0]}</div><div><b>${l[1]}</b><span>${l[2]}</span></div></div>`).join("");
+}
+
+/* ---------------- boot ---------------- */
+function boot(){
+  renderCountdown();
+  renderSyllabus();
+  populateTopics();
+  renderPlan();
+  renderResources();
+  renderMockNote();
+  renderProgress();
+  renderLessons();
+  drawCurveOnce();
+  setTimeout(()=>chalkWrite("f(daily effort) → ISI, May 2028"), 900);
+  // welcome
+  const d=daysUntil(EXAM_DATE);
+  const ph=currentPhase();
+  setTimeout(()=>{
+    botSay("Namaskar, Bhavin! I am Professor Sigma — your coach for the road to ISI. We are "+d+" days from the expected 2028 Admission Test, in Phase "+ph.id+": "+ph.name+".\n\nStart anywhere: ask for today's plan, a concept, or a problem. Rate your topics in the Syllabus tab so my prescriptions get sharper. The board is clean, the chalk is new — let's begin.");
+  }, 600);
+}
+/* scroll-to-top */
+(function(){
+  const btn=document.createElement("button");
+  btn.id="toTop"; btn.setAttribute("aria-label","Scroll to top"); btn.innerHTML="↑";
+  document.body.appendChild(btn);
+  btn.addEventListener("click", ()=>{ try{ window.scrollTo({top:0,behavior:"smooth"}); }catch(e){ window.scrollTo(0,0); } });
+  window.addEventListener("scroll", ()=>{ btn.classList.toggle("show", window.scrollY>350); }, {passive:true});
+})();
+
+if(document.readyState!=="loading") boot();
+else document.addEventListener("DOMContentLoaded", boot);
+
+})();
+</script>
+
+<!-- ===================== Mission Control · shared dock =====================
+     Injected navigation. Standalone: shows a dock back to the hub and across
+     to the sibling mission. Inside the Mission Control console: stays hidden,
+     because the console already has the bar.
+========================================================================= -->
+<style>
+#mcDock{
+  position:fixed;left:14px;bottom:16px;z-index:9000;display:flex;align-items:stretch;
+  font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;
+  background:#0E1524;color:#ECE7DA;border:1px solid #2A3557;border-radius:999px;
+  box-shadow:0 10px 28px rgba(0,0,0,.4);overflow:hidden;letter-spacing:.04em;
+}
+#mcDock a{display:flex;align-items:center;gap:8px;padding:9px 15px;color:#ECE7DA;text-decoration:none;white-space:nowrap;transition:background .15s}
+#mcDock a:hover{background:#1E2947}
+#mcDock a+a{border-left:1px solid #2A3557}
+#mcDock .mcdot{width:8px;height:8px;border-radius:50%;flex:none}
+#mcDock a:focus-visible{outline:2px solid #E3A83B;outline-offset:-2px}
+@media (max-width:600px){#mcDock{left:10px;bottom:10px;font-size:11px}#mcDock a{padding:8px 11px}}
+@media print{#mcDock{display:none}}
+</style>
+<script>
+(function(){
+  if (window.self !== window.top) return;              /* embedded in the hub console */
+  var SELF = "isi";
+  var OTHER = (SELF === "isi")
+    ? { href:"mission-180-iimb-ds.html", label:"Mission 180", color:"#FF6B4A" }
+    : { href:"isi-coach.html",           label:"ISI Coach",   color:"#E3A83B" };
+  function mount(){
+    if (document.getElementById("mcDock")) return;
+    var d = document.createElement("div");
+    d.id = "mcDock";
+    d.innerHTML =
+      '<a href="index.html" title="Back to Mission Control">&#9664;&nbsp;Mission Control</a>' +
+      '<a href="' + OTHER.href + '" title="Switch mission"><span class="mcdot" style="background:' + OTHER.color + '"></span>' + OTHER.label + '</a>';
+    document.body.appendChild(d);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount);
+  else mount();
+})();
+</script>
+<!-- =================== end Mission Control shared dock =================== -->
+</body>
+</html>

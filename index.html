@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Control — Bhavin · ISI &amp; IIM Bangalore</title>
+<meta name="description" content="Bhavin's admissions command centre: one rail, two exams. Enter the ISI Coach (B.Stat / B.Math, May 2028) or Mission 180 (IIMB BSc Data Science, Dec 2027) without losing your place.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =======================================================================
+   MISSION CONTROL — design tokens
+   The desk lamp at 11pm: night-navy paper, brass for ISI, marker-red for
+   IIMB. Each mission keeps the accent colour of its own app, so the hub
+   never invents a third identity — it just holds the two.
+   ======================================================================= */
+:root{
+  --night:#0E1524;      /* desk at night */
+  --slate:#17203A;      /* raised panel */
+  --slate-2:#1E2947;    /* hover */
+  --rule:#2A3557;       /* hairline */
+  --paper:#ECE7DA;      /* exam-paper ink, warm */
+  --paper-dim:#A6AEC4;
+  --paper-faint:#6C7796;
+  --brass:#E3A83B;      /* ISI Coach */
+  --marker:#FF6B4A;     /* Mission 180 */
+  --mint:#7FB77E;       /* done */
+  --disp:'Zilla Slab',Georgia,serif;
+  --body:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --r:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--night);color:var(--paper);
+  font-family:var(--body);font-size:16px;line-height:1.6;min-height:100vh;
+  background-image:radial-gradient(ellipse at 12% -10%, rgba(227,168,59,.07), transparent 55%),
+                   radial-gradient(ellipse at 95% 8%, rgba(255,107,74,.07), transparent 50%);
+}
+::selection{background:var(--brass);color:var(--night)}
+a{color:var(--paper)}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(16px,4vw,32px)}
+
+/* ---------- top bar ---------- */
+.bar{
+  border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:40;
+  background:rgba(14,21,36,.92);backdrop-filter:blur(10px);
+}
+.bar .wrap{display:flex;align-items:center;gap:14px;height:58px}
+.mark{font-family:var(--disp);font-weight:700;font-size:17px;letter-spacing:.01em;display:flex;align-items:center;gap:9px}
+.mark .beacon{width:9px;height:9px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px rgba(127,183,126,.16);animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.bar .who{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--paper-faint);letter-spacing:.1em;text-transform:uppercase}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(44px,7vw,84px) 0 34px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--paper-faint)}
+.hero h1{
+  font-family:var(--disp);font-weight:700;font-size:clamp(38px,7.4vw,76px);line-height:1.02;
+  letter-spacing:-.015em;margin:12px 0 0;
+}
+.hero h1 .b{color:var(--brass)}
+.hero h1 .m{color:var(--marker)}
+.hero p{max-width:56ch;color:var(--paper-dim);margin-top:16px;font-size:clamp(15px,1.6vw,17px)}
+
+/* ---------- THE RAIL (signature) ---------- */
+.rail{margin:38px 0 8px;border:1px solid var(--rule);border-radius:var(--r);background:var(--slate);padding:26px clamp(16px,3vw,28px) 20px;position:relative;overflow:hidden}
+.rail::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(108,119,150,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(108,119,150,.055) 1px,transparent 1px);background-size:22px 22px;pointer-events:none}
+.rail-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
+.rail-head h2{font-family:var(--disp);font-weight:600;font-size:19px}
+.rail-head span{font-family:var(--mono);font-size:11px;color:var(--paper-faint);letter-spacing:.12em;text-transform:uppercase}
+.track-zone{position:relative;margin:34px 0 0;height:184px;z-index:1}
+.tick{position:absolute;top:0;height:14px;width:1px;background:var(--rule)}
+.tick b{position:absolute;top:-19px;left:0;transform:translateX(-50%);font-family:var(--mono);font-size:10px;color:var(--paper-faint);white-space:nowrap;font-weight:400;letter-spacing:.08em}
+.track{position:absolute;left:0;right:0;height:7px;border-radius:99px;background:rgba(108,119,150,.18)}
+.track.iimb{top:34px}
+.track.isi{top:62px}
+.fill{position:absolute;top:0;bottom:0;left:0;border-radius:99px}
+.fill.iimb{background:linear-gradient(90deg,rgba(255,107,74,.3),var(--marker))}
+.fill.isi{background:linear-gradient(90deg,rgba(227,168,59,.28),var(--brass))}
+.tlabel{position:absolute;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.tlabel.iimb{top:16px;left:0;color:var(--marker)}
+.tlabel.isi{top:44px;left:0;color:var(--brass)}
+/* a milestone = dot on its own track + hairline stem + label parked on one of two rows */
+.pdot{position:absolute;width:11px;height:11px;border-radius:50%;transform:translateX(-50%);border:2px solid var(--night);z-index:2}
+.pdot.iimb{background:var(--marker)}
+.pdot.isi{background:var(--brass)}
+.pstem{position:absolute;width:1px;background:linear-gradient(180deg,var(--rule),rgba(42,53,87,.25))}
+.plab{position:absolute;width:108px;transform:translateX(-50%);text-align:center}
+.plab.edge{transform:translateX(-100%);text-align:right}
+.plab .nm{font-size:11.5px;color:var(--paper-dim);line-height:1.25}
+.plab .dt{font-family:var(--mono);font-size:10px;color:var(--paper-faint);margin-top:2px;letter-spacing:.04em}
+.plab .dy{font-family:var(--mono);font-size:11.5px;font-weight:600;margin-top:3px}
+.plab.iimb .dy{color:var(--marker)}
+.plab.isi .dy{color:var(--brass)}
+.now{position:absolute;top:22px;height:130px;width:2px;background:var(--paper);z-index:3}
+.now::before{content:"";position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:9px;height:9px;background:var(--paper);border-radius:50%}
+.now b{position:absolute;top:-26px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;color:var(--paper);background:var(--night);border:1px solid var(--rule);border-radius:99px;padding:2px 8px;white-space:nowrap}
+.rail-list{display:none;list-style:none;margin-top:6px}
+.rail-list li{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px dashed var(--rule);font-size:13px}
+.rail-list li:last-child{border-bottom:0}
+.rail-list .k{width:8px;height:8px;border-radius:50%;flex:none;align-self:center}
+.rail-list .d{margin-left:auto;font-family:var(--mono);font-size:12px;font-weight:600;white-space:nowrap}
+.rail-list .dt{font-family:var(--mono);font-size:11px;color:var(--paper-faint)}
+.rail-note{position:relative;z-index:1;margin-top:8px;font-size:13px;color:var(--paper-faint);border-top:1px dashed var(--rule);padding-top:12px}
+
+/* ---------- mission cards ---------- */
+.missions{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:32px 0 0}
+.card{
+  border:1px solid var(--rule);border-radius:var(--r);background:var(--slate);
+  padding:24px;display:flex;flex-direction:column;position:relative;overflow:hidden;
+  transition:border-color .18s,transform .18s,background .18s;
+}
+.card:hover{background:var(--slate-2);transform:translateY(-2px)}
+.card.isi:hover{border-color:var(--brass)}
+.card.iimb:hover{border-color:var(--marker)}
+.card .stripe{position:absolute;left:0;top:0;bottom:0;width:4px}
+.card.isi .stripe{background:var(--brass)}
+.card.iimb .stripe{background:var(--marker)}
+.card .kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase}
+.card.isi .kicker{color:var(--brass)}
+.card.iimb .kicker{color:var(--marker)}
+.card h3{font-family:var(--disp);font-weight:700;font-size:27px;margin:8px 0 2px;letter-spacing:-.01em}
+.card .sub{color:var(--paper-dim);font-size:14px;min-height:42px}
+.clock{display:flex;align-items:baseline;gap:9px;margin:16px 0 4px;font-family:var(--mono)}
+.clock .n{font-size:38px;font-weight:600;line-height:1}
+.card.isi .clock .n{color:var(--brass)}
+.card.iimb .clock .n{color:var(--marker)}
+.clock .u{font-size:12px;color:var(--paper-faint);letter-spacing:.12em;text-transform:uppercase}
+.when{font-family:var(--mono);font-size:11.5px;color:var(--paper-faint);letter-spacing:.06em}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:9px;overflow:hidden;margin:18px 0 20px}
+.stat{background:var(--night);padding:11px 10px}
+.stat .v{font-family:var(--mono);font-size:17px;font-weight:600}
+.stat .l{font-size:10.5px;color:var(--paper-faint);letter-spacing:.06em;line-height:1.3;margin-top:2px}
+.enter{
+  margin-top:auto;border:1px solid var(--rule);background:var(--night);color:var(--paper);
+  border-radius:9px;padding:13px 16px;font-family:var(--disp);font-weight:600;font-size:15px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;
+  transition:background .16s,color .16s,border-color .16s;
+}
+.card.isi .enter:hover{background:var(--brass);color:var(--night);border-color:var(--brass)}
+.card.iimb .enter:hover{background:var(--marker);color:var(--night);border-color:var(--marker)}
+.enter .arw{font-family:var(--mono);transition:transform .16s}
+.enter:hover .arw{transform:translateX(3px)}
+
+/* ---------- shared core ---------- */
+.core{margin:34px 0 0;border:1px solid var(--rule);border-radius:var(--r);padding:24px clamp(16px,3vw,26px);background:linear-gradient(180deg,rgba(23,32,58,.7),rgba(23,32,58,.2))}
+.core h2{font-family:var(--disp);font-weight:600;font-size:19px;display:flex;align-items:center;gap:10px}
+.core h2 .both{display:inline-flex;gap:3px}
+.core h2 .both i{width:8px;height:8px;border-radius:50%;display:block}
+.core > p{color:var(--paper-dim);font-size:14px;max-width:70ch;margin-top:8px}
+.overlap{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:18px}
+.overlap li{border:1px solid var(--rule);border-left:3px solid var(--mint);border-radius:8px;padding:11px 13px;background:var(--night)}
+.overlap b{display:block;font-size:14px;font-weight:600}
+.overlap span{font-size:12px;color:var(--paper-faint)}
+
+/* ---------- footer ---------- */
+footer{margin:52px 0 0;border-top:1px solid var(--rule);padding:22px 0 44px;font-size:13px;color:var(--paper-faint)}
+footer a{color:var(--brass);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+/* ---------- console (embedded mission viewer) ---------- */
+.console{position:fixed;inset:0;z-index:100;background:var(--night);display:none;flex-direction:column}
+.console.open{display:flex}
+.cbar{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--rule);background:var(--night);flex-wrap:wrap}
+.cbtn{
+  background:var(--slate);border:1px solid var(--rule);color:var(--paper);border-radius:8px;
+  padding:8px 13px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+  display:flex;align-items:center;gap:8px;text-decoration:none;transition:background .15s,border-color .15s,color .15s;
+}
+.cbtn:hover{background:var(--slate-2)}
+.cbtn .dot{width:8px;height:8px;border-radius:50%;flex:none}
+.cbtn.on{color:var(--night);font-weight:600}
+.cbtn.on.isi{background:var(--brass);border-color:var(--brass)}
+.cbtn.on.iimb{background:var(--marker);border-color:var(--marker)}
+.cbar .spacer{flex:1}
+.console iframe{flex:1;width:100%;border:0;background:#fff}
+@media (max-width:560px){.cbtn{padding:7px 10px;font-size:11px}.cbar .lbl-long{display:none}}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .missions{grid-template-columns:1fr}
+}
+/* on a phone the four milestones sit inside 25% of the rail — so the rail keeps
+   its shape, and the milestones are read as a list instead of overlapping labels */
+@media (max-width:760px){
+  .track-zone{height:96px}
+  .plab,.pstem{display:none}
+  .now{height:58px}
+  .rail-list{display:block}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="mark"><span class="beacon"></span>Mission Control</div>
+    <div class="who">Bhavin · Class 11</div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">Two entrance exams · one preparation</div>
+    <h1>Two doors.<br><span class="b">One</span> <span class="m">brain</span>.</h1>
+    <p>Everything Bhavin is building toward sits on one rail: the IIM Bangalore BSc Data Science test in December 2027, and the ISI Admission Test the following May. The mathematics underneath them is largely the same. Pick a door — your progress in each is saved on this device.</p>
+  </section>
+
+  <!-- ===== SIGNATURE: the shared rail ===== -->
+  <section class="rail" aria-label="Combined admissions timeline">
+    <div class="rail-head">
+      <h2>The rail</h2>
+      <span id="railSpan">Class 11 → ISI test</span>
+    </div>
+    <div class="track-zone" id="zone">
+      <span class="tlabel iimb">IIM Bangalore</span>
+      <span class="tlabel isi">ISI Kolkata</span>
+      <div class="track iimb"><div class="fill iimb" id="fillIimb"></div></div>
+      <div class="track isi"><div class="fill isi" id="fillIsi"></div></div>
+      <!-- ticks, milestone pins and the today-marker are drawn here -->
+    </div>
+    <ul class="rail-list" id="railList"></ul>
+    <p class="rail-note" id="railNote">Dates are from the last published cycles and shift each year — reconfirm on the official portals before you plan around them.</p>
+  </section>
+
+  <!-- ===== the two missions ===== -->
+  <section class="missions">
+
+    <article class="card isi">
+      <span class="stripe"></span>
+      <div class="kicker">Mission ISI · Professor Sigma</div>
+      <h3>ISI Coach</h3>
+      <p class="sub">B.Stat / B.Math admission test. Syllabus mastery, UGA objective drills, UGB proof writing, full mocks.</p>
+      <div class="clock"><span class="n" id="cdIsi">—</span><span class="u">days to the test</span></div>
+      <div class="when">Written test · Sun 14 May 2028 · UGA + UGB</div>
+      <div class="stats" id="statsIsi">
+        <div class="stat"><div class="v" id="isiTopics">—</div><div class="l">Topics at level 3+</div></div>
+        <div class="stat"><div class="v" id="isiAcc">—</div><div class="l">Drill accuracy</div></div>
+        <div class="stat"><div class="v" id="isiMocks">—</div><div class="l">Mocks taken</div></div>
+      </div>
+      <button class="enter" data-go="isi">Enter Mission ISI <span class="arw">→</span></button>
+    </article>
+
+    <article class="card iimb">
+      <span class="stripe"></span>
+      <div class="kicker">Mission 180 · Coach 180</div>
+      <h3>IIMB Data Science</h3>
+      <p class="sub">BSc (Hons) Data Science. Roadmap, quiz arena, memory cards, mock interviews, cutoff intelligence.</p>
+      <div class="clock"><span class="n" id="cdIimb">—</span><span class="u">days to the test</span></div>
+      <div class="when">Written test · Dec 2027 · interview Jan 2028</div>
+      <div class="stats" id="statsIimb">
+        <div class="stat"><div class="v" id="m180Ms">—</div><div class="l">Milestones cleared</div></div>
+        <div class="stat"><div class="v" id="m180Quiz">—</div><div class="l">Best quiz score</div></div>
+        <div class="stat"><div class="v" id="m180Read">—</div><div class="l">Lessons read</div></div>
+      </div>
+      <button class="enter" data-go="iimb">Enter Mission 180 <span class="arw">→</span></button>
+    </article>
+
+  </section>
+
+  <!-- ===== shared core ===== -->
+  <section class="core">
+    <h2><span class="both"><i style="background:var(--brass)"></i><i style="background:var(--marker)"></i></span> Work that counts twice</h2>
+    <p>Before you split your week, spend it here. These areas are examined by both institutes, so an hour on them earns marks in December <em>and</em> in May. The genuinely separate work is ISI's proof writing (UGB) and IIMB's data-science and English sections.</p>
+    <ul class="overlap">
+      <li><b>Algebra</b><span>Polynomials, inequalities, complex numbers</span></li>
+      <li><b>Sequences &amp; series</b><span>AP, GP, limits, convergence</span></li>
+      <li><b>Permutations &amp; probability</b><span>Counting, conditional probability</span></li>
+      <li><b>Calculus</b><span>Differentiation, maxima–minima, integrals</span></li>
+      <li><b>Coordinate geometry</b><span>Lines, circles, conics</span></li>
+      <li><b>Logic &amp; reasoning</b><span>Syllogisms, puzzles, data sufficiency</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    Built for Bhavin by <a href="https://www.linkedin.com/in/pawan-maheshwari-4b9b4715" target="_blank" rel="noopener">Pawan Maheshwari</a> · Planet AI · Everything you do in either mission stays on this device. Verify exam dates at <a href="https://admission.isical.ac.in/" target="_blank" rel="noopener">admission.isical.ac.in</a> and <a href="https://www.iimb.ac.in/" target="_blank" rel="noopener">iimb.ac.in</a>.
+  </footer>
+
+</main>
+
+<!-- ===== embedded mission console ===== -->
+<div class="console" id="console" role="dialog" aria-label="Mission viewer">
+  <div class="cbar">
+    <button class="cbtn" id="backBtn">◀ <span class="lbl-long">Mission Control</span><span class="lbl-short" hidden>Hub</span></button>
+    <button class="cbtn" data-go="isi" id="tabIsi"><span class="dot" style="background:var(--brass)"></span>ISI Coach</button>
+    <button class="cbtn" data-go="iimb" id="tabIimb"><span class="dot" style="background:var(--marker)"></span>Mission 180</button>
+    <span class="spacer"></span>
+    <a class="cbtn" id="newTab" href="#" target="_blank" rel="noopener">Open in new tab ↗</a>
+  </div>
+  <iframe id="frame" title="Mission" allow="camera; microphone; clipboard-write"></iframe>
+</div>
+
+<script>
+"use strict";
+
+/* ---------------- the two missions ---------------- */
+var MISSIONS = {
+  isi : { file:"isi-coach.html",            label:"ISI Coach",   exam:"2028-05-14T10:30:00+05:30" },
+  iimb: { file:"mission-180-iimb-ds.html",  label:"Mission 180", exam:"2027-12-11T09:00:00+05:30" }
+};
+
+/* rail anchors — start of Class 11 through the last exam */
+var RAIL_START = new Date("2026-01-01T00:00:00+05:30");
+var RAIL_END   = new Date("2028-05-14T10:30:00+05:30");
+var PINS = [
+  { t:"2027-10-11T09:00:00+05:30", nm:"IIMB applications open", side:"iimb", row:0 },
+  { t:"2027-12-11T09:00:00+05:30", nm:"IIMB written test",      side:"iimb", row:1 },
+  { t:"2028-01-22T09:00:00+05:30", nm:"IIMB interview",         side:"iimb", row:0 },
+  { t:"2028-05-14T10:30:00+05:30", nm:"ISI admission test",     side:"isi",  row:1 }
+];
+var ROW_Y = [86, 134];              /* two label rows keep the crowded pins legible */
+var TRACK_Y = { iimb: 32, isi: 60 };
+
+/* ---------------- pure helpers (unit-tested) ---------------- */
+function daysTo(iso, now){
+  var ms = new Date(iso) - (now || new Date());
+  return Math.max(0, Math.ceil(ms / 86400000));
+}
+function pct(when, now){
+  var a = RAIL_START.getTime(), b = RAIL_END.getTime();
+  var t = (when instanceof Date ? when : new Date(when)).getTime();
+  return Math.min(100, Math.max(0, ((t - a) / (b - a)) * 100));
+}
+function readIsi(raw){
+  var out = { topics:0, acc:"—", mocks:0 };
+  try{
+    var s = JSON.parse(raw || "null"); if(!s) return out;
+    var m = s.mastery || {};
+    out.topics = Object.keys(m).filter(function(k){ return (+m[k]) >= 3; }).length;
+    var d = s.drill || {};
+    if(d.attempted > 0) out.acc = Math.round((d.correct / d.attempted) * 100) + "%";
+    out.mocks = Array.isArray(s.mocks) ? s.mocks.length : 0;
+  }catch(e){}
+  return out;
+}
+function readM180(ms, qbest, read){
+  var out = { ms:"—", quiz:"—", read:0 };
+  try{
+    var a = JSON.parse(ms || "[]");
+    if(Array.isArray(a) && a.length){
+      out.ms = a.filter(Boolean).length + "/" + a.length;
+    }
+  }catch(e){}
+  if(qbest !== null && qbest !== undefined && qbest !== "") out.quiz = qbest + "%";
+  try{
+    var r = JSON.parse(read || "[]");
+    if(Array.isArray(r)) out.read = r.length;
+  }catch(e){}
+  return out;
+}
+
+/* expose for the test harness */
+if (typeof module !== "undefined" && module.exports){
+  module.exports = { daysTo:daysTo, pct:pct, readIsi:readIsi, readM180:readM180, MISSIONS:MISSIONS };
+}
+
+/* ---------------- rendering ---------------- */
+function $(id){ return document.getElementById(id); }
+
+function drawRail(){
+  var zone = $("zone");
+  if(!zone) return;
+  var now = new Date();
+  var nowPct = pct(now, now);
+  var fmt = function(d){ return d.toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"}); };
+
+  /* half-year ticks */
+  ["2026-07-01","2027-01-01","2027-07-01","2028-01-01"].forEach(function(t){
+    var d = new Date(t + "T00:00:00+05:30");
+    var el = document.createElement("div");
+    el.className = "tick";
+    el.style.left = pct(d, now) + "%";
+    el.innerHTML = "<b>" + d.toLocaleDateString("en-IN",{month:"short",year:"2-digit"}) + "</b>";
+    zone.appendChild(el);
+  });
+
+  /* milestones: dot on its own track, stem down, label on row 0 or row 1 */
+  var listHtml = "";
+  PINS.forEach(function(p){
+    var x = pct(p.t, now), when = new Date(p.t), left = x + "%";
+    var trackY = TRACK_Y[p.side], labY = ROW_Y[p.row];
+
+    var dot = document.createElement("div");
+    dot.className = "pdot " + p.side;
+    dot.style.left = left; dot.style.top = trackY + "px";
+    zone.appendChild(dot);
+
+    var stem = document.createElement("div");
+    stem.className = "pstem";
+    stem.style.left = left; stem.style.top = (trackY + 12) + "px";
+    stem.style.height = (labY - trackY - 14) + "px";
+    zone.appendChild(stem);
+
+    var lab = document.createElement("div");
+    lab.className = "plab " + p.side + (x > 90 ? " edge" : "");
+    lab.style.left = left; lab.style.top = labY + "px";
+    lab.innerHTML = '<div class="nm">' + p.nm + '</div><div class="dt">' + fmt(when) +
+                    '</div><div class="dy">' + daysTo(p.t, now).toLocaleString("en-IN") + ' days</div>';
+    zone.appendChild(lab);
+
+    listHtml += '<li><span class="k" style="background:var(--' + (p.side === "isi" ? "brass" : "marker") + ')"></span>' +
+                '<span>' + p.nm + '<br><span class="dt">' + fmt(when) + '</span></span>' +
+                '<span class="d" style="color:var(--' + (p.side === "isi" ? "brass" : "marker") + ')">' +
+                daysTo(p.t, now).toLocaleString("en-IN") + ' d</span></li>';
+  });
+  $("railList").innerHTML = listHtml;
+
+  /* you-are-here */
+  var nowEl = document.createElement("div");
+  nowEl.className = "now";
+  nowEl.style.left = nowPct + "%";
+  nowEl.innerHTML = "<b>TODAY</b>";
+  zone.appendChild(nowEl);
+
+  /* how much of each runway is already behind us */
+  $("fillIimb").style.width = Math.min(nowPct, pct(MISSIONS.iimb.exam, now)) + "%";
+  $("fillIsi").style.width  = nowPct + "%";
+
+  var months = Math.round((RAIL_END - now) / 2629800000);
+  $("railSpan").textContent = months + " months of runway left";
+}
+
+function drawClocks(){
+  var now = new Date();
+  $("cdIsi").textContent  = daysTo(MISSIONS.isi.exam, now).toLocaleString("en-IN");
+  $("cdIimb").textContent = daysTo(MISSIONS.iimb.exam, now).toLocaleString("en-IN");
+}
+
+function drawProgress(){
+  var g = function(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } };
+  var a = readIsi(g("isiCoachBhavin_v1"));
+  $("isiTopics").textContent = a.topics || "—";
+  $("isiAcc").textContent    = a.acc;
+  $("isiMocks").textContent  = a.mocks || "—";
+
+  var b = readM180(g("m180_ms"), g("m180_qbest"), g("m180_read"));
+  $("m180Ms").textContent   = b.ms;
+  $("m180Quiz").textContent = b.quiz;
+  $("m180Read").textContent = b.read || "—";
+}
+
+/* ---------------- console: enter / switch / return ---------------- */
+function openMission(key){
+  var m = MISSIONS[key];
+  if(!m) return;
+  var frame = $("frame"), con = $("console");
+  if(frame.getAttribute("data-key") !== key){
+    frame.setAttribute("data-key", key);
+    frame.src = m.file;
+  }
+  $("newTab").href = m.file;
+  $("tabIsi").className  = "cbtn isi"  + (key === "isi"  ? " on" : "");
+  $("tabIimb").className = "cbtn iimb" + (key === "iimb" ? " on" : "");
+  con.classList.add("open");
+  document.body.style.overflow = "hidden";
+  document.title = m.label + " — Mission Control";
+}
+function closeMission(){
+  var con = $("console"), frame = $("frame");
+  con.classList.remove("open");
+  document.body.style.overflow = "";
+  document.title = "Mission Control — Bhavin · ISI & IIM Bangalore";
+  frame.removeAttribute("data-key");
+  frame.removeAttribute("src");
+  drawProgress(); /* whatever was done inside is now on the cards */
+}
+function route(){
+  var h = (location.hash || "").replace(/^#\/?/, "");
+  if(MISSIONS[h]) openMission(h);
+  else closeMission();
+}
+
+function wire(){
+  document.addEventListener("click", function(e){
+    var t = e.target.closest("[data-go]");
+    if(t){ location.hash = t.getAttribute("data-go"); }
+  });
+  $("backBtn").addEventListener("click", function(){
+    if(location.hash) history.back(); else closeMission();
+    setTimeout(function(){ if(location.hash) location.hash = ""; }, 40);
+  });
+  window.addEventListener("hashchange", route);
+  window.addEventListener("message", function(e){
+    if(e && e.data && e.data.type === "mc:back") location.hash = "";
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && $("console").classList.contains("open")) location.hash = "";
+  });
+  window.addEventListener("focus", drawProgress);
+}
+
+/* ---------------- boot ---------------- */
+if(typeof document !== "undefined" && document.getElementById("zone")){
+  wire();
+  drawRail();
+  drawClocks();
+  drawProgress();
+  route();
+  setInterval(drawClocks, 60000);
+}
+</script>
+</body>
+</html>
