@@ -183,6 +183,25 @@ table.fc td.n{font-family:var(--mono);white-space:nowrap}
 .conf.m{background:rgba(255,162,61,.16);color:var(--amber)}
 .conf.l{background:rgba(240,104,122,.16);color:var(--rose)}
 @media(max-width:600px){table.fc th:nth-child(4),table.fc td:nth-child(4){display:none}}
+details.col{border:1px solid var(--line);border-radius:12px;background:var(--ink-2);margin-bottom:9px;overflow:hidden}
+details.col[open]{border-color:var(--line-strong)}
+details.col summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:13px;align-items:flex-start}
+details.col summary::-webkit-details-marker{display:none}
+.crank{font-family:var(--mono);font-size:12px;color:var(--accent);flex:0 0 26px;padding-top:3px}
+.cname{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em;flex:1}
+.cmeta{display:block;font-family:var(--body);font-weight:400;font-size:14px;color:var(--chalk-dim);margin-top:2px}
+.cbody{padding:0 16px 18px 55px;font-size:15.3px}
+.cgridd{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-bottom:14px}
+.cgridd>div{background:var(--panel-1);border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:14.6px}
+.k{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--chalk-dim);margin-bottom:4px}
+.ctable{border-top:1px dashed var(--line-strong);padding-top:12px}
+.crow{display:flex;gap:10px;align-items:baseline;margin:6px 0;font-size:14.8px;flex-wrap:wrap}
+.crow b{font-family:var(--mono);font-size:12px;color:var(--amber);flex:0 0 46px}
+.crow span:first-of-type{flex:1;min-width:180px}
+.cfore{margin-top:13px;padding:12px 14px;border-radius:10px;background:rgba(113,216,198,.09);border:1px solid rgba(113,216,198,.3);font-size:15.4px}
+.cnote{margin:13px 0 0;color:var(--chalk-dim);font-size:15px}
+.clinks{display:flex;gap:16px;flex-wrap:wrap;margin-top:13px;font-family:var(--mono);font-size:12px}
+@media(max-width:600px){.cbody{padding-left:16px}}
 .dset{background:var(--panel-1);border:1px solid var(--line-strong);border-radius:12px;padding:15px;margin-bottom:12px;font-size:15.2px}
 .dset table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13.5px;margin-top:8px}
 .dset th,.dset td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right}
@@ -211,6 +230,7 @@ footer .mono{font-size:11.5px}
     <button class="tab" role="tab" data-p="blueprint" aria-selected="false">The test</button>
     <button class="tab" role="tab" data-p="learn" aria-selected="false">Learn</button>
     <button class="tab" role="tab" data-p="forecast" aria-selected="false">Forecast</button>
+    <button class="tab" role="tab" data-p="colleges" aria-selected="false">Colleges</button>
     <button class="tab" role="tab" data-p="plan" aria-selected="false">16-month plan</button>
     <button class="tab" role="tab" data-p="drills" aria-selected="false">Solved bank</button>
     <button class="tab" role="tab" data-p="toolkit" aria-selected="false">Toolkit</button>
@@ -344,6 +364,7 @@ footer .mono{font-size:11.5px}
   <h2 class="sec">Predicted questions</h2>
   <p class="sub">Eighteen questions written to the templates most likely to reappear. Each one states the pattern it is built on, so the value survives even when the exact numbers differ on the day. Treat this as a mock, not a leak.</p>
   <div class="score" id="pscore">Attempted <b id="pAtt">0</b> · Correct <b id="pCor">0</b> · Net <b id="pNet">0.00</b> <span id="pAcc"></span></div>
+  <p class="hint" id="lifePred"></p>
   <div class="filters" id="pfilters"></div>
   <div id="predbank"></div>
 </section>
@@ -373,11 +394,51 @@ footer .mono{font-size:11.5px}
   </div>
 </section>
 
+<!-- ================= COLLEGES ================= -->
+<section class="panel" id="colleges">
+  <h2 class="sec">Where this leads</h2>
+  <p class="sub">The fourteen Economics destinations worth having on the list, with what it actually takes to get into each. Three different admissions logics sit side by side here — one aptitude test, one national common test, one engineering entrance — and they need different preparation, not more of the same.</p>
+
+  <div class="warn" style="margin-bottom:16px">
+    <b>Read the confidence flags before you plan around any number.</b> Delhi University publishes its cutoffs only as per-round CSAS PDFs, and most colleges do not release seat counts, applicant numbers or admit rates for a single programme at all. Rather than fill those cells with invented figures, this table marks them: <span class="conf h">Verified</span> means I found it in a published source, <span class="conf m">Estimated</span> means it is anchored to a neighbouring published figure, and <span class="conf l">Not published</span> means exactly that. Every card links to the page that publishes the real number.
+  </div>
+
+  <div class="warn" style="margin-bottom:16px;border-left-color:var(--rose);background:rgba(240,104,122,.07)">
+    <b>One scale change breaks every long comparison.</b> Delhi University moved from Class 12 board percentages to CUET in 2022, and the CUET composite has itself been rescaled since. A 2021 figure of "98.5%" and a 2025 figure of "909" are not points on the same line, so a five-year cutoff trend for DU cannot honestly be drawn. What is shown instead is the CUET-era record, which is the only stretch that is actually comparable.
+  </div>
+
+  <h2 class="sec">At a glance</h2>
+  <div class="filters" id="colFilters"></div>
+  <table class="fc"><thead><tr><th>#</th><th>College</th><th>Entrance</th><th>Latest cutoff</th><th>2028 forecast</th><th>Conf.</th></tr></thead><tbody id="colTable"></tbody></table>
+
+  <h2 class="sec">College by college</h2>
+  <p class="sub">Tap any college for course, format, timeline, seats, cutoff record, forecast and the official links.</p>
+  <div id="colCards"></div>
+
+  <h2 class="sec">How the 2028 forecast is built</h2>
+  <div class="grid3">
+    <div class="card"><div class="eyebrow">CUET colleges</div><h4 style="margin:8px 0 6px;font-size:17px">Drift, then compression</h4><p style="margin:0;font-size:15px;color:var(--chalk-dim)">Cutoffs are still climbing — Miranda House Economics moved roughly 85 marks in a single year. But the top colleges are near the ceiling of a 1000-point scale, so the drift has to slow. The bands assume 2 to 5 marks a year at the top and more lower down.</p></div>
+    <div class="card"><div class="eyebrow">JEE colleges</div><h4 style="margin:8px 0 6px;font-size:17px">Ranks tighten slowly</h4><p style="margin:0;font-size:15px;color:var(--chalk-dim)">BS Economics at the older IITs has been drawing stronger ranks each year as non-core programmes gain acceptance. The bands assume 3 to 5% tightening a year, and they are low confidence because the programme-level series is thin.</p></div>
+    <div class="card"><div class="eyebrow">IIMB and interview colleges</div><h4 style="margin:8px 0 6px;font-size:17px">No cutoff to forecast</h4><p style="margin:0;font-size:15px;color:var(--chalk-dim)">IIMB, Christ and NMIMS shortlist on rank or a composite, and publish no score threshold. Forecasting a number there would be fabrication, so what is given instead is the competitive band to plan against.</p></div>
+  </div>
+
+  <h2 class="sec">What this means for the plan</h2>
+  <div class="grid2">
+    <div class="card"><h4 style="font-size:17px;margin:0 0 6px">Three of these need three different tests</h4><p style="margin:0;font-size:15px;color:var(--chalk-dim)">UG-AT for IIMB, CUET for the seven Delhi colleges, JEE Advanced for the two IITs. The Core Mathematics track feeds the first two almost completely. JEE Advanced does not fit — it needs Physics and Chemistry at a depth nothing else on this list requires, and that decision should be made in Class 11, not Class 12.</p></div>
+    <div class="card"><h4 style="font-size:17px;margin:0 0 6px">CUET is the highest-leverage addition</h4><p style="margin:0;font-size:15px;color:var(--chalk-dim)">Seven of the ten ranked colleges run on one test, in May, three weeks before the ISI paper. Its quantitative and reasoning sections overlap heavily with UG-AT preparation; the genuinely extra work is the domain subject papers.</p></div>
+    <div class="card"><h4 style="font-size:17px;margin:0 0 6px">NPAT is a cheap second shot</h4><p style="margin:0;font-size:15px;color:var(--chalk-dim)">NMIMS tests the same three abilities as the UG-AT, allows up to three attempts with the best score counting, and runs on a flexible window. Almost no marginal preparation cost — the barrier is fees, not difficulty.</p></div>
+    <div class="card"><h4 style="font-size:17px;margin:0 0 6px">Two are board-marks routes</h4><p style="margin:0;font-size:15px;color:var(--chalk-dim)">Loyola and St. Xavier\u2019s admit largely on Class 12 aggregate. They are the insurance against one bad test day — which is a real argument for not letting board preparation slide during the entrance push.</p></div>
+  </div>
+
+  <p class="hint" style="margin-top:22px">Figures reflect the 2025 admission cycle and public reporting on it. Two colleges on the list — Lady Shri Ram and Miranda House — admit women only and are included because they anchor the Delhi cutoff band. Re-verify everything against the official links before it drives a decision.</p>
+</section>
+
 <!-- ================= DRILLS ================= -->
 <section class="panel" id="drills">
   <h2 class="sec">Solved bank</h2>
   <p class="sub">A full bank at UG-AT shape and difficulty — filter by section or by level. Every question carries the full working, and most carry the trap they were built around. Scoring uses the reported penalty: +1 correct, −1/3 wrong, 0 for skipped. Skipping is a legitimate move here, as it is in the hall.</p>
   <div class="score" id="score">Attempted <b id="sAtt">0</b> · Correct <b id="sCor">0</b> · Net <b id="sNet">0.00</b> <span id="sAcc"></span></div>
+  <p class="hint" id="lifeBank"></p>
   <div class="filters" id="filters"></div>
   <div class="filters" id="difs"></div>
   <div id="qbank"></div>
@@ -1483,6 +1544,16 @@ const PH=[
 ];
 
 QB.forEach((q,i)=>{if(!q.d)q.d=(i===14?'E':(i===11?'H':'M'));});
+/* ---------- progress store: shared with the Mission Control hub ----------
+   Wrapped in try/catch so the app still works where storage is unavailable
+   (private mode, sandboxed preview) — it simply stops remembering. */
+const CL_KEY='curveLedger_v1';
+let CL={modules:{},bank:{att:0,cor:0},pred:{att:0,cor:0}};
+try{const raw=localStorage.getItem(CL_KEY); if(raw){const o=JSON.parse(raw);
+  CL={modules:o.modules||{},bank:o.bank||{att:0,cor:0},pred:o.pred||{att:0,cor:0}};}}catch(e){}
+function clSave(){try{localStorage.setItem(CL_KEY,JSON.stringify(CL));}catch(e){}}
+function clBump(kind,right){const t=CL[kind];t.att++;if(right)t.cor++;clSave();}
+
 const SC={Q:'#FFA23D',L:'#71D8C6',V:'#A28BF0'};
 const SN={Q:'Quant &amp; DI',L:'Reasoning',V:'English'};
 
@@ -1660,6 +1731,7 @@ function renderPred(){
     const correct=ANS['P'+box.dataset.p];
     mark(box,+b.dataset.o,correct);
     ps.att++; if(+b.dataset.o===correct)ps.cor++;
+    clBump('pred',+b.dataset.o===correct);
     document.getElementById('pAtt').textContent=ps.att;
     document.getElementById('pCor').textContent=ps.cor;
     document.getElementById('pNet').textContent=(ps.cor-(ps.att-ps.cor)/3).toFixed(2);
@@ -1688,6 +1760,7 @@ function renderQ(){
     const correct=ANS['S'+box.dataset.q];
     mark(box,+b.dataset.o,correct);
     st.att++; if(+b.dataset.o===correct)st.cor++;
+    clBump('bank',+b.dataset.o===correct);
     document.getElementById('sAtt').textContent=st.att;
     document.getElementById('sCor').textContent=st.cor;
     document.getElementById('sNet').textContent=(st.cor-(st.att-st.cor)/3).toFixed(2);
@@ -1706,7 +1779,7 @@ document.querySelectorAll('#difs button').forEach(b=>b.addEventListener('click',
 renderQ();
 
 /* ===================== LEARN WORKBOOK ===================== */
-const S={track:'M',mod:0,done:{}};
+const S={track:'M',mod:0,done:CL.modules};
 const T=()=>S.track==='M'?MATHS:ECON;
 const mkey=()=>S.track+S.mod;
 function railHTML(){
@@ -1754,7 +1827,7 @@ function renderMod(){
     if(+b.dataset.o===correct)got++;
     document.getElementById('mscore').textContent=got+' / '+T()[S.mod].m.length;
     if(document.querySelectorAll('#learnview .mq[data-done]').length===T()[S.mod].m.length){
-      S.done[mkey()]=true;
+      S.done[mkey()]=true; CL.modules=S.done; clSave();
       document.getElementById('tick').textContent='✓ module marked complete';
       document.getElementById('tick').classList.add('on');railHTML();}
   }));
@@ -1764,7 +1837,199 @@ function renderMod(){
 }
 document.getElementById('tM').addEventListener('click',()=>{S.track='M';S.mod=0;document.getElementById('tM').classList.add('on');document.getElementById('tE').classList.remove('on');renderMod();});
 document.getElementById('tE').addEventListener('click',()=>{S.track='E';S.mod=0;document.getElementById('tE').classList.add('on');document.getElementById('tM').classList.remove('on');renderMod();});
+/* ===================== TARGET COLLEGES ===================== */
+/* v = verified from a published source · e = estimated / peer-anchored · n = not published
+   Every cutoff carries its own confidence. Nothing here is a substitute for the official
+   cutoff PDF, which is why every card links to the source that actually publishes it. */
+const COLLEGES=[
+{r:1,n:'IIM Bangalore',c:'B.Sc. (Hons) Economics',city:'Bengaluru',grp:'iimb',url:'https://ug.iimb.ac.in/',verify:'https://ug.iimb.ac.in/faq/',
+ mode:'IIMB UG-AT + personal interview',fmt:'60 Q · 120 min · computer-based · English, Quantitative Ability, Logical Reasoning · −1/3 negative marking',
+ tl:'Applications Oct–Nov · test mid-Dec · interviews Jan · offers by end Feb',
+ seats:'40 in the Economics major (80 across both majors)',seatsC:'v',
+ appl:'Not published',admit:'Not published',
+ cuts:[['2025','First edition — no score cutoff published; shortlist by UG-AT rank','v']],
+ f28:'No published score cutoff to forecast. Plan for a shortlist in roughly the top 3–6% of UG-AT takers, tightening each year as awareness grows.',fc:'M',
+ note:'The only programme on this list where the test itself is the thing this app trains for. Composite: 60% test, 40% interview. Maths compulsory in Class XII, 60% in Class X Maths. Fee approx ₹8.5 lakh a year with 20% of programme cost earmarked for need-based aid.'},
+
+{r:2,n:'Shri Ram College of Commerce',c:'B.A. (Hons) Economics',city:'Delhi',grp:'du',url:'https://www.srcc.edu/',verify:'https://ugadmission.uod.ac.in/',
+ mode:'CUET-UG → DU CSAS seat allocation',fmt:'CUET-UG · merit from best 4 subjects × 250 = 1000 · Mathematics compulsory in CUET for this programme',
+ tl:'CUET registration Feb–Mar · exam May · results Jun–Jul · CSAS rounds Jul–Aug',
+ seats:'155 (one source), 199 (another) — sources disagree',seatsC:'e',
+ appl:'Not published per college',admit:'Not published per college',
+ cuts:[['2025','909 (Round 1) · 910 (final round, General)','v'],['2024','Not captured','n'],['2023','Different scale — not comparable','n']],
+ f28:'916 – 926 out of 1000',fc:'M',
+ note:'The hardest Economics seat in Delhi and the reference point everything else is measured against. Cutoffs are compressing near the ceiling, so the forecast band is narrow but the top end is close to saturation.'},
+
+{r:3,n:"St. Stephen's College",c:'B.A. (Hons) Economics',city:'Delhi',grp:'du',url:'https://www.ststephens.edu/',verify:'https://ugadmission.uod.ac.in/',
+ mode:'CUET-UG + college interview',fmt:'CUET score weighted 85%, college interview 15% · separate St. Stephen\u2019s application in addition to CSAS',
+ tl:'Separate college application opens alongside CSAS · interviews late Jun–Jul',
+ seats:'Not captured',seatsC:'n',
+ appl:'Not published',admit:'Not published',
+ cuts:[['2025','904 (Round 1, General)','v'],['2024','Not captured','n']],
+ f28:'911 – 922 out of 1000, plus the interview',fc:'M',
+ note:'The only DU college here with an interview component, which makes the score threshold slightly softer than SRCC but adds a second gate. Requires its own application — missing it is a common and unrecoverable error.'},
+
+{r:4,n:'IIT Bombay',c:'B.S. Economics',city:'Mumbai',grp:'iit',url:'https://www.iitb.ac.in/',verify:'https://josaa.nic.in/',
+ mode:'JEE Advanced → JoSAA counselling',fmt:'JEE Main (screening) then JEE Advanced · two papers, three hours each · Physics, Chemistry, Mathematics',
+ tl:'JEE Main Jan & Apr · JEE Advanced May · JoSAA rounds Jun–Jul',
+ seats:'Not captured',seatsC:'n',
+ appl:'~1.9 lakh sit JEE Advanced nationally',admit:'Not meaningful per programme',
+ cuts:[['2025','Approx. AIR 1,500 – 2,500 (OPEN, gender-neutral) for BS programmes','e'],['2025','Basic Sciences & Economics band reported closing near 3,432 in one female-only category','e']],
+ f28:'AIR 1,300 – 2,300 (OPEN, gender-neutral)',fc:'L',
+ note:'A completely different preparation track — this needs JEE Advanced physics and chemistry, not UG-AT aptitude. Worth a decision early: adding it costs two subjects Bhavin would not otherwise study to that depth.'},
+
+{r:5,n:'Lady Shri Ram College for Women',c:'B.A. (Hons) Economics',city:'Delhi',grp:'du',url:'https://lsr.edu.in/',verify:'https://ugadmission.uod.ac.in/',
+ mode:'CUET-UG → DU CSAS',fmt:'CUET-UG · best 4 subjects × 250 = 1000 · women only',
+ tl:'Same CUET and CSAS calendar as all DU colleges',
+ seats:'Not captured',seatsC:'n',
+ appl:'Not published per college',admit:'Not published per college',
+ cuts:[['2025','900 (Round 1, General)','v']],
+ f28:'908 – 920 out of 1000',fc:'M',
+ note:'Women-only admission, so not an option for Bhavin. Retained because it anchors the Delhi Economics cutoff band and appears on the list.'},
+
+{r:6,n:'Hindu College',c:'B.A. (Hons) Economics',city:'Delhi',grp:'du',url:'https://www.hinducollege.ac.in/',verify:'https://ugadmission.uod.ac.in/',
+ mode:'CUET-UG → DU CSAS',fmt:'CUET-UG · best 4 subjects × 250 = 1000',
+ tl:'Same CUET and CSAS calendar as all DU colleges',
+ seats:'Not captured',seatsC:'n',
+ appl:'Not published per college',admit:'Not published per college',
+ cuts:[['2025','Economics figure not captured — the college set DU\u2019s highest overall cutoff at 950.58 for Political Science','e'],['2025','Peer-anchored estimate for Economics: 900 – 910','e']],
+ f28:'910 – 924 out of 1000',fc:'L',
+ note:'NIRF\u2019s top-ranked college in India in 2025, which keeps demand structurally high across every programme. The Economics number needs pulling from the official CSAS cutoff PDF — I could not verify it.'},
+
+{r:7,n:'Hansraj College',c:'B.A. (Hons) Economics',city:'Delhi',grp:'du',url:'https://www.hansrajcollege.ac.in/',verify:'https://ugadmission.uod.ac.in/',
+ mode:'CUET-UG → DU CSAS',fmt:'CUET-UG · best 4 subjects × 250 = 1000',
+ tl:'Same CUET and CSAS calendar as all DU colleges',
+ seats:'Not captured',seatsC:'n',
+ appl:'Not published per college',admit:'Not published per college',
+ cuts:[['2025','Economics figure not captured — B.Com (Hons) closed at 901.71','v'],['2025','Peer-anchored estimate for Economics: 885 – 900','e']],
+ f28:'895 – 915 out of 1000',fc:'L',
+ note:'Sits just below the SRCC / Stephen\u2019s / Hindu tier, which makes it the realistic strong-outcome backup rather than the reach.'},
+
+{r:8,n:'Miranda House',c:'B.A. (Hons) Economics',city:'Delhi',grp:'du',url:'https://www.mirandahouse.ac.in/',verify:'https://ugadmission.uod.ac.in/',
+ mode:'CUET-UG → DU CSAS',fmt:'CUET-UG · best 4 subjects × 250 = 1000 · women only',
+ tl:'Same CUET and CSAS calendar as all DU colleges',
+ seats:'Not captured',seatsC:'n',
+ appl:'Not published per college',admit:'Not published per college',
+ cuts:[['2025','850.31 (Round 1, General)','v'],['2024','Approx. 760 – 770 (Round 1)','e']],
+ f28:'862 – 885 out of 1000',fc:'M',
+ note:'Women-only. The 2024 → 2025 jump of roughly 85 marks is the clearest single piece of evidence in this table that CUET cutoffs are still climbing steeply, which is what pushes every forecast band upward.'},
+
+{r:9,n:'Kirori Mal College',c:'B.A. (Hons) Economics',city:'Delhi',grp:'du',url:'https://www.kmc.du.ac.in/',verify:'https://ugadmission.uod.ac.in/',
+ mode:'CUET-UG → DU CSAS',fmt:'CUET-UG · best 4 subjects × 250 = 1000',
+ tl:'Same CUET and CSAS calendar as all DU colleges',
+ seats:'Not captured',seatsC:'n',
+ appl:'Not published per college',admit:'Not published per college',
+ cuts:[['2025','Economics figure not captured — Political Science 909, B.Com (Hons) 897','v'],['2025','Peer-anchored estimate for Economics: 870 – 890','e']],
+ f28:'880 – 905 out of 1000',fc:'L',
+ note:'North Campus, strong society culture, and consistently a rung below the top four on score. A genuine safety option if the CUET score lands in the high 800s.'},
+
+{r:10,n:'Loyola College',c:'B.A. Economics',city:'Chennai',grp:'other',url:'https://www.loyolacollege.edu/',verify:'https://www.loyolacollege.edu/',
+ mode:'College admission process on Class 12 merit (autonomous)',fmt:'No national entrance test for the general stream · merit from qualifying-exam marks, with community and management quotas',
+ tl:'Applications typically Apr–Jun · lists Jun–Jul',
+ seats:'Not captured',seatsC:'n',
+ appl:'Not published',admit:'Not published',
+ cuts:[['2025','Not published as a single figure — merit varies by quota','n'],['—','Class 12 aggregate in the low-to-mid 90s is the commonly cited working level','e']],
+ f28:'Class 12 aggregate around 93 – 97%',fc:'L',
+ note:'A different admissions logic entirely: board marks, not an entrance test. That makes it insurance against a bad test day, but it puts weight back on Class 12 performance.'},
+
+{r:'B',n:'IIT Kanpur',c:'B.S. Economics',city:'Kanpur',grp:'iit',url:'https://www.iitk.ac.in/',verify:'https://josaa.nic.in/',
+ mode:'JEE Advanced → JoSAA counselling',fmt:'JEE Main then JEE Advanced · Physics, Chemistry, Mathematics',
+ tl:'JEE Main Jan & Apr · JEE Advanced May · JoSAA rounds Jun–Jul',
+ seats:'Not captured',seatsC:'n',
+ appl:'~1.9 lakh sit JEE Advanced nationally',admit:'Not meaningful per programme',
+ cuts:[['2025','Estimated AIR 2,500 – 4,000 (OPEN, gender-neutral)','e']],
+ f28:'AIR 2,200 – 3,800 (OPEN, gender-neutral)',fc:'L',
+ note:'Same JEE Advanced dependency as IIT Bombay, one tier more accessible. Only worth targeting if the JEE track is taken seriously from Class 11, not as an afterthought.'},
+
+{r:'B',n:'Christ University',c:'B.Sc. Economics (Hons)',city:'Bengaluru',grp:'other',url:'https://christuniversity.in/',verify:'https://christuniversity.in/',
+ mode:'Christ entrance test + skill assessment + interview',fmt:'University-conducted selection process — written test, micro-presentation or skill assessment, and personal interview',
+ tl:'Applications open in stages from Oct · selection rounds Jan–Apr',
+ seats:'Not captured',seatsC:'n',
+ appl:'Not published',admit:'Not published',
+ cuts:[['—','No published score cutoff — selection is composite across test, assessment and interview','n']],
+ f28:'No score cutoff to forecast; selection stays composite',fc:'M',
+ note:'Local to Bengaluru, which matters for cost and logistics. The interview weighting rewards exactly the articulation work in module E10.'},
+
+{r:'B',n:'NMIMS Mumbai',c:'B.Sc. Economics (SAMSOE)',city:'Mumbai',grp:'other',url:'https://economics.nmims.edu/',verify:'https://economics.nmims.edu/',
+ mode:'NPAT (NMIMS entrance)',fmt:'NPAT · online, computer-based · Quantitative Reasoning, Logical Reasoning, Verbal Skills · up to 3 attempts, best score counts',
+ tl:'Registration Feb–May · flexible test window Feb–Jun · first merit list Jun',
+ seats:'60 per batch at the Bengaluru campus; Mumbai intake not captured',seatsC:'e',
+ appl:'Not published',admit:'Not published',
+ cuts:[['—','Merit-list based; no published marks cutoff','n']],
+ f28:'Expect a percentile in the mid-90s to be competitive at the Mumbai campus',fc:'L',
+ note:'NPAT tests the same three abilities as the UG-AT — quantitative, logical, verbal — so preparation transfers almost completely. Three attempts with the best score counting makes it a low-risk second shot. Fees are high: roughly ₹3.25–3.85 lakh a year.'},
+
+{r:'B',n:"St. Xavier's College",c:'B.A. Economics',city:'Mumbai',grp:'other',url:'https://xaviers.edu/',verify:'https://xaviers.edu/',
+ mode:'College merit process (autonomous)',fmt:'Merit from Class 12 marks, with minority and in-house quotas · no national entrance test for the general stream',
+ tl:'Applications after HSC results · lists Jun–Jul',
+ seats:'Not captured',seatsC:'n',
+ appl:'Not published',admit:'Not published',
+ cuts:[['—','Not published as a single figure — varies by quota and board','n']],
+ f28:'Class 12 aggregate around 92 – 96%',fc:'L',
+ note:'Board-marks driven like Loyola. Note that different boards are treated differently in Maharashtra admissions, which is worth checking before counting on it.'}
+];
+
+const GRPN={iimb:'IIM Bangalore',du:'Delhi University',iit:'IIT · JEE Advanced',other:'Private &amp; autonomous'};
+const CONFN={v:['Verified','h'],e:['Estimated','m'],n:['Not published','l']};
+
+let cgrp='all';
+function renderColleges(){
+  const rows=COLLEGES.filter(c=>cgrp==='all'||c.grp===cgrp);
+  document.getElementById('colTable').innerHTML=rows.map(c=>{
+    const last=c.cuts[0];
+    return `<tr><td class="n">${c.r}</td><td><b>${c.n}</b><br><span style="color:var(--chalk-dim);font-size:13px">${c.c} · ${c.city}</span></td>
+      <td class="n" style="font-size:12.5px">${c.mode.split('·')[0].split('→')[0].trim()}</td>
+      <td class="n" style="font-size:12.5px">${last[1].length>44?last[1].slice(0,42)+'…':last[1]}</td>
+      <td class="n" style="font-size:12.5px;color:var(--aqua)">${c.f28.length>40?c.f28.slice(0,38)+'…':c.f28}</td>
+      <td><span class="conf ${c.fc==='H'?'h':c.fc==='M'?'m':'l'}">${c.fc==='H'?'High':c.fc==='M'?'Med':'Low'}</span></td></tr>`;}).join('');
+
+  document.getElementById('colCards').innerHTML=rows.map((c,i)=>`
+    <details class="col">
+      <summary><span class="crank">${c.r}</span><span class="cname">${c.n}<span class="cmeta">${c.c} · ${c.city} · ${GRPN[c.grp].replace(/&amp;/g,'&')}</span></span></summary>
+      <div class="cbody">
+        <div class="cgridd">
+          <div><span class="k">Entrance mode</span>${c.mode}</div>
+          <div><span class="k">Exam format</span>${c.fmt}</div>
+          <div><span class="k">Timeline</span>${c.tl}</div>
+          <div><span class="k">Seats</span>${c.seats} <span class="conf ${CONFN[c.seatsC][1]}">${CONFN[c.seatsC][0]}</span></div>
+          <div><span class="k">Applicants</span>${c.appl}</div>
+          <div><span class="k">Admit rate</span>${c.admit}</div>
+        </div>
+        <div class="ctable">
+          <span class="k">Cutoff record</span>
+          ${c.cuts.map(x=>`<div class="crow"><b>${x[0]}</b><span>${x[1]}</span><span class="conf ${CONFN[x[2]][1]}">${CONFN[x[2]][0]}</span></div>`).join('')}
+        </div>
+        <div class="cfore"><span class="k">2028 forecast</span>${c.f28}
+          <span class="conf ${c.fc==='H'?'h':c.fc==='M'?'m':'l'}" style="margin-left:8px">${c.fc==='H'?'High':c.fc==='M'?'Medium':'Low'} confidence</span></div>
+        <p class="cnote">${c.note}</p>
+        <div class="clinks"><a href="${c.url}" target="_blank" rel="noopener">Official site ↗</a><a href="${c.verify}" target="_blank" rel="noopener">Where the cutoff is actually published ↗</a></div>
+      </div>
+    </details>`).join('');
+}
+document.getElementById('colFilters').innerHTML=
+  [['all','All 14'],['iimb','IIM Bangalore'],['du','Delhi University'],['iit','IIT'],['other','Private &amp; autonomous']]
+  .map(([k,l])=>`<button data-g="${k}" class="${k==='all'?'on':''}">${l}</button>`).join('');
+document.querySelectorAll('#colFilters button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#colFilters button').forEach(x=>x.classList.toggle('on',x===b));
+  cgrp=b.dataset.g; renderColleges();}));
+renderColleges();
+
 renderMod();
+
+/* lifetime totals, and a way back when this runs inside Mission Control */
+(function(){
+  const life=(el,t,label)=>{const n=document.getElementById(el);
+    if(n)n.textContent=t.att?`Across all sessions on this device: ${t.cor} of ${t.att} correct (${Math.round(t.cor/t.att*100)}%) in the ${label}.`:'';};
+  life('lifeBank',CL.bank,'bank'); life('lifePred',CL.pred,'predicted set');
+  if(window.top!==window.self){
+    const b=document.createElement('button');
+    b.textContent='◀ Mission Control';
+    b.className='tab';
+    b.style.cssText='margin-left:12px;flex:0 0 auto';
+    b.addEventListener('click',()=>{try{window.parent.postMessage({type:'mc:back'},'*');}catch(e){}});
+    document.querySelector('.top-in').appendChild(b);
+  }
+})();
 </script>
 </body>
 </html>
