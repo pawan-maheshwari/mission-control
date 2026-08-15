@@ -108,6 +108,11 @@ p.sub{color:var(--chalk-dim);margin:0 0 20px;max-width:66ch}
 .block{margin:32px 0}
 .blab{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--chalk-dim);border-bottom:1px solid var(--line);padding-bottom:7px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
 .blab b{color:var(--accent);font-weight:500}
+.deep{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.deep h4{font-size:17.5px;letter-spacing:-.01em;margin:0 0 7px;color:var(--accent)}
+.deep h4~h4{margin-top:20px}
+.deep p{margin:0;font-size:16.4px;line-height:1.72;color:var(--chalk)}
+@media(max-width:600px){.deep{padding:16px 15px}.deep p{font-size:16px}}
 .cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:12px}
 .ccard{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
 .ccard h4{font-size:16px;letter-spacing:-.01em;margin-bottom:6px}
@@ -202,6 +207,11 @@ details.col summary::-webkit-details-marker{display:none}
 .cnote{margin:13px 0 0;color:var(--chalk-dim);font-size:15px}
 .clinks{display:flex;gap:16px;flex-wrap:wrap;margin-top:13px;font-family:var(--mono);font-size:12px}
 @media(max-width:600px){.cbody{padding-left:16px}}
+.tmplwrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:8px;margin-bottom:8px}
+.tmpl{display:flex;gap:10px;background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14.4px}
+.tmpl b{font-family:var(--mono);font-size:11px;color:var(--accent);flex:0 0 26px;padding-top:2px}
+.tmpl i{font-style:normal;font-weight:600;font-family:var(--display)}
+.tmpl span{color:var(--chalk-dim)}
 .dset{background:var(--panel-1);border:1px solid var(--line-strong);border-radius:12px;padding:15px;margin-bottom:12px;font-size:15.2px}
 .dset table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13.5px;margin-top:8px}
 .dset th,.dset td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right}
@@ -327,7 +337,7 @@ footer .mono{font-size:11.5px}
 <!-- ================= LEARN ================= -->
 <section class="panel" id="learn">
   <h2 class="sec">The workbook</h2>
-  <p class="sub">Twenty-four modules across the two tracks. Each one runs the same way: read the concept, study the diagram, work the examples one step at a time, then answer the mock check without looking back.</p>
+  <p class="sub">Twenty-four modules across the two tracks. Each one opens with a full explanatory read — what the topic actually is, how this exam tests it, and where marks are lost — then condenses into concept cards, a diagram, worked examples revealed step by step, and a mock check.</p>
   <div class="switch">
     <button id="tM" class="on">Core mathematics · 14</button>
     <button id="tE">Economics · 10</button>
@@ -361,11 +371,20 @@ footer .mono{font-size:11.5px}
   <p class="sub">The 60 questions allocated across topics, scaled to the published section split of 30 / 15 / 15.</p>
   <table class="fc"><thead><tr><th>Topic</th><th>Sec</th><th>Projected</th><th>Difficulty</th><th>Confidence</th></tr></thead><tbody id="fcbody"></tbody></table>
 
-  <h2 class="sec">Predicted questions</h2>
-  <p class="sub">Eighteen questions written to the templates most likely to reappear. Each one states the pattern it is built on, so the value survives even when the exact numbers differ on the day. Treat this as a mock, not a leak.</p>
+  <h2 class="sec">The 45 templates</h2>
+  <p class="sub">This is the forecast in its most compressed form. Forty-five recurring question shapes, drawn from the December 2025 UG-AT, its official mock and the neighbouring IPMAT and JIPMAT papers. Learn the template and the specific numbers on the day stop mattering.</p>
+  <div id="tmplList" class="tmplwrap"></div>
+
+  <h2 class="sec">Predicted questions · 120</h2>
+  <p class="sub">Two full papers' worth, at the real section split of 30 quant and DI, 15 reasoning, 15 English per paper. Every question is tagged to the template it is built on. Run them as two timed 60-question papers, or drill one section at a time. Scoring uses the reported penalty: +1, −1/3, 0 for a skip.</p>
+  <div class="warn" style="margin-bottom:14px">
+    <b>These are predictions, not leaks.</b> No one outside IIM Bangalore knows the 2027 paper. What this set claims is narrower and testable: that the <i>shapes</i> below will account for most of the paper. When the real paper appears, count how many of its 60 questions map to one of these 45 templates — that number is the honest measure of how well the forecast worked.
+  </div>
   <div class="score" id="pscore">Attempted <b id="pAtt">0</b> · Correct <b id="pCor">0</b> · Net <b id="pNet">0.00</b> <span id="pAcc"></span></div>
   <p class="hint" id="lifePred"></p>
+  <div class="filters" id="ppapers"></div>
   <div class="filters" id="pfilters"></div>
+  <p class="hint"><span id="pcount"></span></p>
   <div id="predbank"></div>
 </section>
 
@@ -521,6 +540,109 @@ footer .mono{font-size:11.5px}
 </main>
 
 <script>
+/* ===================== DEEP READ =====================
+   The explanatory layer: what the topic actually is, how this exam tests it,
+   and where marks are lost. Sits above the concept cards, which stay as the
+   condensed revision version. */
+const DEEP={
+M1:[
+['What this topic really is','Almost every number question at this level is a question about structure, not about arithmetic. Once a number is written as a product of primes — 720 as 2⁴ · 3² · 5 — it stops being a lump and becomes a set of choices: how many 2s to take, how many 3s, how many 5s. Every factor of 720 is one such choice, which is why counting factors is a multiplication, not a search. The same shift explains remainders. When you divide, only the leftover matters, so a number can be replaced by its remainder before you multiply. That is the entire trick behind 3⁴⁰ mod 5: 3⁴ leaves 1, so 3⁴⁰ leaves 1¹⁰, which is 1. No large number is ever computed.'],
+['How the exam tests it','Two or three direct questions, almost always one of four shapes: count the factors of a number, find the unit digit of a large power, find a remainder, or use HCF × LCM = product. None requires more than two lines if you recognise the shape. The trailing-zeros question — how many zeros at the end of 100! — is the one that looks hardest and is actually mechanical: count the fives, because fives are scarcer than twos.'],
+['Where marks are lost','Three places. Forgetting that HCF × LCM = product holds for exactly two numbers, not three. Taking the first entry of a unit-digit cycle when the remainder is zero, instead of the last. And counting only ⌊n/5⌋ for trailing zeros, forgetting that 25, 50, 75 and 100 each contribute a second five. Each of these is a rule you either hold precisely or lose the mark to.']],
+M2:[
+['What this topic really is','A percentage is a ratio wearing a disguise, and the disguise is what causes errors: the number is meaningless until you name what it is a percentage of. "Profit is 20%" means 20% of cost. "Discount is 20%" means 20% of marked price. Those are different bases, and a question that mixes them is testing exactly that. The safest habit is mechanical — before computing anything, say out loud what the base is. The second idea is that percentages multiply rather than add. A 40% mark-up followed by a 25% discount is 1.40 × 0.75, which is 1.05 — a 5% profit, not the 15% that subtraction suggests. Chaining multipliers also removes intermediate rounding, so it is both safer and faster.'],
+['How the exam tests it','This is the densest block in the paper and it also runs underneath most data interpretation. Expect mark-up with successive discount, a price-and-consumption question holding expenditure fixed, a weighted average across two groups, and an alligation or mixture. The alligation cross is worth drilling until it is automatic, because it converts a two-minute algebra problem into a ten-second subtraction — and it works in reverse too, recovering the ratio from a known mean.'],
+['Where marks are lost','Reversing the arms of the alligation, so the cheaper quantity gets paired with the wrong distance. Dividing a percentage change by the new value instead of the old. And answering a weighted-average question with the plain average of the two group averages, which is only correct when the groups are the same size. A one-second sanity check catches the last one: the combined average must lie between the two, closer to the larger group.']],
+M3:[
+['What this topic really is','Speed, time and distance are one equation seen from three sides, and the questions are all about which quantity is held constant. Hold distance and the other two are inversely proportional. Hold speed and they are directly proportional. Relative speed then handles anything involving two moving objects: add the speeds when they move towards each other, subtract when they move the same way. A train question adds one wrinkle — the train has length, so crossing a platform means covering the platform plus the train itself, while crossing a pole means covering only the train. Work is the same mathematics in different clothing. A worker who finishes in 12 days does 1/12 of the job a day; two workers add their rates, and an emptying pipe subtracts its own.'],
+['How the exam tests it','Two to four questions, heavily templated: a train crossing something, a boat against a stream, an average speed over equal distances, and a work problem where someone leaves partway through. The average-speed question is a standing trap because the arithmetic mean feels right and is always wrong for equal distances — the harmonic mean 2ab/(a+b) is the correct one, and it always comes out lower.'],
+['Where marks are lost','Forgetting the 5/18 conversion between km/h and m/s. Using only the platform length in a crossing question. Adding an emptying pipe instead of subtracting it. The single best defensive habit is to set up work problems in LCM units rather than fractions — take the job as 60 units rather than as 1, and every rate becomes a whole number.']],
+M4:[
+['What this topic really is','Commercial arithmetic is where percentages meet time. Simple interest adds a fixed amount each year, so it grows in a straight line. Compound interest adds interest on interest, so it grows exponentially — and the gap between the two widens every year and never closes. That single distinction generates most of the questions. It also generates the most useful shortcut in the topic: over exactly two years, the difference between compound and simple interest is P(r/100)², which turns a multi-step calculation into one multiplication. The other half is the mark-up chain. Cost, marked price and selling price sit in a sequence, and questions move you along it in either direction. Handling it as one product of multipliers keeps every base straight.'],
+['How the exam tests it','Two or three questions, and being a business-school entrance it leans toward the commercial framing: profit on a discounted mark-up, the two-year interest difference, a doubling period, or two articles sold at the same price at equal and opposite percentages. That last one always yields a net loss of x²/100 percent, never a break-even — the equal selling prices mean the loss-making article had the larger cost.'],
+['Where marks are lost','Applying the discount to cost instead of to marked price. Treating compound interest as simple interest plus a bit. And answering "no profit no loss" to the equal-selling-price question, which feels symmetric and is not. Compounding is also the bridge to economics: the same formula computes CAGR, population growth and real versus nominal comparisons, so the work here pays out twice.']],
+M5:[
+['What this topic really is','School algebra teaches you to solve for x. Competitive algebra teaches you when not to. If a question gives x + 1/x = 5 and asks for x³ + 1/x³, solving for x leads into irrational numbers and a dead end; using the identity a³ + b³ = (a + b)³ − 3ab(a + b) with ab = 1 gives 110 in one line. The same applies to quadratics. The roots themselves are usually irrelevant — what matters is that they sum to −b/a and multiply to c/a, which answers any symmetric expression in them. And the discriminant answers "how many real roots" without producing a single one, which is why "for what values of k" questions are discriminant questions in disguise.'],
+['How the exam tests it','Three to five questions, split between symmetric expressions in the roots, a condition on k for real or distinct roots, an inequality, and a modulus equation. Inequalities carry two extra rules and no others: multiplying by a negative flips the sign, and a quadratic inequality is negative strictly between its roots. A modulus splits into two cases, and |A| ≤ c gives one interval while |A| ≥ c gives two outward rays.'],
+['Where marks are lost','Reading "distinct" as "real" and including the boundary where the discriminant is zero. Taking only the positive case of a modulus. And attempting to solve for x when the question never asked for x. Before starting any algebra question, check whether the quantity asked for is symmetric in the roots — if it is, you are one identity away from the answer.']],
+M6:[
+['What this topic really is','A sequence is a rule for getting from one term to the next, and at this level the rule is nearly always "add a constant" or "multiply by a constant". Everything else follows. The formulas are worth holding exactly, but two structural facts save more time than the formulas do. First, a term can be recovered from a sum: tₙ = Sₙ − Sₙ₋₁, so you never expand a series to find one term. Second, if the sum of n terms takes the form an² + bn, the sequence is automatically an AP with common difference 2a and first term a + b. That fact answers a whole question type in about ten seconds. Infinite geometric series add one condition worth stating carefully: a/(1 − r) is valid only when |r| < 1, because only then do the terms shrink fast enough to total something finite.'],
+['How the exam tests it','One to three questions — a specific term, a sum, an infinite GP, or a standard summation like Σn or Σn². Occasionally a series question is disguised as reasoning: a pattern that turns out to be an AP or a quadratic in n. The overlap with the reasoning section is real, and treating them as one skill rather than two is the efficient reading.'],
+['Where marks are lost','Applying the infinite-sum formula when the ratio is 1 or greater. Confusing the nth term with the sum of n terms. And doing arithmetic on large numbers when the structural shortcut was available — subtracting S₉ from S₁₀ is correct but slower than reading d = 2a straight off the coefficient.']],
+M7:[
+['What this topic really is','A function is a rule together with a domain, and the domain is where half the marks sit. Square roots need a non-negative inside; denominators cannot be zero; logarithms need a strictly positive argument. Any of those conditions can be the whole question. Logarithms exist for one purpose: they turn multiplication into addition, which is why log(ab) = log a + log b is the identity everything else is built from. Graph transformations follow a predictable pattern with one counterintuitive case — adding outside the bracket moves the curve the way you expect, adding inside moves it the opposite way. Reason it once and you never need to memorise it: f(x + 2) reaches at x = 0 whatever f reached at x = 2, so the graph arrives earlier, which is to the left.'],
+['How the exam tests it','Composition in the right order, a log equation, a domain, or a transformation. Composition questions reliably offer both f(g(x)) and g(f(x)) among the options, so the order is the entire test. Log equations reliably have a root that must be rejected on domain grounds, and that rejection is the point of the question.'],
+['Where marks are lost','Accepting a root that makes a log argument zero or negative. Reading f(x − 2) as a leftward shift. And forgetting that a domain question may carry two independent restrictions that both bind. This module also does more work later than it appears to: every demand curve, cost curve and revenue curve in the Economics track is a function being read off a graph.']],
+M8:[
+['What this topic really is','Set questions are counting questions with an overlap problem. Adding two groups counts anyone in both of them twice, so the union formula subtracts the intersection once to undo it. With three sets the correction alternates — add the singles, subtract the pairs, add the triple back — because the centre region has been over- and under-counted along the way. The practical method is not the formula though; it is the diagram. Fill the innermost region first, then the pairwise-only regions by subtracting what you have already placed, then the singles. Working outside-in produces double counting almost every time. The other half of the topic is bounds: an overlap can be no larger than the smaller set, and no smaller than the two sizes added minus the total.'],
+['How the exam tests it','One or two questions, usually a survey with a "neither" category, or a maximum–minimum overlap. The language matters more than the arithmetic: "at least two" includes the centre, "exactly two" excludes it, and the options will contain both answers.'],
+['Where marks are lost','Answering the "exactly" question with the "at least" number. Forgetting that "neither" is the total minus the union, not the total minus the two group sizes. And treating a minimum-overlap question as though the answer were zero — it is only zero when the two sets fit inside the total with room to spare.']],
+M9:[
+['What this topic really is','Counting has the highest error rate of any topic in the paper, and almost all of it comes from two decisions made too quickly. The first is whether order matters: a committee is a selection, a ranking or a seating or a code is an arrangement, and the ratio between the two counts is exactly r!. The second is what to do with the restriction. Fill the constrained position first — the leading digit that cannot be zero, the people who must sit together, the letters that must stay apart — and the rest falls out. Circular arrangements lose one degree of freedom because rotating everyone produces no new arrangement, so fixing one person as a reference gives (n − 1)!. Probability then rides on top of all this, with one habit worth making automatic: "at least one" is nearly always 1 − P(none), which replaces several calculations with one.'],
+['How the exam tests it','Two or three questions, typically an arrangement with repeated letters, a selection with a restriction such as "at least one woman", and a probability question phrased with "at least". The restriction version is usually faster as a subtraction: total minus the excluded case.'],
+['Where marks are lost','Forgetting to divide by the repeats, which produces a clean-looking wrong answer that will be in the options. Reading "at least two" as "exactly two". And computing forwards through several cases when the complement was one step. Work slowly here — this is the one topic where speed reliably costs more marks than it saves.']],
+M10:[
+['What this topic really is','Geometry at this level is a small set of facts applied to a drawn figure, and the drawing is not optional. Solving from the text alone is how easy questions become hard ones. Three facts carry most of the weight. Similar figures scale in three different ways — lengths by k, areas by k², volumes by k³ — and most similarity questions are testing whether you square or cube. The perpendicular from a centre bisects a chord, which turns every chord question into a right triangle with the radius as hypotenuse. And when a length is awkward to reach directly, write the area two different ways and set them equal, which is the standard route to any altitude. Coordinate geometry adds distance, midpoint and section formulas, all of which are the same idea in different arrangements.'],
+['How the exam tests it','Three or four questions across plane geometry, mensuration and coordinates. Pythagorean triples appear constantly — 3-4-5, 5-12-13, 7-24-25, 8-15-17 and their multiples — and recognising 9-12-15 as a scaled 3-4-5 removes an entire step. Scaling questions are common because they are quick to set and easy to get wrong.'],
+['Where marks are lost','Applying the length ratio to an area, or the area ratio to a volume. Halving a parallelogram area as though it were a triangle. And not drawing the figure, which is the root cause of most of the rest. Thirty seconds spent on a rough sketch is the highest-return habit in this module.']],
+M11:[
+['What this topic really is','This module gathers the Class 12 material — trigonometry, matrices, calculus — that the first UG-AT treated more lightly than the syllabus implied. It is still worth solid preparation, for three reasons: it is board syllabus, it is interview territory, and the derivative is the single idea that connects this track to the Economics one. A derivative is a rate of change, and setting it to zero locates a turning point. That is all that "profit is maximised where MR = MC" means: the derivative of profit is zero. Trigonometry is largely a lookup problem once the standard angles are held exactly, and heights-and-distances reduces to one decision — which of sine, cosine or tangent connects the side you have to the side you want. Determinants answer whether a system of equations has a unique solution, without solving it.'],
+['How the exam tests it','One to three questions, lighter than expected: a standard-angle evaluation, a heights-and-distances setup, a 2×2 determinant, or a derivative at a point. Maxima and minima can often be done faster by completing the square than by differentiating, and under time pressure the algebraic route usually wins.'],
+['Where marks are lost','Measuring a height from the ground when the question gives an observer height, or vice versa. Sign errors in determinants. And treating this module as optional because the first edition was light on it — one edition is not a pattern, and the board examination is not optional at all.']],
+M12:[
+['What this topic really is','Data interpretation is a reading test with arithmetic attached, and the reading is where it is won. Before touching a number, read the units, the footnote, the axis scale, and whether a bar is a total or one component of a total. Thirty seconds spent there prevents the error that costs an entire set — and sets are the point: five to seven marks arrive in two or three linked groups, so they are won or lost together. The second habit is approximation. Options are usually far enough apart that a rough figure identifies the answer, and exact computation is only needed when two options are close. The third is reuse: sets are constructed so that a sub-total computed for one question reappears in the next. Write it down.'],
+['How the exam tests it','Two or three sets, drawn from tables, bar and line combinations, pie charts, or caselets with no chart at all. A combination chart mixing rupees on the bars with percentages on the line is a favourite, precisely because it invites the reader to mix the two scales. The most common single question is a percentage change, and the second most common is an aggregate that is revenue-weighted rather than a plain average of the given percentages.'],
+['Where marks are lost','Dividing a percentage change by the new value instead of the old. Confusing percentage points with percentages — a margin moving from 20% to 24% rose by 4 points but by 20% in relative terms, and both figures will be offered. And averaging four given margins when the question asks for the overall margin, which must be weighted by the underlying revenues.']],
+M13:[
+['What this topic really is','A structured reasoning puzzle is a search that you can make almost linear if you start in the right place. The right place is never clue number one; it is the clue that fixes a position or eliminates the most possibilities. Begin there, and each subsequent clue tends to place exactly one more item. The second requirement is a fixed notation — a row of numbered blanks, a circle with fixed positions, a grid of ticks and crosses — used the same way every time. Inventing notation mid-question wastes the time the notation was supposed to save. The third is to record negatives. "P is not in seat 3" is real information and belongs on the page; puzzles stall when only positives are written down.'],
+['How the exam tests it','Three to five questions, often as one set built on a single arrangement, plus syllogisms treated as diagram questions. In syllogisms, "does it follow" means "must it be true in every valid diagram", so a single counter-diagram rejects a conclusion — and finding one is faster than reasoning in words. Circular arrangements add a direction trap: facing inward reverses left and right.'],
+['Where marks are lost','Reading the clues in the order given rather than in order of how much they constrain. Assuming "between A and B" implies adjacency when it does not. And accepting a conclusion that is merely possible in a syllogism. If a clue set admits two valid arrangements, the questions will only ask about what both have in common — noticing that saves a lot of anxiety.']],
+M14:[
+['What this topic really is','Pattern reasoning is trained by exposure rather than by theory, but the exposure is structured. Number series resolve in a fixed order of attempts: take first differences, then second differences, and if neither settles, test a multiplicative rule. Gaps that roughly double are the signal for "multiply then add" — a rule like ×2 + n, which accounted for a striking share of the first edition. Letter series are number series in disguise once alphabet positions are automatic, which is why the anchors matter: A=1, E=5, J=10, O=15, T=20, Y=25, plus the mirror rule that a letter and its opposite always sum to 27. Odd-one-out is the genuinely awkward type, because several rules often fit. The working principle is to take the property shared by the majority and eliminate the leftover, rather than stopping at the first pattern you notice.'],
+['How the exam tests it','Four to six questions, and the first edition was unusually heavy here — a run of odd-one-out and alphabet-position items that surprised most candidates. That is a distinctive signature and worth taking seriously until a second edition either confirms or breaks it. Coding questions test position shifts first, reversal second, arithmetic on positions third.'],
+['Where marks are lost','Abandoning a series after the difference ladder fails, instead of testing a multiplicative rule. Counting through the alphabet from A rather than stepping from an anchor. And, in odd-one-out, committing to the first rule that fits three items without checking whether a different rule fits all four but one more cleanly.']],
+E1:[
+['What this topic really is','Economics begins with a constraint rather than a subject matter: wants exceed the means of satisfying them, so every choice forecloses another. That makes opportunity cost the real cost of anything — the next-best alternative given up — and money cost merely a proxy for it, often a poor one. The production possibility curve is that idea drawn. Points on the curve are efficient, points inside are wasteful, points beyond are unattainable with current resources. The curve bows outward because resources are not equally suited to both goods: shifting more of them into one use sacrifices increasing amounts of the other. The distinction that earns marks is between moving to the curve and moving the curve. An economy in recession sits inside its own frontier and needs no new resources to recover; growing beyond the frontier is a different problem with different policy.'],
+['How the exam and the interview test it','The UG-AT does not examine economics directly, so this module works for the board paper and, more importantly, for the interview. Panels use opportunity cost as a first probe because it is easy to state and hard to apply well. Being able to give a non-monetary example — the cost of a year of study is the income forgone, not just the fee — separates understanding from recall.'],
+['Where people go wrong','Treating opportunity cost as the money spent. Confusing a point inside the curve with a shrunken curve. And blurring positive statements, which describe what is, with normative ones, which assert what ought to be — the second cannot be settled by data alone, and saying so cleanly is worth marks.']],
+E2:[
+['What this topic really is','Demand and supply is the workhorse diagram of the subject and the one an interview panel is most likely to ask you to draw. Two things must be exact. First, a change in the good\u2019s own price moves you along the curve; anything else — income, tastes, the price of something related, expectations — shifts the whole curve. Second, equilibrium is not an assumption but a resting point: above it there is surplus and sellers cut prices, below it there is shortage and buyers bid them up. Elasticity then measures responsiveness, and being a ratio of percentage changes it carries no units, which is what lets you compare petrol with rice. It is not the slope. A single straight demand curve has one constant slope and every possible elasticity along it, because elasticity multiplies the slope by P/Q and that ratio falls as you move down.'],
+['How the exam and the interview test it','Numerically, by giving you Qd and Qs as equations and asking for equilibrium — set them equal, solve, and substitute back into both to check. Verbally, by asking what happens to revenue when price changes, which is the most examined implication in the whole topic.'],
+['Where people go wrong','Calling a price change a shift. Treating slope and elasticity as the same thing. And getting the revenue rule backwards. Hold it as one sentence: when demand is elastic, price and total revenue move in opposite directions. That single line answers most elasticity questions without any calculation.']],
+E3:[
+['What this topic really is','Consumer theory is where economics becomes geometry, and where the mathematics track starts paying off directly. An indifference curve joins bundles the consumer values equally; it slopes downward because more of one good requires less of the other to stay equally happy, and it curves because willingness to trade falls as you acquire more of a good. The budget line is the constraint, and its slope is the price ratio — the rate at which the market will let you swap one good for the other. Equilibrium is the tangency of the two: the consumer\u2019s willingness to trade equals the market\u2019s terms of trade. The reasoning is identical to a firm\u2019s. Keep doing the thing while your valuation exceeds its cost, and stop exactly where they meet. One idea, two applications, and recognising that is what makes both feel obvious rather than memorised.'],
+['How the exam and the interview test it','Drawing and shifting the budget line: an income change moves it outward in parallel, a price change pivots it around one intercept. Panels like this because the two movements are easy to confuse and the distinction shows whether the diagram is understood or copied.'],
+['Where people go wrong','Attributing the slope of the budget line to income rather than to prices. Describing the indifference curve as convex without being able to say why. And treating the tangency as a definition rather than a result — it follows from the fact that any other reachable point lies on a lower curve.']],
+E4:[
+['What this topic really is','Cost curves look like a memorisation problem and are not. Marginal cost is the cost of one more unit — the derivative of total cost — and because fixed cost does not change with output it contributes nothing to MC at all. That single fact answers a whole family of questions. Average fixed cost falls continuously because a constant is being divided by a growing number; it approaches zero and never turns back up, which is why high-fixed-cost industries chase scale so hard. And the most striking relationship in the module is pure arithmetic rather than economics: marginal cost cuts average cost exactly at the minimum of average cost. While the marginal is below the average it pulls the average down; while above, it pulls it up; so they can only meet where the average stops falling. Think of a running exam average and the effect of one more score.'],
+['How the exam and the interview test it','Numerically, by giving a total cost function and asking for MC, AC, and the output that minimises AC — with the check that at that output MC and AC are equal. If they are not, one of the two calculations is wrong.'],
+['Where people go wrong','Confusing returns to a factor, where one input varies and the rest are fixed, with returns to scale, where everything changes together. Assuming fixed costs raise marginal cost. And treating the MC-cuts-AC-at-its-minimum result as a fact to recite rather than a consequence to explain — the explanation is what the interview is after.']],
+E5:[
+['What this topic really is','Market structure is a comparison exercise built on one universal rule and one varying input. The rule is that every firm maximises profit where marginal revenue equals marginal cost. What differs between structures is the shape of the marginal revenue curve. Under perfect competition the firm is one of many selling an identical product, so it can sell any quantity at the ruling price: demand is horizontal and price, average revenue and marginal revenue are all the same number. A monopolist faces the whole market demand curve, so selling one more unit requires cutting the price on every unit — which makes marginal revenue fall below price, and for a linear demand curve fall twice as steeply. Every monopoly result follows from that one asymmetry: less is produced, more is charged, and the value buyers place on the missing units above their cost is the deadweight loss.'],
+['How the exam and the interview test it','A numerical profit-maximisation — write TR, differentiate for MR, set MR = MC for quantity, then read price off the demand curve. And a comparison question, which is prime interview material because it invites a structured answer.'],
+['Where people go wrong','Reading the price off the marginal revenue curve instead of the demand curve — quantity comes from where MR meets MC, price from directly above that quantity on the demand curve. And describing long-run zero economic profit under perfect competition as making no money; it means earning exactly what the capital could earn elsewhere, which is a very different claim and worth stating precisely.']],
+E6:[
+['What this topic really is','Macroeconomics starts with an accounting identity rather than a theory. One person\u2019s spending is another\u2019s income, so total output, total income and total expenditure are the same quantity measured at three points in the circular flow — which is why the three methods of computing GDP must agree. Two distinctions then do most of the work. Final versus intermediate goods: counting both double-counts, which is what the value-added method exists to prevent. And nominal versus real: nominal GDP is measured at current prices and rises when prices rise even if nothing more is produced, so only the real figure tells you whether output actually grew. The multiplier is the third idea — an injection of spending is received as income, partly re-spent, received again — and its size depends on how much of each rupee is spent rather than saved.'],
+['How the exam and the interview test it','Computationally, through the expenditure identity C + I + G + (X − M), a deflator conversion, or a multiplier from the marginal propensity to consume. Conversationally, by asking what a growth number actually means, which is where the nominal-real distinction earns its keep.'],
+['Where people go wrong','Adding imports instead of subtracting them. Including the resale of an existing asset, which transfers ownership without creating output. And quoting a growth rate without saying whether it is real or nominal — a 10% rise with 6% inflation is about 4% of actual extra production, and the difference is the entire point.']],
+E7:[
+['What this topic really is','Money and banking is the module that makes the newspaper readable. Banks create money by lending: a deposit is lent, redeposited elsewhere, and lent again, so the system ends up with far more deposits than the original cash — limited by the fraction banks must hold in reserve. That fraction sets the ceiling, 1/r times the injection, and it is a maximum rather than a prediction, because it assumes every rupee returns and no bank holds spare reserves. Monetary policy then works through the price of credit: the central bank moves the repo rate, banks reprice loans, borrowing and spending respond, and demand and eventually inflation follow. Every link in that chain can leak, which is why central banks talk about transmission as a problem in its own right, and why the effect takes several quarters rather than weeks.'],
+['How the exam and the interview test it','A money-multiplier computation, or a question on which instrument does what. In interview, almost always a current question — what the repo rate is now and whether it should move — where the good answer distinguishes demand-driven inflation from a supply shock, because raising rates cools demand without touching a fuel or food shock at all.'],
+['Where people go wrong','Confusing fiscal instruments, which belong to the government, with monetary ones, which belong to the central bank. Treating the maximum credit creation as the actual figure. And prescribing a rate rise for any inflation without asking what is causing it.']],
+E8:[
+['What this topic really is','This module is a habit more than a syllabus. India moved from agriculture to services without a large manufacturing phase, which is unusual among big economies and sits underneath most of the employment debate: agriculture still employs far more people than its share of output, which is another way of saying productivity per worker there is low. Employment data is the weakest part of the picture because most work is informal, so the headline rate understates the problem and the interesting questions are about underemployment and job quality. Inflation needs one careful distinction — CPI tracks what households actually pay, including services, and is what the central bank targets, while WPI tracks wholesale goods prices; the two can move in opposite directions. And a base effect can make a growth figure look strong or weak with nothing real having changed.'],
+['How the exam and the interview test it','Computing an inflation rate from an index, and interpreting it. The standard probe is whether falling inflation means falling prices — it does not; it means prices are rising more slowly, which is disinflation, while actual falling prices would be deflation.'],
+['Where people go wrong','Quoting figures without their reference month. Treating a national aggregate as though it described a household. And reading only summaries. One primary release a month — from the RBI, MoSPI or the Economic Survey — makes a candidate immediately distinguishable from one who has read only coaching notes.']],
+E9:[
+['What this topic really is','This module exists to make the two tracks one. Every "marginal" quantity in economics is a derivative: marginal cost is the derivative of total cost, marginal revenue of total revenue, marginal utility of total utility. Every optimisation is a derivative set to zero: MR = MC is exactly d(profit)/dq = 0, rewritten in economic vocabulary. Elasticity is a derivative that has been scaled to remove units — (dQ/dP)(P/Q) — which is why it varies along a straight demand curve even though the slope does not, and why it equals one exactly at the midpoint, where total revenue is at its maximum. A budget constraint is a straight line whose slope is a price ratio. Once these correspondences are visible, most of the Economics diagrams stop being objects to memorise and become consequences of things already known from the mathematics track.'],
+['How the exam and the interview test it','Numerically, by giving a demand or cost function and asking for elasticity at a point, or for the profit-maximising output. Conversationally, by asking why a firm should ignore fixed costs when deciding how much to produce — the calculus answer is that fixed costs do not appear in marginal cost at all.'],
+['Where people go wrong','Computing average where marginal was asked. Forgetting that for a linear demand P = a − bQ, marginal revenue is a − 2bQ, with the same intercept and twice the slope. And reporting elasticity as a slope, which loses the whole point of making it unit-free.']],
+E10:[
+['What this topic really is','Forty percent of the composite score is a conversation, and conversations are trainable. The unit of preparation is not an answer but a shape: take two seconds, then reply with a structure — a position, one clear reason, and the honest limit of that position. The third element is what most candidates skip and what panels are listening for, because every real position has a genuine weakness and naming it yourself reads as confidence rather than doubt. The second principle is that the follow-up question matters more than the first. Prepare the follow-up. A rehearsed opening followed by a collapse under one probe is worse than a plainer answer that survives three. And the third is that "I don\u2019t know" is a legitimate move when used once, cleanly, and followed by how you would find out — panels are extremely good at telling that apart from bluffing.'],
+['How it is tested','A why-chain: why economics, why an IIM at seventeen, why this over ISI or a Delhi college. Anything on the application form is fair game. And a current-affairs probe, where three live numbers with their reference month — inflation, the repo rate, latest growth — signal that you follow the subject rather than having revised it.'],
+['Where people go wrong','Answering with enthusiasm instead of substance: everyone finds economics interesting, and almost nobody names the specific question that made them curious. Listing an achievement on the form that cannot be discussed for two minutes. And treating a yes-or-no question as though it required a yes or a no — turning it into an analytical question, and then actually answering it, is what the panel is testing.']]
+};
+
 const SVGW='viewBox="0 0 480 260" role="img"';
 const ax=(t)=>`<text fill="#B3AFC6" font-family="IBM Plex Mono, monospace" font-size="11" ${t}`;
 
@@ -1557,90 +1679,185 @@ function clBump(kind,right){const t=CL[kind];t.att++;if(right)t.cor++;clSave();}
 const SC={Q:'#FFA23D',L:'#71D8C6',V:'#A28BF0'};
 const SN={Q:'Quant &amp; DI',L:'Reasoning',V:'English'};
 
-/* ===================== PREDICTED QUESTIONS ===================== */
-/* [section, topic, basis, stem, options, answerIndex, solution] */
-const PRED=[
-['Q','Mark-up and discount','The single most repeated arithmetic shape across the UG-AT and the IPMAT family. The decoy is always the additive answer — here, 60 − 45 = 15% profit.',
- 'A shopkeeper marks an article 60% above cost and then offers two successive discounts of 25% and 20%. His net result is:',
- ['a loss of 4%','a profit of 4%','a profit of 15%','no profit and no loss'],0,
- 'Chain the multipliers on a cost of 100: 1.60 × 0.75 × 0.80 = 0.96. The selling price is 96 against a cost of 100, so it is a loss of 4%. Adding and subtracting the percentages directly would give a 15% profit — the trap sitting in option C.'],
-['Q','Repeated replacement','Mixture-and-replacement appears in almost every edition of the adjacent papers and rewards a single formula. Expect the two-round version rather than one round.',
- 'A vessel holds 40 litres of milk. 8 litres are drawn off and replaced with water. The same operation is repeated once more. The milk now remaining is:',
- ['25.6 litres','24 litres','26.4 litres','28.8 litres'],0,
- 'After n replacements the milk remaining is initial × (1 − drawn/total)ⁿ = 40 × (1 − 8/40)² = 40 × 0.64 = 25.6 litres. Subtracting 8 twice would give 24 — which ignores that the second draw removes water as well as milk.'],
-['Q','Average on replacement','Replacement-and-average questions recur because they can be solved in one line by anyone who sees the structure, and take a minute by anyone who does not.',
- 'The average weight of 8 people rises by 2.5 kg when a new person replaces one weighing 65 kg. The weight of the new person is:',
- ['85 kg','80 kg','75 kg','90 kg'],0,
- 'The new person must cover the old weight plus the total increase across all 8 people: 65 + (8 × 2.5) = 65 + 20 = 85 kg. Writing out both totals gives the same answer but takes four times as long.'],
-['Q','Relative speed','Trains crossing each other in opposite directions is the highest-frequency time-speed-distance shape in this exam family.',
- 'Two trains 120 m and 180 m long run in opposite directions at 54 km/h and 36 km/h. The time they take to cross each other completely is:',
- ['12 seconds','10 seconds','15 seconds','20 seconds'],0,
- 'Opposite directions means speeds add: 54 + 36 = 90 km/h = 25 m/s. The distance covered is the sum of both lengths, 300 m. Time = 300 ÷ 25 = 12 seconds.'],
-['Q','Compound interest','The two-year CI-minus-SI difference is a standing favourite because it has a one-line shortcut and a laborious long route.',
- 'The difference between compound and simple interest on a sum for 2 years at 8% per annum is ₹128. The sum is:',
- ['₹20,000','₹16,000','₹25,000','₹18,000'],0,
- 'For two years the difference is P(r/100)². So 128 = P × 0.0064, giving P = 128 ÷ 0.0064 = ₹20,000.'],
-['Q','Roots of a quadratic','Symmetric expressions in the roots appear repeatedly, because they test whether a candidate reaches for sum and product rather than the quadratic formula.',
- 'If α and β are the roots of x² − 7x + 10 = 0, then α² + β² equals:',
- ['29','39','49','19'],0,
- 'Sum = 7 and product = 10. Then α² + β² = (α + β)² − 2αβ = 49 − 20 = 29. Solving for the roots 5 and 2 gives the same answer, but the identity generalises to cases where the roots are irrational.'],
-['Q','Factor counting','Number-system questions in this exam reward prime factorisation over computation. Trailing zeros is the version that appears most often.',
- 'The number of trailing zeros in 50! is:',
- ['12','10','8','6'],0,
- 'Each trailing zero needs a pair of 2 and 5, and fives are scarcer. Count them: ⌊50/5⌋ + ⌊50/25⌋ = 10 + 2 = 12. Answering 10 means forgetting that 25 and 50 each contribute a second five.'],
-['Q','Probability · at least','"At least" phrasing is near-guaranteed somewhere in the section, and the complement route is what separates a fast solve from a slow one.',
- 'Three fair coins are tossed together. The probability of getting at least two heads is:',
- ['1/2','3/8','5/8','1/4'],0,
- 'Of the 8 equally likely outcomes, those with at least two heads are HHH, HHT, HTH and THH — four of them, giving 1/2. Reading "at least two" as "exactly two" would give 3/8, which is option B.'],
-['Q','Mensuration','Equilateral-triangle area appears in reverse form — area given, side asked — because it tests whether the formula is held securely rather than recognised.',
- 'The area of an equilateral triangle is 36√3 cm². Its side is:',
- ['12 cm','6 cm','18 cm','9 cm'],0,
- 'Area = (√3/4)a², so (√3/4)a² = 36√3. Cancel √3: a²/4 = 36, so a² = 144 and a = 12 cm.'],
-['Q','Data interpretation · set','Expect two or three linked questions off one small table. The reliable trap is a store with high revenue but a poor margin.',
- 'DISET|Which store had the highest profit margin?',
- ['Store S','Store P','Store Q','Store R'],0,
- 'Margins are profit ÷ revenue: P = 48/240 = 20%, Q = 45/180 = 25%, R = 45/300 = 15%, S = 45/150 = 30%. Store S is highest despite having the smallest revenue — which is exactly the point of the table.'],
-['Q','Data interpretation · set','The second question in a DI set almost always needs a total you have already computed. Aggregate margin is the standard second step.',
- 'DISET|Total profit for all four stores, as a percentage of total revenue, is closest to:',
- ['21%','19%','23%','25%'],0,
- 'Total profit = 48 + 45 + 45 + 45 = 183 on total revenue of 870, which is 21.0%. Note this is not the average of the four margins (22.5%) — the aggregate is revenue-weighted, so the big low-margin store pulls it down.'],
-['L','Number series','Multiply-then-add series were the dominant series type in the first edition. If plain differences do not resolve, this is the rule to test next.',
- 'Find the next term: 4, 9, 19, 39, 79, ?',
- ['159','158','160','157'],0,
- 'Each term is double the previous plus one: 4→9→19→39→79→159. The differences (5, 10, 20, 40) roughly double, which is the signal for a multiply-then-add rule rather than an additive one.'],
-['L','Odd one out','The first edition ran unusually heavy on odd-one-out. The dependable version mixes cubes with a square, so the majority rule decides it.',
- 'Which is the odd one out: 216, 343, 400, 512?',
- ['400','216','343','512'],0,
- '216 = 6³, 343 = 7³ and 512 = 8³ are perfect cubes. 400 = 20² is a square but not a cube, so it is the outlier. Three items share the property and one does not — always let the majority set the rule.'],
-['L','Alphabet positions','Alphabet-position work featured prominently in the first edition and is the cheapest section to prepare. Expect either a sum or a direct substitution code.',
- 'If FLOWER is coded as 6-12-15-23-5-18, then GARDEN is coded as:',
- ['7-1-18-4-5-14','7-1-17-4-5-13','6-1-18-4-5-14','7-2-18-4-6-14'],0,
- 'The code is simply each letter\u2019s position in the alphabet. G = 7, A = 1, R = 18, D = 4, E = 5, N = 14. Anchoring on O = 15 and T = 20 makes R and N reachable in one step each.'],
-['L','Linear arrangement','A short queue or row puzzle with four constraints is the standard structured-reasoning item. It is solvable in under a minute if you start from the constraint that fixes a position.',
- 'P, Q, R, S and T stand in a queue. T is ahead of R, R is ahead of S, and S is ahead of Q. T is not at the front. Who is at the front?',
- ['P','T','R','S'],0,
- 'The chain gives T before R before S before Q, so those four occupy their relative order. T cannot be first, and no one in the chain can be ahead of T — so the only person left, P, is at the front.'],
-['V','Reading comprehension','Inference questions on a dense short passage are the most common English item. The correct option restates the passage\u2019s logic; the wrong ones overstate it.',
- 'PASSAGE|It can be inferred from the passage that anchoring expectations works mainly because:',
- ['people set wages and prices as though the target will be met','supply shocks are rare in most economies','the central bank sets wages directly','a numerical target removes inflation entirely'],0,
- 'The passage says the discipline anchors expectations "so that wage and price setters behave as though the target will be met" — the mechanism runs through private behaviour. The other options overstate: nothing is claimed about how common shocks are, the bank does not set wages, and the passage never claims inflation is eliminated.'],
-['V','Grammar · modifiers','Rule-based grammar, not instinct. Dangling modifiers appear repeatedly because the wrong version reads perfectly naturally out loud.',
- 'Choose the grammatically correct sentence.',
- ['Having finished the report, she switched off the printer.','Having finished the report, the printer was switched off.','Having finished the report, the printer was switched off by her.','The report having finished, the printer was switched off.'],0,
- 'The opening phrase must describe the subject of the main clause. Only in the first sentence is the subject the person who finished the report. In the others the printer appears to have finished it.'],
-['V','Vocabulary in context','Usage-based rather than definition-based. The clause after the colon almost always defines the blank, so read the second half first.',
- 'The minister\u2019s remarks were ______: they pleased his supporters while committing him to nothing.',
- ['anodyne','incisive','inflammatory','candid'],0,
- 'Pleasant but deliberately without substance is exactly "anodyne". "Incisive" and "candid" would mean the remarks did commit him to something, and "inflammatory" contradicts pleasing his supporters.']
+/* ===================== PREDICTED PAPER · 120 QUESTIONS ===================== */
+const TMPL={
+ T1:['Mark-up with successive discount','Chained multipliers on cost. The decoy is always the additive answer.'],
+ T2:['Successive percentage change','x% up then x% down. Never zero — always a loss of x²/100.'],
+ T3:['Price–consumption inverse','Hold expenditure fixed while price moves. Tests which base you divide by.'],
+ T4:['Ratio chaining and ages','Two ratios joined on a common term, or an age ratio at two points in time.'],
+ T5:['Weighted average and alligation','Find the mean from the ratio, or the ratio from the mean.'],
+ T6:['Repeated replacement','Mixture drawn off and topped up, usually twice. One formula, one shot.'],
+ T7:['Average on replacement','One member swapped or added. Solvable in one line by anyone who sees the structure.'],
+ T8:['Relative speed','Trains crossing, boats against a stream, average speed over equal distances.'],
+ T9:['Rates of work','Workers and pipes as rates. LCM units remove every fraction.'],
+ T10:['Simple versus compound interest','The two-year difference shortcut, or a doubling period.'],
+ T11:['Profit and loss on equal prices','Two articles at the same selling price, equal and opposite percentages.'],
+ T12:['Symmetric functions of roots','Sum and product of roots answer it without ever finding the roots.'],
+ T13:['Progressions','AP and GP terms and sums, including the infinite case.'],
+ T14:['Logarithms and indices','Rewriting in exponential form, or splitting a log across a product.'],
+ T15:['Number system','Factor counts, trailing zeros, unit-digit cycles, remainders, HCF-LCM.'],
+ T16:['Counting with restrictions','Fill the constrained position first; divide by repeats.'],
+ T17:['Probability of "at least"','Complement counting. The phrasing is the whole question.'],
+ T18:['Triangles and circles','Pythagorean triples, chord-radius-distance, similar-figure area ratios.'],
+ T19:['Mensuration and scaling','Lengths scale by k, areas by k², volumes by k³.'],
+ T20:['Coordinate geometry','Distance, midpoint, section formula, area from vertices.'],
+ T21:['Data interpretation · table','Multi-row table, two or three linked questions, one shared sub-total.'],
+ T22:['Data interpretation · shares','Percentage of a total that itself changes. The denominator is the trap.'],
+ T23:['Sets and Venn','Union formula, "neither", and maximum–minimum overlap.'],
+ T24:['Marginal and optimum','Derivative of a cost function, or a minimum by completing the square.'],
+ T25:['Multiply-then-add series','Gaps that roughly double. Test ×2 ± n before anything exotic.'],
+ T26:['Difference-ladder series','First differences, then second. Constant second differences mean a quadratic rule.'],
+ T27:['Letter series','Gaps in alphabet positions, often growing by one each step.'],
+ T28:['Odd one out','Several rules may fit. Take the property shared by the majority.'],
+ T29:['Alphabet positions','Position sums, mirrors summing to 27, nth-from-the-end. Heavy in the first edition.'],
+ T30:['Coding and decoding','A fixed shift, a reversal, or arithmetic on positions.'],
+ T31:['Blood relations','The speaker\u2019s own gender is usually the hinge.'],
+ T32:['Directions and turns','Opposite legs cancel; what remains is a right triangle or a single leg.'],
+ T33:['Ranking and positions','Position from the other end needs the +1, or the −1 for a total.'],
+ T34:['Linear arrangement','Four constraints, one row. Start with the clue that fixes a seat.'],
+ T35:['Syllogism','Does it follow in every valid diagram? One counter-diagram rejects it.'],
+ T36:['Critical reasoning','Assumption, weaken, strengthen. A rival cause is what weakens a causal claim.'],
+ T37:['Reading comprehension','The correct option restates the argument; the wrong ones overstate it.'],
+ T38:['Subject–verb agreement','The noun nearest the verb is usually not the subject.'],
+ T39:['Modifiers and parallelism','The opening phrase must describe the subject of the main clause.'],
+ T40:['Tense and conditionals','"Would" never belongs in the if-clause.'],
+ T41:['Prepositions and articles','Fixed collocations, and the article that follows the opening sound.'],
+ T42:['Synonyms and antonyms','Wrong options are often associated with the word rather than opposed to it.'],
+ T43:['Vocabulary in context','The clause after the colon or semicolon defines the blank.'],
+ T44:['Para jumbles','Find the sentence that needs no prior context — that one opens.'],
+ T45:['Sentence completion','The connector tells you whether the halves agree or contrast.']
+};
+
+const DI_A=`<div class="dset"><b>Set A · Revenue and expenditure of a firm (₹ crore)</b><table><thead><tr><th>Year</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr></thead><tbody><tr><td>Revenue</td><td>120</td><td>150</td><td>180</td><td>200</td><td>250</td></tr><tr><td>Expenditure</td><td>90</td><td>120</td><td>130</td><td>160</td><td>190</td></tr></tbody></table></div>`;
+const DI_B=`<div class="dset"><b>Set B · Annual sales by product (₹ lakh)</b><table><thead><tr><th>Product</th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead><tbody><tr><td>Sales</td><td>240</td><td>180</td><td>300</td><td>120</td></tr></tbody></table></div>`;
+const RC_A=`<div class="dset"><b>Passage 1</b><br>Raising a minimum wage is usually argued on one of two grounds. The first is distributional: low-paid workers gain, and the gain is concentrated where it is most needed. The second is behavioural: if employers hold some power to set wages below what a competitive market would pay, a floor can raise pay without reducing employment. The two arguments are often run together, but they are not equally demanding. The distributional case survives even if some jobs are lost, provided the gains to those still working outweigh the losses. The behavioural case does not — it stands or falls on an empirical claim about employer power.</div>`;
+const RC_B=`<div class="dset"><b>Passage 2</b><br>Every city that has tried to measure its own traffic has discovered the same awkward fact: the act of measuring changes what is measured. Cameras deter the behaviour they record. Congestion data published in real time reroutes the drivers it describes. Planners have learned to treat their instruments as participants rather than observers, which makes the resulting figures harder to defend but closer to the truth. The alternative — measuring quietly and pretending nothing was disturbed — produces cleaner numbers about a city that no longer exists.</div>`;
+const RC_C=`<div class="dset"><b>Passage 3</b><br>The case for teaching statistics before calculus in school rests less on utility than on sequence. Calculus rewards a student who already accepts that mathematics describes a world; statistics is what teaches them that it does. A pupil who has never weighed evidence against a claim has no reason to care whether a curve has a maximum. This is not an argument that calculus matters less. It is an argument that the order in which the two are met determines how much of either survives the examination that follows.</div>`;
+
+const P120=[
+["Q","T1","Mark-up and discount","","A shopkeeper marks an article 50% above cost and allows a discount of 20%. His profit percentage is:",["20%","30%","25%","15%"],"1.50 × 0.80 = 1.20, so a 20% profit on cost."],
+["Q","T1","Mark-up and discount","","Goods are marked 25% above cost and sold at a 20% discount. The result is:",["no profit and no loss","a 5% profit","a 5% loss","a 45% profit"],"1.25 × 0.80 = 1.00 exactly, so the shopkeeper breaks even."],
+["Q","T2","Successive change","","A number is increased by 30% and then decreased by 30%. The net change is:",["a 9% decrease","no change","a 9% increase","a 6% decrease"],"1.30 × 0.70 = 0.91, a fall of 9% — which is 30²/100."],
+["Q","T2","Successive change","","A salary is cut by 20% and later raised by 20%. Compared with the original it is now:",["4% lower","the same","4% higher","2% lower"],"0.8 × 1.2 = 0.96, so 4% below the original."],
+["Q","T3","Price and consumption","","If the price of a good rises by 25%, by what percentage must consumption fall to keep spending unchanged?",["20%","25%","30%","16.67%"],"New price is 1.25, so quantity must become 1/1.25 = 0.8 — a fall of 20%."],
+["Q","T3","Price and consumption","","The price of rice falls by 10%. Consumption can rise by what percentage without extra spending?",["11.11%","10%","9.09%","12.5%"],"1/0.9 = 1.111, an increase of about 11.11%."],
+["Q","T4","Ratio chaining","","If A : B = 3 : 4 and B : C = 6 : 5, then A : C is:",["9 : 10","3 : 5","18 : 20","1 : 2"],"Scale to a common B: A : B = 9 : 12 and B : C = 12 : 10, so A : C = 9 : 10."],
+["Q","T4","Ages","","The ages of a father and son are in the ratio 5 : 2. In ten years the ratio will be 2 : 1. The father is now:",["50 years old","40 years old","45 years old","35 years old"],"5x + 10 = 2(2x + 10) gives x = 10, so the father is 50 and the son 20."],
+["Q","T5","Weighted average","","A class of 20 averages 60 marks and another of 30 averages 70. The combined average is:",["66","65","67","64"],"(1200 + 2100) ÷ 50 = 66. It lies closer to 70 because that group is larger."],
+["Q","T5","Alligation","","In what ratio must tea at ₹150/kg be mixed with tea at ₹250/kg to sell at ₹190/kg?",["3 : 2","2 : 3","3 : 5","5 : 3"],"(250 − 190) : (190 − 150) = 60 : 40 = 3 : 2, cheaper to dearer."],
+["Q","T6","Replacement","","From 50 litres of milk, 10 litres are drawn and replaced with water. The operation is repeated once. The milk left is:",["32 litres","30 litres","36 litres","40 litres"],"50 × (1 − 10/50)² = 50 × 0.64 = 32 litres."],
+["Q","T6","Replacement","","A 90-litre mixture is 2 : 1 milk to water. How much water must be added to make it 1 : 1?",["30 litres","20 litres","45 litres","15 litres"],"Milk is 60 and water 30. Milk is unchanged, so water must reach 60 — an addition of 30 litres."],
+["Q","T7","Average on replacement","","The average weight of 6 people rises by 3 kg when a new person replaces one weighing 50 kg. The new person weighs:",["68 kg","65 kg","62 kg","71 kg"],"50 + (6 × 3) = 68 kg."],
+["Q","T7","Average","","A batsman averages 50 in 11 innings. What must he score in the 12th to raise the average to 52?",["74","72","76","70"],"12 × 52 = 624, and 11 × 50 = 550, so he needs 74."],
+["Q","T8","Relative speed","","Two trains 150 m and 100 m long run in opposite directions at 54 km/h and 36 km/h. They cross each other in:",["10 seconds","12 seconds","8 seconds","15 seconds"],"Relative speed 90 km/h = 25 m/s over a combined length of 250 m, so 10 seconds."],
+["Q","T8","Trains","","A 180 m train crosses a 270 m platform in 18 seconds. Its speed is:",["90 km/h","75 km/h","80 km/h","100 km/h"],"450 m in 18 s is 25 m/s, which is 90 km/h."],
+["Q","T8","Boats","","A boat covers 30 km downstream in 2 hours and the same distance upstream in 3 hours. The speed of the stream is:",["2.5 km/h","2 km/h","3 km/h","5 km/h"],"Downstream 15 and upstream 10, so the stream is (15 − 10) ÷ 2 = 2.5 km/h."],
+["Q","T9","Work","","A can finish a job in 12 days and B in 24 days. Together they take:",["8 days","9 days","6 days","10 days"],"Take 24 units: A does 2 a day, B does 1, so 24 ÷ 3 = 8 days."],
+["Q","T9","Work","","A and B together finish a job in 10 days and A alone in 15 days. B alone would take:",["30 days","25 days","20 days","35 days"],"In 30 units, together they do 3 a day and A does 2, so B does 1 — 30 days."],
+["Q","T9","Pipes","","Pipe A fills a tank in 6 hours and pipe B in 4 hours. Together they fill it in:",["2.4 hours","2 hours","3 hours","5 hours"],"In 12 units, A adds 2 an hour and B adds 3, so 12 ÷ 5 = 2.4 hours."],
+["Q","T10","Interest","","The difference between compound and simple interest on a sum for 2 years at 5% is ₹50. The sum is:",["₹20,000","₹25,000","₹18,000","₹22,000"],"P(r/100)² = 50, so P × 0.0025 = 50 and P = ₹20,000."],
+["Q","T10","Compound interest","","The compound interest on ₹10,000 for 2 years at 12% per annum is:",["₹2,544","₹2,400","₹2,644","₹2,500"],"10000 × 1.2544 = ₹12,544, so the interest is ₹2,544."],
+["Q","T11","Equal selling prices","","Two articles are sold at the same price, one at 25% profit and the other at 25% loss. Overall there is:",["a loss of 6.25%","no profit or loss","a profit of 6.25%","a loss of 12.5%"],"Equal and opposite percentages on equal selling prices always give a loss of x²/100 = 6.25%."],
+["Q","T11","Loss","","Sold at ₹360 an article yields a 10% loss. To make a 20% profit it must be sold for:",["₹480","₹432","₹450","₹460"],"Cost = 360 ÷ 0.9 = ₹400, so the required price is 1.2 × 400 = ₹480."],
+["Q","T12","Roots","","If α and β are the roots of x² − 11x + 30 = 0, then α² + β² equals:",["61","91","121","41"],"(α + β)² − 2αβ = 121 − 60 = 61."],
+["Q","T12","Roots","","For 3x² − 10x + 8 = 0, the value of 1/α + 1/β is:",["5/4","4/5","10/3","3/8"],"(α + β)/αβ = (10/3) ÷ (8/3) = 5/4."],
+["Q","T12","Algebra","","If x + 1/x = 4, then x² + 1/x² equals:",["14","16","18","12"],"Square both sides: x² + 2 + 1/x² = 16, so the answer is 14."],
+["Q","T13","Progressions","","The 25th term of the AP 5, 9, 13, … is:",["101","97","105","99"],"5 + 24 × 4 = 101."],
+["Q","T13","Progressions","","The sum of the first 25 terms of an AP with first term 2 and common difference 3 is:",["950","925","975","900"],"25/2 × (4 + 72) = 25 × 38 = 950."],
+["Q","T13","Progressions","","The sum of the infinite series 27 + 9 + 3 + … is:",["40.5","36","45","54"],"a/(1 − r) = 27 ÷ (2/3) = 40.5."],
+["Q","T14","Logarithms","","Given log₁₀ 2 ≈ 0.301, the value of log₁₀ 8 is approximately:",["0.903","0.602","1.204","0.301"],"log 8 = 3 log 2 = 3 × 0.301."],
+["Q","T15","Factors","","The number of factors of 360 is:",["24","20","18","30"],"360 = 2³ · 3² · 5, so (3+1)(2+1)(1+1) = 24."],
+["Q","T15","Trailing zeros","","The number of trailing zeros in 100! is:",["24","20","25","22"],"⌊100/5⌋ + ⌊100/25⌋ = 20 + 4 = 24."],
+["Q","T15","Unit digits","","The unit digit of 4³³ is:",["4","6","2","8"],"Powers of 4 alternate 4 and 6; an odd exponent gives 4."],
+["Q","T15","Remainders","","The remainder when 5³⁰ is divided by 6 is:",["1","5","3","0"],"5 ≡ −1 (mod 6), and (−1)³⁰ = 1."],
+["Q","T16","Counting","","How many three-digit numbers can be formed from 1, 2, 3, 4, 5 without repetition?",["60","125","20","120"],"5 × 4 × 3 = 60."],
+["Q","T16","Arrangements","","The number of distinct arrangements of the letters of SUCCESS is:",["420","840","210","5040"],"7! ÷ (3! × 2!) = 5040 ÷ 12 = 420, since S repeats three times and C twice."],
+["Q","T16","Combinations","","A committee of 4 is chosen from 6 men and 4 women with exactly 2 women. The number of ways is:",["90","120","60","210"],"C(4,2) × C(6,2) = 6 × 15 = 90."],
+["Q","T17","Probability","","Two dice are thrown. The probability that the sum is 7 is:",["1/6","1/9","5/36","1/12"],"Six of the 36 outcomes total 7."],
+["Q","T17","Probability","","Three coins are tossed. The probability of at least one tail is:",["7/8","1/2","3/8","5/8"],"1 − P(all heads) = 1 − 1/8."],
+["Q","T18","Circles","","A chord of length 16 cm lies in a circle of radius 10 cm. Its distance from the centre is:",["6 cm","8 cm","5 cm","4 cm"],"The perpendicular bisects the chord: √(100 − 64) = 6 cm."],
+["Q","T18","Similarity","","Two similar triangles have sides in the ratio 2 : 3. If the larger has area 45 cm², the smaller has area:",["20 cm²","30 cm²","22.5 cm²","15 cm²"],"Areas scale as 4 : 9, so 45 × 4/9 = 20 cm²."],
+["Q","T18","Right triangles","","A right triangle has legs 7 cm and 24 cm. Its hypotenuse is:",["25 cm","26 cm","23 cm","31 cm"],"A 7-24-25 triple."],
+["Q","T19","Scaling","","If the radius of a sphere is doubled, its surface area becomes:",["4 times","8 times","2 times","6 times"],"Areas scale as the square of the length ratio."],
+["Q","T19","Mensuration","","A cylinder of radius 7 cm and height 10 cm has volume (π = 22/7):",["1,540 cm³","1,450 cm³","1,620 cm³","770 cm³"],"πr²h = (22/7) × 49 × 10 = 1,540 cm³."],
+["Q","T20","Coordinates","","The distance between (0, 0) and (9, 12) is:",["15","21","12","18"],"√(81 + 144) = 15 — a scaled 3-4-5."],
+["Q","T23","Sets","","Of 120 students, 70 study mathematics, 60 study physics and 25 study both. How many study neither?",["15","20","10","25"],"At least one = 70 + 60 − 25 = 105, so 15 study neither."],
+["Q","T23","Sets","","If 65% of people like cricket and 75% like football, the minimum percentage liking both is:",["40%","35%","25%","65%"],"65 + 75 − 100 = 40%."],
+["Q","T24","Marginal cost","","If total cost is TC = 2q² + 10q + 50, marginal cost at q = 5 is:",["30","40","110","20"],"MC = 4q + 10, which is 30 at q = 5."],
+["Q","T24","Minimum","","The minimum value of x² − 6x + 13 is:",["4","9","13","0"],"Complete the square: (x − 3)² + 4."],
+["Q","T21","DI · profit","DI_A","In which year was the profit margin highest?",["2023","2021","2025","2024"],"Margins are 25%, 20%, 27.8%, 20% and 24%. 2023 is highest on a profit of 50 against revenue of 180."],
+["Q","T21","DI · totals","DI_A","Total profit across the five years is:",["₹210 crore","₹190 crore","₹220 crore","₹200 crore"],"30 + 30 + 50 + 40 + 60 = ₹210 crore."],
+["Q","T21","DI · growth","DI_A","The percentage increase in revenue from 2022 to 2025 is closest to:",["67%","40%","60%","55%"],"(250 − 150) ÷ 150 = 66.7%."],
+["Q","T21","DI · averages","DI_A","Average annual expenditure over the five years is:",["₹138 crore","₹140 crore","₹135 crore","₹142 crore"],"690 ÷ 5 = ₹138 crore."],
+["Q","T21","DI · trend","DI_A","In which year did profit fall compared with the previous year?",["2024","2022","2023","2025"],"Profit went 30, 30, 50, 40, 60 — the only fall is 2023 to 2024."],
+["Q","T22","DI · share","DI_B","Product C accounts for approximately what share of total sales?",["36%","30%","40%","33%"],"300 ÷ 840 = 35.7%."],
+["Q","T22","DI · ratio","DI_B","The ratio of sales of A to D is:",["2 : 1","3 : 2","1 : 2","4 : 3"],"240 : 120 = 2 : 1."],
+["Q","T22","DI · shifting base","DI_B","If sales of D rise by 50% and others stay the same, D’s share of the new total becomes:",["20%","21.4%","18%","25%"],"D becomes 180 and the total 900, so 180/900 = 20%. The denominator moves too."],
+["Q","T22","DI · average","DI_B","The average sales per product are:",["₹210 lakh","₹200 lakh","₹220 lakh","₹240 lakh"],"840 ÷ 4 = ₹210 lakh."],
+["Q","T22","DI · combined","DI_B","A and B together account for what share of total sales?",["50%","45%","55%","48%"],"420 out of 840 is exactly half."],
+["L","T25","Series","","Find the next term: 3, 7, 15, 31, ?",["63","62","65","47"],"Each term is double the previous plus one."],
+["L","T25","Series","","Find the next term: 6, 13, 27, 55, ?",["111","109","113","110"],"×2 + 1 each time: 55 × 2 + 1 = 111."],
+["L","T25","Series","","Find the next term: 1, 4, 10, 22, 46, ?",["94","92","96","90"],"Each term is double the previous plus two."],
+["L","T26","Series","","Find the next term: 12, 20, 30, 42, ?",["56","54","58","52"],"Differences are 8, 10, 12, so the next is 14. (The terms are n(n+3).)"],
+["L","T26","Series","","Find the next term: 5, 10, 17, 26, 37, ?",["50","48","52","49"],"Differences rise by two each time: +5, +7, +9, +11, +13."],
+["L","T26","Series","","Find the next term: 100, 92, 83, 73, ?",["62","64","61","63"],"Subtractions grow: 8, 9, 10, then 11."],
+["L","T27","Letter series","","Find the next letter: B, E, I, N, ?",["T","S","U","R"],"Positions 2, 5, 9, 14 rise by 3, 4, 5, then 6 — giving 20, which is T."],
+["L","T27","Letter series","","Find the next letter: A, D, I, P, ?",["Y","X","W","Z"],"Positions are the squares 1, 4, 9, 16, 25 — and 25 is Y."],
+["L","T28","Odd one out","","Which is the odd one out: 27, 64, 125, 150?",["150","27","64","125"],"The others are the cubes of 3, 4 and 5."],
+["L","T28","Odd one out","","Which is the odd one out: 2, 3, 5, 7, 9?",["9","2","5","7"],"9 is the only composite number in the list."],
+["L","T28","Odd one out","","Which is the odd one out: 16, 25, 36, 45?",["45","16","25","36"],"The others are perfect squares."],
+["L","T29","Alphabet","","Which letter is 7th from the right-hand end of the alphabet?",["T","S","U","R"],"26 − 7 + 1 = 20, which is T."],
+["L","T29","Alphabet","","In the reversed alphabet, the letter opposite to M is:",["N","L","O","K"],"A letter and its mirror sum to 27, and M is 13."],
+["L","T29","Alphabet","","If letters take their alphabet positions, the sum for DELHI is:",["38","36","40","34"],"4 + 5 + 12 + 8 + 9 = 38."],
+["L","T30","Coding","","If CAT is coded as DBU, then DOG is coded as:",["EPH","EPG","FQI","DPH"],"Each letter moves one place forward."],
+["L","T30","Coding","","If BOOK is coded as ANNJ, then PEN is coded as:",["ODM","QFO","OCM","NDL"],"Each letter moves one place backward."],
+["L","T30","Coding","","If RED = 27 by adding alphabet positions, then GREEN equals:",["49","47","51","45"],"7 + 18 + 5 + 5 + 14 = 49."],
+["L","T31","Blood relations","","A woman says of a boy, \"He is the son of the only sister of my father.\" The boy is her:",["cousin","brother","nephew","uncle"],"Her father’s only sister is her aunt, so the aunt’s son is her cousin."],
+["L","T31","Blood relations","","Pointing at a man, a boy says, \"He is the brother of my mother.\" The man is the boy’s:",["maternal uncle","paternal uncle","father","grandfather"],"A mother’s brother is the maternal uncle."],
+["L","T32","Directions","","A man walks 10 km north, 6 km west and then 10 km south. He is now:",["6 km west of the start","16 km from the start","6 km east of the start","at the start"],"The north and south legs cancel, leaving the westward 6 km."],
+["L","T32","Directions","","Facing south, a person turns left twice. He now faces:",["north","east","west","south"],"South → east → north."],
+["L","T32","Directions","","A person walks 3 km east then 4 km north. His distance from the start is:",["5 km","7 km","6 km","4 km"],"A right triangle with legs 3 and 4."],
+["L","T33","Ranking","","In a row of 35 children, Meera is 15th from the left. Her position from the right is:",["21st","20th","22nd","19th"],"35 − 15 + 1 = 21."],
+["L","T33","Ranking","","A student is 18th from the top and 20th from the bottom of a class. The class has:",["37 students","38 students","36 students","39 students"],"18 + 20 − 1 = 37, subtracting the student counted twice."],
+["L","T34","Arrangement","","Five friends A, B, C, D, E sit in a row. A is at the left end, B sits next to A, C sits in the middle and E at the right end. Who sits fourth from the left?",["D","C","B","E"],"The order is A, B, C, D, E."],
+["L","T34","Comparisons","","R is taller than S, S is taller than T, and U is taller than R. The tallest is:",["U","R","S","T"],"The chain gives T < S < R < U."],
+["L","T35","Syllogism","","All cats are animals. Some animals are wild. Which conclusion necessarily follows?",["None of these follows necessarily","Some cats are wild","All animals are cats","No cat is wild"],"The wild animals may lie entirely outside the cats circle, so neither an overlap nor its absence is forced."],
+["L","T35","Syllogism","","All squares are rectangles. All rectangles are quadrilaterals. It follows that:",["all squares are quadrilaterals","all quadrilaterals are squares","some rectangles are not quadrilaterals","no square is a quadrilateral"],"The two inclusions chain in one direction only."],
+["L","T36","Critical reasoning","","\"Sales rose after we ran the advertising campaign, so the campaign worked.\" This argument assumes that:",["nothing else in that period could explain the rise","advertising is always effective","sales were falling before the campaign","the campaign was inexpensive"],"Moving from sequence to cause requires ruling out other explanations."],
+["L","T36","Critical reasoning","","A school claims its new timetable improved results. Which fact would most weaken the claim?",["The school also reduced class sizes that year","Students preferred the new timetable","The timetable was cheaper to run","Results improved most in the final term"],"A second change in the same period offers a rival cause."],
+["V","T37","RC · main idea","RC_A","The main point of the passage is that:",["the two arguments for a minimum wage carry different evidential burdens","minimum wages always reduce employment","distributional arguments are unsound","employers never hold wage-setting power"],"The passage contrasts a distributional case that survives some job losses with a behavioural case that depends on an empirical claim."],
+["V","T37","RC · inference","RC_A","It can be inferred that the behavioural argument fails if:",["employers have no power to set wages below competitive levels","some workers lose their jobs","the wage floor is set very high","the gains are concentrated among the low-paid"],"The passage says that case stands or falls on the claim about employer power."],
+["V","T37","RC · detail","RC_A","According to the passage, the distributional case can survive job losses provided that:",["the gains to those still working outweigh the losses","no worker loses more than they gain","employment falls by less than 5%","wages rise in every sector"],"That condition is stated directly in the passage."],
+["V","T37","RC · tone","RC_A","The author’s attitude to running the two arguments together is best described as:",["critical of the conflation","supportive of it","indifferent","openly hostile to minimum wages"],"The passage notes they are \"often run together, but they are not equally demanding\" — a criticism of the conflation, not of the policy."],
+["V","T37","RC · main idea","RC_B","The passage is mainly concerned with:",["the way measurement alters the thing being measured","the accuracy of traffic cameras","the failure of city planning","the cost of collecting data"],"Every example returns to instruments changing the behaviour they record."],
+["V","T37","RC · inference","RC_B","The phrase \"a city that no longer exists\" suggests that quiet measurement produces:",["data describing conditions the measurement itself has changed","deliberately falsified figures","figures that are too old to use","a more accurate picture"],"The contrast is between cleaner numbers and closer-to-true ones."],
+["V","T37","RC · detail","RC_B","Planners now treat their instruments as:",["participants rather than observers","obstacles to good policy","purely technical devices","a substitute for judgement"],"That phrase appears directly in the passage."],
+["V","T37","RC · weaken","RC_B","Which, if true, would most weaken the passage’s argument?",["A study found published congestion data had no measurable effect on driver routes","Cameras are expensive to install","Traffic varies by season","Some cities publish data with a delay"],"The argument rests on measurement changing behaviour; evidence that it does not attacks the load-bearing claim."],
+["V","T37","RC · main idea","RC_C","The passage argues chiefly that:",["the order in which statistics and calculus are taught matters","calculus is less important than statistics","statistics is easier than calculus","examinations should be abolished"],"The author explicitly says this is not an argument that calculus matters less, but about sequence."],
+["V","T37","RC · inference","RC_C","It can be inferred that a student who has not studied statistics may:",["see no reason to care why a curve has a maximum","find calculus computationally harder","perform badly in examinations generally","dislike mathematics"],"The passage links weighing evidence to caring about what calculus describes."],
+["V","T37","RC · detail","RC_C","The case for the proposed sequence rests, the author says, less on utility than on:",["sequence","difficulty","tradition","examination results"],"Stated in the opening sentence."],
+["V","T43","RC · vocabulary","RC_C","In the passage, \"survives\" most nearly means:",["is retained","escapes danger","outlives","is examined"],"It refers to how much of each subject the student keeps after the examination."],
+["V","T38","Agreement","","Choose the correct sentence.",["The list of items is on the desk.","The list of items are on the desk.","The lists of item is on the desk.","The list of items were on the desk."],"The subject is \"list\", which is singular; \"of items\" is a prepositional phrase."],
+["V","T38","Agreement","","Choose the correct sentence.",["Neither of the answers is correct.","Neither of the answers are correct.","Neither of the answer are correct.","Neither of the answers were correct."],"\"Neither\" is singular and takes a singular verb."],
+["V","T39","Modifiers","","Choose the correct sentence.",["Walking to school, I saw a fallen tree.","Walking to school, a fallen tree was seen.","Walking to school, the tree had fallen.","Walking to school, there was a fallen tree."],"The opening phrase must describe the subject of the main clause — the person walking."],
+["V","T39","Parallelism","","Choose the correct sentence.",["The course covers reading, writing and speaking.","The course covers reading, writing and to speak.","The course covers to read, writing and speaking.","The course covers reading, to write and speaking."],"All three items must take the same grammatical form."],
+["V","T40","Tense","","Choose the correct sentence.",["By the time he arrived, the train had left.","By the time he arrived, the train has left.","By the time he arrived, the train left.","By the time he had arrived, the train has left."],"The earlier of two past events takes the past perfect."],
+["V","T40","Conditionals","","Choose the correct sentence.",["If it rains tomorrow, we will cancel the match.","If it will rain tomorrow, we will cancel the match.","If it rains tomorrow, we cancelled the match.","If it would rain tomorrow, we will cancel the match."],"A first conditional pairs a present-tense if-clause with \"will\" in the main clause."],
+["V","T41","Prepositions","","Choose the correct sentence.",["All departments must comply with the new rule.","All departments must comply to the new rule.","All departments must comply for the new rule.","All departments must comply on the new rule."],"\"Comply\" collocates with \"with\"."],
+["V","T41","Articles","","Choose the correct sentence.",["She joined a university in Bengaluru last year.","She joined an university in Bengaluru last year.","She joined the university in Bengaluru last year, which is a good one and an honour.","She joined university an in Bengaluru last year."],"\"University\" opens with a consonant sound, so it takes \"a\"."],
+["V","T42","Synonyms","","The word closest in meaning to PRUDENT is:",["cautious","generous","hasty","wealthy"],"Prudent means acting with care and foresight."],
+["V","T42","Synonyms","","The word closest in meaning to LUCID is:",["clear","bright","lengthy","doubtful"],"Lucid describes writing or thought that is easy to understand."],
+["V","T42","Antonyms","","The word most opposite in meaning to PROLIFIC is:",["unproductive","famous","careless","brief"],"Prolific means producing a great deal; its opposite is unproductive."],
+["V","T42","Antonyms","","The word most opposite in meaning to MITIGATE is:",["aggravate","soften","postpone","conceal"],"To mitigate is to make less severe, so the opposite is to make worse."],
+["V","T43","Vocabulary in context","","Raising interest rates during a downturn may ______ the slowdown rather than correct it.",["exacerbate","alleviate","conceal","postpone"],"The contrast with \"correct it\" calls for a word meaning to worsen."],
+["V","T43","Vocabulary in context","","The link between the two events was ______: it rested on a single unverified report.",["tenuous","robust","obvious","deliberate"],"A link resting on one unverified report is weak — tenuous."],
+["V","T43","Idioms","","To \"cut corners\" means to:",["do something in the cheapest or quickest way, at some cost to quality","take a shorter route","reduce a budget carefully","avoid a difficult conversation"],"The idiom implies sacrificing standards for speed or cost."],
+["V","T44","Para jumbles","","Arrange into a coherent paragraph. (P) It failed within a year. (Q) The city introduced a bike-sharing scheme in 2019. (R) Vandalism and theft proved unmanageable. (S) The scheme was relaunched in 2023 with docking stations.",["QPRS","QRPS","PQRS","QSPR"],"Q sets the scene, P states the outcome, R explains it, and S closes with what followed."],
+["V","T45","Sentence completion","","Despite the ______ evidence supporting the proposal, the committee rejected it outright.",["substantial","flimsy","missing","irrelevant"],"\"Despite\" signals contrast, so the evidence must have been strong for the rejection to be surprising."],
+["V","T45","Sentence completion","","The report was rejected because its conclusions were ______ by the data it presented.",["contradicted","supported","confirmed","strengthened"],"\"Because\" signals agreement between the halves, so the reason for rejection must be negative."]
 ];
-const DISET=`<div class="dset"><b>Quarterly figures for four stores (₹ lakh)</b>
-<table><thead><tr><th>Store</th><th>Revenue</th><th>Cost</th><th>Profit</th></tr></thead><tbody>
-<tr><td>P</td><td>240</td><td>192</td><td>48</td></tr>
-<tr><td>Q</td><td>180</td><td>135</td><td>45</td></tr>
-<tr><td>R</td><td>300</td><td>255</td><td>45</td></tr>
-<tr><td>S</td><td>150</td><td>105</td><td>45</td></tr>
-</tbody></table></div>`;
-const PASSAGE=`<div class="dset"><b>Read the passage</b><br>Inflation targeting requires a central bank to announce a numerical goal and to be judged against it. Supporters argue that the discipline anchors expectations, so that wage and price setters behave as though the target will be met. Critics note that when inflation is driven by supply shocks, the framework forces a response to prices the bank cannot influence.</div>`;
+
+const PRE={DI_A:DI_A,DI_B:DI_B,RC_A:RC_A,RC_B:RC_B,RC_C:RC_C};
 
 /* ===================== SHARED HELPERS ===================== */
 const ANS={};
@@ -1712,20 +1929,24 @@ function drawPlot(){
    +`<tr><td style="font-family:var(--mono);font-size:12px;color:var(--chalk-dim)">TOTAL</td><td></td><td class="n" style="color:var(--aqua)">60 Q</td><td></td><td></td></tr>`;
 }
 
-/* ===================== PREDICTED QUESTIONS ===================== */
-let pf='all', ps={att:0,cor:0};
+/* ===================== PREDICTED PAPER ENGINE ===================== */
+let pf='all', ppaper='all', ps={att:0,cor:0};
+function inPaper(idx,sec){
+  if(ppaper==='all')return true;
+  const nth=P120.filter(q=>q[0]===sec).indexOf(P120[idx]);
+  return ppaper==='A' ? nth%2===0 : nth%2===1;
+}
 function renderPred(){
-  document.getElementById('predbank').innerHTML=PRED.map((p,i)=>{
-    if(pf!=='all'&&p[0]!==pf)return '';
-    let stem=p[3],pre='';
-    if(stem.startsWith('DISET|')){pre=DISET;stem=stem.slice(6);}
-    if(stem.startsWith('PASSAGE|')){pre=PASSAGE;stem=stem.slice(8);}
+  const rows=P120.map((q,i)=>[q,i]).filter(([q,i])=>(pf==='all'||q[0]===pf)&&inPaper(i,q[0]));
+  document.getElementById('pcount').textContent=rows.length+' shown';
+  document.getElementById('predbank').innerHTML=rows.map(([q,i])=>{
+    const t=TMPL[q[1]];
     return `<div class="mq" data-p="${i}">
-      <div class="qh"><span class="tag ${p[0]==='Q'?'q':p[0]==='L'?'l':'v'}">${SN[p[0]]}</span><span class="tag">${p[1]}</span></div>
-      <p class="basis"><b>Why this shape is likely</b>${p[2]}</p>
-      ${pre}<p class="stem">${stem}</p>
-      <div class="opts">${optsHTML(shuf('P'+i,p[4],p[5]))}</div>
-      <div class="msol"><span class="lab">Solution</span>${p[6]}</div></div>`;}).join('');
+      <div class="qh"><span class="tag ${q[0]==='Q'?'q':q[0]==='L'?'l':'v'}">${SN[q[0]]}</span><span class="tag">${q[2]}</span><span class="tag" style="border-style:dashed">${q[1]}</span></div>
+      <p class="basis"><b>Template · ${t[0]}</b>${t[1]}</p>
+      ${q[3]?PRE[q[3]]:''}<p class="stem">${q[4]}</p>
+      <div class="opts">${optsHTML(shuf('P'+i,q[5],0))}</div>
+      <div class="msol"><span class="lab">Solution</span>${q[6]}</div></div>`;}).join('');
   document.querySelectorAll('#predbank .opt').forEach(b=>b.addEventListener('click',()=>{
     const box=b.closest('.mq'); if(box.dataset.done)return; box.dataset.done='1';
     const correct=ANS['P'+box.dataset.p];
@@ -1738,10 +1959,17 @@ function renderPred(){
     document.getElementById('pAcc').textContent=Math.round(ps.cor/ps.att*100)+'% accuracy';
   }));
 }
-document.getElementById('pfilters').innerHTML=[['all','All 18'],['Q','Quant &amp; DI'],['L','Reasoning'],['V','English']]
+const pQ=P120.filter(q=>q[0]==='Q').length,pL=P120.filter(q=>q[0]==='L').length,pV=P120.filter(q=>q[0]==='V').length;
+document.getElementById('pfilters').innerHTML=[['all','All '+P120.length],['Q','Quant &amp; DI · '+pQ],['L','Reasoning · '+pL],['V','English · '+pV]]
  .map(([k,l])=>`<button data-f="${k}" class="${k==='all'?'on':''}">${l}</button>`).join('');
+document.getElementById('ppapers').innerHTML=[['all','Both papers'],['A','Paper 1 · 60 Q'],['B','Paper 2 · 60 Q']]
+ .map(([k,l])=>`<button data-pp="${k}" class="${k==='all'?'on':''}">${l}</button>`).join('');
 document.querySelectorAll('#pfilters button').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('#pfilters button').forEach(x=>x.classList.toggle('on',x===b));pf=b.dataset.f;renderPred();}));
+document.querySelectorAll('#ppapers button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#ppapers button').forEach(x=>x.classList.toggle('on',x===b));ppaper=b.dataset.pp;renderPred();}));
+document.getElementById('tmplList').innerHTML=Object.keys(TMPL).map(k=>
+  `<div class="tmpl"><b>${k}</b><span><i>${TMPL[k][0]}</i> — ${TMPL[k][1]}</span></div>`).join('');
 renderPred();
 
 /* ===================== SOLVED BANK ===================== */
@@ -1794,7 +2022,9 @@ function renderMod(){
   document.getElementById('learnview').innerHTML=`
    <div class="modhead"><div class="id">${S.track==='M'?'Core mathematics':'Economics'} · module ${S.mod+1} of ${T().length} · ${m.id}</div>
     <h3>${m.t}</h3><p>${m.why}</p></div>
-   <div class="block"><div class="blab">Concept <b>read first</b></div>
+   ${DEEP[m.id]?`<div class="block"><div class="blab">The read <b>start here</b></div>
+     <div class="deep">${DEEP[m.id].map(([h,p])=>`<h4>${h}</h4><p>${p}</p>`).join('')}</div></div>`:''}
+   <div class="block"><div class="blab">Concept <b>the condensed version</b></div>
      <div class="cgrid">${m.c.map(([h,b])=>`<div class="ccard"><h4>${h}</h4><p>${b}</p></div>`).join('')}</div>
      <div class="fstrip"><div class="t">Worth memorising</div><ul>${m.f.map(x=>`<li>${x}</li>`).join('')}</ul></div>
      ${m.dia?`<figure class="dia">${m.dia[0]}<figcaption>${m.dia[1]}</figcaption></figure>`:''}</div>
