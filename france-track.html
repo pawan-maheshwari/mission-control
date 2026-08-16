@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mission France — elite French public universities, Fall 2028 intake</title>
+<meta name="description" content="Phase-by-phase roadmap to a first-attempt admission at Université Paris-Saclay, Sorbonne Université or Université Paris Cité for the Fall 2028 intake.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0E1424;--slate:#17203A;--slate-2:#1E2947;--rule:#2A3557;
+  --paper:#ECE7DA;--paper-dim:#A6AEC4;--paper-faint:#6C7796;
+  --azure:#6C9BFF;--mint:#7FB77E;--amber:#E3A83B;--rose:#FF6B4A;
+  --disp:'Zilla Slab',Georgia,serif;--body:'IBM Plex Sans',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;
+  --r:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--night);color:var(--paper);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:0 18px}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:600;line-height:1.2}
+.mono{font-family:var(--mono)}
+a{color:var(--azure)}
+button:focus-visible{outline:2px solid var(--azure);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+header.top{position:sticky;top:0;z-index:40;background:rgba(14,20,36,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+.top-in{display:flex;align-items:center;gap:14px;padding:11px 18px;max-width:980px;margin:0 auto;flex-wrap:wrap}
+.mark{font-family:var(--disp);font-weight:700;font-size:17px}
+.mark span{color:var(--azure)}
+.cd{margin-left:auto;text-align:right;font-family:var(--mono);font-size:10.5px;color:var(--paper-faint);letter-spacing:.1em;text-transform:uppercase;line-height:1.35}
+.cd b{display:block;font-size:20px;color:var(--azure);font-weight:600;letter-spacing:0}
+.back{font-family:var(--mono);font-size:11px;padding:6px 12px;border-radius:99px;border:1px solid var(--rule);background:transparent;color:var(--paper);cursor:pointer}
+.back:hover{background:var(--slate-2)}
+
+.hero{padding:44px 0 8px}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--azure)}
+.hero h1{font-size:clamp(30px,6vw,50px);letter-spacing:-.02em;margin:12px 0 0;font-weight:700}
+.hero p{color:var(--paper-dim);max-width:64ch;margin:16px 0 0;font-size:17px}
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-top:28px}
+.si{background:var(--slate);padding:14px 16px}
+.si .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-faint)}
+.si .v{font-family:var(--disp);font-size:21px;font-weight:700;margin-top:4px}
+.si .v small{font-size:11.5px;font-weight:400;color:var(--paper-faint);font-family:var(--mono);display:block;margin-top:2px}
+
+h2.sec{font-size:clamp(21px,3.6vw,29px);margin:42px 0 6px;font-weight:700;letter-spacing:-.01em}
+p.sub{color:var(--paper-dim);margin:0 0 18px;max-width:66ch}
+
+.flowwrap{border:1px solid var(--rule);border-radius:var(--r);background:var(--slate);padding:18px 14px 10px;position:relative;overflow:hidden}
+.flowwrap::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(108,119,150,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(108,119,150,.05) 1px,transparent 1px);background-size:22px 22px;pointer-events:none}
+.flowwrap svg{width:100%;height:auto;display:block;position:relative;z-index:1}
+
+.note{border-left:3px solid var(--amber);background:rgba(227,168,59,.08);padding:14px 16px;border-radius:0 10px 10px 0;font-size:15px;color:var(--paper-dim)}
+.note b{font-family:var(--disp);color:var(--paper)}
+
+.prog{display:flex;align-items:center;gap:12px;margin:18px 0 20px;font-family:var(--mono);font-size:11.5px;color:var(--paper-faint)}
+.pbar{flex:1;height:6px;background:rgba(108,119,150,.2);border-radius:99px;overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:var(--azure);transition:width .3s}
+
+.phase{border:1px solid var(--rule);border-radius:var(--r);background:var(--slate);margin-bottom:12px;overflow:hidden}
+.phase-h{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border-bottom:1px solid var(--rule)}
+.pnum{font-family:var(--mono);font-size:11px;color:var(--azure);flex:0 0 26px;padding-top:5px}
+.phase-h h3{font-size:19px;flex:1}
+.phase-h .win{display:block;font-family:var(--mono);font-size:11px;color:var(--paper-faint);letter-spacing:.06em;margin-top:3px;text-transform:uppercase}
+.phase-h .cnt{font-family:var(--mono);font-size:11px;color:var(--paper-faint);white-space:nowrap;padding-top:5px}
+.ms{list-style:none;padding:6px 18px 16px}
+.ms li{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px dashed var(--rule);font-size:15.4px}
+.ms li:last-child{border-bottom:0}
+.ms .box{flex:0 0 20px;width:20px;height:20px;margin-top:2px;border-radius:6px;border:1px solid var(--rule);background:transparent;cursor:pointer;transition:.15s;position:relative}
+.ms .box[data-on="1"]{background:var(--mint);border-color:var(--mint)}
+.ms .box[data-on="1"]::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--night);font-size:13px;font-weight:700}
+.ms .txt b{font-family:var(--disp);font-weight:600;display:block;margin-bottom:2px}
+.ms .txt span{color:var(--paper-dim);font-size:14.6px}
+.ms li[data-done="1"] .txt b{color:var(--paper-faint);text-decoration:line-through}
+
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.pil{border:1px solid var(--rule);border-radius:var(--r);background:var(--slate);padding:17px 18px}
+.pil h4{font-size:16.5px;margin-bottom:7px;color:var(--azure)}
+.pil p{color:var(--paper-dim);font-size:15px;margin:0}
+
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.lnk{border:1px solid var(--rule);border-radius:10px;background:var(--slate);padding:13px 15px;display:block;text-decoration:none;color:var(--paper);transition:.15s}
+.lnk:hover{background:var(--slate-2);border-color:var(--azure)}
+.lnk b{font-family:var(--disp);font-size:15.5px;display:block}
+.lnk span{font-family:var(--mono);font-size:11px;color:var(--paper-faint)}
+
+footer{border-top:1px solid var(--rule);margin-top:40px;padding:22px 0 44px;color:var(--paper-faint);font-size:13.5px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="mark">Mission <span>France</span></div>
+    <div class="cd" id="cd"><b>—</b>days to Round 1 portals</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="eyebrow">Elite French public universities · Fall 2028 intake</div>
+    <h1>Two portals, one dossier,<br>and a very early October.</h1>
+    <p>Securing a first-attempt place at Université Paris-Saclay, Sorbonne Université or Université Paris Cité comes down to three things: a quantitative transcript that clears the prerequisite screen, a dossier assembled long before it is needed, and the two portals — the university's own and Campus France — kept in step with each other.</p>
+    <div class="strip">
+      <div class="si"><div class="k">Intake</div><div class="v">Fall 2028<small>applications from Oct 2027</small></div></div>
+      <div class="si"><div class="k">Portals</div><div class="v">Two<small>university + Études en France</small></div></div>
+      <div class="si"><div class="k">Language</div><div class="v">IELTS 7.5+<small>DELF A2/B1 optional</small></div></div>
+      <div class="si"><div class="k">Funds proof</div><div class="v">€877.50<small>per month</small></div></div>
+    </div>
+  </section>
+
+  <h2 class="sec">The shape of it</h2>
+  <p class="sub">Four stages, running from now to the flight. Each one is only reachable if the previous one closed on time — the October 2027 window in particular cannot be recovered.</p>
+  <div class="flowwrap">
+    <svg viewBox="0 0 900 190" role="img" aria-label="Four-stage roadmap from academic profile to visa and relocation">
+      <g font-family="IBM Plex Mono, monospace">
+      <text x="110" y="26" fill="#6C7796" font-size="11" text-anchor="middle" letter-spacing="1">2026 – MID 2027</text>
+      <text x="330" y="26" fill="#6C7796" font-size="11" text-anchor="middle" letter-spacing="1">AUTUMN 2027</text>
+      <text x="565" y="26" fill="#6C7796" font-size="11" text-anchor="middle" letter-spacing="1">JAN – MAR 2028</text>
+      <text x="795" y="26" fill="#6C7796" font-size="11" text-anchor="middle" letter-spacing="1">APR – JUL 2028</text>
+      </g>
+      <rect x="18" y="46" width="184" height="70" rx="10" fill="rgba(108,155,255,.12)" stroke="#6C9BFF"/>
+      <rect x="240" y="46" width="184" height="70" rx="10" fill="rgba(108,155,255,.12)" stroke="#6C9BFF"/>
+      <rect x="473" y="46" width="184" height="70" rx="10" fill="rgba(108,155,255,.12)" stroke="#6C9BFF"/>
+      <rect x="700" y="46" width="184" height="70" rx="10" fill="rgba(108,155,255,.12)" stroke="#6C9BFF"/>
+      <g font-family="Zilla Slab, serif" font-size="15" font-weight="600" fill="#ECE7DA" text-anchor="middle">
+        <text x="110" y="76">Academic &amp; tech</text><text x="110" y="95">profile</text>
+        <text x="332" y="76">Direct portal</text><text x="332" y="95">&amp; EEF</text>
+        <text x="565" y="76">Evaluation &amp;</text><text x="565" y="95">interviews</text>
+        <text x="792" y="76">Visa &amp;</text><text x="792" y="95">relocation</text>
+      </g>
+      <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#6C7796" text-anchor="middle">
+        <text x="110" y="140">Maths · Python · IELTS</text>
+        <text x="332" y="140">Inception / MonMaster</text>
+        <text x="565" y="140">Faculty reviews</text>
+        <text x="792" y="140">Campus France / VFS</text>
+      </g>
+      <g stroke="#6C9BFF" stroke-width="1.6" opacity=".8">
+        <line x1="206" y1="81" x2="228" y2="81"/><polygon points="228,76 240,81 228,86" fill="#6C9BFF" stroke="none"/>
+        <line x1="428" y1="81" x2="461" y2="81"/><polygon points="461,76 473,81 461,86" fill="#6C9BFF" stroke="none"/>
+        <line x1="661" y1="81" x2="688" y2="81"/><polygon points="688,76 700,81 688,86" fill="#6C9BFF" stroke="none"/>
+      </g>
+      <text x="450" y="176" fill="#6C7796" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">the October 2027 window is the one gate that cannot be reopened</text>
+    </svg>
+  </div>
+
+  <h2 class="sec">Phase by phase</h2>
+  <p class="sub">Fourteen milestones. Tick them as they close — the count is shared with Mission Control, so the card on the hub stays current.</p>
+  <div class="prog"><span>Milestones</span><div class="pbar"><i id="pbar"></i></div><span id="pcount" class="mono">0 / 14</span></div>
+  <div id="phases"></div>
+
+  <h2 class="sec">Core pillars for first-attempt selection</h2>
+  <div class="pillars">
+    <div class="pil"><h4>Demonstrate heavy maths alignment</h4><p>Admission committees at top French public institutions screen primarily for theoretical and applied mathematics prerequisites — multivariable calculus, stochastic processes and linear algebra. The transcript is read before the essay.</p></div>
+    <div class="pil"><h4>Submit inside the first fortnight</h4><p>Get the dossier in within the first 14 days of the portal opening in October or November 2027, before international cohort quotas fill. Late-but-complete loses to early-and-complete.</p></div>
+    <div class="pil"><h4>Write a research-focused SOP</h4><p>Avoid generic essays. Name specific tracks, elective units, thesis aspirations and the career alignment behind them — quantitative research, risk modelling or data science.</p></div>
+    <div class="pil"><h4>Run a referee protocol</h4><p>University platforms email validation requests directly to referees. Brief both referees in advance, warn them the mail is coming, and follow up — an unvalidated letter silently sinks an otherwise complete dossier.</p></div>
+  </div>
+
+  <h2 class="sec">Before this drives any decision</h2>
+  <div class="note">
+    <b>One thing to confirm about the level.</b> This roadmap is written for postgraduate entry — it references CGPA, MonMaster, M1 and M2 tracks, ECTS syllabus mapping and academic letters from university professors. If Fall 2028 is meant to follow Class 12 rather than a bachelor's degree, the route is a different one: undergraduate <i>licence</i> admission runs through Parcoursup or the Campus France DAP procedure, not MonMaster, and the prerequisite screen is the Class 12 mathematics record rather than a university transcript. The phases, the October discipline, the language certification and the visa steps all still hold — only the portals and the evidence change. Worth settling before October 2027, because the two routes open on different calendars.
+  </div>
+
+  <h2 class="sec">Portals and references</h2>
+  <div class="links">
+    <a class="lnk" href="https://www.campusfrance.org/en" target="_blank" rel="noopener"><b>Campus France</b><span>campusfrance.org</span></a>
+    <a class="lnk" href="https://pastel.diplomatie.gouv.fr/etudesenfrance/" target="_blank" rel="noopener"><b>Études en France (EEF)</b><span>the dossier portal</span></a>
+    <a class="lnk" href="https://www.monmaster.gouv.fr/" target="_blank" rel="noopener"><b>MonMaster</b><span>national master's portal</span></a>
+    <a class="lnk" href="https://www.parcoursup.gouv.fr/" target="_blank" rel="noopener"><b>Parcoursup</b><span>undergraduate route</span></a>
+    <a class="lnk" href="https://www.universite-paris-saclay.fr/en" target="_blank" rel="noopener"><b>Université Paris-Saclay</b><span>universite-paris-saclay.fr</span></a>
+    <a class="lnk" href="https://www.sorbonne-universite.fr/en" target="_blank" rel="noopener"><b>Sorbonne Université</b><span>sorbonne-universite.fr</span></a>
+    <a class="lnk" href="https://u-paris.fr/en/" target="_blank" rel="noopener"><b>Université Paris Cité</b><span>u-paris.fr</span></a>
+    <a class="lnk" href="https://www.messervices.etudiant.gouv.fr/" target="_blank" rel="noopener"><b>CROUS housing &amp; CVEC</b><span>messervices.etudiant.gouv.fr</span></a>
+  </div>
+
+  <footer>
+    <p>Dates, fees and portal names follow the last published cycles and shift every year. The €877.50 monthly maintenance figure, the CVEC amount and the VLS-TS requirements should all be reconfirmed on Campus France and the university sites before anything is booked or paid.</p>
+  </footer>
+</main>
+
+<script>
+/* ---------- progress store, shared with the Mission Control hub ---------- */
+var FR_KEY = "franceTrack_v1";
+var FR = { done:{} };
+try { var raw = localStorage.getItem(FR_KEY); if(raw){ var o = JSON.parse(raw); FR.done = o.done || {}; } } catch(e){}
+function frSave(){ try { localStorage.setItem(FR_KEY, JSON.stringify(FR)); } catch(e){} }
+
+var PHASES = [
+ ["P1","Foundation building","Now – June 2027",[
+  ["f1","Target 8.5+ CGPA / First Class with Distinction","French public universities weight transcript rigour in mathematics heavily — calculus, linear algebra, probability and statistics."],
+  ["f2","Coding and projects","Build proficiency in Python, C++ and the numerical libraries (NumPy, Pandas). Host academic project code publicly on GitHub."],
+  ["f3","Language certifications","Clear IELTS at band 7.5+ or TOEFL 100+. Add an optional DELF A2/B1 in French to strengthen visa prospects and daily integration."]]],
+ ["P2","Application dossier","July 2027 – October 2027",[
+  ["d1","Secure faculty referrals","Two strong academic letters of recommendation from mathematics or computer science professors."],
+  ["d2","Draft the statement of purpose","Tailor it to the specific research labs — Paris-Saclay's FMJH or LMO, for instance — and to named course modules."],
+  ["d3","Syllabus mapping","Prepare an official English course-by-course breakdown with ECTS equivalence, to prove the prerequisites are met."]]],
+ ["P3","Portal submissions","October 2027 – February 2028",[
+  ["s1","Apply on the direct university portals","Submit through the university platforms — Paris-Saclay's Inception portal and equivalents — during Round 1."],
+  ["s2","Register on Campus France EEF","Create the Études en France dossier, link the dossier number, and upload the required marksheets."],
+  ["s3","Apply to 3–5 targeted tracks","Spread across related tracks and partner universities to widen the selection surface without diluting the dossier."]]],
+ ["P4","Interviews and offers","March 2028 – May 2028",[
+  ["i1","Prepare for the technical interview","Rigorous mathematics and logic questions if the jury invites an online interview."],
+  ["i2","Accept the offer in the window","Confirm on the university platform inside the mandatory acceptance period — it is short and it does not move."]]],
+ ["P5","Visa and pre-departure","June 2028 – August 2028",[
+  ["v1","Campus France interview","Complete the in-person academic interview at the nearest Campus France centre."],
+  ["v2","Proof of funds and housing","Lock accommodation (CROUS or private) and arrange maintenance funds of roughly €877.50 a month."],
+  ["v3","VFS appointment and CVEC","Pay the CVEC fee and submit the biometric file for the long-stay student visa (VLS-TS)."]]]
+];
+var TOTAL = PHASES.reduce(function(a,p){ return a + p[3].length; }, 0);
+
+function paint(){
+  var done = Object.keys(FR.done).filter(function(k){ return FR.done[k]; }).length;
+  document.getElementById("pbar").style.width = (done / TOTAL * 100) + "%";
+  document.getElementById("pcount").textContent = done + " / " + TOTAL;
+  PHASES.forEach(function(p){
+    var d = p[3].filter(function(m){ return FR.done[m[0]]; }).length;
+    var el = document.getElementById("cnt" + p[0]);
+    if(el) el.textContent = d + " / " + p[3].length;
+  });
+}
+document.getElementById("phases").innerHTML = PHASES.map(function(p,i){
+  return '<div class="phase"><div class="phase-h"><span class="pnum">' + p[0] + '</span>' +
+    '<h3>' + p[1] + '<span class="win">' + p[2] + '</span></h3>' +
+    '<span class="cnt" id="cnt' + p[0] + '">0 / ' + p[3].length + '</span></div>' +
+    '<ul class="ms">' + p[3].map(function(m){
+      return '<li data-done="' + (FR.done[m[0]] ? 1 : 0) + '"><button class="box" data-id="' + m[0] +
+        '" data-on="' + (FR.done[m[0]] ? 1 : 0) + '" aria-label="Mark complete"></button>' +
+        '<span class="txt"><b>' + m[1] + '</b><span>' + m[2] + '</span></span></li>';
+    }).join("") + '</ul></div>';
+}).join("");
+
+document.querySelectorAll(".ms .box").forEach(function(b){
+  b.addEventListener("click", function(){
+    var id = b.dataset.id, on = b.dataset.on === "1";
+    FR.done[id] = !on; b.dataset.on = on ? "0" : "1";
+    b.closest("li").dataset.done = on ? "0" : "1";
+    frSave(); paint();
+  });
+});
+paint();
+
+/* countdown to the Round 1 portal window */
+(function(){
+  var target = new Date("2027-10-15T09:00:00+02:00");
+  var d = Math.max(0, Math.ceil((target - new Date()) / 86400000));
+  document.querySelector("#cd b").textContent = d.toLocaleString("en-IN");
+})();
+
+/* a way back when this runs inside Mission Control */
+if(window.top !== window.self){
+  var b = document.createElement("button");
+  b.className = "back"; b.textContent = "◀ Mission Control";
+  b.addEventListener("click", function(){ try { window.parent.postMessage({ type:"mc:back" }, "*"); } catch(e){} });
+  document.querySelector(".top-in").appendChild(b);
+}
+</script>
+</body>
+</html>
