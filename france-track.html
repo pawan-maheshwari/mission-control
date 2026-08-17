@@ -85,6 +85,53 @@ p.sub{color:var(--paper-dim);margin:0 0 18px;max-width:66ch}
 .lnk b{font-family:var(--disp);font-size:15.5px;display:block}
 .lnk span{font-family:var(--mono);font-size:11px;color:var(--paper-faint)}
 
+/* ---------- profile builder ---------- */
+.pbwrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
+@media(max-width:900px){.pbwrap{grid-template-columns:1fr}}
+.mapcard{border:1px solid var(--rule);border-radius:var(--r);background:var(--slate);padding:16px 16px 12px;position:sticky;top:74px}
+@media(max-width:900px){.mapcard{position:static}}
+.mapcard svg{width:100%;height:auto;display:block}
+.mapstat{display:flex;align-items:baseline;gap:9px;margin-top:10px;font-family:var(--mono)}
+.mapstat .n{font-size:30px;font-weight:600;color:var(--azure);line-height:1}
+.mapstat .u{font-size:11px;color:var(--paper-faint);letter-spacing:.1em;text-transform:uppercase}
+.mapnote{font-size:13px;color:var(--paper-dim);margin-top:8px;border-top:1px dashed var(--rule);padding-top:9px;min-height:52px}
+.mapnote b{font-family:var(--disp);color:var(--paper)}
+.mapcard.full{border-color:var(--azure);box-shadow:0 0 0 1px rgba(108,155,255,.35)}
+
+.grp{border:1px solid var(--rule);border-radius:var(--r);background:var(--slate);margin-bottom:12px;overflow:hidden}
+.grp-h{display:flex;gap:12px;align-items:center;padding:14px 17px;border-bottom:1px solid var(--rule)}
+.grp-h h3{font-size:17px;flex:1}
+.grp-h .cnt{font-family:var(--mono);font-size:11px;color:var(--paper-faint);white-space:nowrap}
+.fields{padding:6px 17px 16px}
+.fld{padding:12px 0;border-bottom:1px dashed var(--rule)}
+.fld:last-child{border-bottom:0}
+.fld label{display:flex;gap:9px;align-items:baseline;font-family:var(--disp);font-weight:600;font-size:15.4px;margin-bottom:3px}
+.fld .req{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);border:1px solid rgba(255,107,74,.4);border-radius:99px;padding:1px 6px}
+.fld .opt{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-faint);border:1px solid var(--rule);border-radius:99px;padding:1px 6px}
+.fld .city{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--paper-faint)}
+.fld .hint{font-size:13.4px;color:var(--paper-faint);margin-bottom:8px}
+.fld input,.fld select,.fld textarea{
+  width:100%;background:var(--night);border:1px solid var(--rule);border-radius:8px;color:var(--paper);
+  font-family:var(--body);font-size:14.6px;padding:9px 11px;transition:border-color .15s;
+}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:0;border-color:var(--azure)}
+.fld input.ok,.fld select.ok{border-color:rgba(127,183,126,.55)}
+.fld .row2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(max-width:520px){.fld .row2{grid-template-columns:1fr}}
+
+.list .item{border:1px solid var(--rule);border-radius:10px;background:var(--night);padding:11px 12px;margin-bottom:8px;position:relative}
+.list .item .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+@media(max-width:520px){.list .item .row2{grid-template-columns:1fr}}
+.list .item input{margin-bottom:0}
+.list .del{position:absolute;top:-8px;right:-8px;width:24px;height:24px;border-radius:50%;border:1px solid var(--rule);background:var(--slate);color:var(--paper-faint);cursor:pointer;font-size:13px;line-height:1}
+.list .del:hover{background:var(--rose);color:var(--night);border-color:var(--rose)}
+.addbtn{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;padding:9px 14px;border-radius:99px;border:1px dashed var(--rule);background:transparent;color:var(--paper-dim);cursor:pointer;width:100%}
+.addbtn:hover{border-color:var(--azure);color:var(--azure);border-style:solid}
+.empty{font-size:13.5px;color:var(--paper-faint);padding:4px 0 10px}
+.expwrap{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.expwrap button{font-family:var(--mono);font-size:11px;padding:8px 13px;border-radius:99px;border:1px solid var(--rule);background:transparent;color:var(--paper-dim);cursor:pointer}
+.expwrap button:hover{border-color:var(--azure);color:var(--azure)}
+
 footer{border-top:1px solid var(--rule);margin-top:40px;padding:22px 0 44px;color:var(--paper-faint);font-size:13.5px}
 </style>
 </head>
@@ -149,6 +196,80 @@ footer{border-top:1px solid var(--rule);margin-top:40px;padding:22px 0 44px;colo
   <div class="prog"><span>Milestones</span><div class="pbar"><i id="pbar"></i></div><span id="pcount" class="mono">0 / 14</span></div>
   <div id="phases"></div>
 
+  <h2 class="sec">Profile builder</h2>
+  <p class="sub">Every document a French admissions jury will look for, in one place. Fill a field and its city lights on the map; each item also lays down a block of the map, west to east, so the tricolore builds as the dossier does. The twelfth and last item places the university itself. Everything is saved on this device only — nothing is uploaded anywhere. The map is drawn from real coastline and border coordinates, projected the way French official maps are.</p>
+
+  <div class="pbwrap">
+    <div>
+      <div id="groups"></div>
+      <div class="expwrap">
+        <button id="expBtn">Copy dossier summary</button>
+        <button id="clrBtn">Clear everything</button>
+      </div>
+      <p class="empty" id="expMsg"></p>
+    </div>
+
+    <div class="mapcard" id="mapcard">
+      <svg viewBox="0 0 400 330" id="frSvg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Map of France that fills in with blocks as the profile is completed">
+        <defs>
+          <clipPath id="fr-clip">
+            <use href="#frMain" xlink:href="#frMain"/>
+            <use href="#frCorse" xlink:href="#frCorse"/>
+          </clipPath>
+          <pattern id="graph" width="16" height="16" patternUnits="userSpaceOnUse">
+            <path d="M16 0 L0 0 0 16" fill="none" stroke="rgba(108,119,150,.28)" stroke-width="1"/>
+          </pattern>
+        </defs>
+
+        <!-- real geometry: metropolitan France and Corsica, Lambert conformal conic -->
+        <path id="frMain" d="M295.4 124.2 L292.2 124.7 L292.7 125.9 L290.1 129.3 L293.1 128.5 L294.1 129.7 L291.6 131.4 L292 132.8 L286.7 138.3 L287.1 139.3 L280.9 143.5 L281.6 148.5 L274.3 155.2 L275.3 156.2 L273.4 160.5 L275.9 162 L275 165.8 L271.7 167.1 L271.3 169.8 L275.4 169.3 L278.8 166.5 L279.1 165.5 L277.5 164.8 L278.9 161.9 L280.8 162.7 L283.5 160.4 L290 160.5 L289.3 161.9 L291.5 164.1 L290.2 168.8 L292.6 169.1 L292.1 171.6 L293.5 171.1 L296.2 175.5 L293.9 178.1 L291.2 178.6 L291.1 182.2 L295.6 184.7 L295.8 189.1 L300.2 192.2 L298.1 198.5 L295.5 198.8 L294 201.1 L291.1 200.5 L287.9 202.5 L289.2 205.2 L290.8 205.3 L291.1 208.8 L297.5 211.2 L299 215.7 L296.3 215.9 L296.6 217.8 L294 220.9 L296.4 224 L295.1 224.4 L295.1 226.3 L298.1 230.2 L306.4 233.7 L313.9 231.4 L314.9 235 L310.2 241.4 L311.1 244.2 L306.6 248 L306.2 247 L302.6 248.9 L302.3 252.5 L298.2 252.8 L295.9 257.1 L293.3 257.1 L292.7 259.4 L289.7 261.8 L292.4 262 L291.3 265.3 L289.3 264.7 L285.1 266.3 L284.7 268.2 L280.8 267.4 L279.7 270.4 L278.3 270.2 L278.8 268.6 L274.2 267.4 L273.2 268.1 L274.9 269.2 L272.1 269.9 L271.5 267.8 L268.6 265.8 L266.6 266.5 L264.9 264.8 L260.3 265 L261 262.3 L259.6 260.2 L253.3 261.6 L251.4 258.4 L249.6 259.1 L248.8 257.5 L248.1 260 L250.2 259.8 L248.7 261.4 L244.1 261.1 L241.7 260.2 L241.6 257.9 L232.8 257.3 L231.3 254.8 L228.6 254.7 L220.1 260.2 L216.9 263.9 L214.5 263.3 L211.7 264.9 L207.4 269.8 L205.5 282.4 L206.1 287.6 L208.3 288.5 L209.1 291.1 L207 291.4 L203.6 289.6 L197.1 292.1 L197.1 294.1 L193.6 294.4 L187 290.9 L181.2 293.8 L179.4 290.3 L174.4 289 L175.8 286.4 L174.6 285 L168.9 283.7 L167.5 285.3 L165.6 281.5 L161.1 281.7 L159 279.1 L155.4 279 L150.3 276.5 L148.7 278.9 L149.2 282 L141.8 280.7 L140.2 282.3 L137.4 280.1 L132.8 281.6 L125.9 276 L123.9 277.5 L121.3 276.5 L119.8 278 L116 274 L115.6 271.7 L111.1 271.9 L106.5 269.9 L102.6 267.7 L103.6 266.2 L101.8 266.9 L101.5 269 L99.4 268.3 L98.7 266.9 L101.1 263.7 L101.1 261.5 L97.7 260.1 L95.8 261.4 L95.6 259.6 L93.1 259.8 L91.8 257 L96.3 255.6 L100.4 248.8 L106.4 219.8 L108.1 216.2 L112.4 216.9 L108.9 212.5 L106.5 217.1 L110.3 189.8 L112 187.1 L114.3 186.6 L108.9 182.3 L108.9 179.8 L111.4 179.3 L110.7 177.5 L112 177.5 L113.2 174.6 L112.1 168.8 L109.6 167.7 L112.7 163.5 L110.7 162.6 L110.5 164.2 L108.7 162.2 L108.6 163.3 L107.6 161.5 L104.9 161.4 L103.9 159.3 L97.4 156 L96.7 152.2 L90.8 145 L90.6 142.7 L94.8 138.5 L92.3 135.5 L89.1 134.7 L91 133.8 L91.1 130.4 L88.2 131.4 L82.9 129.2 L83.9 128 L82.8 126.4 L85.7 125.3 L84.3 122.7 L86.1 122.7 L83.7 121.5 L81.5 122.1 L83.2 120.7 L82.2 121.3 L82.1 120.1 L80.5 122.4 L77.5 122.4 L75.5 119.9 L79.4 120.8 L80.6 117.7 L79.8 119.2 L78.3 117.3 L76 119.4 L74.3 116.5 L75.2 119.9 L70.9 118.3 L71.6 122.5 L70.5 122.2 L69.2 116.7 L71.7 114.4 L71.1 113.4 L69.7 113.4 L70.3 114.8 L69.1 116.6 L66.1 115 L67.9 115 L66 114.2 L68.1 111.7 L66.6 113.2 L65.8 110.4 L66.3 113.5 L64.1 114.6 L62.6 109 L62.4 112.2 L59.3 111.5 L58.5 110.6 L60.3 109.9 L58.3 110.5 L58 109.1 L58.1 110.7 L55.6 110.8 L53.3 106.6 L53.1 108.5 L50.5 107.9 L50.5 104 L49 106.3 L50.2 107.9 L48 107.6 L48.5 109.8 L44.3 109.5 L44.5 105.5 L41.5 102.2 L42.6 101.5 L40.8 102.6 L37.1 100.9 L44.4 99.4 L46.7 100.2 L47.6 98.2 L43.7 95 L41.6 97.2 L42.1 94.6 L40.3 93.3 L42.5 91.6 L42.3 93.4 L48 93.6 L48 94.8 L51.1 96.4 L51.7 95.2 L47.8 94.2 L49.9 93.8 L46.8 92.9 L48.4 91.6 L44.1 92.2 L48.5 88.8 L38.6 91.6 L37.4 91.4 L37.2 88.7 L39.6 83.8 L43.8 85 L41.6 83.8 L42 82.8 L44.5 84.2 L42.6 82.9 L43.2 82 L47.9 81.1 L48.5 82.6 L52.3 80.9 L53.8 81.9 L55.8 80.2 L55.7 83.8 L56.6 82 L58 84.3 L58.9 80.8 L62.7 81.8 L62.2 83 L64.1 82.6 L64.1 79.3 L66 77.5 L68.2 78.9 L72 76.9 L71.9 79.7 L75.3 76.8 L73.9 80.7 L76.5 78.9 L75.6 80 L78.1 81.2 L77.6 82.2 L82.7 90.1 L87.2 85.4 L88.7 85.9 L91 84.2 L90.4 86.4 L92.4 85.7 L93 88.1 L94.9 87.2 L94.4 86.2 L96.7 86.2 L98 89.4 L97.3 91 L98.5 88.3 L97.1 85.9 L99.1 84.3 L101.1 84.1 L100.5 86.5 L102.6 87.8 L111.5 87.4 L111.1 85.4 L109.6 86.5 L107.1 83.4 L106.3 80.5 L107.8 77.3 L107.8 78.5 L107.9 74.3 L109 74.6 L107.8 74 L107.4 75.1 L107 73.9 L107 68 L108 67.9 L106.8 68.3 L106 64.2 L103.2 62.8 L101.9 57.7 L102.9 54.6 L100.9 52.8 L101.1 51.1 L107.8 54.2 L110.9 52.6 L115.2 52.9 L115.9 55.9 L114.1 57.9 L117.4 64.2 L121.4 63 L136.5 67.4 L139.5 67 L144.2 63.8 L148.7 62.9 L144.1 61.8 L143 60.2 L146.2 53.7 L154.2 49.5 L167.1 46.1 L172.4 41.9 L174.7 38.2 L177.4 39.3 L174.5 36.1 L174.9 33.4 L176.7 33.8 L174.9 32.2 L175.6 27.7 L177.1 28.7 L175.5 26.6 L175.8 16.9 L181.4 13.7 L186.9 13.1 L187.9 11.4 L195.6 10 L197.4 14.7 L196.6 17.8 L199.2 19.1 L200.5 21.8 L202.9 22.9 L203.9 21 L208 19.8 L210.3 22.6 L210.9 28.4 L217.5 29.3 L219.6 35.5 L220.4 34 L223.6 34.7 L226.1 33.6 L228.5 36.9 L230 36.4 L228.4 40.9 L229.8 40.9 L230.6 42.9 L228.6 44.7 L229.9 46.7 L235.2 47.2 L240.3 45.2 L240.2 42.3 L242.9 39.5 L244.4 40.5 L242.3 46 L244.4 47.9 L243.7 51.7 L246.7 51.4 L250.4 54.8 L252.6 54.7 L253.6 57.4 L256 57.8 L256.9 60.9 L263.3 58.6 L269.1 62.2 L273.2 59.8 L279.7 62.2 L284.3 70.8 L286.3 71.1 L286.3 69 L288.1 68.6 L290.5 69.6 L291.1 72.1 L292 70.6 L296.1 71.7 L299.2 69.3 L303.5 73.3 L309.8 72.8 L316.3 75.1 L313.7 80.8 L308.7 86.4 L307.2 96.7 L304 103.6 L305.3 108.4 L303.4 117.4 L305.2 121.3 L301.1 126.2 L298.1 126.7 L296.4 126.1 L297 124.4 L295.4 124.2 Z" fill="rgba(108,119,150,.09)"/>
+        <path id="frCorse" d="M359.9 303.6 L360.1 310.5 L359.2 310.8 L359.4 311.5 L358.3 311.2 L357.7 312.3 L359.8 312.3 L357.7 314.5 L358.1 316 L356.6 318.4 L357.7 317.8 L357.6 318.3 L356.8 319.9 L355.8 320 L354.6 319 L353.7 319.3 L354.2 317.7 L353 317.7 L353.1 316.6 L352.2 317.3 L351 316.5 L349.2 316.5 L348.1 315.4 L347.2 315.6 L347.4 314.7 L345.8 314.5 L345.8 312.1 L347.6 311.4 L348.6 310.1 L346 309.4 L345.4 309.9 L345.1 308.6 L343.5 309.3 L342.2 308.8 L343.8 307.6 L343.4 306.7 L344.8 306.3 L345.1 305.6 L344.2 305.2 L345.1 305 L345.4 303.5 L344.1 302.4 L343.3 303.2 L340.6 303.9 L340.9 302.5 L340.1 301.6 L341.8 301.1 L341.6 300 L343.6 298.6 L342.4 296.7 L341.4 297.1 L340.2 296.1 L339.4 296.3 L339.5 295.6 L338.9 295.8 L339.7 295 L338.9 295 L339.3 293.8 L338.2 292.9 L341.8 291.6 L341 290.6 L339.6 290.4 L339.8 289.1 L338.4 289.8 L338 288.6 L339.5 287.9 L339.4 286.9 L340.6 286.8 L340.6 283.7 L341.9 283.2 L341.5 281.6 L343.3 282.1 L343.7 280.6 L346.6 279 L348.6 278.9 L351 275.8 L353.3 275.5 L355.1 277.3 L355.7 276.8 L356.3 275 L355.2 272.1 L355.8 271 L355.3 270.1 L356.2 269.1 L355.5 266.9 L357.3 266.2 L358.4 266.9 L359.6 272.7 L358.8 277.1 L361.2 281 L362.8 292.3 L362.9 295.3 L360 300.2 L359.9 303.6 Z" fill="rgba(108,119,150,.09)"/>
+
+        <!-- graph paper inside the empty outline -->
+        <g clip-path="url(#fr-clip)">
+          <rect x="0" y="0" width="400" height="330" fill="url(#graph)"/>
+        </g>
+
+        <!-- one block per completed step, laid west to east -->
+        <g id="tiles" clip-path="url(#fr-clip)"></g>
+
+        <g fill="none" stroke="#8FA3C9" stroke-width="1.5" stroke-linejoin="round" id="frOutline">
+          <use href="#frMain" xlink:href="#frMain" fill="none"/>
+          <use href="#frCorse" xlink:href="#frCorse" fill="none"/>
+        </g>
+
+        <g id="cities"></g>
+
+        <!-- the university, placed by the twelfth and final item, at Paris -->
+        <g id="uni" opacity="0">
+          <g transform="translate(191,82.6)">
+            <rect x="-15" y="-1" width="30" height="17" rx="1.5" fill="#0E1424" stroke="#ECE7DA" stroke-width="1.4"/>
+            <polygon points="0,-12 17,-2 -17,-2" fill="#ECE7DA"/>
+            <line x1="0" y1="-12" x2="0" y2="-15" stroke="#ECE7DA" stroke-width="1.4"/>
+            <circle cx="0" cy="-17" r="2.2" fill="#EF4135"/>
+            <g stroke="#ECE7DA" stroke-width="1.2">
+              <line x1="-9" y1="3" x2="-9" y2="16"/>
+              <line x1="0" y1="3" x2="0" y2="16"/>
+              <line x1="9" y1="3" x2="9" y2="16"/>
+            </g>
+          </g>
+          <text x="191" y="113.6" fill="#ECE7DA" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">UNIVERSIT&#201;</text>
+        </g>
+
+        <g id="pole" opacity="0">
+          <line x1="372" y1="20" x2="372" y2="104" stroke="#ECE7DA" stroke-width="2"/>
+          <rect x="334" y="20" width="12" height="25" fill="#0055A4"/>
+          <rect x="346" y="20" width="13" height="25" fill="#F4F1E8"/>
+          <rect x="359" y="20" width="13" height="25" fill="#EF4135"/>
+          <circle cx="372" cy="16" r="3" fill="#ECE7DA"/>
+        </g>
+      </svg>
+
+      <div class="mapstat"><span class="n" id="pbN">0</span><span class="u">of 12 · <span id="pbBlocks">0</span> blocks placed</span></div>
+      <div class="mapnote" id="pbNote"><b>Nothing filled yet.</b> Start with the two that cost nothing — the GitHub and LinkedIn URLs.</div>
+    </div>
+  </div>
+
   <h2 class="sec">Core pillars for first-attempt selection</h2>
   <div class="pillars">
     <div class="pil"><h4>Demonstrate heavy maths alignment</h4><p>Admission committees at top French public institutions screen primarily for theoretical and applied mathematics prerequisites — multivariable calculus, stochastic processes and linear algebra. The transcript is read before the essay.</p></div>
@@ -182,8 +303,8 @@ footer{border-top:1px solid var(--rule);margin-top:40px;padding:22px 0 44px;colo
 <script>
 /* ---------- progress store, shared with the Mission Control hub ---------- */
 var FR_KEY = "franceTrack_v1";
-var FR = { done:{} };
-try { var raw = localStorage.getItem(FR_KEY); if(raw){ var o = JSON.parse(raw); FR.done = o.done || {}; } } catch(e){}
+var FR = { done:{}, profile:null };
+try { var raw = localStorage.getItem(FR_KEY); if(raw){ var o = JSON.parse(raw); FR.done = o.done || {}; FR.profile = o.profile || null; } } catch(e){}
 function frSave(){ try { localStorage.setItem(FR_KEY, JSON.stringify(FR)); } catch(e){} }
 
 var PHASES = [
@@ -239,6 +360,239 @@ document.querySelectorAll(".ms .box").forEach(function(b){
   });
 });
 paint();
+
+/* ===================== PROFILE BUILDER ===================== */
+if(!FR.profile) FR.profile = { f:{}, projects:[], certs:[] };
+var PF = FR.profile;
+if(!PF.f) PF.f = {}; if(!PF.projects) PF.projects = []; if(!PF.certs) PF.certs = [];
+
+/* city coordinates on the map, one per mandatory item */
+var CITY = {
+  identity:["Paris",191,82.6],
+  passport:["Lille",206.1,25],
+  school10:["Rennes",103.6,103.6],
+  school12:["Nantes",104.6,132.9],
+  english:["Bordeaux",122.5,211.2],
+  github:["Toulouse",168.3,252.7],
+  linkedin:["Montpellier",225.5,252.8],
+  cv:["Marseille",259,259.9],
+  sop:["Lyon",246.4,182.5],
+  lor1:["Strasbourg",306.9,88.7],
+  lor2:["Nice",304.9,247],
+  ects:["Brest",43.7,90.1]
+};
+
+/* [id, label, hint, type, mandatory, options?] */
+var GROUPS = [
+ ["Identity and eligibility","The paperwork the portal asks for before it will let you upload anything else.",[
+  ["identity","Full name as on passport","Exactly as printed — a mismatch between the portal and the passport is the most common cause of a stalled dossier.","text",true],
+  ["passport","Passport valid until","Must stay valid well past the intake. If it expires before late 2029, renew before applying. Store the date here, not the number.","date",true],
+  ["school10","Class 10 result","Board and aggregate percentage.","text",true],
+  ["school12","Class 12 / current record","Board, stream and latest aggregate or predicted score. Mathematics marks matter most.","text",true]
+ ]],
+ ["Language and testing","The one component with a hard external deadline — book it early, because slots fill.",[
+  ["english","IELTS or TOEFL result","Test taken, band or score, and date. Target IELTS 7.5+ or TOEFL 100+.","text",true],
+  ["delf","DELF / DALF level (optional)","A2 or B1 in French strengthens the visa interview and daily life. Not required for English-taught tracks.","select",false,["","Not started","Learning · A1","DELF A2 cleared","DELF B1 cleared","DELF B2 cleared"]]
+ ]],
+ ["Online presence","Two links a jury will actually open. They cost nothing and are checked more often than candidates expect.",[
+  ["github","GitHub profile URL","Host academic project code publicly. An empty GitHub is worse than no link at all.","url",true],
+  ["linkedin","LinkedIn profile URL","Keep the headline, education and projects consistent with the SOP.","url",true],
+  ["portfolio","Personal site or portfolio (optional)","Only if it is maintained. A stale site works against you.","url",false]
+ ]],
+ ["Core documents","The dossier itself. Each of these takes weeks, not days — which is why Phase 2 starts in July 2027.",[
+  ["cv","CV / résumé link","One page, academic format, reverse chronological. Link a PDF in Drive or a public URL.","url",true],
+  ["sop","Statement of purpose","Status and link. Name specific tracks, elective units and labs — never a generic essay.","url",true],
+  ["ects","Syllabus / ECTS mapping document","Official course-by-course breakdown in English proving the mathematics prerequisites.","url",true]
+ ]],
+ ["Letters of recommendation","Both referees must respond to the automated validation email the portal sends. Brief them in advance.",[
+  ["lor1","Referee 1 — name, subject, email","A mathematics or computer science teacher who has actually taught you.","text",true],
+  ["lor2","Referee 2 — name, subject, email","A second academic referee. Avoid family friends and employers unless the work is technical.","text",true]
+ ]]
+];
+
+var MAND = [];
+GROUPS.forEach(function(g){ g[2].forEach(function(f){ if(f[4]) MAND.push(f[0]); }); });
+
+function filled(id){ var v = PF.f[id]; return !!(v && String(v).trim().length > 1); }
+function mandDone(){ return MAND.filter(filled).length; }
+
+function pfSave(){ FR.profile = PF; frSave(); }
+
+/* Build the block grid once. Tiles are tested against the actual map geometry so
+   the count reflects land, not the bounding box — with a graceful fallback where
+   isPointInFill is unavailable. */
+var TILE = 16, TILES = [];
+(function buildTiles(){
+  var main = document.getElementById("frMain"), corse = document.getElementById("frCorse");
+  var svg = document.getElementById("frSvg"), pt = null, canTest = false;
+  try { pt = svg.createSVGPoint(); canTest = typeof main.isPointInFill === "function"; } catch(e){ canTest = false; }
+  for(var y = 0; y < 330; y += TILE){
+    for(var x = 0; x < 400; x += TILE){
+      var cx = x + TILE / 2, cy = y + TILE / 2, inside = true;
+      if(canTest){
+        try { pt.x = cx; pt.y = cy; inside = main.isPointInFill(pt) || corse.isPointInFill(pt); }
+        catch(e){ inside = true; }
+      }
+      if(inside) TILES.push([x, y, cx]);
+    }
+  }
+  /* west to east, so the blocks lay down blue, then white, then red */
+  TILES.sort(function(a, b){ return a[0] - b[0] || a[1] - b[1]; });
+})();
+
+/* band edges are the thirds of the projected map, west to east */
+function bandColour(cx){ return cx < 145.7 ? "#0055A4" : (cx < 254.3 ? "#F4F1E8" : "#EF4135"); }
+
+function paintMap(){
+  var done = mandDone(), total = MAND.length, frac = done / total;
+  document.getElementById("pbN").textContent = done;
+
+  /* each completed item lays down its share of the blocks */
+  var show = Math.round(TILES.length * frac), blocks = "";
+  for(var i = 0; i < show; i++){
+    var t = TILES[i];
+    blocks += '<rect x="' + (t[0] + 1) + '" y="' + (t[1] + 1) + '" width="' + (TILE - 2) + '" height="' + (TILE - 2) +
+              '" rx="2" fill="' + bandColour(t[2]) + '" fill-opacity=".92"/>';
+  }
+  document.getElementById("tiles").innerHTML = blocks;
+  document.getElementById("pole").setAttribute("opacity", done === total ? "1" : "0");
+  document.getElementById("uni").setAttribute("opacity", done === total ? "1" : "0");
+  document.getElementById("mapcard").className = "mapcard" + (done === total ? " full" : "");
+
+  var bl = document.getElementById("pbBlocks"); if(bl) bl.textContent = show;
+
+  var cg = document.getElementById("cities"), html = "";
+  MAND.forEach(function(id){
+    var c = CITY[id]; if(!c) return;
+    var on = filled(id);
+    html += '<circle cx="' + c[1] + '" cy="' + c[2] + '" r="' + (on ? 4.6 : 3) + '" fill="' + (on ? "#7FB77E" : "#2A3557") +
+            '" stroke="' + (on ? "#ECE7DA" : "none") + '" stroke-width="1"><title>' + c[0] + ' · ' + (on ? "done" : "pending") + '</title></circle>';
+    if(on) html += '<text x="' + (c[1] + 7) + '" y="' + (c[2] + 3.5) + '" fill="#ECE7DA" font-family="IBM Plex Mono, monospace" font-size="8.5">' + c[0] + '</text>';
+  });
+  cg.innerHTML = html;
+
+  var note = document.getElementById("pbNote"), missing = MAND.filter(function(i){ return !filled(i); });
+  if(done === 0){
+    note.innerHTML = "<b>The map is empty.</b> Every item you fill lays down its share of the blocks, west to east. Start with the two that cost nothing — the GitHub and LinkedIn URLs.";
+  } else if(done === total){
+    note.innerHTML = "<b>Dossier profile complete.</b> Every block is placed, the tricolore is whole, and the university is on the map. Keep the SOP and CV links current — juries open them.";
+  } else {
+    var names = { identity:"passport name", passport:"passport expiry", school10:"Class 10 result", school12:"Class 12 record",
+      english:"IELTS or TOEFL", github:"GitHub URL", linkedin:"LinkedIn URL", cv:"CV link", sop:"SOP",
+      lor1:"referee 1", lor2:"referee 2", ects:"ECTS mapping" };
+    note.innerHTML = "<b>" + (total - done) + " to go.</b> Still missing: " +
+      missing.slice(0, 3).map(function(i){ return names[i] || i; }).join(", ") +
+      (missing.length > 3 ? " and " + (missing.length - 3) + " more." : ".");
+  }
+  GROUPS.forEach(function(g, i){
+    var req = g[2].filter(function(f){ return f[4]; }), d = req.filter(function(f){ return filled(f[0]); }).length;
+    var el = document.getElementById("gc" + i);
+    if(el) el.textContent = d + " / " + req.length;
+  });
+}
+
+function fieldHTML(f){
+  var id = f[0], v = PF.f[id] || "", ok = filled(id) ? " ok" : "";
+  var city = CITY[id] ? '<span class="city">lights ' + CITY[id][0] + '</span>' : "";
+  var input;
+  if(f[3] === "select"){
+    input = '<select class="pf' + ok + '" data-id="' + id + '">' + f[5].map(function(o){
+      return '<option value="' + o + '"' + (o === v ? " selected" : "") + '>' + (o || "— select —") + '</option>'; }).join("") + '</select>';
+  } else {
+    var t = f[3] === "date" ? "date" : (f[3] === "url" ? "url" : "text");
+    var ph = f[3] === "url" ? "https://…" : "";
+    input = '<input class="pf' + ok + '" type="' + t + '" data-id="' + id + '" value="' + String(v).replace(/"/g, "&quot;") + '" placeholder="' + ph + '">';
+  }
+  return '<div class="fld"><label>' + f[1] +
+    (f[4] ? '<span class="req">required</span>' : '<span class="opt">optional</span>') + city +
+    '</label><div class="hint">' + f[2] + '</div>' + input + '</div>';
+}
+
+function listHTML(kind, rows, cols){
+  if(!rows.length) return '<p class="empty">Nothing added yet.</p>';
+  return rows.map(function(r, i){
+    return '<div class="item"><button class="del" data-kind="' + kind + '" data-i="' + i + '" aria-label="Remove">×</button><div class="row2">' +
+      cols.map(function(c, j){
+        return '<input data-kind="' + kind + '" data-i="' + i + '" data-c="' + j + '" placeholder="' + c +
+               '" value="' + String(r[j] || "").replace(/"/g, "&quot;") + '">'; }).join("") +
+      '</div></div>';
+  }).join("");
+}
+
+var PROJ_COLS = ["Project title", "Stack / tools", "GitHub or demo URL", "One line on what it does"];
+var CERT_COLS = ["Certificate name", "Issuer", "Month and year", "Verification URL"];
+
+function renderProfile(){
+  var html = GROUPS.map(function(g, i){
+    var req = g[2].filter(function(f){ return f[4]; }).length;
+    return '<div class="grp"><div class="grp-h"><h3>' + g[0] + '</h3><span class="cnt" id="gc' + i + '">0 / ' + req + '</span></div>' +
+      '<div class="fields"><p class="empty" style="padding-top:8px">' + g[1] + '</p>' +
+      g[2].map(fieldHTML).join("") + '</div></div>';
+  }).join("");
+
+  html += '<div class="grp"><div class="grp-h"><h3>Projects</h3><span class="cnt">' + PF.projects.length + ' added</span></div>' +
+    '<div class="fields list"><p class="empty" style="padding-top:8px">Two or three real projects beat a long list of tutorials. Numerical or data work carries the most weight for a mathematics track.</p>' +
+    listHTML("projects", PF.projects, PROJ_COLS) + '<button class="addbtn" data-add="projects">+ Add a project</button></div></div>';
+
+  html += '<div class="grp"><div class="grp-h"><h3>Certificates and awards</h3><span class="cnt">' + PF.certs.length + ' added</span></div>' +
+    '<div class="fields list"><p class="empty" style="padding-top:8px">Olympiads, MOOCs with a graded certificate, language tests, internships. Include the verification link — unverifiable claims are discounted.</p>' +
+    listHTML("certs", PF.certs, CERT_COLS) + '<button class="addbtn" data-add="certs">+ Add a certificate</button></div></div>';
+
+  document.getElementById("groups").innerHTML = html;
+
+  document.querySelectorAll(".pf").forEach(function(el){
+    el.addEventListener("input", function(){
+      PF.f[el.dataset.id] = el.value; pfSave();
+      el.className = "pf" + (filled(el.dataset.id) ? " ok" : "");
+      paintMap();
+    });
+    el.addEventListener("change", function(){
+      PF.f[el.dataset.id] = el.value; pfSave();
+      el.className = "pf" + (filled(el.dataset.id) ? " ok" : "");
+      paintMap();
+    });
+  });
+  document.querySelectorAll("[data-add]").forEach(function(b){
+    b.addEventListener("click", function(){
+      PF[b.dataset.add].push(["", "", "", ""]); pfSave(); renderProfile(); paintMap();
+    });
+  });
+  document.querySelectorAll(".list .del").forEach(function(b){
+    b.addEventListener("click", function(){
+      PF[b.dataset.kind].splice(+b.dataset.i, 1); pfSave(); renderProfile(); paintMap();
+    });
+  });
+  document.querySelectorAll(".list input").forEach(function(el){
+    el.addEventListener("input", function(){
+      PF[el.dataset.kind][+el.dataset.i][+el.dataset.c] = el.value; pfSave();
+    });
+  });
+  paintMap();
+}
+renderProfile();
+
+/* dossier summary — a plain-text block to paste into an email or a checklist */
+document.getElementById("expBtn").addEventListener("click", function(){
+  var L = ["DOSSIER SUMMARY — Mission France, Fall 2028", ""];
+  GROUPS.forEach(function(g){
+    L.push(g[0].toUpperCase());
+    g[2].forEach(function(f){ L.push("  " + f[1] + ": " + (PF.f[f[0]] || "—")); });
+    L.push("");
+  });
+  if(PF.projects.length){ L.push("PROJECTS"); PF.projects.forEach(function(p){ L.push("  " + p.filter(Boolean).join(" · ")); }); L.push(""); }
+  if(PF.certs.length){ L.push("CERTIFICATES"); PF.certs.forEach(function(c){ L.push("  " + c.filter(Boolean).join(" · ")); }); L.push(""); }
+  L.push("Mandatory items complete: " + mandDone() + " of " + MAND.length);
+  var txt = L.join("\n"), msg = document.getElementById("expMsg");
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){ msg.textContent = "Summary copied to the clipboard."; },
+      function(){ msg.textContent = "Could not copy — select the page text instead."; });
+  } else { msg.textContent = "Clipboard unavailable in this browser."; }
+});
+document.getElementById("clrBtn").addEventListener("click", function(){
+  if(!confirm("Clear every profile field, project and certificate on this device? Milestone ticks are kept.")) return;
+  PF = { f:{}, projects:[], certs:[] }; FR.profile = PF; frSave(); renderProfile(); paintMap();
+  document.getElementById("expMsg").textContent = "Profile cleared.";
+});
 
 /* countdown to the Round 1 portal window */
 (function(){
