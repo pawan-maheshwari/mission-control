@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mission 180 — IIMB BSc Data Science · Jan 2028 Command Center</title>
-<meta name="description" content="18-month coaching program to crack the IIMB UG Admissions Test for BSc (Hons) Data Science — roadmap, milestones, quizzes, flashcards, games, mock interviews, cutoff intelligence.">
+<title>Mission 180 — IIMB BSc Data Science · Jan 2028 Command Center (2027-pattern revision)</title>
+<meta name="description" content="Coaching program for the IIMB UG Admissions Test (BSc Hons Data Science) rebuilt on the official 2027-cycle pattern: 135 minutes, 60 MCQs, QADI-LR-VARC, syllabus and marks blueprint, 5 full mock papers, roadmap, milestones, cutoff intelligence.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -337,11 +337,11 @@ details.res .rb{padding:0 16px 16px;border-top:1px dashed var(--grid)}
   <div class="hwrap">
     <div class="eyebrow">IIM Bangalore · BSc (Hons) Data Science · UG-AT Command Center</div>
     <h1>MISSION <span class="accent">180</span> — CRACK IIMB · JAN 2028</h1>
-    <p class="subtitle">An 18-month coaching program engineered around one number: your raw score out of 180. Actual 2026 shortlist cutoff (General): 114. Your target: 135+. Everything below serves that number.</p>
+    <p class="subtitle">Rebuilt on the official IIMB 2027-cycle admissions documents (Aug 2026). The test is now <strong>135 minutes</strong>, sections run <strong>QADI → LR → VARC</strong>, the maths syllabus is <strong>NCERT up to Class XII</strong>, and the pre-PI score is <strong>70 test + 15 Class X overall + 10 Class X maths + 5 gender</strong>. Everything below has been re-aimed at that pattern.</p>
     <div class="countbar">
-      <div class="count hot"><div class="lbl">UG Admissions Test</div><div class="val" id="cd-test">—</div><div class="sub">expected ~11 Dec 2027</div></div>
+      <div class="count hot"><div class="lbl">UG Admissions Test</div><div class="val" id="cd-test">—</div><div class="sub">expected ~mid-Nov 2027</div></div>
       <div class="count"><div class="lbl">Personal Interview</div><div class="val" id="cd-pi">—</div><div class="sub">expected ~22 Jan 2028</div></div>
-      <div class="count"><div class="lbl">Application Window</div><div class="val" id="cd-app">—</div><div class="sub">expected Oct 2027</div></div>
+      <div class="count"><div class="lbl">Application Deadline</div><div class="val" id="cd-app">—</div><div class="sub">expected ~15 Oct 2027</div></div>
       <div class="count"><div class="lbl">Study Weeks Left</div><div class="val" id="cd-weeks">—</div><div class="sub">to test day</div></div>
     </div>
   </div>
@@ -351,7 +351,9 @@ details.res .rb{padding:0 16px 16px;border-top:1px dashed var(--grid)}
   <button data-tab="dash" class="on">Dashboard</button>
   <button data-tab="road">Roadmap</button>
   <button data-tab="mile">Milestones</button>
+  <button data-tab="syll">Syllabus &amp; Marks</button>
   <button data-tab="study">Reading &amp; Videos</button>
+  <button data-tab="mocks">Mock Papers</button>
   <button data-tab="quiz">Quiz Arena</button>
   <button data-tab="cards">Memory Cards</button>
   <button data-tab="games">Games</button>
@@ -365,13 +367,15 @@ details.res .rb{padding:0 16px 16px;border-top:1px dashed var(--grid)}
 <!-- ================= DASHBOARD ================= -->
 <section class="tab on" id="tab-dash">
   <h2>Mission Dashboard</h2>
-  <p class="lede">The exam: 60 MCQs · 180 marks · 120 minutes · +3 correct, −1 wrong. Three sections — English Comprehension (15Q), Quantitative Aptitude &amp; Data Interpretation (30Q), Logical Reasoning (15Q). QADI is the filtering section: a pre-set minimum QADI score decides the first shortlist. Final selection = 60% test + 40% interview.</p>
+  <div class="ph-goal" style="margin:0 0 16px"><strong>⚠️ Pattern changed — this app has been revised.</strong> The official IIMB <em>UG Admissions Process 2027-31</em> and <em>FAQ</em> (published Aug 2026) set the test at <strong>135 minutes</strong> (not 120), list the sections as <strong>QADI 30 → LR 15 → VARC 15</strong>, define the maths syllabus as <strong>NCERT up to Class XII</strong>, and replace the old "60% test + 40% PI" story with a two-stage weighting in which <strong>Class X marks carry 25 points pre-PI and 20 points post-PI</strong>. See the <strong>Syllabus &amp; Marks</strong> tab for the full breakdown and what changed.</div>
+  <p class="lede">The exam: 60 MCQs · 180 raw marks · <strong>135 minutes</strong> · +3 correct, −1 wrong. Sections in official order — Quantitative &amp; Data Interpretation (30Q), Logical Reasoning (15Q), Verbal Ability &amp; Reading Comprehension (15Q). To reach the first shortlist you need a <strong>positive raw score in every section</strong> plus the QADI percentile bar and the aggregate cutoff. Selection then runs on a pre-PI score out of 100, and a post-PI score out of 100.</p>
 
   <div class="statgrid">
     <div class="stat"><div class="n" style="color:var(--marker)">40</div><div class="l">DS seats nationally</div></div>
     <div class="stat"><div class="n">114</div><div class="l">2026 actual cutoff (Gen, /180)</div></div>
     <div class="stat"><div class="n" style="color:var(--score)">135+</div><div class="l">Your target score</div></div>
-    <div class="stat"><div class="n">60:40</div><div class="l">Test : Interview weight</div></div>
+    <div class="stat"><div class="n">135</div><div class="l">Minutes (was 120)</div></div>
+    <div class="stat"><div class="n">40:40:20</div><div class="l">Test : PI : Class X (post-PI)</div></div>
     <div class="stat"><div class="n" id="stat-ms">0%</div><div class="l">Milestones complete</div></div>
     <div class="stat"><div class="n" id="stat-quiz">—</div><div class="l">Best quiz score /180</div></div>
   </div>
@@ -384,12 +388,12 @@ details.res .rb{padding:0 16px 16px;border-top:1px dashed var(--grid)}
       <span class="zone-lbl" style="left:58%">114 · 2026 cutoff</span>
       <span class="zone-lbl" style="left:80%">135–180 · Safe zone</span>
     </div>
-    <p class="small" style="margin-top:26px">Strategy: 45 accurate attempts (of 60) with ≥90% accuracy ≈ 130–135. Accuracy beats attempts — every wrong answer costs 1 mark AND forfeits 3. In QADI, treat every question as non-negotiable: it is the only section with a sectional cutoff.</p>
+    <p class="small" style="margin-top:26px">Strategy under the new pattern: 45 accurate attempts (of 60) at ≥90% accuracy ≈ 130–135 raw. Accuracy still beats volume — a wrong answer costs 1 mark and forfeits 3. Two changes to how you allocate effort: (1) <strong>you must score positive in all three sections</strong>, so no section can be written off; (2) inside the 70-point pre-PI test score, <strong>LR carries 30 points against QADI's 20 and VARC's 20</strong> — with only 15 LR questions, each LR question is worth roughly <strong>three times</strong> as much pre-PI as each QADI question. LR is no longer the easy section you clear quickly; it is the highest-leverage section in the paper.</p>
   </div>
 
   <div class="week">
     <strong style="font-family:var(--disp)">📌 This week's operating rhythm (default template)</strong>
-    <p class="small" style="margin-top:6px">Mon–Fri: 45 min QADI concepts + 30 min drills · Sat: 1 sectional test + error log review · Sun: 30 min RC reading + 30 min LR sets + flashcard sweep + one game session here. Log everything in the Milestones tab. OODA it: Observe (mock data) → Orient (error log) → Decide (weak-area plan) → Act (drills).</p>
+    <p class="small" style="margin-top:6px">Mon–Fri: 40 min QADI concepts (NCERT XII block) + 25 min drills + <strong>20 min LR sets, daily and non-negotiable</strong> · Sat: one sectional or a Mock Paper + error-log review · Sun: 30 min RC reading + flashcard sweep + one game session here. Log everything in the Milestones tab. OODA it: Observe (mock data) → Orient (error log) → Decide (weak-area plan) → Act (drills).</p>
   </div>
 
   <div class="grid2">
@@ -400,23 +404,115 @@ details.res .rb{padding:0 16px 16px;border-top:1px dashed var(--grid)}
         <tr><td>Duration</td><td>4 years, residential (3-yr exit option, NEP)</td></tr>
         <tr><td>Campus</td><td>Jigani, Bengaluru (~27–30 km from Bannerghatta)</td></tr>
         <tr><td>Fee</td><td>₹8.5 L/year (tuition + hostel + exam; mess extra)</td></tr>
-        <tr><td>Eligibility</td><td>Class XII with Maths compulsory; ≥60% in Maths; ≤20 yrs on 1 Aug of intake year (Gen)</td></tr>
-        <tr><td>Exam fee</td><td>₹3,000 (Gen/EWS/OBC-NCL) · ₹1,500 (SC/ST/PwD)</td></tr>
+        <tr><td>School</td><td>IIMB – <strong>Dorabji Tata School of Undergraduate Studies</strong> (named 2026, Tata Trusts MoU)</td></tr>
+        <tr><td>Eligibility</td><td><strong>Mathematics in Class XI <em>and</em> Class XII</strong>; ≥60% in Class X; ≤20 yrs on 1 Aug of the intake year. NIOS maths is accepted to close the gap; pure or applied maths both qualify.</td></tr>
+        <tr><td>Exam fee</td><td>₹3,000 (General) · <strong>₹2,000</strong> (EWS / NC-OBC / SC / ST / PwD)</td></tr>
+        <tr><td>Also required</td><td><strong>Statement of Purpose</strong> · <strong>two online reference letters</strong> from teachers who taught you in the last four years (mandatory after Stage I)</td></tr>
       </table>
     </div>
     <div class="card">
-      <span class="tag grn">Jan-28 Campaign Timeline (projected from 2026 cycle)</span>
+      <span class="tag grn">Jan-28 Campaign Timeline (re-modelled on the 2027 cycle)</span>
       <table>
-        <tr><td class="mono">Oct–Nov 2027</td><td>Application window opens on ug.iimb.ac.in</td></tr>
-        <tr><td class="mono">~11 Dec 2027</td><td><strong>IIMB UG Admissions Test</strong> (2026 test was 2nd Sat of Dec)</td></tr>
-        <tr><td class="mono">Early Jan 2028</td><td>Scorecard + first shortlist (QADI cutoff applied, +5 gender diversity in pre-PI score)</td></tr>
-        <tr><td class="mono">22 Jan–2 Feb 2028</td><td><strong>Personal Interviews</strong>, in person at IIMB</td></tr>
-        <tr><td class="mono">~28 Feb 2028</td><td>Final offers (composite 60:40)</td></tr>
+        <tr><td class="mono">~mid-Aug 2027</td><td>Application window opens on ug.iimb.ac.in (2027 cycle opened 17 Aug)</td></tr>
+        <tr><td class="mono">~15 Oct 2027</td><td><strong>Application deadline, 5.00 pm IST</strong> — plus SoP and two reference letters</td></tr>
+        <tr><td class="mono">~15 Nov 2027</td><td><strong>IIMB UG Admissions Test</strong> — the test moved from December to November in the 2027 cycle</td></tr>
+        <tr><td class="mono">~15 Dec 2027</td><td>Results + first shortlist (positive score in all sections, QADI percentile bar, aggregate cutoff)</td></tr>
+        <tr><td class="mono">2nd–3rd wk Jan 2028</td><td><strong>Personal Interviews</strong> in selected cities</td></tr>
+        <tr><td class="mono">3rd wk Feb 2028</td><td>Offers &amp; waitlist (post-PI score: test 40 + PI 40 + Class X 20)</td></tr>
         <tr><td class="mono">Aug 2028</td><td>Session begins, Jigani campus</td></tr>
       </table>
-      <p class="small" style="margin-top:8px">⚠️ Dates are projections mirroring the 2026-27 cycle. Verify on ug.iimb.ac.in when the 2028 notification drops (~July 2027).</p>
+      <p class="small" style="margin-top:8px">⚠️ The 2027 cycle ran 17 Aug – 15 Oct 2026 with the test on 15 Nov 2026. These 2028 dates mirror that calendar — roughly <strong>four weeks earlier than the old December assumption</strong>. Verify on ug.iimb.ac.in when the 2028 notification drops (~July 2027).</p>
     </div>
   </div>
+</section>
+
+<!-- ================= SYLLABUS & MARKS ================= -->
+<section class="tab" id="tab-syll">
+  <h2>Syllabus &amp; Marks Blueprint</h2>
+  <p class="lede">Everything here is taken from IIMB's official <em>UG Admissions Process 2027-31</em> document and <em>UG Admissions FAQ</em> (ug.iimb.ac.in, August 2026), plus the published cut-off annexure. Where a figure is inferred rather than stated, it is labelled.</p>
+
+  <div class="card">
+    <span class="tag red">What changed since this app was first built</span>
+    <h3>Nine corrections</h3>
+    <table>
+      <tr><th>Item</th><th>Old assumption</th><th>Official 2027 position</th></tr>
+      <tr><td><strong>Duration</strong></td><td class="mono">120 min</td><td class="mono"><strong>135 min</strong></td></tr>
+      <tr><td><strong>Section order</strong></td><td>EC → QADI → LR</td><td><strong>QADI → LR → VARC</strong> (as listed officially)</td></tr>
+      <tr><td><strong>Section naming</strong></td><td>"English Comprehension"</td><td>"Verbal Ability &amp; Reading Comprehension" (VARC)</td></tr>
+      <tr><td><strong>Maths syllabus</strong></td><td>Class X–XII arithmetic/algebra in practice</td><td><strong>NCERT up to Class XII in full</strong> — calculus, matrices, determinants, conics, inverse trig, variance, Bayes</td></tr>
+      <tr><td><strong>Sectional timers</strong></td><td>Hard sectional locks</td><td>No stated sectional time limits — <strong>one clock, free movement</strong></td></tr>
+      <tr><td><strong>Selection weights</strong></td><td>60% test + 40% PI</td><td><strong>Two stages</strong>; post-PI is test 40 + PI 40 + Class X 20</td></tr>
+      <tr><td><strong>Eligibility</strong></td><td>Maths in XII, ≥60% in Maths</td><td>Maths in <strong>XI and XII</strong>; <strong>≥60% in Class X</strong></td></tr>
+      <tr><td><strong>Exam fee</strong></td><td>₹1,500 for SC/ST/PwD</td><td><strong>₹2,000</strong> for EWS/NC-OBC/SC/ST/PwD; ₹3,000 General</td></tr>
+      <tr><td><strong>Extra documents</strong></td><td>Not tracked</td><td><strong>Statement of Purpose + 2 online reference letters</strong></td></tr>
+    </table>
+    <p class="small" style="margin-top:10px">⚠️ One genuine ambiguity: the admissions-process PDF says ≥60% in Class X, while the FAQ says ≥60% in <em>Mathematics</em> in Class X. Treat the stricter reading as binding and email ugadmissions@iimb.ac.in to confirm. A second, minor conflict: some coaching sites still quote 120 minutes from the earlier FAQ. Both official 2027 documents say 135.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <span class="tag ink">Test structure</span>
+      <table>
+        <tr><th>Section</th><th>Q</th><th>Raw marks</th><th>Share</th><th>Suggested min</th></tr>
+        <tr><td>Quantitative &amp; DI (QADI)</td><td class="mono">30</td><td class="mono">90</td><td class="mono">50%</td><td class="mono">65</td></tr>
+        <tr><td>Logical Reasoning (LR)</td><td class="mono">15</td><td class="mono">45</td><td class="mono">25%</td><td class="mono">35</td></tr>
+        <tr><td>Verbal Ability &amp; RC (VARC)</td><td class="mono">15</td><td class="mono">45</td><td class="mono">25%</td><td class="mono">30</td></tr>
+        <tr><td><strong>Total</strong></td><td class="mono"><strong>60</strong></td><td class="mono"><strong>180</strong></td><td class="mono">100%</td><td class="mono"><strong>130 + 5 buffer</strong></td></tr>
+      </table>
+      <p class="small" style="margin-top:8px">Computer-based · +3 for correct · −1 (one-third) for incorrect · 0 for unattempted. The minute split is a recommendation from this program, not an IIMB rule — you may move freely across the 135 minutes.</p>
+    </div>
+    <div class="card">
+      <span class="tag gld">The two scoring stages (official)</span>
+      <p class="small"><strong>Pre-PI score, out of 100</strong> — used to decide who is interviewed:</p>
+      <table>
+        <tr><td>UG Test</td><td class="mono"><strong>70</strong></td><td class="small">QADI 20 · <strong>LR 30</strong> · VARC 20</td></tr>
+        <tr><td>Class X overall (standardised)</td><td class="mono">15</td><td class="small">School marks matter</td></tr>
+        <tr><td>Class X mathematics (standardised)</td><td class="mono">10</td><td class="small">Separately weighted</td></tr>
+        <tr><td>Gender diversity</td><td class="mono">5</td><td class="small">Pre-PI only</td></tr>
+      </table>
+      <p class="small" style="margin-top:10px"><strong>Post-PI score, out of 100</strong> — decides final offers:</p>
+      <table>
+        <tr><td>UG Test</td><td class="mono">40</td></tr>
+        <tr><td>Personal Interview</td><td class="mono">40</td></tr>
+        <tr><td>Class X overall (standardised)</td><td class="mono">10</td></tr>
+        <tr><td>Class X mathematics (standardised)</td><td class="mono">10</td></tr>
+      </table>
+      <p class="small" style="margin-top:8px">The gender-diversity component is explicitly <strong>not</strong> carried into the post-PI stage.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag red">The marks-per-question insight that should change your plan</span>
+    <div class="grid3" style="margin-top:10px">
+      <div class="stat"><div class="n" style="color:var(--marker)">2.00</div><div class="l">Pre-PI points per LR question</div></div>
+      <div class="stat"><div class="n">1.33</div><div class="l">Pre-PI points per VARC question</div></div>
+      <div class="stat"><div class="n">0.67</div><div class="l">Pre-PI points per QADI question</div></div>
+    </div>
+    <p class="small" style="margin-top:12px">LR has half as many questions as QADI but 50% more pre-PI weight, so one LR question is worth roughly <strong>three</strong> QADI questions at the shortlisting stage. This is the single most actionable fact in the 2027 documents, and almost nobody's study plan reflects it. It does <em>not</em> mean you can neglect QADI: the 180-mark aggregate cut-off weights every question equally, the published percentile bar sits on QADI alone, and you must post a positive raw score in all three sections. The correct response is to stop treating LR as a section you clear in twenty minutes and start giving it daily time and its own error log.</p>
+  </div>
+
+  <div class="card">
+    <span class="tag grn">Gates you must clear, in order</span>
+    <ul style="list-style:none;font-size:14px">
+      <li style="padding:6px 0;border-bottom:1px dotted var(--grid)">▸ <strong>Gate 1 — Positive raw score in every section.</strong> Negative marking means an over-guessed section can go below zero and end your candidacy regardless of total.</li>
+      <li style="padding:6px 0;border-bottom:1px dotted var(--grid)">▸ <strong>Gate 2 — QADI percentile.</strong> 80th for General; 75th for NC-OBC and EWS; 70th for SC, ST and PwD.</li>
+      <li style="padding:6px 0;border-bottom:1px dotted var(--grid)">▸ <strong>Gate 3 — Aggregate cut-off.</strong> 114/180 for General in the published 2025 table.</li>
+      <li style="padding:6px 0;border-bottom:1px dotted var(--grid)">▸ <strong>Gate 4 — Pre-PI rank</strong> within your category, on the 100-point scale above.</li>
+      <li style="padding:6px 0">▸ <strong>Gate 5 — Post-PI score.</strong> Offers are made strictly on this, per category.</li>
+    </ul>
+    <p class="small" style="margin-top:10px">IIMB adds a sentence worth reading twice: <em>the scores of those actually called for interview were higher than these cut-offs</em>. 114 is a floor, not a target. Observers put the real General bar near the 98th percentile. Plan for 135–140.</p>
+  </div>
+
+  <h3 style="margin-top:24px">Topic-by-topic syllabus</h3>
+  <p class="small" style="margin-bottom:12px">Anchored on "NCERT up to Class XII". Priority tags reflect the 2026 paper's observed composition plus the pre-PI weighting above. 🔴 = do first · 🟡 = must cover · ⚪ = recognise and move on.</p>
+  <div id="syllbox"></div>
+</section>
+
+<!-- ================= MOCK PAPERS ================= -->
+<section class="tab" id="tab-mocks">
+  <h2>Mock Papers</h2>
+  <p class="lede">Five full-length papers built on the revised pattern: <strong>60 questions, 135 minutes, one clock, free movement</strong>, sections ordered QADI → LR → VARC, +3 / −1 / 0. Each scorecard converts your raw score into both the 180-mark aggregate and the official 70-point pre-PI test score, so you can see which section actually moved your shortlist position.</p>
+  <div id="mockbox"></div>
 </section>
 
 <!-- ================= ROADMAP ================= -->
@@ -429,10 +525,10 @@ details.res .rb{padding:0 16px 16px;border-top:1px dashed var(--grid)}
 <!-- ================= MILESTONES ================= -->
 <section class="tab" id="tab-mile">
   <h2>Milestone Tracker</h2>
-  <p class="lede">36 checkpoints, saved on this device. Export a backup JSON before switching devices.</p>
+  <p class="lede">Checkpoints, saved on this device. Export a backup JSON before switching devices. Dates were re-based in the 2027-pattern revision — the test moved about four weeks earlier.</p>
   <div class="card">
     <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center">
-      <strong class="mono" id="ms-count">0 / 36 complete</strong>
+      <strong class="mono" id="ms-count">0 complete</strong>
       <span>
         <button class="btn ghost" id="ms-export" style="padding:8px 14px;font-size:12px">Export backup</button>
         <button class="btn ghost" id="ms-import" style="padding:8px 14px;font-size:12px">Import</button>
@@ -488,7 +584,7 @@ details.res .rb{padding:0 16px 16px;border-top:1px dashed var(--grid)}
 <!-- ================= QUIZ ================= -->
 <section class="tab" id="tab-quiz">
   <h2>Quiz Arena</h2>
-  <p class="lede">Built to mirror the real UG-AT: locked sections in exam order (English Comprehension → QADI → Logical Reasoning), independent sectional timers, a question palette with mark-for-review, and +3/−1/0 scoring. When a section's clock dies, it's gone — exactly like test day.</p>
+  <p class="lede"><strong>Drill mode.</strong> Sectional timers with hard locks — deliberately harsher than the real test, which runs one 135-minute clock with free movement between sections. Use this to build section-level discipline and pace. For the true exam simulation, go to the <strong>Mock Papers</strong> tab: five full 60-question papers on the official 2027 pattern.</p>
   <div class="q-shell" id="quizbox" style="max-width:860px"></div>
 </section>
 
@@ -596,16 +692,17 @@ details.res .rb{padding:0 16px 16px;border-top:1px dashed var(--grid)}
 
   <div class="grid2">
     <div class="card">
-      <span class="tag grn">2026 Cycle — What Actually Happened</span>
+      <span class="tag grn">Official first-shortlist cut-offs (UG Test 2025, published in the 2027 admissions document)</span>
       <table>
-        <tr><td>Test date</td><td class="mono">13 Dec 2025</td></tr>
-        <tr><td>Overall cutoff (Gen)</td><td class="mono"><strong>114 / 180</strong></td></tr>
-        <tr><td>Sectional rule</td><td>Minimum score in <strong>QADI only</strong>; no EC/LR sectional cutoff, but positive raw score required in all sections</td></tr>
-        <tr><td>Reported QADI bar</td><td class="mono">~85th percentile (Gen)</td></tr>
-        <tr><td>Gender diversity</td><td class="mono">+5 marks in pre-PI score only</td></tr>
-        <tr><td>Shortlist ratio</td><td class="mono">~1:5 (≈400 PI calls / 80 seats)</td></tr>
-        <tr><td>Paper difficulty</td><td>Moderate; VARC easiest, LR easy-but-lengthy, QADI toughest &amp; calculation-heavy</td></tr>
+        <tr><th>Category</th><th>VARC</th><th>LR</th><th>QADI</th><th>Aggregate</th></tr>
+        <tr><td>General</td><td class="mono">NA</td><td class="mono">NA</td><td class="mono">80th %ile</td><td class="mono"><strong>114</strong></td></tr>
+        <tr><td>NC-OBC</td><td class="mono">NA</td><td class="mono">NA</td><td class="mono">75th %ile</td><td class="mono">75</td></tr>
+        <tr><td>EWS</td><td class="mono">NA</td><td class="mono">NA</td><td class="mono">75th %ile</td><td class="mono">75</td></tr>
+        <tr><td>SC</td><td class="mono">NA</td><td class="mono">NA</td><td class="mono">70th %ile</td><td class="mono">51</td></tr>
+        <tr><td>ST</td><td class="mono">NA</td><td class="mono">NA</td><td class="mono">70th %ile</td><td class="mono">50</td></tr>
+        <tr><td>PwD</td><td class="mono">NA</td><td class="mono">NA</td><td class="mono">70th %ile</td><td class="mono">60</td></tr>
       </table>
+      <p class="small" style="margin-top:8px">Three corrections to what this app previously said. (1) The published QADI bar is the <strong>80th</strong> percentile for General, not the 85th. (2) "NA" on VARC and LR does <strong>not</strong> mean they are ignored — a <strong>positive raw score in every section</strong> is a separate hard gate. (3) IIMB states plainly that the scores of those actually called for interview were <strong>higher</strong> than these floors; 114 is the published minimum, not the competitive bar, which observers put near the 98th percentile overall.</p>
     </div>
     <div class="card">
       <span class="tag gld">Projection Model &amp; Assumptions</span>
@@ -626,7 +723,7 @@ details.res .rb{padding:0 16px 16px;border-top:1px dashed var(--grid)}
   </div>
 </section>
 
-<p class="footer-note">Mission 180 · Built for the IIMB UG Admissions Test (BSc Hons Data Science, Jan-2028 target). 2026 cutoff and exam-pattern facts are from the inaugural cycle (test: 13 Dec 2025; cutoffs published Jan 2026). All 2027–2029 figures are projections, not official data. Always verify dates and policy on ug.iimb.ac.in. Practice questions are original items written in the style of the test — not actual exam questions.</p>
+<p class="footer-note">Mission 180 · Built for the IIMB UG Admissions Test (BSc Hons Data Science, Jan-2028 target). <strong>2027-pattern revision.</strong> Exam format, syllabus, eligibility, cut-off table and the pre-PI / post-PI weightings are taken from IIMB's official <em>UG Admissions Process 2027-31</em> and <em>UG Admissions FAQ</em> documents published on ug.iimb.ac.in in August 2026. 2028-cycle dates are modelled on the 2027 calendar and are projections, not official data. Cut-off projections for 2028–2029 are modelled, not official. All practice questions and the five Mock Papers are <strong>original items written in the style of the test</strong> — they are not actual exam questions and not reproductions of IIMB material. Always verify dates and policy on ug.iimb.ac.in.</p>
 </main>
 
 <!-- ================= FLOATING COACH ================= -->
@@ -657,15 +754,15 @@ const PHASES=[
  read:["Algebra: linear/quadratic equations, inequalities, functions, logarithms, progressions","Modern math: P&C, probability, set theory & Venn (IIMB loves these — DS program DNA)","Geometry & mensuration essentials; number properties","Arun Sharma LR Level 2; puzzle-heavy sets (arrangements, grouping, games & tournaments)"],
  drill:["Alternate-day sectionals: QADI / LR / EC rotation","Calculation speed: 2-digit multiplication, % of numbers, approximation drills","Start IPMAT (IIM Indore/Rohtak) previous-year papers — nearest cousin exams"],
  out:["Baseline full mock score recorded (expect 70–90; that's normal here)","Weak-topic list frozen to top 5 for targeted attack"]},
-{n:"P4",t:"Mock Intensive — Test Like It's Real",d:"Jul – Oct 2027 (17 wks)",goal:"Exit gate: 3 consecutive full mocks ≥ 120/180 with QADI ≥ 55/90. Application filed the day the window opens (Oct 2027).",
+{n:"P4",t:"Mock Intensive — Test Like It's Real",d:"Jul – Oct 2027 (17 wks)",goal:"Exit gate: 3 consecutive full mocks ≥ 120/180 with QADI ≥ 55/90 AND LR ≥ 33/45. Application filed by 15 Oct 2027 with SoP and both reference letters already in.",
  read:["IIMB UG-AT 2026 & 2027 actual papers / memory-based papers — dissect every question","One mock/week (Jul–Aug) → two/week (Sep–Oct), full 120-min simulation, morning slot","GK-lite: tech & data-science news weekly (interview ammo, not test content)"],
- drill:["48-hour rule: every mock fully analyzed within 48h — re-solve every error","Skip discipline: mark-and-move in 40 seconds if no path is visible","Section time budget: EC 25 min · QADI 60 min · LR 30 min · 5 min buffer"],
+ drill:["48-hour rule: every mock fully analyzed within 48h — re-solve every error","Skip discipline: mark-and-move in 40 seconds if no path is visible","Time budget across one 135-min clock: QADI 65 min · LR 35 min · VARC 30 min · 5 min buffer. Order is yours to choose — bank LR and VARC marks early, then spend the surplus on QADI."],
  out:["Mock tracker: 12+ full mocks logged","IIMB UG application submitted + documents verified","Admit-card checklist ready"]},
-{n:"P5",t:"Peak — Taper & Strike",d:"Nov – 11 Dec 2027 (6 wks)",goal:"Exit gate: walk in calm. Last mock 5 days out, then only light revision.",
- read:["Formula notebook + error log ONLY — no new material after 15 Nov","2 mocks/week until 1 Dec, then taper: 1 light sectional every other day"],
- drill:["Sleep protocol: fixed wake time matching test-day schedule from 25 Nov","Test-day dry run: travel route to centre, documents pouch, snack plan","Daily 10-min flashcard sweep + 1 Math Sprint (keep the engine warm, not hot)"],
- out:["Test taken 11 Dec 2027 (expected) — then 48h full rest, guilt-free"]},
-{n:"P6",t:"PI Sprint — The Final 40%",d:"Mid Dec 2027 – Jan 2028 (5 wks)",goal:"Exit gate: 10 recorded mock interviews, each reviewed; story bank of 12 polished answers.",
+{n:"P5",t:"Peak — Taper & Strike",d:"Oct – 15 Nov 2027 (6 wks)",goal:"Exit gate: walk in calm. Last mock 5 days out, then only light revision.",
+ read:["Formula notebook + error log ONLY — no new material after 20 Oct","2 mocks/week until 5 Nov, then taper: 1 light sectional every other day"],
+ drill:["Sleep protocol: fixed wake time matching test-day schedule from 30 Oct","Test-day dry run: travel route to centre, documents pouch, snack plan","Daily 10-min flashcard sweep + 1 Math Sprint (keep the engine warm, not hot)"],
+ out:["Test taken ~15 Nov 2027 (expected) — then 48h full rest, guilt-free"]},
+{n:"P6",t:"PI Sprint — The Final 40%",d:"Mid Nov 2027 – Jan 2028 (8 wks)",goal:"Exit gate: 10 recorded mock interviews, each reviewed; story bank of 12 polished answers.",
  read:["Program deep-dive: IIMB UG curriculum, Jigani campus, 3-yr exit, minors structure — know it cold","Data science literacy: what is ML vs AI, one dataset story you can narrate, why DS + economics together","Current affairs: 8 weeks of tech/economy headlines; 2 opinions you can defend"],
  drill:["Mock Interview Studio here: 3 sessions/week, self-rated","2 sessions with an adult panel (parent/mentor) in formal setting","Class XI–XII maths viva prep: expect 'solve this on paper' moments"],
  out:["Story bank: Why DS · Why IIMB · Why not engineering · strength/weakness · a failure · a project (DISHA/portfolio counts!)","Documents portfolio: originals + copies, formal attire test-fitted","PI attended ~22 Jan–2 Feb 2028 → offers ~28 Feb 2028"]}
@@ -694,18 +791,20 @@ const MILES=[
 ["Mock Intensive · P4","Jul 2027","2028 admission notification released — read policy doc line by line"],
 ["Mock Intensive · P4","Aug 2027","Mock 5–8 done; skip discipline habit locked (40-sec rule)"],
 ["Mock Intensive · P4","Sep 2027","Crossing 110/180 consistently"],
-["Mock Intensive · P4","Oct 2027","APPLICATION SUBMITTED on ug.iimb.ac.in (day window opens)"],
+["Mock Intensive · P4","Aug 2027","APPLICATION STARTED on ug.iimb.ac.in (window opens ~17 Aug)"],
+["Mock Intensive · P4","Sep 2027","Statement of Purpose drafted + 2 referees briefed and confirmed"],
+["Mock Intensive · P4","Oct 2027","APPLICATION SUBMITTED + both reference letters received (deadline ~15 Oct, 5 pm)"],
 ["Mock Intensive · P4","Oct 2027","EXIT GATE: 3 consecutive mocks ≥ 120, QADI ≥ 55/90"],
 ["Peak · P5","Nov 2027","Admit card downloaded; centre travel dry-run done"],
-["Peak · P5","Nov 2027","No-new-material lockdown from 15 Nov — notebook + errors only"],
-["Peak · P5","Dec 2027","Final mock (5 days out) + taper begins"],
-["Peak · P5","11 Dec 2027","🎯 TEST DAY — execute the plan, chase accuracy"],
+["Peak · P5","Oct 2027","No-new-material lockdown from 20 Oct — notebook + errors only"],
+["Peak · P5","Nov 2027","Final mock (5 days out) + taper begins"],
+["Peak · P5","~15 Nov 2027","🎯 TEST DAY — 135 minutes, one clock, QADI → LR → VARC"],
 ["PI Sprint · P6","Dec 2027","Story bank v1 drafted: 12 core answers written out"],
 ["PI Sprint · P6","Dec 2027","Program knowledge test: can explain curriculum, minors, exit option cold"],
 ["PI Sprint · P6","Jan 2028","Scorecard + shortlist result checked on portal"],
 ["PI Sprint · P6","Jan 2028","10 mock interview sessions complete (Studio + live panels)"],
 ["PI Sprint · P6","Jan 2028","Documents portfolio + formal attire ready"],
-["PI Sprint · P6","Jan 2028","🎤 PERSONAL INTERVIEW attended (~22 Jan–2 Feb)"],
+["PI Sprint · P6","Jan 2028","🎤 PERSONAL INTERVIEW attended (2nd–3rd week Jan, selected cities)"],
 ["PI Sprint · P6","Feb 2028","Final offer checked (~28 Feb); acceptance + fee before deadline"],
 ["PI Sprint · P6","Mar 2028","If waitlisted: track waitlist movement weekly — seats do move"]
 ];
@@ -832,12 +931,15 @@ const CARDS=[
 ["Vocab","Meticulous / Cursory","Detail-obsessed / Hasty and superficial"],
 ["Vocab","Candid / Evasive","Frank, honest / Avoiding the point"],
 ["Vocab","Ephemeral / Perennial","Short-lived / Everlasting"],
-["PI","Exam pattern (say it cold)","60 Q · 180 marks · 120 min · +3/−1 · EC 15, QADI 30, LR 15"],
-["PI","Selection weights","Test 60% + Personal Interview 40% = composite score"],
-["PI","2026 shortlist rule","QADI sectional cutoff only; positive score in all sections; Gen overall cutoff 114/180"],
+["PI","Exam pattern (say it cold)","60 Q · 180 raw marks · <span class='mono'>135 min</span> · +3/−1 · QADI 30, LR 15, VARC 15"],
+["PI","Pre-PI score (out of 100)","Test 70 (QADI 20 + LR 30 + VARC 20) + Class X overall 15 + Class X maths 10 + gender 5"],
+  ["PI","Post-PI score (out of 100)","Test 40 + Interview 40 + Class X overall 10 + Class X maths 10"],
+  ["PI","Extra application items","Statement of Purpose + two online reference letters from recent teachers"],
+["PI","Shortlist rule","Positive raw score in ALL three sections + QADI 80th percentile (Gen) + aggregate 114/180"],
 ["PI","Program structure","4-yr BSc (Hons) DS + minors in Economics & Business · 3-yr exit (NEP) · residential, Jigani"],
 ["PI","Why DS at IIMB (frame)","Rigorous quant (stochastic processes, algorithms) + business context — analyst who understands decisions, not just models"],
-["PI","Fee & intake","₹8.5 L/yr (first 2 yrs) · 40 seats per major · inaugural batch Aug 2026"]
+["PI","Fee & intake","₹8.5 L/yr (first 2 yrs) · 40 seats per major, 80 total · inaugural batch began 31 Aug 2026, 80 students from 20 states, ~12,000 applications"],
+  ["PI","School name","IIMB – Dorabji Tata School of Undergraduate Studies (Tata Trusts MoU, 2026)"]
 ];
 
 const IVQ=[
@@ -1027,6 +1129,90 @@ const VIDEOS=[
 {id:"094y1Z2wpJg",sec:"Maths Intuition",t:"The Simplest Math Problem No One Can Solve",by:"Veritasium",why:"Why mathematicians love problems — genuine PI-grade enthusiasm fuel."}
 ];
 
+/* === 2027-pattern revision: Class XII lessons the old syllabus assumption missed === */
+LESSONS.push(
+{id:"calc",sec:"QADI",t:"Calculus — the chapter the old plan skipped",min:9,h:`
+<h5>Why this is now compulsory</h5>
+<p>The official IIMB admissions document states the maths syllabus as <span class="kf">NCERT up to Class XII</span>. That single line puts limits, derivatives, integrals and applications of derivatives squarely in scope. Earlier versions of this program treated QADI as arithmetic plus a little algebra. That was wrong, and it was the single largest gap in your preparation.</p>
+<h5>Limits — three tools, in order</h5>
+<p>(1) Substitute. If you get a number, you are done. (2) If you get 0/0, factorise and cancel, or rationalise a surd. (3) Use the standard limits: <span class="kf">lim(x→0) sin x/x = 1</span>, <span class="kf">lim(x→0) (eˣ−1)/x = 1</span>, <span class="kf">lim(x→0) (1+x)^(1/x) = e</span>.</p>
+<div class="ex"><div class="exq">Worked: lim(x→0) sin(3x)/(5x)</div>Rewrite as (3/5) × sin(3x)/(3x) → (3/5) × 1 = <strong>3/5</strong>. The trick is always to make the argument of sin match the denominator.</div>
+<h5>Derivatives — the four rules that cover the exam</h5>
+<p>Power: d/dx(xⁿ) = nxⁿ⁻¹. Product: (uv)′ = u′v + uv′. Quotient: (u/v)′ = (u′v − uv′)/v². Chain: d/dx f(g(x)) = f′(g(x))·g′(x). Memorise the standard derivatives: sin→cos, cos→−sin, eˣ→eˣ, ln x→1/x.</p>
+<div class="ex"><div class="exq">Worked: derivative of x·ln x</div>Product rule: (1)(ln x) + x(1/x) = <strong>ln x + 1</strong>.</div>
+<h5>Applications — where MCQs actually live</h5>
+<p>Three question shapes recur: <em>slope of a tangent</em> (evaluate f′ at the point), <em>increasing or decreasing</em> (sign of f′), and <em>maxima and minima</em> (f′ = 0, then the sign of f″). For a closed interval, also test the endpoints.</p>
+<div class="ex"><div class="exq">Worked: local minimum of f(x) = x³ − 3x² + 2</div>f′ = 3x(x−2) → critical points 0 and 2. f″ = 6x − 6, and f″(2) = 6 > 0 → minimum at <strong>x = 2</strong>.</div>
+<h5>Integration — only two techniques are needed</h5>
+<p>Reverse the power rule, and substitution. <span class="kf">∫xⁿdx = xⁿ⁺¹/(n+1)</span>, <span class="kf">∫(1/x)dx = ln|x|</span>. For a definite integral, evaluate the antiderivative at both limits and subtract. Area under a curve between two x-values is just the definite integral.</p>
+<div class="trap"><strong>Trap:</strong> ∫(2x+1)⁵dx is NOT (2x+1)⁶/6. The inner derivative is 2, so you must divide by it: <strong>(2x+1)⁶/12 + C</strong>. Forgetting the chain factor is the most common single error in this chapter.</div>
+<h5>Prescription</h5>
+<p>Two weeks: NCERT XII Chapters 5, 6 and 7 (Continuity &amp; Differentiability, Applications of Derivatives, Integrals) — concepts only, then 20 MCQs per chapter. Do not attempt integration by parts or partial fractions; they are outside what an aptitude test in this format asks.</p>`},
+
+{id:"mat",sec:"QADI",t:"Matrices, Determinants & Systems",min:7,h:`
+<h5>Scope</h5>
+<p>NCERT XII Chapters 3 and 4. In an aptitude test this chapter is generous: the questions are short, formulaic and fast, which makes them the best marks-per-minute in QADI once you know the rules.</p>
+<h5>Determinants</h5>
+<p>For a 2 × 2 matrix [[a, b], [c, d]], <span class="kf">det = ad − bc</span>. For 3 × 3, expand along the row or column with the most zeros. Learn the properties, because they answer questions without any arithmetic:</p>
+<p>Two identical rows → determinant is <strong>0</strong>. Swapping two rows flips the sign. Multiplying one row by k multiplies the determinant by k. For an n × n matrix, <span class="kf">|kA| = kⁿ|A|</span>.</p>
+<div class="ex"><div class="exq">Worked: A is 3 × 3 with |A| = 4. Find |2A|.</div>2³ × 4 = <strong>32</strong>. Candidates who answer 8 have multiplied the determinant rather than every row.</div>
+<h5>Matrix multiplication</h5>
+<p>The entry in row i, column j of AB is the dot product of row i of A with column j of B. Order matters: <span class="kf">AB ≠ BA</span> in general. The one identity that always holds is <span class="kf">(AB)ᵀ = BᵀAᵀ</span> — note the reversal.</p>
+<h5>Special matrices worth naming</h5>
+<p>Idempotent: A² = A. Nilpotent: Aᵏ = 0 for some k. Singular: |A| = 0 (no inverse exists). Symmetric: Aᵀ = A. Questions frequently just ask you to name the property.</p>
+<h5>Systems of equations — the fastest read in the chapter</h5>
+<p>For a system written as AX = B, compare determinants. |A| ≠ 0 → <strong>unique solution</strong>. |A| = 0 with the augmented determinants also zero → <strong>infinitely many</strong>. |A| = 0 otherwise → <strong>no solution</strong>. For a homogeneous system (B = 0), a non-trivial solution exists exactly when |A| = 0.</p>
+<div class="ex"><div class="exq">Worked: 2x + 3y = 7 and 4x + 6y = 14</div>The second equation is twice the first; the lines coincide → <strong>infinitely many solutions</strong>. Spot proportionality before you compute anything.</div>
+<div class="trap"><strong>Trap:</strong> det(A + B) ≠ det A + det B. There is no addition rule for determinants, and options offering one are there to catch you.</div>`},
+
+{id:"stat2",sec:"QADI",t:"Statistics & Probability at Class XII depth",min:8,h:`
+<h5>Why this chapter is overweighted for a Data Science programme</h5>
+<p>You are applying to a BSc in Data Science run by IIM Bangalore. Variance, standard deviation and Bayes' theorem are both exam content and interview content. Expect to be asked about them in the PI as well as on the paper.</p>
+<h5>Variance and standard deviation</h5>
+<p><span class="kf">Variance = Σ(xᵢ − x̄)²/n</span>, and SD is its square root. The shortcut form <span class="kf">σ² = Σx²/n − x̄²</span> is faster when the mean is not a whole number.</p>
+<div class="ex"><div class="exq">Worked: SD of 2, 4, 4, 4, 5, 5, 7, 9</div>Mean = 5. Squared deviations: 9, 1, 1, 1, 0, 0, 4, 16 → sum 32. Variance = 32/8 = 4 → <strong>SD = 2</strong>.</div>
+<h5>The transformation rule — a one-line answer to a common question</h5>
+<p>If every observation becomes <span class="kf">ax + b</span>, then the mean becomes a·x̄ + b, but the <strong>SD becomes |a|·σ</strong>. Adding a constant shifts the data without spreading it, so b never touches the SD. Variance scales by a².</p>
+<p>Coefficient of variation = (SD ÷ mean) × 100. It lets you compare spread across data sets measured in different units — a favourite short question.</p>
+<h5>Probability — the four rules</h5>
+<p>Addition: <span class="kf">P(A∪B) = P(A) + P(B) − P(A∩B)</span>. Complement: <span class="kf">P(at least one) = 1 − P(none)</span>. Conditional: <span class="kf">P(A|B) = P(A∩B)/P(B)</span>. Independence: P(A∩B) = P(A)·P(B).</p>
+<h5>Bayes' theorem — do it as a tree, not a formula</h5>
+<p>Draw the two branches, multiply along each path, and divide the path you want by the sum of all paths that produce the observed outcome.</p>
+<div class="ex"><div class="exq">Worked: a test is 95% sensitive with a 5% false-positive rate; 1% of people have the disease. A person tests positive. Probability they are actually ill?</div>True positive path: 0.01 × 0.95 = 0.0095. False positive path: 0.99 × 0.05 = 0.0495. Answer = 0.0095/0.059 ≈ <strong>16%</strong>. The counter-intuitive result — most positives are false when the condition is rare — is exactly why panels like this question.</div>
+<div class="trap"><strong>Trap:</strong> "At least one is a girl" is not the same as "the elder is a girl". Conditioning on the first gives 1/3 for two girls; conditioning on the second gives 1/2. Read which event you have been given.</div>`},
+
+{id:"trigconic",sec:"QADI",t:"Trigonometry, Conics & Coordinate Geometry",min:7,h:`
+<h5>The Class XII band the old plan ignored</h5>
+<p>Trigonometric ratios and identities, inverse trigonometric functions, conic sections and three-dimensional geometry all sit inside "NCERT up to XII". They are not deep in an aptitude paper, but they are unmissable if you have never seen them.</p>
+<h5>The identities you need cold</h5>
+<p><span class="kf">sin²θ + cos²θ = 1</span> · <span class="kf">1 + tan²θ = sec²θ</span> · <span class="kf">sin(90° − θ) = cosθ</span>. Standard angles 0, 30, 45, 60, 90 must be instant.</p>
+<p>Double angle: sin2θ = 2sinθcosθ, cos2θ = 1 − 2sin²θ, <span class="kf">tan2θ = 2tanθ/(1 − tan²θ)</span>.</p>
+<div class="ex"><div class="exq">Worked: sin²35° + sin²55°</div>55° = 90° − 35°, so sin55° = cos35°. The expression is sin²35° + cos²35° = <strong>1</strong>. Complementary pairs are the single most common trick in this section.</div>
+<h5>Maximum and minimum of a sinθ + b cosθ</h5>
+<p>The range is <span class="kf">−√(a² + b²) to +√(a² + b²)</span>. So 3sinθ + 4cosθ has maximum 5. One formula, several marks.</p>
+<h5>Inverse trigonometry — only one identity is really tested</h5>
+<p><span class="kf">sin⁻¹x + cos⁻¹x = π/2</span> for all x in [−1, 1], and similarly tan⁻¹x + cot⁻¹x = π/2. Most inverse-trig MCQs at this level resolve to that line.</p>
+<h5>Conics — recognise, do not derive</h5>
+<p>Ellipse x²/a² + y²/b² = 1 with <span class="kf">b² = a²(1 − e²)</span>. Parabola y² = 4ax has focus (a, 0). Circle x² + y² = r². Hyperbola x²/a² − y²/b² = 1 with b² = a²(e² − 1). Questions ask for eccentricity, focus or a simple point — never a construction.</p>
+<h5>Coordinate geometry essentials</h5>
+<p>Distance √((x₂−x₁)² + (y₂−y₁)²) · midpoint (averages) · slope (y₂−y₁)/(x₂−x₁) · point-slope form y − y₁ = m(x − x₁). Two lines are parallel when slopes are equal and perpendicular when the product of slopes is −1.</p>
+<div class="trap"><strong>Trap:</strong> In a conic question, check whether a &gt; b before deciding which axis is major. If b &gt; a, the roles of a and b in the eccentricity formula swap.</div>`},
+
+{id:"lrlev",sec:"LR",t:"LR is now your highest-leverage section",min:6,h:`
+<h5>The arithmetic that should change your study plan</h5>
+<p>Inside the 70-point pre-PI test score, IIMB allocates <span class="kf">QADI 20</span>, <span class="kf">LR 30</span> and <span class="kf">VARC 20</span>. But QADI has 30 questions and LR has only 15. Divide it out: each QADI question is worth about <strong>0.67 pre-PI points</strong>; each LR question is worth <strong>2.0</strong>. An LR question is worth roughly three times a QADI question at the shortlisting stage.</p>
+<p>This does not make QADI optional — you still need a positive raw score in it, the percentile bar sits on it, and the 180-mark aggregate cut-off counts every question equally. What it does mean is that LR can no longer be the section you "clear quickly and move on from". It deserves daily practice and a real error log of its own.</p>
+<h5>What to do with that</h5>
+<p><strong>Daily:</strong> 20 minutes of LR, every single day, no exceptions. Consistency beats volume in this section because the skill is pattern recognition, which decays fast.</p>
+<p><strong>Weight your practice</strong> towards the four types that carry the most marks per unit of effort: critical reasoning (assumption, strengthen, weaken), data sufficiency, arrangements and syllogisms. These are learnable to near-certainty; number series and odd-one-out are not.</p>
+<h5>Critical reasoning — the four-question drill</h5>
+<p>For any argument, answer these in order: What is the <em>conclusion</em>? What is the <em>evidence</em>? What must be true for the evidence to support the conclusion (the <strong>assumption</strong>)? What would break that link (the <strong>weakener</strong>)? An option that does not touch the conclusion-evidence link is wrong however true it sounds.</p>
+<div class="ex"><div class="exq">Worked: "Students who attend the optional revision class score 12 marks higher, so the class raises scores."</div>Conclusion: the class causes the gain. Evidence: a score gap. Assumption: attenders and non-attenders were otherwise alike. Weakener: <strong>the attenders were already the stronger students</strong>. Self-selection is the standard answer to a voluntary-programme argument.</div>
+<h5>Data sufficiency — never solve</h5>
+<p>You are asked only whether the answer is pinned down, not what it is. Test each statement alone first, and deliberately look for a second value that also satisfies it. If you can produce two, that statement is insufficient. The most common error is doing the algebra and losing two minutes to a question that needed ten seconds of judgement.</p>
+<div class="trap"><strong>Trap:</strong> In the 2026 paper LR was rated "easy but lengthy". Under a single 135-minute clock with no sectional lock, a lengthy section can quietly eat the time you meant for QADI. Budget LR at 35 minutes and enforce it with a watch.</div>`}
+);
+
 /* extra exam-bank questions → totals: EC 16 · QADI 32 · LR 17 */
 const QBANK2=[
 {s:"QADI",q:"A sum doubles in 8 years at simple interest. In how many years will it triple?",o:["12","16","20","24"],a:1,e:"Doubling means SI = P in 8 yrs → rate 12.5%. Tripling needs SI = 2P → 16 years."},
@@ -1123,9 +1309,9 @@ const store={
 };
 
 /* --- countdowns --- */
-const D_TEST=new Date("2027-12-11T09:00:00+05:30"),
-      D_PI =new Date("2028-01-22T09:00:00+05:30"),
-      D_APP=new Date("2027-10-11T09:00:00+05:30");
+const D_TEST=new Date("2027-11-14T09:00:00+05:30"),
+      D_PI =new Date("2028-01-10T09:00:00+05:30"),
+      D_APP=new Date("2027-10-15T17:00:00+05:30");
 function days(to){return Math.max(0,Math.ceil((to-new Date())/864e5))}
 function tickCounts(){
   $("#cd-test").textContent=days(D_TEST)+" days";
@@ -1203,7 +1389,7 @@ $("#ms-import").onclick=()=>{
     r.readAsText(f)};
   inp.click();
 };
-$("#ms-reset").onclick=()=>{if(confirm("Reset all 36 milestones to unchecked?")){msState=MILES.map(()=>false);store.set("m180_ms",JSON.stringify(msState));renderMS()}};
+$("#ms-reset").onclick=()=>{if(confirm("Reset all milestones to unchecked?")){msState=MILES.map(()=>false);store.set("m180_ms",JSON.stringify(msState));renderMS()}};
 
 /* --- study resources: rendered by v2 library --- */
 
@@ -1938,5 +2124,670 @@ $("#chat-input").onkeydown=e=>{if(e.key==="Enter")$("#chat-send").click()};
 })();
 </script>
 <!-- =================== end Mission Control shared dock =================== -->
+<script>
+/* ==================================================================
+   2027-PATTERN REVISION MODULE
+   · Syllabus & Marks renderer
+   · Mock Papers engine: 60Q / 135 min / one clock / free navigation
+   ================================================================== */
+(function(){
+"use strict";
+var $=function(s){return document.querySelector(s)},
+    $$=function(s){return document.querySelectorAll(s)};
+var MEM2={};
+var st={get:function(k){try{var v=localStorage.getItem(k);return v!==null?v:(k in MEM2?MEM2[k]:null)}catch(e){return k in MEM2?MEM2[k]:null}},
+        set:function(k,v){MEM2[k]=v;try{localStorage.setItem(k,v)}catch(e){}}};
+var fm=function(s){var m=Math.floor(s/60),x=s%60;return String(m).padStart(2,"0")+":"+String(x).padStart(2,"0")};
+
+/* ---------------- SYLLABUS DATA ---------------- */
+var SYLL=[
+{sec:"QADI",note:"30 questions · 90 raw marks · 20 pre-PI points. NCERT Classes X, XI and XII. The 2026 paper was rated the toughest of the three sections and calculation-heavy.",
+ blocks:[
+ ["Number System","🔴","Real, rational and irrational numbers · factors, multiples, divisibility rules · primes · HCF and LCM · Euclid's division lemma · Fundamental Theorem of Arithmetic · remainders and cyclicity · trailing zeros in n!"],
+ ["Arithmetic","🔴","Percentages · ratio and proportion · averages and weighted averages · profit, loss and discount · simple and compound interest · time, speed and distance · boats and streams · time and work · pipes and cisterns · mixtures and alligation · partnerships"],
+ ["Algebra","🔴","Linear and quadratic equations · roots and their relations · polynomials · inequalities · surds and indices · logarithms · functions and relations · sequences and series (AP, GP, HP) · binomial theorem · complex numbers"],
+ ["Data Interpretation","🔴","Tables · bar, line and pie charts · caselets · data comparison · percentage and ratio-based data · mixed and missing-data sets. Calculator-free approximation is the whole skill."],
+ ["Calculus","🟡","Limits and standard limits · continuity · differentiation, product, quotient and chain rules · tangents and normals · increasing and decreasing functions · maxima and minima · indefinite and definite integrals · area under a curve. NEW in scope — was missing from the earlier plan."],
+ ["Probability & Counting","🟡","Fundamental counting principle · permutations and combinations · circular arrangements · basic probability · addition and multiplication rules · conditional probability · independence · Bayes' theorem. Overweight this: it is the Data Science programme's DNA."],
+ ["Statistics","🟡","Mean, median, mode · variance and standard deviation · the ax+b transformation rule · coefficient of variation · data representation and interpretation"],
+ ["Matrices & Determinants","🟡","Matrix operations · transpose and its properties · determinant of 2×2 and 3×3 · properties of determinants · |kA| = kⁿ|A| · singular matrices · inverse · consistency of linear systems · Cramer's rule"],
+ ["Geometry & Mensuration","🟡","Lines and angles · triangles, similarity and congruence · circles and tangents · polygons and diagonals · areas · surface areas and volumes of cube, cuboid, cylinder, cone, sphere"],
+ ["Coordinate Geometry","🟡","Distance, section and midpoint · slope · equations of lines · parallel and perpendicular conditions · area of a triangle from vertices · circles"],
+ ["Trigonometry","⚪","Ratios and standard angles · fundamental identities · complementary angles · heights and distances · double-angle formulae · maximum of a·sinθ + b·cosθ · inverse trigonometric functions (chiefly sin⁻¹x + cos⁻¹x = π/2)"],
+ ["Conic Sections & 3-D","⚪","Circle, parabola, ellipse, hyperbola — standard forms, eccentricity, focus · direction cosines and ratios · distance between points in 3-D. Recognise the standard form; nothing is derived."]
+ ]},
+{sec:"LR",note:"15 questions · 45 raw marks · 30 pre-PI points — the highest weight per question in the paper. Rated 'easy but lengthy' in 2026, which under a single clock is a time trap, not a gift.",
+ blocks:[
+ ["Critical Reasoning","🔴","Statements and arguments · assumptions · conclusions · inference · cause and effect · strengthening and weakening arguments. Highest marks-per-hour of study in the whole paper."],
+ ["Data Sufficiency","🔴","Statement I alone / II alone / both / neither. Judge sufficiency; never solve."],
+ ["Arrangements & Puzzles","🔴","Linear and circular seating · facing-inward and facing-outward conventions · grouping and selection · ordering · scheduling · distribution · floor and box puzzles"],
+ ["Syllogisms","🔴","All / some / no statements · Venn representation · valid conversions · either-or cases · possibility conclusions"],
+ ["Series","🟡","Number series (differences, ratios, ×k±c, squares and cubes, primes, interleaved) · letter series with EJOTY anchors · alphanumeric series"],
+ ["Coding-Decoding","🟡","Letter shift · reversal · positional and number coding · word-substitution codes · conditional coding"],
+ ["Blood Relations & Directions","🟡","Family trees drawn from the end of the sentence backwards · compass tracing · net displacement · turning through angles"],
+ ["Ranking, Clocks, Calendars","🟡","Rank from both ends · angle between hands |30H − 5.5M| · coincidence and right-angle times · odd days · leap-year shifts"],
+ ["Analogies & Odd One Out","⚪","Word, number and letter analogies · classification. Low return on study time; solve on instinct and move."],
+ ["Cubes & Venn","⚪","Painted-cube counts · two-set and three-set Venn problems"]
+ ]},
+{sec:"VARC",note:"15 questions · 45 raw marks · 20 pre-PI points. Rated the easiest section in 2026, with two RC passages of roughly 230–280 words on reflective themes. Target 13+ of 15 — this is where you buy the time QADI will demand.",
+ blocks:[
+ ["Reading Comprehension","🔴","Two passages, four questions each · main idea and central argument · supporting detail · inference · author's purpose and tone · structure and function of a paragraph · summary · application of the argument to a new case"],
+ ["Vocabulary in Context","🔴","Synonyms and antonyms · contextual meaning · word usage · idioms and phrases. Learn words as discriminations, not definitions."],
+ ["Grammar & Sentence Correction","🔴","Subject-verb agreement · tenses and the perfect aspect · pronouns and case · prepositions and articles · misplaced and dangling modifiers · parallelism · comparisons · conditionals · error detection"],
+ ["Para Jumbles","🟡","Opening-sentence identification · pronoun and connector chains · chronological and logical sequencing"],
+ ["Sentence Completion","🟡","Single and double blanks · contrast and continuation signals ('yet', 'far from being', 'therefore')"],
+ ["Summary & Inference","🟡","Compressing an argument without adding to it · distinguishing 'must be true' from 'could be true'"]
+ ]}
+];
+
+function renderSyll(){
+  var box=$("#syllbox"); if(!box) return;
+  box.innerHTML=SYLL.map(function(s){
+    return '<details class="res" open><summary>'+s.sec+' — '+s.blocks.length+' blocks</summary><div class="rb">'+
+      '<p class="small" style="margin:10px 0">'+s.note+'</p>'+
+      '<table><tr><th style="width:26%">Block</th><th style="width:8%">Pri</th><th>Topics</th></tr>'+
+      s.blocks.map(function(b){return '<tr><td><strong>'+b[0]+'</strong></td><td style="text-align:center;font-size:17px">'+b[1]+'</td><td class="small">'+b[2]+'</td></tr>'}).join("")+
+      '</table></div></details>';
+  }).join("");
+}
+
+/* ---------------- MOCK PAPERS ---------------- */
+var MOCKS=[
+{id:"M1",name:"Mock Paper 1",lvl:"Moderate",note:"Balanced calibration paper. QADI leans arithmetic + Class XI; two Class XII anchors (calculus, matrices). Use this as your baseline.",
+psgs:[
+"Every measurement is an argument about what matters. When a country reports its economic output, it has already decided that goods exchanged for money count and that work done at home does not. The number that results is then treated as though it had simply been found rather than constructed. This is not dishonesty; no measure can capture everything, and a measure that tried would be useless. The danger lies elsewhere. Once a figure acquires authority, the choices buried inside it become invisible, and the debate shifts from what ought to be counted to who is performing best on the count. Institutions then optimise for the indicator rather than the thing the indicator was meant to represent. Hospitals shorten waiting lists by reclassifying patients; schools raise pass rates by narrowing what is taught. The remedy is not to abandon measurement, for that path leads to decisions made on anecdote and prejudice. It is to keep the argument visible: to publish the assumptions alongside the number, to report several imperfect measures rather than one authoritative one, and to revisit definitions when the world they described has changed. A statistic held lightly is a tool. A statistic held tightly becomes a target, and targets, as any administrator knows, have a way of being met.",
+"Economists long assumed that people save too little because they lack information. Tell a worker how much a delayed retirement would cost, the reasoning went, and the worker would adjust. Decades of financial-literacy campaigns have produced disappointingly small effects. What changes behaviour, it turns out, is rarely the argument; it is the arrangement. When a pension scheme enrols employees automatically and allows them to opt out, participation rises sharply, not because anyone has been persuaded, but because inertia now works in the saver's favour rather than against it. Critics see manipulation in this, and the objection deserves a hearing. A default is never neutral; someone chooses it, and that someone's judgement is quietly substituted for the individual's own. Yet the alternative is not freedom from influence but influence by accident, since every form must have some default and every choice must be presented in some order. The honest position is therefore narrow: defaults should be set transparently, should be easy to reverse, and should be chosen to serve the person rather than the institution. Whether real schemes meet that standard is an empirical question, and the record is mixed. What is no longer arguable is the premise that information alone will do the work."
+],
+QADI:[
+{tp:"Percentages",q:"A number is increased by 30% and the result is then decreased by 30%. The net change is:",o:["−9%","+9%","−6%","0%"],a:0,e:"Multipliers: 1.30 × 0.70 = 0.91 → a 9% fall. Successive change a+b+ab/100 = 30−30−9 = −9%."},
+{tp:"Profit & Loss",q:"An article costing ₹400 is marked 40% above cost and sold at a 15% discount. The profit percent is:",o:["21%","25%","17%","19%"],a:3,e:"SP = 400 × 1.40 × 0.85 = ₹476. Profit = 76 on 400 = 19%."},
+{tp:"Interest",q:"On a sum of ₹8,000 for 2 years at 10% p.a., the compound interest exceeds the simple interest by:",o:["₹80","₹100","₹160","₹120"],a:0,e:"CI − SI for 2 years = P(r/100)² = 8000 × 0.01 = ₹80."},
+{tp:"Ratio",q:"Three numbers are in the ratio 2 : 3 : 5 and add up to 200. The largest number is:",o:["80","100","120","60"],a:1,e:"Total parts = 10, so one part = 20. Largest = 5 × 20 = 100."},
+{tp:"Averages",q:"The average of 5 numbers is 27. When one number is removed the average of the rest becomes 25. The removed number is:",o:["40","45","30","35"],a:3,e:"Original total 135; new total 4 × 25 = 100. Removed = 35."},
+{tp:"Boats & Streams",q:"A boat covers 30 km downstream in 2 hours and the same 30 km upstream in 3 hours. The speed of the stream is:",o:["2.5 km/h","5 km/h","1.5 km/h","3 km/h"],a:0,e:"Downstream 15 km/h, upstream 10 km/h. Stream = (15 − 10)/2 = 2.5 km/h."},
+{tp:"Time & Work",q:"A can finish a job in 20 days and B in 30 days. They work together for 8 days, after which A leaves. B completes the rest alone. The total time taken is:",o:["16 days","18 days","20 days","12 days"],a:1,e:"Take work = 60 units (LCM). A = 3/day, B = 2/day. In 8 days together: 40 units. Remaining 20 units by B alone = 10 days. Total 18 days."},
+{tp:"Mixtures",q:"60 litres of a solution contains 25% acid. How much water must be added to bring the concentration down to 20%?",o:["10 L","12 L","15 L","20 L"],a:2,e:"Acid = 15 L and stays fixed. 15/(60 + x) = 0.20 → 60 + x = 75 → x = 15 L."},
+{tp:"Quadratic Equations",q:"If α and β are the roots of x² − 7x + 12 = 0, then α² + β² equals:",o:["24","37","13","25"],a:3,e:"α + β = 7, αβ = 12. α² + β² = (α+β)² − 2αβ = 49 − 24 = 25."},
+{tp:"Progressions",q:"In an AP the 7th term is 34 and the 13th term is 64. The 20th term is:",o:["99","104","89","94"],a:0,e:"6d = 30 → d = 5; a = 34 − 6(5) = 4. t₂₀ = 4 + 19(5) = 99."},
+{tp:"Logarithms",q:"If log₂x + log₄x = 6, then x equals:",o:["8","16","32","64"],a:1,e:"log₄x = ½log₂x. So 1.5 log₂x = 6 → log₂x = 4 → x = 16."},
+{tp:"Inequalities",q:"How many integers satisfy x² − 7x + 10 < 0 ?",o:["4","1","2","3"],a:2,e:"(x−2)(x−5) < 0 → 2 < x < 5. Integers 3 and 4 → two values."},
+{tp:"Binomial Theorem",q:"The coefficient of x³ in the expansion of (1 + 2x)⁵ is:",o:["120","160","40","80"],a:3,e:"Term = ⁵C₃ (2x)³ = 10 × 8x³ = 80x³."},
+{tp:"Geometry",q:"A triangle has sides 13, 14 and 15 units. Its area is:",o:["84 sq units","80 sq units","90 sq units","96 sq units"],a:0,e:"s = 21. Area = √(21·8·7·6) = √7056 = 84."},
+{tp:"Coordinate Geometry",q:"The distance between the points (3, −2) and (−1, 1) is:",o:["4","5","6","7"],a:1,e:"√((3+1)² + (−2−1)²) = √(16 + 9) = 5."},
+{tp:"Trigonometry",q:"The value of sin²35° + sin²55° is:",o:["2","0","1","1/2"],a:2,e:"sin55° = cos35°, so the expression is sin²35° + cos²35° = 1."},
+{tp:"Trigonometry",q:"If tanθ = 3/4 and θ is acute, then (sinθ + cosθ)/(sinθ − cosθ) equals:",o:["1/7","−1/7","7","−7"],a:3,e:"sinθ = 3/5, cosθ = 4/5. Numerator 7/5, denominator −1/5 → −7."},
+{tp:"Calculus",q:"The function f(x) = x³ − 3x² + 2 has a local minimum at x =",o:["2","3","0","1"],a:0,e:"f′(x) = 3x² − 6x = 3x(x−2) → critical points 0 and 2. f″(x) = 6x − 6; f″(2) = 6 > 0 → minimum at x = 2."},
+{tp:"Calculus",q:"The value of ∫₀¹ (3x² + 2x) dx is:",o:["1","2","3","4"],a:1,e:"[x³ + x²]₀¹ = 1 + 1 = 2."},
+{tp:"Calculus",q:"lim(x→0) sin(3x)/(5x) equals:",o:["1","0","3/5","5/3"],a:2,e:"sin(3x)/(3x) → 1, so the limit is 3/5."},
+{tp:"Matrices",q:"If A = [[2, 1], [3, 4]], then det(A) equals:",o:["11","−5","8","5"],a:3,e:"(2)(4) − (1)(3) = 8 − 3 = 5."},
+{tp:"Determinants",q:"If A is a 3 × 3 matrix with |A| = 4, then |2A| equals:",o:["32","64","8","16"],a:0,e:"|kA| = kⁿ|A| for an n × n matrix → 2³ × 4 = 32."},
+{tp:"Combinations",q:"From 6 men and 5 women, a committee of 4 with exactly 2 women can be formed in:",o:["120 ways","150 ways","200 ways","100 ways"],a:1,e:"⁵C₂ × ⁶C₂ = 10 × 15 = 150."},
+{tp:"Permutations",q:"The number of distinct arrangements of the letters of MISSISSIPPI is:",o:["11550","3465","34650","17325"],a:2,e:"11!/(4!·4!·2!) = 39916800/1152 = 34650 (I×4, S×4, P×2)."},
+{tp:"Bayes' Theorem",q:"Box A holds 3 red and 2 blue balls; Box B holds 1 red and 4 blue. A box is picked at random and a red ball is drawn. The probability it came from Box A is:",o:["4/5","1/2","2/3","3/4"],a:3,e:"P = (½ × 3/5) / (½ × 3/5 + ½ × 1/5) = 0.3/0.4 = 3/4."},
+{tp:"Probability",q:"Two fair dice are thrown. The probability that the product of the numbers is odd is:",o:["1/4","1/2","1/3","3/4"],a:0,e:"A product is odd only if both numbers are odd: 3 × 3 = 9 outcomes out of 36 → 1/4."},
+{tp:"Statistics",q:"The standard deviation of 2, 4, 4, 4, 5, 5, 7, 9 is:",o:["3","2","4","√5"],a:1,e:"Mean = 5. Squared deviations sum = 9+1+1+1+0+0+4+16 = 32. Variance = 32/8 = 4 → SD = 2."},
+{tp:"Data Interpretation",q:"[DI set] A firm's revenue in ₹ crore — 2024: Q1 120, Q2 150, Q3 180, Q4 150. 2025: Q1 150, Q2 180, Q3 210, Q4 260. The growth in annual revenue from 2024 to 2025 is:",o:["20%","25%","33.3%","40%"],a:2,e:"2024 total = 600; 2025 total = 800. Growth = 200/600 = 33.3%."},
+{tp:"Data Interpretation",q:"[Same DI set] Which quarter recorded the highest year-on-year percentage growth?",o:["Q1","Q2","Q3","Q4"],a:3,e:"Q1 25%, Q2 20%, Q3 16.7%, Q4 110/150 = 73.3% → Q4."},
+{tp:"Data Interpretation",q:"[Same DI set] Q3 of 2025 accounted for what share of that year's annual revenue?",o:["26.25%","28%","30%","24%"],a:0,e:"210/800 = 26.25%."}
+],
+LR:[
+{tp:"Number Series",q:"2, 6, 12, 20, 30, ?",o:["40","42","44","46"],a:1,e:"Differences 4, 6, 8, 10 → next difference 12 → 42. (Terms are n(n+1).)"},
+{tp:"Number Series",q:"5, 11, 23, 47, ?",o:["96","94","95","93"],a:2,e:"Each term = 2 × previous + 1 → 2(47) + 1 = 95."},
+{tp:"Letter Series",q:"B, D, G, K, P, ?",o:["W","T","U","V"],a:3,e:"Gaps +2, +3, +4, +5 → next gap +6. P(16) + 6 = 22 = V."},
+{tp:"Coding-Decoding",q:"If MANGO is coded as NBOHP, then APPLE is coded as:",o:["BQQMF","BQQLF","BPPMF","ZOOKD"],a:0,e:"Each letter moves one forward: A→B, P→Q, P→Q, L→M, E→F."},
+{tp:"Blood Relations",q:"A is B's brother. C is A's mother. D is C's father. E is D's mother. How is A related to D?",o:["Nephew","Grandson","Son","Grandfather"],a:1,e:"D is C's father and C is A's mother, so D is A's maternal grandfather → A is D's grandson."},
+{tp:"Directions",q:"A man walks 10 m south, then 6 m west, then 10 m north, then 8 m east. His final position relative to the start is:",o:["14 m east","4 m east","2 m east","2 m west"],a:2,e:"North–south cancels. East–west: −6 + 8 = +2 → 2 m east."},
+{tp:"Ranking",q:"In a row of 40 students, A is 13th from the left and B is 17th from the right. The number of students between A and B is:",o:["11","8","9","10"],a:3,e:"40 − 13 − 17 = 10 students sit between them."},
+{tp:"Clocks",q:"The angle between the hands of a clock at 4:20 is:",o:["10°","20°","30°","0°"],a:0,e:"|30H − 5.5M| = |120 − 110| = 10°."},
+{tp:"Calendars",q:"If 1 January 2024 was a Monday, then 1 January 2025 was a:",o:["Tuesday","Wednesday","Thursday","Friday"],a:1,e:"2024 is a leap year (366 days = 2 odd days) → Monday + 2 = Wednesday."},
+{tp:"Syllogism",q:"Statements: All engineers are graduates. No graduate is illiterate. Conclusions: I. No engineer is illiterate. II. Some graduates are engineers. Which follow?",o:["Only I","Only II","Both I and II","Neither"],a:2,e:"Engineers sit inside graduates, and graduates are disjoint from illiterates → I holds. 'All A are B' yields 'Some B are A' → II holds."},
+{tp:"Odd One Out",q:"Find the odd one: 121, 144, 169, 180, 196",o:["144","169","180","196"],a:2,e:"All others are perfect squares (11², 12², 13², 14²); 180 is not."},
+{tp:"Seating Arrangement",q:"Five people P, Q, R, S, T sit in a row facing north. R is at an extreme end. Q is third to the left of R. S is immediately to the right of Q. P is not adjacent to R. Who sits in the middle?",o:["T","P","Q","S"],a:3,e:"R must be at seat 5 (else Q cannot be three to its left) → Q at 2, S at 3. P cannot be at 4, so P at 1 and T at 4. Seat 3 = S."},
+{tp:"Data Sufficiency",q:"What is the value of x? I. x is a prime number between 10 and 20. II. x is odd and its digits sum to 8. Which statement(s) suffice?",o:["I alone","II alone","Both together","Neither"],a:2,e:"I gives {11, 13, 17, 19}; II alone has many candidates (17, 35, 53, 71…). Together only 17 survives."},
+{tp:"Critical Reasoning",q:"A city launched a bike-sharing scheme and congestion fell 8% the next year; officials credited the scheme. Which most weakens that conclusion?",o:["A new metro line opened the same year carrying 200,000 daily commuters","Other cities also run bike-sharing schemes","Congestion is measured only at peak hours","Bike-share ridership grew steadily through the year"],a:0,e:"An alternative cause operating in the same period is the classic weakener for a causal claim."},
+{tp:"Tournaments",q:"Eight teams play a single-elimination knockout tournament. The total number of matches played is:",o:["28","7","8","15"],a:1,e:"Every match eliminates exactly one team, and seven teams must be eliminated to leave one winner."}
+],
+VARC:[
+{tp:"RC · Main Idea",p:0,q:"The central claim of the passage is that:",o:["Measurement should be replaced by qualitative judgement","Statistics are usually manipulated by the institutions that publish them","The judgements built into a measure become invisible once the measure gains authority","Economic output should include unpaid domestic work"],a:2,e:"The passage repeatedly returns to buried choices becoming invisible; manipulation is explicitly ruled out ('this is not dishonesty')."},
+{tp:"RC · Function",p:0,q:"The examples of hospitals and schools serve to illustrate:",o:["The technical difficulty of collecting data","Why waiting lists are a poor measure of health","Widespread fraud in public services","Institutions optimising for the indicator instead of the underlying goal"],a:3,e:"Both examples immediately follow the sentence about optimising for the indicator and exemplify it."},
+{tp:"RC · Tone",p:0,q:"The author's attitude towards measurement is best described as:",o:["Qualified support","Outright rejection","Uncritical enthusiasm","Weary indifference"],a:0,e:"The author defends measurement against abandonment while insisting on visible assumptions — support with conditions."},
+{tp:"RC · Inference",p:0,q:"The author would most likely endorse:",o:["A single official indicator applied consistently for decades","Publishing several imperfect indicators along with their stated assumptions","Replacing published figures with expert narrative judgement","Setting stricter targets so institutions perform better"],a:1,e:"This restates the remedy the passage proposes almost directly."},
+{tp:"RC · Main Idea",p:1,q:"The passage argues principally that:",o:["People save too little because they are irrational","Financial-literacy campaigns are dishonest","Behaviour responds more to how choices are arranged than to information","Automatic enrolment should be made compulsory"],a:2,e:"'What changes behaviour is rarely the argument; it is the arrangement' is the thesis sentence."},
+{tp:"RC · Vocabulary in context",p:1,q:"By 'influence by accident' the author means:",o:["Random variation in savings outcomes","Peer pressure among employees","Deliberate manipulation disguised as choice","The unavoidable effect of defaults that nobody consciously selected"],a:3,e:"The point is that every form needs some default, so influence occurs whether or not anyone intended it."},
+{tp:"RC · Structure",p:1,q:"The author responds to the manipulation objection by:",o:["Conceding its force and then arguing that no neutral alternative exists","Providing statistical evidence that it is false","Ignoring it and changing the subject","Dismissing it as uninformed"],a:0,e:"'The objection deserves a hearing… Yet the alternative is not freedom from influence' — concession followed by rebuttal."},
+{tp:"RC · Weakening",p:1,q:"Which finding would most undermine the author's position?",o:["Participation rates vary across industries","Automatic enrolment raises participation but sharply lowers average contribution rates","Financial-literacy campaigns are cheaper than automatic enrolment","Some employees do not know they may opt out"],a:1,e:"If the arrangement raises headcount while reducing money actually saved, the claim that arrangement beats information loses its force."},
+{tp:"Vocabulary",q:"Choose the word closest in meaning to EQUIVOCAL:",o:["Forceful","Decisive","Ambiguous","Equal"],a:2,e:"Equivocal means open to more than one interpretation — deliberately ambiguous."},
+{tp:"Vocabulary",q:"Choose the word most nearly OPPOSITE in meaning to PROFLIGATE:",o:["Corrupt","Generous","Extravagant","Thrifty"],a:3,e:"Profligate = recklessly wasteful; its opposite is thrifty."},
+{tp:"Grammar",q:"Select the grammatically correct sentence:",o:["Neither the manager nor the employees was informed of the change.","Neither the manager nor the employees were informed of the change.","Neither the manager or the employees were informed of the change.","Neither the manager nor the employees has been informing of the change."],a:1,e:"With neither…nor, the verb agrees with the nearer subject ('employees') → were."},
+{tp:"Grammar · Modifiers",q:"Complete correctly: 'Having finished the report, ____'",o:["she submitted it before the deadline.","it was time to submit.","the deadline was comfortably met.","the report was submitted by her."],a:0,e:"The introductory participial phrase must modify the subject that follows; only 'she' can have finished the report."},
+{tp:"Para Jumble",q:"Arrange: (A) The result was a map that told travellers less about distance than about connection. (B) Early underground railway maps tried faithfully to reproduce the geography above ground. (C) Harry Beck abandoned scale altogether, straightening lines and spacing stations evenly. (D) They were accurate and almost unreadable.",o:["DBCA","BDCA","BCDA","CBDA"],a:1,e:"B introduces the early maps, D comments on them ('They'), C gives Beck's solution, A states the outcome."},
+{tp:"Sentence Completion",q:"The committee's report was ____: it criticised everyone and therefore bound no one to ____.",o:["exhaustive … detail","incisive … blame","diffuse … accountability","partisan … reform"],a:2,e:"Criticising everyone spreads responsibility thinly — 'diffuse' — so no specific accountability follows."},
+{tp:"Summary",q:"Best summary of: 'A rule that is never enforced is not a lenient rule; it is not a rule at all.'",o:["Rules should always be strictly enforced","Unenforced rules encourage disobedience","Lenient rules are preferable to harsh ones","Enforcement is what makes a rule exist, not merely what makes it severe"],a:3,e:"The sentence denies the leniency framing entirely and locates a rule's existence in its enforcement."}
+]},
+{id:"M2",name:"Mock Paper 2",lvl:"Moderate–Tough",note:"QADI weighted towards Class XII (calculus, matrices, conics, inverse trig). This is the paper that exposes gaps NCERT XII would have covered.",
+psgs:[
+"The word 'algorithm' now carries a moral charge it did not have thirty years ago. To call a decision algorithmic is, in ordinary speech, to accuse it of coldness, and the accusation usually lands. But the contrast being drawn is rarely with human judgement as it actually works; it is with human judgement as we prefer to imagine it. Real committees are also rule-followers. They apply precedent, they defer to the confident speaker, they tire after lunch. What distinguishes the machine is not that it follows rules but that its rules can be written down, audited and, in principle, contested. That is an advance, and it is worth defending. The genuine worry lies a level deeper. Because the rule is legible, it invites the fantasy that it is complete — that whatever was left out of the specification was not important. Discretion in a human institution is messy and unaccountable, but it also absorbs the cases nobody anticipated. Automate the rule without preserving a route back to discretion, and the unanticipated case is not decided badly; it is not decided at all. The question for designers is therefore not whether to use rules, which is settled, but where to put the door marked 'exception' and who is allowed to open it.",
+"For two centuries the standard account of trade held that countries specialise according to what they are relatively good at producing. The account is elegant and, at the level of nations, broadly borne out. It is also, as an explanation of modern commerce, increasingly beside the point. What crosses borders today is rarely a finished good produced start to finish in one place; it is a task. A single device may be designed in one country, have its components fabricated in four others, be assembled in a sixth and its software written in a seventh. Comparative advantage still operates, but it operates over slices of production so thin that national statistics struggle to see them. The consequences are political as much as economic. When a factory closes, the loss is visible, local and attributable; when a country loses a slice of a process, no factory closes and no one is obviously to blame, yet wages in a region may stagnate for a decade. Trade theory has not been refuted. It has simply been overtaken by an accounting problem, and the politics of trade is being conducted with the wrong numbers."
+],
+QADI:[
+{tp:"Percentages",q:"If the price of a commodity rises by 25%, by what percent must consumption be reduced so that expenditure stays unchanged?",o:["25%","20%","16.67%","22%"],a:1,e:"Reduction = increase/(100 + increase) = 25/125 = 20%."},
+{tp:"Profit & Loss",q:"A trader sells two articles at ₹1,200 each, gaining 20% on one and losing 20% on the other. Overall he:",o:["Loses ₹150","Breaks even","Gains ₹100","Loses ₹100"],a:3,e:"CPs are 1000 and 1500 → total 2500 against SP 2400 → loss ₹100. (Equal SP with equal ±x% always gives a loss.)"},
+{tp:"Interest",q:"A sum amounts to ₹9,680 in 2 years and ₹10,648 in 3 years at compound interest. The rate is:",o:["10%","12%","9%","8%"],a:0,e:"Interest in year 3 = 968 on 9680 → 10%."},
+{tp:"Time, Speed, Distance",q:"Two trains, 150 m and 100 m long, run towards each other at 45 km/h and 45 km/h. The time they take to cross each other completely is:",o:["14 s","10 s","11 s","12 s"],a:1,e:"Relative speed (opposite directions) = 90 km/h = 25 m/s. Distance = 150 + 100 = 250 m → t = 250/25 = 10 s."},
+{tp:"Time & Work",q:"12 men can complete a job in 18 days. After 6 days, 6 more men join. The job is finished in a further:",o:["9 days","10 days","6 days","8 days"],a:3,e:"Total work = 216 man-days. Done in 6 days = 72; remaining 144 with 18 men = 8 days."},
+{tp:"Pipes & Cisterns",q:"A tap fills a tank in 6 hours; a leak empties it in 9 hours. With both open the tank fills in:",o:["18 h","12 h","3.6 h","15 h"],a:0,e:"1/6 − 1/9 = 1/18 → 18 hours."},
+{tp:"Alligation",q:"In what ratio must rice at ₹50/kg be mixed with rice at ₹80/kg to obtain a mixture worth ₹62/kg?",o:["2 : 3","3 : 2","5 : 8","8 : 5"],a:1,e:"(80 − 62) : (62 − 50) = 18 : 12 = 3 : 2 (cheap : costly)."},
+{tp:"Number System",q:"The remainder when 7⁵⁰ is divided by 6 is:",o:["3","0","1","5"],a:2,e:"7 ≡ 1 (mod 6), so 7⁵⁰ ≡ 1⁵⁰ ≡ 1."},
+{tp:"Algebra",q:"If x + y = 10 and x² + y² = 58, then xy equals:",o:["24","20","18","21"],a:3,e:"(x+y)² = x² + y² + 2xy → 100 = 58 + 2xy → xy = 21."},
+{tp:"Functions",q:"If f(x) = 2x + 3 and g(x) = x², then f(g(2)) − g(f(0)) equals:",o:["2","−2","20","−20"],a:0,e:"f(g(2)) = f(4) = 11; g(f(0)) = g(3) = 9. Difference = 2."},
+{tp:"Progressions",q:"The sum of the first 20 terms of the AP 3, 7, 11, … is:",o:["800","820","840","780"],a:1,e:"S = 20/2 × [2(3) + 19(4)] = 10 × 82 = 820."},
+{tp:"Complex Numbers",q:"The value of i¹⁰ + i²⁰ + i³⁰ is:",o:["0","i","−1","1"],a:2,e:"i¹⁰ = −1, i²⁰ = 1, i³⁰ = −1 → sum = −1."},
+{tp:"Binomial Theorem",q:"The number of terms in the expansion of (x + y)¹² is:",o:["14","11","12","13"],a:3,e:"(x + y)ⁿ has n + 1 terms → 13."},
+{tp:"Conic Sections",q:"The eccentricity of the ellipse x²/25 + y²/16 = 1 is:",o:["3/5","4/5","3/4","5/4"],a:0,e:"b² = a²(1 − e²) → 16 = 25(1 − e²) → e² = 9/25 → e = 3/5."},
+{tp:"Coordinate Geometry",q:"The area of the triangle with vertices (0,0), (4,0) and (0,6) is:",o:["10","12","24","14"],a:1,e:"Right triangle: ½ × 4 × 6 = 12."},
+{tp:"Inverse Trigonometry",q:"The value of sin⁻¹(1/2) + cos⁻¹(1/2) is:",o:["π","π/3","π/2","π/6"],a:2,e:"sin⁻¹x + cos⁻¹x = π/2 for all x in [−1, 1]."},
+{tp:"Calculus",q:"The derivative of x·ln x with respect to x is:",o:["1/x","x/ln x","ln x","1 + ln x"],a:3,e:"Product rule: (1)(ln x) + x(1/x) = ln x + 1."},
+{tp:"Calculus",q:"The slope of the tangent to y = x² − 4x + 1 at x = 3 is:",o:["2","3","−2","1"],a:0,e:"dy/dx = 2x − 4 → at x = 3 the slope is 2."},
+{tp:"Calculus",q:"∫ (1/x) dx from x = 1 to x = e equals:",o:["e","1","e − 1","0"],a:1,e:"[ln x]₁ᵉ = 1 − 0 = 1."},
+{tp:"Calculus · Maxima",q:"A rectangle has a fixed perimeter of 40 cm. Its maximum possible area is:",o:["144 cm²","96 cm²","100 cm²","120 cm²"],a:2,e:"For a fixed perimeter the square maximises area: side 10 → 100 cm²."},
+{tp:"Matrices",q:"If A is a 2 × 2 matrix with A = [[1, 2], [3, 4]], then the element in row 1, column 1 of A² is:",o:["10","5","1","7"],a:3,e:"(1)(1) + (2)(3) = 7."},
+{tp:"Determinants",q:"The system 2x + 3y = 7, 4x + 6y = 14 has:",o:["Infinitely many solutions","Exactly two solutions","A unique solution","No solution"],a:0,e:"The second equation is twice the first — the lines coincide, giving infinitely many solutions."},
+{tp:"Permutations",q:"In how many ways can 5 boys and 3 girls sit in a row so that no two girls are adjacent?",o:["1440","14400","2880","7200"],a:1,e:"Arrange 5 boys: 5! = 120. Six gaps, choose 3 and arrange girls: ⁶P₃ = 120. Total 120 × 120 = 14400."},
+{tp:"Combinations",q:"A team of 11 must be chosen from 15 players such that 2 specified players are always included. The number of ways is:",o:["455","286","715","1287"],a:2,e:"Choose the remaining 9 from 13: ¹³C₉ = ¹³C₄ = 715."},
+{tp:"Probability",q:"A card is drawn from a standard pack. The probability that it is a king or a heart is:",o:["17/52","16/52","1/4","4/13"],a:3,e:"P = 4/52 + 13/52 − 1/52 = 16/52 = 4/13."},
+{tp:"Conditional Probability",q:"In a group, 60% study Economics, 40% study Statistics and 25% study both. Given a student studies Economics, the probability they also study Statistics is:",o:["5/12","1/4","2/3","3/8"],a:0,e:"P(S|E) = 0.25/0.60 = 5/12."},
+{tp:"Statistics",q:"If every observation in a data set is multiplied by 3 and 5 is then added, and the original standard deviation was 4, the new standard deviation is:",o:["7","12","17","4"],a:1,e:"SD scales with multiplication but is unaffected by adding a constant → 3 × 4 = 12."},
+{tp:"Data Interpretation",q:"[DI set] A college's 2026 enrolment by stream — Science 480, Commerce 360, Arts 240, Law 120. Science students form what percent of total enrolment?",o:["48%","36%","40%","44%"],a:2,e:"Total = 1200. 480/1200 = 40%."},
+{tp:"Data Interpretation",q:"[Same DI set] If Law enrolment grows 50% next year while all others stay constant, the new share of Commerce will be:",o:["30%","27.7%","32%","28.6%"],a:3,e:"New total = 1260. 360/1260 = 28.57%."},
+{tp:"Data Interpretation",q:"[Same DI set] In a pie chart of the original data, the central angle of the Arts sector would be:",o:["72°","80°","90°","60°"],a:0,e:"240/1200 = 20% → 0.20 × 360° = 72°."}
+],
+LR:[
+{tp:"Number Series",q:"1, 4, 9, 16, 25, ?",o:["30","36","35","49"],a:1,e:"Perfect squares → 6² = 36."},
+{tp:"Number Series",q:"3, 6, 18, 72, ?",o:["144","288","360","216"],a:2,e:"Multipliers 2, 3, 4, then 5 → 72 × 5 = 360."},
+{tp:"Analogy",q:"Doctor : Stethoscope :: Carpenter : ?",o:["Furniture","Workshop","Wood","Chisel"],a:3,e:"The first term is a professional, the second the instrument used — a chisel is the carpenter's tool."},
+{tp:"Coding-Decoding",q:"If in a code TEACHER is written as VGCEJGT, then STUDENT is written as:",o:["UVWFGPV","UVWEGPV","UVWFGOV","TUVEFOU"],a:0,e:"Each letter shifts +2: S→U, T→V, U→W, D→F, E→G, N→P, T→V."},
+{tp:"Blood Relations",q:"Pointing to a man, a woman said, 'His mother is the only daughter of my mother.' How is the woman related to the man?",o:["Sister","Mother","Aunt","Grandmother"],a:1,e:"The only daughter of her mother is the woman herself, so she is his mother."},
+{tp:"Directions",q:"Starting from a point, Rita walks 12 m north, turns right and walks 5 m, then turns right and walks 12 m. How far is she from the start?",o:["12 m","17 m","5 m","7 m"],a:2,e:"North and south cancel; the net displacement is 5 m to the east."},
+{tp:"Seating Arrangement",q:"Six friends sit around a circular table facing the centre. A is second to the left of B, and C is second to the right of B. D sits between A and C. Who is directly opposite B?",o:["A","C","D","Cannot be determined"],a:2,e:"Place B at position 1. Second to the left = position 3 (A), second to the right = position 5 (C). D is between A and C → position 4, which is directly opposite position 1."},
+{tp:"Puzzles",q:"Five books are stacked. The Physics book is above Chemistry but below Maths. History is at the bottom and Biology is immediately above History. Which book is in the middle?",o:["Maths","Biology","Physics","Chemistry"],a:3,e:"Bottom to top: History, Biology, Chemistry, Physics, Maths. The third book is Chemistry."},
+{tp:"Syllogism",q:"Statements: Some books are pens. All pens are markers. Conclusions: I. Some books are markers. II. All markers are pens. Which follow?",o:["Only I","Only II","Both","Neither"],a:0,e:"Books overlapping pens, and all pens being markers, forces some books to be markers → I holds. II reverses a universal and fails."},
+{tp:"Statement–Assumption",q:"Statement: 'Enrol now — seats in the analytics workshop are limited.' Which assumption underlies the advertisement?",o:["Scarcity will prompt readers to act quickly","Analytics is a difficult subject","Most readers already know analytics","The workshop is inexpensive"],a:0,e:"The persuasive force of the sentence rests entirely on scarcity motivating prompt action."},
+{tp:"Critical Reasoning",q:"Which most strengthens the claim that a new teaching method improved results, given that scores rose 15% in the schools using it?",o:["Teachers found the method enjoyable","Comparable schools not using the method showed no change over the same period","The method is used in several countries","Scores had been falling for three years earlier"],a:1,e:"A matched control group showing no change isolates the method as the cause."},
+{tp:"Data Sufficiency",q:"Is n an even integer? I. n² is even. II. 3n is even. Which suffice?",o:["I alone","II alone","Either alone","Neither"],a:2,e:"If n² is even then n is even; if 3n is even then n must be even. Each statement alone is sufficient."},
+{tp:"Ranking",q:"In a class, Priya is 9th from the top and 28th from the bottom. How many students are there?",o:["38","35","36","37"],a:2,e:"9 + 28 − 1 = 36."},
+{tp:"Grouping & Selection",q:"From P, Q, R, S, T exactly three are selected. If P is selected, Q is not. R and S must go together. Which selection is valid?",o:["Q, R, P","R, S, Q and P","P, Q, R","P, R, S"],a:3,e:"P excludes Q; R and S are together — P, R, S satisfies both rules and has exactly three members."},
+{tp:"Logical Sequence",q:"Arrange in a logical order: 1. Harvest 2. Sow 3. Plough 4. Irrigate 5. Store",o:["3, 2, 4, 1, 5","2, 3, 4, 1, 5","3, 4, 2, 1, 5","2, 4, 3, 5, 1"],a:0,e:"Ploughing prepares the field, then sowing, irrigation, harvest and finally storage."}
+],
+VARC:[
+{tp:"RC · Main Idea",p:0,q:"The author's principal contention is that:",o:["Algorithms are colder than human committees","The real risk of legible rules is the illusion that they are complete","Human discretion should replace automated decisions","Auditing algorithms is technically impossible"],a:1,e:"The 'genuine worry lies a level deeper' sentence introduces exactly this claim."},
+{tp:"RC · Inference",p:0,q:"The comparison with real committees is made in order to:",o:["Prove that algorithms are more accurate","Criticise the practice of deferring to confident speakers","Show that human decision-making is also rule-bound","Argue that committees should be abolished"],a:2,e:"The point of 'real committees are also rule-followers' is that the popular contrast is with an idealised human process."},
+{tp:"RC · Detail",p:0,q:"According to the passage, the distinctive merit of machine rules is that they:",o:["Do not require exceptions","Are faster than human deliberation","Never tire or show bias","Can be written down, audited and contested"],a:3,e:"Stated directly as what distinguishes the machine, and the author calls it an advance worth defending."},
+{tp:"RC · Application",p:0,q:"The author's closing question implies that a well-designed automated system should:",o:["Include a defined, accountable route for handling exceptions","Publish its source code","Be reviewed annually by a committee","Eliminate human involvement entirely"],a:0,e:"'Where to put the door marked exception and who is allowed to open it' names both the mechanism and the accountability."},
+{tp:"RC · Main Idea",p:1,q:"The passage argues that classical trade theory is:",o:["Wrong and in need of replacement","Correct but poorly matched to how production is now organised","Politically motivated from the outset","Applicable only to developing economies"],a:1,e:"'Trade theory has not been refuted. It has simply been overtaken by an accounting problem.'"},
+{tp:"RC · Detail",p:1,q:"According to the author, what crosses borders in modern commerce is chiefly:",o:["Finished goods","Capital","Tasks within a production process","Intellectual property"],a:2,e:"'What crosses borders today is rarely a finished good… it is a task.'"},
+{tp:"RC · Inference",p:1,q:"The contrast between a closing factory and a lost 'slice of a process' is drawn to show that:",o:["Manufacturing jobs are more valuable than service jobs","Regional wage data are unreliable","Factory closures are economically more damaging","Harm that is diffuse and unattributable is politically harder to address"],a:3,e:"The passage stresses visibility and attribution, not magnitude — the diffuse loss goes unaddressed."},
+{tp:"RC · Tone",p:1,q:"The author's tone in the final sentence is best described as:",o:["Pointedly critical","Nostalgic","Neutral and descriptive","Optimistic"],a:0,e:"Saying trade politics is 'being conducted with the wrong numbers' is a pointed criticism of current debate."},
+{tp:"Vocabulary",q:"Choose the word closest in meaning to SPECIOUS:",o:["Generous","Superficially plausible but wrong","Highly specific","Rare"],a:1,e:"Specious describes reasoning that looks sound but is not."},
+{tp:"Vocabulary",q:"Choose the word most nearly OPPOSITE in meaning to TACITURN:",o:["Honest","Reserved","Garrulous","Sullen"],a:2,e:"Taciturn = saying little; garrulous = excessively talkative."},
+{tp:"Grammar",q:"Select the grammatically correct sentence:",o:["A number of applicants has risen sharply this year.","The number of applicant has rose sharply this year.","The number of applicants have risen sharply this year.","The number of applicants has risen sharply this year."],a:3,e:"'The number of' takes a singular verb ('a number of' takes plural)."},
+{tp:"Grammar · Parallelism",q:"Select the sentence with correct parallel structure:",o:["She is responsible for hiring staff, training them and managing budgets.","She is responsible to hire staff, training them and managing budgets.","She is responsible for hire staff, train them and manage budgets.","She is responsible for hiring staff, training them and to manage budgets."],a:0,e:"All three items must share the same -ing form after 'responsible for'."},
+{tp:"Para Jumble",q:"Arrange: (A) Yet its author never saw a single one of them published in his lifetime. (B) The manuscript sat in a drawer for forty years. (C) Today the essays are set texts in three countries. (D) It was rediscovered by a graduate student cataloguing an estate.",o:["DBCA","BDCA","BCDA","BDAC"],a:1,e:"B sets the situation, D the rediscovery, C the present status, A the closing irony about the author."},
+{tp:"Sentence Completion",q:"Far from being ____, the committee's silence was a carefully ____ signal to the market.",o:["hostile … aggressive","brief … extended","accidental … calculated","deliberate … planned"],a:2,e:"'Far from being X' requires X to contrast with the second blank; accidental contrasts with calculated."},
+{tp:"Summary",q:"Best summary of: 'We do not have a data shortage; we have a question shortage.'",o:["Questions are more expensive to design than data","Data collection should be reduced","More data should be collected before analysis begins","The limiting factor is knowing what to ask, not what is available"],a:3,e:"The sentence relocates the constraint from supply of data to the framing of enquiry."}
+]},
+{id:"M3",name:"Mock Paper 3",lvl:"Tough · DI-heavy",note:"Calculation-heavy QADI with two full DI caselets, and an LR section built to be easy but lengthy — the exact trap flagged in the 2026 paper analysis. Practise skipping here.",
+psgs:[
+"There is an old argument that cities make people cleverer. The evidence usually offered is that wages, patents and start-ups all rise faster than population when a city grows, and the inference is that density itself does the work: more people, more chance encounters, more ideas. The correlation is robust across continents and centuries, which is why it is quoted so often. The inference is weaker than it looks. Cities do not merely mix people; they select them. The ambitious and the mobile move in, the settled stay put, and the observed genius of the metropolis may be nothing more than the sum of the individuals who chose it. Disentangling the two accounts has proved unexpectedly hard, since researchers cannot randomly assign people to cities. The most persuasive studies exploit accidents — a factory closure, a new rail line, a lottery for public housing — that move people for reasons unconnected to their ambitions. These studies find a real but modest effect of place, considerably smaller than the raw correlations imply and heavily concentrated among the young. That is a less thrilling conclusion than the one on the conference circuit, and it has a practical edge: policies that build density without attending to who can afford to live in it may be paying for the correlation rather than the cause.",
+"Conservation has a language problem. For thirty years the movement has argued its case in the currency of economics, translating forests into carbon stores and wetlands into flood defence worth so many million a year. The strategy was deliberate and, in narrow terms, successful: finance ministries respond to numbers, and a swamp with a price is harder to drain than a swamp without one. But the translation extracts a cost that is only now becoming visible. A justification that rests on measurable service invites the reply that the service could be supplied more cheaply another way, and sometimes it can. A concrete barrier may outperform a marsh; a plantation may store carbon faster than an old forest. Having agreed to argue on those terms, conservationists find themselves defending the marsh on grounds they never really believed. The older case, that some things should survive because their loss would be irreversible and their existence is not ours to trade, is harder to put on a spreadsheet and correspondingly harder to hear in a budget meeting. Whether it can be made audible again, without abandoning the gains of the economic argument, is the movement's central unsettled question."
+],
+QADI:[
+{tp:"Percentages",q:"In an election between two candidates, the winner received 56% of the valid votes and won by 4,800 votes. The total number of valid votes was:",o:["36,000","40,000","44,000","48,000"],a:1,e:"Margin = 56% − 44% = 12% of total = 4800 → total = 40,000."},
+{tp:"Profit & Loss",q:"A shopkeeper marks goods 50% above cost and offers successive discounts of 20% and 10%. His profit percent is:",o:["10%","12%","15%","8%"],a:3,e:"SP = 1.5 × 0.8 × 0.9 = 1.08 of cost → 8% profit."},
+{tp:"Averages",q:"The average weight of 30 students is 45 kg. When the teacher's weight is included, the average rises by 0.5 kg. The teacher weighs:",o:["60.5 kg","61 kg","62 kg","60 kg"],a:0,e:"Old total = 30 × 45 = 1350. New total = 31 × 45.5 = 1410.5. Teacher = 60.5 kg. (Shortcut: 45.5 + 30 × 0.5 = 60.5.)"},
+{tp:"Ratio & Proportion",q:"The ratio of incomes of A and B is 5 : 4 and of their expenditures 3 : 2. If each saves ₹6,000, A's income is:",o:["₹24,000","₹15,000","₹18,000","₹20,000"],a:1,e:"5x − 3y = 4x − 2y = 6000 → x = y. Then 5x − 3x = 6000 → x = 3000 → A's income = ₹15,000."},
+{tp:"Time & Work",q:"A is twice as efficient as B and together they finish a job in 12 days. B alone would take:",o:["24 days","30 days","36 days","18 days"],a:2,e:"Rates 2 : 1, combined 3 parts = 1/12 → one part = 1/36 → B alone 36 days."},
+{tp:"Time, Speed, Distance",q:"A man covers a distance at 30 km/h and returns at 20 km/h. His average speed for the whole journey is:",o:["25 km/h","26 km/h","22 km/h","24 km/h"],a:3,e:"Harmonic mean: 2(30)(20)/50 = 24 km/h."},
+{tp:"Number System",q:"The HCF of two numbers is 12 and their LCM is 336. If one number is 84, the other is:",o:["48","56","60","36"],a:0,e:"Product = HCF × LCM = 4032 → other = 4032/84 = 48."},
+{tp:"Number System",q:"The last digit of 3⁴⁷ is:",o:["3","7","9","1"],a:1,e:"Cycle of 3: 3, 9, 7, 1 with period 4. 47 mod 4 = 3 → third in cycle = 7."},
+{tp:"Algebra",q:"If a + 1/a = 3, then a³ + 1/a³ equals:",o:["24","27","18","21"],a:2,e:"a³ + 1/a³ = k³ − 3k = 27 − 9 = 18."},
+{tp:"Quadratic Equations",q:"For what value of k does x² + kx + 9 = 0 have equal roots?",o:["±9","±12","±3","±6"],a:3,e:"Discriminant zero: k² = 36 → k = ±6."},
+{tp:"Progressions",q:"The sum of an infinite GP with first term 8 and common ratio 1/2 is:",o:["16","20","24","12"],a:0,e:"S∞ = a/(1 − r) = 8/0.5 = 16."},
+{tp:"Logarithms",q:"If log x = 2 log 3 + 3 log 2 (all base 10), then x equals:",o:["48","72","144","36"],a:1,e:"log x = log 9 + log 8 = log 72 → x = 72."},
+{tp:"Geometry",q:"The perimeter of a semicircular region of radius 7 cm (including the diameter) is:",o:["22 cm","29 cm","36 cm","44 cm"],a:2,e:"Arc = πr = 22 cm; add the diameter 14 cm → 36 cm."},
+{tp:"Mensuration",q:"A cube of side 6 cm is melted and recast into cubes of side 2 cm. The number of small cubes formed is:",o:["36","9","18","27"],a:3,e:"216/8 = 27."},
+{tp:"Coordinate Geometry",q:"The line 3x + 4y = 12 meets the x-axis at:",o:["(4, 0)","(3, 0)","(0, 4)","(0, 3)"],a:0,e:"Put y = 0 → 3x = 12 → x = 4."},
+{tp:"Trigonometry",q:"If sinθ + cosθ = √2, then θ (acute) equals:",o:["30°","45°","60°","90°"],a:1,e:"Square both sides: 1 + 2sinθcosθ = 2 → sin2θ = 1 → 2θ = 90° → θ = 45°."},
+{tp:"Calculus",q:"The second derivative of y = x⁴ − 6x² is:",o:["4x² − 6","4x³ − 12x","12x² − 12","12x³ − 12x"],a:2,e:"y′ = 4x³ − 12x; y″ = 12x² − 12."},
+{tp:"Calculus",q:"∫ (2x + 1)⁵ dx equals:",o:["(2x+1)⁴/4 + C","6(2x+1)⁶ + C","(2x+1)⁶/6 + C","(2x+1)⁶/12 + C"],a:3,e:"Substitute u = 2x + 1, du = 2dx → (1/2)·u⁶/6 = (2x+1)⁶/12 + C."},
+{tp:"Calculus · Application",q:"The rate of change of the area of a circle with respect to its radius, when r = 5, is:",o:["10π","25π","20π","5π"],a:0,e:"A = πr², dA/dr = 2πr = 10π."},
+{tp:"Matrices",q:"If A is a square matrix such that A² = A, then A is called:",o:["Orthogonal","Idempotent","Nilpotent","Singular"],a:1,e:"A matrix satisfying A² = A is idempotent."},
+{tp:"Determinants",q:"If two rows of a determinant are identical, its value is:",o:["Undefined","1","0","−1"],a:2,e:"A determinant with two identical rows is always zero."},
+{tp:"Permutations",q:"How many four-digit numbers can be formed from the digits 1, 2, 3, 4, 5 without repetition?",o:["240","625","60","120"],a:3,e:"⁵P₄ = 5 × 4 × 3 × 2 = 120."},
+{tp:"Probability",q:"Three fair coins are tossed. The probability of getting exactly two heads is:",o:["3/8","1/2","1/8","1/4"],a:0,e:"Favourable = ³C₂ = 3 out of 8 outcomes → 3/8."},
+{tp:"Probability",q:"A bag has 4 white and 6 black balls. Two are drawn without replacement. The probability both are black is:",o:["9/25","1/3","3/10","2/5"],a:1,e:"(6/10) × (5/9) = 30/90 = 1/3."},
+{tp:"Statistics",q:"The mean of 10 observations is 20. If one observation recorded as 25 was actually 45, the corrected mean is:",o:["20","21","22","24"],a:2,e:"Total rises by 20 → new total 220 → mean 22."},
+{tp:"Data Interpretation",q:"[DI Set A] Monthly sales (in units) for four outlets — Jan: P 400, Q 320, R 280, S 200. Feb: P 460, Q 400, R 252, S 260. Which outlet recorded a decline in February?",o:["S","P","Q","R"],a:3,e:"R fell from 280 to 252; the rest rose."},
+{tp:"Data Interpretation",q:"[DI Set A] The percentage increase in Q's sales from January to February is:",o:["25%","30%","22.5%","20%"],a:0,e:"80/320 = 25%."},
+{tp:"Data Interpretation",q:"[DI Set A] February's total sales exceed January's by approximately:",o:["20%","14%","16%","18%"],a:1,e:"Jan total 1200, Feb total 1372 → 172/1200 ≈ 14.3%."},
+{tp:"Data Interpretation",q:"[DI Set B] A budget of ₹48 lakh is split — Salaries 45%, Rent 12%, Marketing 18%, R&D 15%, Other 10%. Marketing exceeds Rent by:",o:["₹1.92 L","₹2.4 L","₹2.88 L","₹3.2 L"],a:2,e:"(18 − 12)% of 48 L = 6% × 48 = ₹2.88 lakh."},
+{tp:"Data Interpretation",q:"[DI Set B] If the R&D allocation is raised by one-third while the total budget is unchanged, R&D's new share is:",o:["22%","24%","18%","20%"],a:3,e:"15% × 4/3 = 20%."}
+],
+LR:[
+{tp:"Number Series",q:"7, 10, 16, 28, 52, ?",o:["100","104","108","96"],a:0,e:"Differences 3, 6, 12, 24 double each time → next difference 48 → 100."},
+{tp:"Letter Series",q:"AZ, CX, EV, ?",o:["FU","GT","GU","HT"],a:1,e:"First letters +2 (A, C, E, G); second letters −2 (Z, X, V, T)."},
+{tp:"Coding-Decoding",q:"In a certain code, 'sky blue water' is 'pa ni ta' and 'blue ocean deep' is 'ni ru se'. What is the code for 'blue'?",o:["ru","pa","ni","ta"],a:2,e:"'ni' is the only code common to both phrases, and 'blue' is the only common word."},
+{tp:"Blood Relations",q:"K is the son of M. M is the sister of N. N has a daughter P who is married to R. How is K related to R?",o:["Uncle","Brother-in-law","Nephew","Cousin's husband"],a:3,e:"N is K's aunt, so P is K's cousin; R, married to P, is K's cousin's husband."},
+{tp:"Directions",q:"A person facing north turns 135° clockwise, then 180° anticlockwise. He is now facing:",o:["North-west","South-east","South-west","North-east"],a:0,e:"North + 135° clockwise = south-east. Then 180° anticlockwise = north-west."},
+{tp:"Seating Arrangement",q:"Seven people sit in a row facing north. G sits exactly in the middle. H is third to the left of G and J is second to the right of G. Which position does J occupy from the left?",o:["5th","6th","7th","4th"],a:1,e:"Seven seats: G at 4. J is at 4 + 2 = 6 → sixth from the left."},
+{tp:"Puzzles · Lengthy",q:"Five students scored different marks. Anil scored more than Bhav but less than Chetan. Deep scored less than Bhav. Esha scored more than Chetan. Who scored the third highest?",o:["Chetan","Deep","Anil","Bhav"],a:2,e:"Order: Esha > Chetan > Anil > Bhav > Deep. Third highest = Anil."},
+{tp:"Syllogism",q:"Statements: No cat is a dog. All dogs are pets. Conclusions: I. Some pets are not cats. II. No pet is a cat. Which follows?",o:["Only I","Only II","Both","Neither"],a:0,e:"Dogs are pets and no dog is a cat, so at least some pets are not cats → I holds. II overreaches — other pets may be cats."},
+{tp:"Statement–Conclusion",q:"Statement: 'All full-time staff must complete the safety module by 31 March.' Which conclusion is valid?",o:["The module takes less than a day","Safety incidents will fall after March","Part-time staff are exempt from every training requirement","Full-time staff who have not completed it by 1 April are non-compliant"],a:3,e:"Only the direct logical consequence of the deadline is valid; the others add unstated information."},
+{tp:"Critical Reasoning",q:"'Employees who use the new expense app file claims 40% faster, so the app should be made mandatory.' The argument assumes:",o:["Faster filing is desirable and the speed gain is caused by the app","All employees own smartphones","Claims are currently filed too slowly","The app is inexpensive to license"],a:0,e:"The recommendation needs both that the effect is causal and that speed is the goal worth pursuing."},
+{tp:"Data Sufficiency",q:"What is the area of a rectangle? I. Its perimeter is 40 cm. II. Its diagonal is 4√5 cm longer than its shorter side.",o:["I alone","II alone","Both together","Neither"],a:2,e:"Perimeter alone leaves infinitely many rectangles; the diagonal relation alone gives no scale. Together they pin down both sides."},
+{tp:"Clocks",q:"At what time between 3 and 4 o'clock are the hands of a clock together?",o:["3:15","3:16 4/11","3:17","3:18 2/11"],a:1,e:"Hands coincide when 30H = 5.5M → 90 = 5.5M → M = 180/11 = 16 4/11 minutes past 3."},
+{tp:"Calendars",q:"How many odd days are there in 100 years?",o:["0","3","5","6"],a:2,e:"100 years contain 24 leap years and 76 ordinary years → 24(2) + 76(1) = 124 days → 124 mod 7 = 5."},
+{tp:"Cubes",q:"A 4 × 4 × 4 cube painted on all faces is cut into 64 unit cubes. How many have exactly two painted faces?",o:["32","8","16","24"],a:3,e:"Edge cubes excluding corners: 12 edges × (4 − 2) = 24."},
+{tp:"Venn Diagrams",q:"In a survey of 100 people, 60 read newspaper A, 45 read B and 20 read both. How many read neither?",o:["15","20","25","10"],a:0,e:"A ∪ B = 60 + 45 − 20 = 85 → neither = 15."}
+],
+VARC:[
+{tp:"RC · Main Idea",p:0,q:"The passage is chiefly concerned with:",o:["Proving that cities make people more productive","Questioning whether density causes the advantages attributed to cities","Advocating denser urban development","Describing how researchers conduct natural experiments"],a:1,e:"The pivot sentence 'The inference is weaker than it looks' frames the whole argument."},
+{tp:"RC · Detail",p:0,q:"The 'selection' account holds that cities appear productive because:",o:["Chance encounters generate more ideas","Their infrastructure is superior","Ambitious and mobile individuals choose to move there","Wages are set higher by regulation"],a:2,e:"Stated explicitly: the ambitious and mobile move in while the settled stay put."},
+{tp:"RC · Inference",p:0,q:"The studies exploiting factory closures and housing lotteries are valued because they:",o:["Are cheaper to conduct","Measure patents rather than wages","Use larger samples than earlier work","Provide movement unrelated to individual ambition"],a:3,e:"Their virtue is that people move for reasons unconnected with the trait that confounds the comparison."},
+{tp:"RC · Application",p:0,q:"The passage's practical warning is that density policies may:",o:["Reproduce the correlation by attracting only those who can already afford to live there","Reduce the number of patents filed","Work only in older cities","Be too expensive for most cities"],a:0,e:"The final clause says such policies may be 'paying for the correlation rather than the cause'."},
+{tp:"RC · Main Idea",p:1,q:"The author's central point about conservation's economic framing is that it:",o:["Has failed to influence policy","Succeeded but created a vulnerability conservationists did not anticipate","Should never have been attempted","Is too complex for finance ministries"],a:1,e:"The passage grants the strategy's success and then identifies the cost it extracts."},
+{tp:"RC · Detail",p:1,q:"According to the passage, the danger of arguing from measurable service is that:",o:["Services cannot be priced at all","The measurements are usually inaccurate","A cheaper substitute may supply the same service","Ministries distrust environmental data"],a:2,e:"Concrete barriers and plantations are given as exactly such substitutes."},
+{tp:"RC · Vocabulary in context",p:1,q:"In the passage, 'audible' most nearly means:",o:["Legally enforceable","Scientifically verifiable","Loud enough to hear physically","Capable of gaining a hearing in decision-making"],a:3,e:"The word is used figuratively about being heard in a budget meeting — i.e., carrying weight in decisions."},
+{tp:"RC · Tone",p:1,q:"The author's stance towards the older, non-economic case for conservation is:",o:["Sympathetic but aware of its practical weakness","Dismissive","Entirely neutral","Hostile"],a:0,e:"The author calls it harder to put on a spreadsheet and harder to hear, while clearly regretting its loss."},
+{tp:"Vocabulary",q:"Choose the word closest in meaning to INTRANSIGENT:",o:["Wandering","Uncompromising","Temporary","Transparent"],a:1,e:"Intransigent means refusing to change one's position."},
+{tp:"Vocabulary",q:"Choose the word most nearly OPPOSITE in meaning to NASCENT:",o:["Hidden","Emerging","Mature","Fragrant"],a:2,e:"Nascent = just coming into existence; its opposite is fully developed or mature."},
+{tp:"Grammar",q:"Select the grammatically correct sentence:",o:["If I have known, I would call you.","If I knew, I would have called you yesterday.","If I would have known, I would have called you.","Had I known, I would have called you."],a:3,e:"The third conditional inverts as 'Had I known…'; 'If I would have known' is incorrect."},
+{tp:"Grammar · Pronouns",q:"Select the correct sentence:",o:["Between you and me, the plan is flawed.","Between yourself and I, the plan is flawed.","Between I and you, the plan is flawed.","Between you and I, the plan is flawed."],a:0,e:"'Between' is a preposition and takes the object form: me."},
+{tp:"Para Jumble",q:"Arrange: (A) Only then did anyone ask what the birds had been eating. (B) The pesticide was applied to control a single species of beetle. (C) Within two seasons the songbirds had gone too. (D) It worked, and the beetle vanished from the orchards.",o:["DBCA","BDCA","BCDA","BDAC"],a:1,e:"B introduces the action, D its immediate success, C the unintended consequence, A the delayed question."},
+{tp:"Sentence Completion",q:"The minister's answer was ____ without being ____: it filled ten minutes and settled nothing.",o:["technical … accurate","brief … clear","fluent … informative","hostile … rude"],a:2,e:"Ten minutes that settle nothing describes speech that flows well but conveys no information."},
+{tp:"Critical Reading",q:"'Correlation is not causation' is most directly a warning against:",o:["Using statistics in public debate","Publishing results before peer review","Collecting too much data","Inferring that one variable produces another because they move together"],a:3,e:"The maxim targets the inferential leap from co-movement to production of an effect."}
+]},
+{id:"M4",name:"Mock Paper 4",lvl:"Tough",note:"Full-difficulty paper. LR is weighted with critical reasoning and data sufficiency — the two question types that carry the most pre-PI weight per question under the 2027 scoring rule.",
+psgs:[
+"It is often said that the internet destroyed local news, and the sequence of events supports the claim: classified advertising migrated online, revenue collapsed, newsrooms closed. But blaming the technology obscures something more uncomfortable. Local newspapers were never primarily funded by readers who wanted local news. They were funded by people selling second-hand cars and advertising job vacancies, and the reporting was a by-product of that commercial arrangement — a subsidy whose beneficiaries never knew they were being subsidised. When a better classifieds platform appeared, the subsidy ended. Nothing was destroyed except a coincidence. This matters because it changes what a remedy would have to do. If the problem were technological, the answer might be technological too: better paywalls, better distribution, better products. If the problem is that civic reporting has no natural buyer, then no amount of product refinement will reconstruct the accident, and the choice narrows to public funding, philanthropy, or doing without. None of these is comfortable. Public funding invites the suspicion of capture; philanthropy concentrates editorial influence in very few hands; and doing without has measurable costs in municipal borrowing rates and electoral turnout. The debate proceeds as though a fourth option is about to be discovered, and it may be. But the first three have the advantage of existing.",
+"The most persistent misunderstanding about expertise is that it consists of knowing more. Experts certainly do know more, but that is a consequence of the thing that actually distinguishes them, which is the possession of better categories. A novice chess player sees twenty pieces; a master sees four or five familiar structures. The master's advantage is not extra memory but compression: the board has been chunked into units that carry meaning, and reasoning proceeds over those units rather than over the raw material. This explains a well-documented oddity. Give a master a board arranged at random, with no legal structure, and the recall advantage largely disappears. The chunks were not general-purpose memory; they were a vocabulary fitted to a particular world. The implication for anyone learning a field is unwelcome to those who prefer shortcuts. Categories cannot be transmitted by description alone, because a category is not a definition but a discrimination — a learned sense of which differences matter. That sense is built by handling many cases and being told, repeatedly and specifically, which ones were misread. It is slow, it resists compression into a summary, and it is the whole of the thing."
+],
+QADI:[
+{tp:"Percentages",q:"A candidate scoring 35% fails by 40 marks; another scoring 55% gets 20 marks more than the pass mark. The maximum marks are:",o:["320","360","250","300"],a:3,e:"Difference of 20% corresponds to 60 marks → total = 300."},
+{tp:"Profit & Loss",q:"By selling an article at ₹720 a man loses 10%. To gain 15% he must sell it at:",o:["₹880","₹900","₹920","₹940"],a:2,e:"CP = 720/0.9 = ₹800. SP for 15% gain = 800 × 1.15 = ₹920."},
+{tp:"Interest",q:"In what time will ₹5,000 amount to ₹6,050 at 10% p.a. compound interest?",o:["2.5 years","3 years","1 year","2 years"],a:3,e:"6050/5000 = 1.21 = 1.1² → 2 years."},
+{tp:"Ratio & Mixtures",q:"A vessel holds 40 litres of milk. 4 litres are removed and replaced by water; this is done twice. The milk remaining is:",o:["32.4 L","33.6 L","34 L","36 L"],a:0,e:"Milk = 40(1 − 4/40)² = 40 × 0.81 = 32.4 L."},
+{tp:"Averages",q:"The average age of a family of 6 is 25 years today. The youngest member was born exactly 4 years ago. The average age of the other five members today is:",o:["28.2 years","29.2 years","30.2 years","31.2 years"],a:1,e:"Family total = 6 × 25 = 150. The child is 4, so the rest total 146 across 5 people → 29.2 years."},
+{tp:"Time & Work",q:"A alone can do a piece of work in 10 days, B in 15 days. They work alternately, starting with A. The work is completed in:",o:["14 days","11 days","12 days","13 days"],a:2,e:"Work = 30 units (LCM). A does 3/day, B does 2/day → 5 units per 2-day cycle. 30/5 = 6 cycles = 12 days, ending exactly on B's turn."},
+{tp:"Time, Speed, Distance",q:"A train travelling at 60 km/h reaches its destination 10 minutes late; at 75 km/h it would be 5 minutes early. The distance is:",o:["80 km","90 km","60 km","75 km"],a:3,e:"Let d. d/60 − d/75 = 15/60 h → d(15/4500) = 0.25 → d = 75 km."},
+{tp:"Number System",q:"The number of trailing zeros in 25! is:",o:["6","7","4","5"],a:0,e:"⌊25/5⌋ + ⌊25/25⌋ = 5 + 1 = 6."},
+{tp:"Algebra",q:"If 2ˣ = 3ʸ = 6ᶻ, then 1/x + 1/y equals:",o:["z/2","1/z","z","2/z"],a:1,e:"Let all equal k. x = log₂k etc. 1/x + 1/y = logₖ2 + logₖ3 = logₖ6 = 1/z."},
+{tp:"Quadratic Equations",q:"The sum of the reciprocals of the roots of 3x² − 12x + 4 = 0 is:",o:["1/3","2","3","4"],a:2,e:"1/α + 1/β = (α+β)/αβ = 4/(4/3) = 3."},
+{tp:"Progressions",q:"If the 5th term of a GP is 48 and the 8th term is 384, the common ratio is:",o:["3","4","1.5","2"],a:3,e:"r³ = 384/48 = 8 → r = 2."},
+{tp:"Sets",q:"In a class of 60, 35 play cricket, 30 play football and 10 play neither. The number playing both is:",o:["15","18","10","12"],a:0,e:"Playing at least one = 50 = 35 + 30 − both → both = 15."},
+{tp:"Binomial Theorem",q:"The middle term in the expansion of (x + 1/x)⁸ is:",o:["56","70","28","35"],a:1,e:"Middle term is the 5th: ⁸C₄ x⁴ (1/x)⁴ = 70."},
+{tp:"Geometry",q:"In a right triangle the hypotenuse is 25 cm and one leg is 7 cm. The area is:",o:["120 cm²","168 cm²","84 cm²","96 cm²"],a:2,e:"Other leg = √(625 − 49) = 24. Area = ½ × 7 × 24 = 84 cm²."},
+{tp:"Mensuration",q:"The curved surface area of a cone with radius 7 cm and slant height 10 cm is (take π = 22/7):",o:["440 cm²","110 cm²","154 cm²","220 cm²"],a:3,e:"CSA = πrl = (22/7)(7)(10) = 220 cm²."},
+{tp:"Coordinate Geometry",q:"The equation of the line through (2, 3) with slope −2 is:",o:["2x + y = 7","2x − y = 1","x + 2y = 8","y − 2x = −1"],a:0,e:"y − 3 = −2(x − 2) → y = −2x + 7 → 2x + y = 7."},
+{tp:"Trigonometry",q:"The maximum value of 3 sinθ + 4 cosθ is:",o:["4","5","7","3"],a:1,e:"Maximum of a sinθ + b cosθ is √(a² + b²) = √25 = 5."},
+{tp:"Calculus",q:"If y = e^(2x), then dy/dx at x = 0 is:",o:["2e","1","2","e"],a:2,e:"dy/dx = 2e^(2x) → at x = 0 this is 2."},
+{tp:"Calculus",q:"The function f(x) = x³ + 3x is:",o:["Increasing for all real x","Decreasing for all real x","Increasing only for x > 0","Neither"],a:0,e:"f′(x) = 3x² + 3 > 0 for every real x, so f is strictly increasing everywhere."},
+{tp:"Calculus",q:"The area bounded by y = x², the x-axis and x = 0 to x = 3 is:",o:["12","27","6","9"],a:3,e:"∫₀³x²dx = 27/3 = 9."},
+{tp:"Matrices",q:"If A and B are 2 × 2 matrices, which is generally TRUE?",o:["(AB)ᵀ = BᵀAᵀ","det(A + B) = det A + det B","AB = BA","(A + B)² = A² + 2AB + B²"],a:0,e:"Transpose of a product reverses the order — the only universally valid identity here."},
+{tp:"Determinants",q:"Using Cramer's rule, for 2x + y = 5 and x − y = 1, the value of x is:",o:["1","2","3","4"],a:1,e:"Adding: 3x = 6 → x = 2."},
+{tp:"Permutations",q:"How many distinct arrangements of the letters of the word EXAMPLE are possible?",o:["1260","720","2520","5040"],a:2,e:"7 letters with E repeated twice → 7!/2! = 2520."},
+{tp:"Combinations",q:"A polygon has 20 diagonals. The number of its sides is:",o:["10","6","7","8"],a:3,e:"n(n−3)/2 = 20 → n² − 3n − 40 = 0 → n = 8."},
+{tp:"Probability",q:"A die is rolled twice. The probability that the sum exceeds 9 is:",o:["1/6","1/9","5/36","1/12"],a:0,e:"Sums 10, 11, 12 give 3 + 2 + 1 = 6 outcomes out of 36 → 1/6."},
+{tp:"Bayes' Theorem",q:"A test is 95% accurate on people who have a disease and gives a false positive 5% of the time. If 1% of the population has the disease, the probability that a positive result is a true positive is approximately:",o:["95%","16%","50%","83%"],a:1,e:"P = (0.01×0.95)/(0.01×0.95 + 0.99×0.05) = 0.0095/0.059 ≈ 0.161 → about 16%."},
+{tp:"Statistics",q:"The variance of the first five natural numbers is:",o:["3","4","2","2.5"],a:2,e:"Mean = 3; squared deviations 4, 1, 0, 1, 4 = 10; variance = 10/5 = 2."},
+{tp:"Data Interpretation",q:"[DI set] Exports (₹ crore) — 2022: 250, 2023: 300, 2024: 270, 2025: 324, 2026: 405. The percentage growth from 2024 to 2025 is:",o:["22%","24%","18%","20%"],a:3,e:"(324 − 270)/270 = 54/270 = 20%."},
+{tp:"Data Interpretation",q:"[Same DI set] In which year did exports fall relative to the previous year?",o:["2024","2025","2026","2023"],a:0,e:"Only 2024 (270) is below its predecessor (300)."},
+{tp:"Data Interpretation",q:"[Same DI set] Average annual exports over the five years is closest to:",o:["₹300 crore","₹310 crore","₹320 crore","₹330 crore"],a:1,e:"Sum = 1549 → mean = 309.8 ≈ ₹310 crore."}
+],
+LR:[
+{tp:"Number Series",q:"11, 13, 17, 19, 23, ?",o:["25","27","29","31"],a:2,e:"The sequence lists consecutive prime numbers → next prime after 23 is 29."},
+{tp:"Number Series",q:"2, 5, 10, 17, 26, ?",o:["38","35","36","37"],a:3,e:"Terms are n² + 1 → 6² + 1 = 37."},
+{tp:"Analogy",q:"Famine : Drought :: Flood : ?",o:["Rainfall","Damage","Bridge","River"],a:0,e:"Drought causes famine as excessive rainfall causes flood — a cause-to-effect relation."},
+{tp:"Coding-Decoding",q:"If FRIEND is coded 6-18-9-5-14-4, then HOME is coded:",o:["8-15-12-4","8-15-13-5","8-14-13-5","7-15-12-5"],a:1,e:"Letters are replaced by their alphabet positions: H=8, O=15, M=13, E=5."},
+{tp:"Critical Reasoning · Weaken",q:"'Students who attend the optional revision class score 12 marks higher on average, so the class raises scores.' Which most weakens this?",o:["Attendance was 70% of the cohort","The class runs for six weeks","Students who attend are those already scoring above average","The class is taught by an experienced teacher"],a:2,e:"Self-selection means the score gap may precede the class rather than result from it."},
+{tp:"Critical Reasoning · Strengthen",q:"Which most strengthens the claim that a fertiliser raised yields?",o:["It is widely used abroad","Yields were low the previous year","Farmers reported being satisfied with it","Adjacent identical plots without it showed no yield change in the same season"],a:3,e:"A matched control under identical conditions is the strongest available support."},
+{tp:"Critical Reasoning · Assumption",q:"'We should extend library hours; usage peaks in the final hour before closing.' The argument assumes:",o:["The peak reflects unmet demand rather than a deadline effect","The library has sufficient staff","Extended hours are inexpensive","Students prefer libraries to cafés"],a:0,e:"If the peak is simply people finishing before closing time, extending hours would just move the peak."},
+{tp:"Data Sufficiency",q:"Is the integer n divisible by 6? I. n is divisible by 3. II. n is even.",o:["I alone","II alone","Both together","Neither"],a:2,e:"Divisibility by 6 requires both 2 and 3; neither statement alone gives both."},
+{tp:"Data Sufficiency",q:"What is the average of five numbers? I. Their sum is 60. II. The largest is 20 and the smallest is 4.",o:["I alone","II alone","Both together","Neither"],a:0,e:"The average is sum ÷ count, so I alone gives 12. II gives no total."},
+{tp:"Data Sufficiency",q:"In a class, what percentage of students study French? I. 24 students study French. II. There are three times as many students who do not study French as those who do.",o:["I alone","II alone","Both together","Neither"],a:1,e:"II gives a ratio 1 : 3, so French students are 25% — no headcount needed. I alone lacks the total."},
+{tp:"Seating Arrangement",q:"Eight people sit around a circular table facing the centre. If M is fourth to the right of N, then N is:",o:["Second to the right of M","Fourth to the right of M","Third to the left of M","Fifth to the left of M"],a:1,e:"In a circle of eight, being four positions away is symmetric — M and N sit directly opposite each other."},
+{tp:"Puzzles",q:"Four friends bought different fruits. Neither Ravi nor Sita bought mangoes. Tara bought apples. Ravi did not buy bananas. If the fourth fruit is grapes, what did Ravi buy?",o:["Mangoes","Bananas","Grapes","Apples"],a:2,e:"Tara has apples; Ravi is excluded from mangoes and bananas, and apples are taken → grapes."},
+{tp:"Syllogism",q:"Statements: All analysts are careful. Some careful people are slow. Conclusions: I. Some analysts are slow. II. Some careful people are analysts. Which follows?",o:["Only I","Only II","Both","Neither"],a:1,e:"II is the valid converse of a universal statement; I is not forced — the slow group may lie outside analysts."},
+{tp:"Directions",q:"A car travels 8 km east, then 6 km north, then 8 km west. Its distance from the starting point is:",o:["8 km","10 km","14 km","6 km"],a:3,e:"East and west cancel; only the 6 km north remains."},
+{tp:"Venn Diagrams",q:"Which diagram best represents the relationship: Doctors, Surgeons, Women?",o:["Surgeons inside Doctors, Women overlapping both","Three fully overlapping circles","Women inside Doctors inside Surgeons","Three disjoint circles"],a:0,e:"Every surgeon is a doctor, while women may or may not belong to either group."}
+],
+VARC:[
+{tp:"RC · Main Idea",p:0,q:"The passage's central claim is that local journalism collapsed because:",o:["Readers lost interest in local affairs","The commercial accident that funded it ended","Newspapers failed to adopt technology","Regulation made publishing unprofitable"],a:1,e:"The passage describes classified advertising as an unintended subsidy, and 'Nothing was destroyed except a coincidence'."},
+{tp:"RC · Inference",p:0,q:"The author argues that the diagnosis matters because it determines:",o:["Which platforms should be regulated","Who should be blamed for the collapse","Whether technological remedies could work at all","How many newsrooms will close next"],a:2,e:"The explicit contrast: a technological problem admits technological answers; an absent buyer does not."},
+{tp:"RC · Detail",p:0,q:"Which cost of 'doing without' does the passage cite?",o:["Rising newspaper prices","Increased political advertising","Falling literacy rates","Higher municipal borrowing rates and lower turnout"],a:3,e:"Both are named as measurable costs in the closing section."},
+{tp:"RC · Tone",p:0,q:"The final two sentences suggest the author regards the search for a fourth option as:",o:["Understandable but a poor reason to defer the existing choices","Deliberately obstructive","A purely academic exercise","Likely to succeed soon"],a:0,e:"'It may be. But the first three have the advantage of existing' concedes the possibility while urging realism."},
+{tp:"RC · Main Idea",p:1,q:"According to the passage, what genuinely distinguishes an expert is:",o:["Faster reasoning speed","The possession of better categories","Greater confidence under pressure","A larger store of memorised facts"],a:1,e:"Stated directly: knowing more is a consequence of having better categories."},
+{tp:"RC · Detail",p:1,q:"The random-board experiment is cited to show that:",o:["Novices and masters reason identically","Masters have exceptional general memory","The master's chunks are specific to structured positions","Chess skill declines with age"],a:2,e:"The recall advantage disappears without legal structure, proving the chunks are domain-fitted, not general memory."},
+{tp:"RC · Vocabulary in context",p:1,q:"In the passage, 'compression' refers to:",o:["Simplifying rules for beginners","Storing information more efficiently on a computer","Reducing the time taken to decide","Grouping raw elements into meaningful units"],a:3,e:"The board is 'chunked into units that carry meaning' — grouping, not storage efficiency."},
+{tp:"RC · Application",p:1,q:"The passage implies that the most effective way to learn a field is:",o:["Working through many cases with specific corrective feedback","Memorising its technical vocabulary","Observing experts at work","Reading comprehensive summaries of its principles"],a:0,e:"'Built by handling many cases and being told, repeatedly and specifically, which ones were misread.'"},
+{tp:"Vocabulary",q:"Choose the word closest in meaning to PERFUNCTORY:",o:["Thorough","Done routinely and with little care","Punctual","Perfect"],a:1,e:"Perfunctory describes action carried out as a formality, without real interest."},
+{tp:"Vocabulary",q:"Choose the word most nearly OPPOSITE in meaning to ESOTERIC:",o:["Complicated","Obscure","Accessible","Mystical"],a:2,e:"Esoteric = understood by only a few; its opposite is widely accessible."},
+{tp:"Grammar",q:"Select the grammatically correct sentence:",o:["The data suggests that the policy have been failed.","The datas suggest that the policy has failed.","The data suggests that the policy have failed.","The data suggest that the policy has failed."],a:3,e:"'Data' is treated as plural in formal usage; 'policy' is singular and takes 'has'."},
+{tp:"Grammar · Tense",q:"Select the correct sentence:",o:["By the time we arrived, the meeting had already started.","By the time we arrive, the meeting had already started.","By the time we had arrived, the meeting starts.","By the time we arrived, the meeting already started."],a:0,e:"An action completed before another past action takes the past perfect: had started."},
+{tp:"Para Jumble",q:"Arrange: (A) Most of it, however, is never read by anyone. (B) Each year the world's researchers publish some three million papers. (C) The cost of producing that unread work is borne almost entirely by the public. (D) Estimates of the share cited even once vary, but none is reassuring.",o:["ABDC","BADC","BACD","BDAC"],a:1,e:"B gives the scale, A the surprising claim, D the evidence qualifying it, C the consequence."},
+{tp:"Sentence Completion",q:"His account was ____ enough to survive a casual reading, but it ____ under any serious scrutiny.",o:["detailed … expanded","vague … strengthened","plausible … collapsed","honest … improved"],a:2,e:"The contrast requires surface credibility followed by failure under examination."},
+{tp:"Summary",q:"Best summary of: 'The map is not the territory, but you cannot walk without one.'",o:["Territory is more important than representation","Every map should be redrawn frequently","Maps are always misleading and should be avoided","Models are necessarily incomplete yet indispensable for action"],a:3,e:"The sentence concedes the model's inadequacy while affirming its necessity."}
+]},
+{id:"M5",name:"Mock Paper 5",lvl:"Exam-day simulation",note:"Your final rehearsal. Full 135-minute clock, no sectional locks, exam-order sections (QADI → LR → VARC) exactly as the official 2027 document lists them. Take it in a morning slot.",
+psgs:[
+"The idea that a language shapes what its speakers can think has had an unusually turbulent career. In its strong form — that thought is imprisoned by vocabulary — it was asserted confidently in the 1940s, demolished by the 1970s, and has been quietly rehabilitated since, in a much weaker version that is easy to misreport. What the careful experiments show is not that speakers of a language cannot conceive of something their language does not name, but that they are faster, more consistent and more confident when it does. A language with a dedicated word for a particular shade sorts that shade more reliably under time pressure; speakers of languages that describe space in absolute compass terms keep better track of direction. These are real effects and they are small. They concern the ease and the default of thought, not its outer limits. The distinction matters because the strong claim licenses conclusions the weak one cannot support: that translation is impossible, that whole peoples are incapable of some concept, that a grammatical feature explains a national character. Each of these has been asserted, and each requires the version of the theory that the evidence does not sustain. The rehabilitated theory is interesting precisely because it is modest, which is also why it is so often reported as though it were not.",
+"Every organisation eventually confronts the same uncomfortable trade-off between reliability and adaptability, and the choice is usually made without anyone noticing it has been made. Reliability is bought with standardisation: write the procedure down, train everyone to follow it, measure deviation and correct it. The method works, and where failure is catastrophic — surgery, aviation, nuclear power — it is close to indispensable. But the same machinery that suppresses error also suppresses variation, and variation is the raw material of adaptation. An organisation that has successfully eliminated every departure from procedure has also eliminated the accidents from which it might have learned something. The resolution most often proposed is to keep a separate part of the organisation free from the rules: a laboratory, a skunkworks, an innovation unit. This helps less than it promises, because the protected unit is rarely permitted to disturb the procedures of the main body, and an idea that cannot alter the operating core is not an adaptation but a hobby. The harder resolution is to build revision into the procedure itself — to specify not only what must be done but who may question it, on what evidence, and how often the question must be asked."
+],
+QADI:[
+{tp:"Percentages",q:"The population of a town rises 10% in the first year and falls 10% in the second. If it is now 49,500, the original population was:",o:["50,500","51,000","50,000","49,000"],a:2,e:"Net factor = 1.1 × 0.9 = 0.99 → original = 49500/0.99 = 50,000."},
+{tp:"Profit & Loss",q:"A dealer allows a 10% discount on the list price and still earns 20% profit. The list price is what percent above cost?",o:["35%","40%","30%","33.3%"],a:3,e:"0.9L = 1.2C → L/C = 4/3 → 33.3% above cost."},
+{tp:"Interest",q:"The simple interest on a sum for 4 years at 6% p.a. is ₹1,440. The same sum at 5% p.a. compound interest for 2 years earns approximately:",o:["₹600","₹615","₹630","₹650"],a:1,e:"P = 1440 × 100/(6 × 4) = ₹6,000. CI = 6000(1.05² − 1) = 6000 × 0.1025 = ₹615."},
+{tp:"Ratio",q:"If A : B = 3 : 4 and B : C = 6 : 5, then A : C is:",o:["3 : 5","9 : 20","9 : 10","18 : 20"],a:2,e:"A : B : C = 9 : 12 : 10 → A : C = 9 : 10."},
+{tp:"Averages",q:"The mean of 12 numbers is 40. If 5 is added to each of the first six and 5 is subtracted from each of the last six, the new mean is:",o:["45","42.5","35","40"],a:3,e:"Total additions and subtractions cancel exactly → the mean is unchanged at 40."},
+{tp:"Time & Work",q:"20 workers build a wall in 30 days. After 10 days, 5 workers leave. The remaining work is completed in:",o:["26.67 days","30 days","20 days","24 days"],a:0,e:"Total = 600 worker-days. Done = 200; remaining 400 with 15 workers = 26.67 days."},
+{tp:"Time, Speed, Distance",q:"A man rows 12 km downstream in 45 minutes and returns in 1 hour 30 minutes. His speed in still water is:",o:["10 km/h","12 km/h","14 km/h","16 km/h"],a:1,e:"Downstream 16 km/h, upstream 8 km/h → still water = (16 + 8)/2 = 12 km/h."},
+{tp:"Number System",q:"The smallest number that must be added to 1,056 to make it divisible by 23 is:",o:["18","21","2","3"],a:2,e:"1056 ÷ 23 = 45 remainder 21 → add 23 − 21 = 2."},
+{tp:"Algebra",q:"If x² − 3x + 1 = 0, then x² + 1/x² equals:",o:["9","11","5","7"],a:3,e:"Dividing by x: x + 1/x = 3 → x² + 1/x² = 9 − 2 = 7."},
+{tp:"Functions",q:"If f(x) = (x − 1)/(x + 1), then f(f(x)) equals:",o:["−1/x","1/x","−x","x"],a:0,e:"f(f(x)) = ((x−1)/(x+1) − 1)/((x−1)/(x+1) + 1) = (−2)/(2x) = −1/x."},
+{tp:"Progressions",q:"How many terms of the AP 5, 9, 13, … add up to 275?",o:["10","11","12","9"],a:1,e:"n/2[10 + 4(n−1)] = 275 → n(2n + 3) = 275 → 2n² + 3n − 275 = 0 → n = 11."},
+{tp:"Logarithms",q:"If logₐ b = 3 and log_b c = 2, then logₐ c equals:",o:["9","5","6","8"],a:2,e:"Chain rule for logs: logₐc = logₐb × log_bc = 3 × 2 = 6."},
+{tp:"Complex Numbers",q:"The modulus of (3 + 4i)/(1 − i) is:",o:["5√2","5","√2","5/√2"],a:3,e:"|3 + 4i| = 5, |1 − i| = √2 → modulus of the quotient = 5/√2."},
+{tp:"Geometry",q:"Two circles of radii 9 cm and 4 cm touch externally. The length of their direct common tangent is:",o:["12 cm","13 cm","15 cm","10 cm"],a:0,e:"Length = √(d² − (r₁ − r₂)²) with d = 13 → √(169 − 25) = 12 cm."},
+{tp:"Mensuration",q:"The volume of a sphere is numerically equal to its surface area. Its radius is:",o:["2","3","4","1"],a:1,e:"(4/3)πr³ = 4πr² → r = 3."},
+{tp:"Coordinate Geometry",q:"The point (2, k) lies on the line 3x − 2y + 4 = 0. The value of k is:",o:["3","4","5","6"],a:2,e:"6 − 2k + 4 = 0 → 2k = 10 → k = 5."},
+{tp:"Trigonometry",q:"If cos A = 3/5 and A is acute, then tan 2A equals:",o:["7/24","−7/24","24/7","−24/7"],a:3,e:"cos A = 3/5 → tan A = 4/3. tan2A = 2tanA/(1 − tan²A) = (8/3)/(1 − 16/9) = (8/3)/(−7/9) = −24/7. The sign is negative because 2A is obtuse."},
+{tp:"Calculus",q:"The derivative of sin(x²) with respect to x is:",o:["2x cos(x²)","2x sin(x²)","x² cos(x)","cos(x²)"],a:0,e:"Chain rule: cos(x²) × 2x."},
+{tp:"Calculus",q:"The point of inflection of y = x³ − 6x² + 9x is at x =",o:["1","2","3","0"],a:1,e:"y″ = 6x − 12 = 0 → x = 2, where concavity changes."},
+{tp:"Calculus",q:"∫₀^(π/2) cos x dx equals:",o:["2","0","1","π/2"],a:2,e:"[sin x]₀^(π/2) = 1 − 0 = 1."},
+{tp:"Matrices",q:"If A = [[3, 0], [0, 3]], then A⁻¹ equals:",o:["[[−3,0],[0,−3]]","[[0,3],[3,0]]","[[3,0],[0,3]]","[[1/3,0],[0,1/3]]"],a:3,e:"For a scalar matrix 3I, the inverse is (1/3)I."},
+{tp:"Determinants",q:"If the system kx + 2y = 0 and 3x + 6y = 0 has a non-trivial solution, then k equals:",o:["1","2","3","6"],a:0,e:"Determinant must vanish: 6k − 6 = 0 → k = 1."},
+{tp:"Permutations",q:"In how many ways can the word LOGIC be arranged so that the vowels are always together?",o:["36","48","60","24"],a:1,e:"Treat (O, I) as one block with L, G, C → 4! = 24 arrangements, and the vowels swap in 2! ways → 48."},
+{tp:"Combinations",q:"A bag contains 5 red and 7 blue balls. In how many ways can 3 balls be drawn so that at least one is red?",o:["220","150","185","200"],a:2,e:"Total ¹²C₃ = 220; all-blue ⁷C₃ = 35 → 220 − 35 = 185."},
+{tp:"Probability",q:"Two cards are drawn from a pack without replacement. The probability that both are aces is:",o:["1/169","4/663","1/13","1/221"],a:3,e:"(4/52) × (3/51) = 12/2652 = 1/221."},
+{tp:"Conditional Probability",q:"A family has two children. Given that at least one is a girl, the probability that both are girls is:",o:["1/3","1/4","2/3","1/2"],a:0,e:"Sample space {GG, GB, BG} after conditioning → 1/3."},
+{tp:"Statistics",q:"For a data set, the mean is 30 and the coefficient of variation is 20%. The standard deviation is:",o:["5","6","8","4"],a:1,e:"CV = SD/mean × 100 → SD = 0.20 × 30 = 6."},
+{tp:"Data Interpretation",q:"[DI set] A store's category-wise sales in ₹ lakh — Apparel 84, Footwear 56, Accessories 42, Beauty 28. Apparel's share of total sales is:",o:["45%","36%","40%","42%"],a:2,e:"Total = 210. 84/210 = 40%."},
+{tp:"Data Interpretation",q:"[Same DI set] If Beauty grows 50% and every other category stays the same, the new total is:",o:["₹231 L","₹210 L","₹217 L","₹224 L"],a:3,e:"Beauty rises 28 → 42, an increase of 14 → new total 224."},
+{tp:"Data Interpretation",q:"[Same DI set] In the original data, Footwear and Accessories together are what fraction of Apparel?",o:["7/6","6/7","5/6","4/3"],a:0,e:"(56 + 42)/84 = 98/84 = 7/6."}
+],
+LR:[
+{tp:"Number Series",q:"4, 9, 19, 39, 79, ?",o:["149","159","169","139"],a:1,e:"Each term = 2 × previous + 1 → 2(79) + 1 = 159."},
+{tp:"Number Series",q:"120, 60, 20, 5, ?",o:["2","2.5","1","1.5"],a:2,e:"Divide by 2, 3, 4, then 5 → 5/5 = 1."},
+{tp:"Letter Series",q:"ACE, BDF, CEG, ?",o:["EGI","DGH","DEF","DFH"],a:3,e:"Each triple shifts one letter forward: D, F, H."},
+{tp:"Coding-Decoding",q:"If ROSE is coded as 6821 and CHAIR as 73456, how is SEARCH coded?",o:["214673","216473","214763","215673"],a:0,e:"From ROSE: R=6, O=8, S=2, E=1. From CHAIR: C=7, H=3, A=4, I=5, R=6. SEARCH = 2, 1, 4, 6, 7, 3."},
+{tp:"Blood Relations",q:"Introducing a girl, Vikas said, 'Her mother is the only daughter of my father-in-law.' How is Vikas related to the girl?",o:["Uncle","Father","Brother","Grandfather"],a:1,e:"The only daughter of his father-in-law is Vikas's wife; her daughter is Vikas's daughter, so he is her father."},
+{tp:"Directions",q:"Ravi starts facing east, turns 90° clockwise twice, then 45° anticlockwise. He now faces:",o:["North-east","South-east","North-west","South-west"],a:2,e:"East + 180° = west; then 45° anticlockwise from west = north-west."},
+{tp:"Seating Arrangement",q:"Six students A–F sit in two rows of three, facing each other. A and D face each other; B is to the immediate right of A; E is diagonally opposite B. If C is in the same row as A, where does F sit?",o:["Between D and E","At an end of D's row","Beside A","Cannot be determined"],a:0,e:"A's row holds A, B and C; D's row holds D, E and F. With E diagonally opposite B, F must occupy the remaining middle position between D and E."},
+{tp:"Puzzles",q:"Five houses in a row are painted different colours. The red house is immediately left of the blue. The green house is at one end. The white house is third. If yellow is immediately right of green, which house is fifth?",o:["White","Yellow","Red","Blue"],a:3,e:"Green at 1, yellow at 2, white at 3 → red and blue occupy 4 and 5 with red left of blue → blue is fifth."},
+{tp:"Syllogism",q:"Statements: Some pens are books. No book is a chair. Conclusions: I. Some pens are not chairs. II. All pens are chairs. Which follows?",o:["Only I","Only II","Both","Neither"],a:0,e:"The pens that are books cannot be chairs, forcing I. II contradicts that."},
+{tp:"Critical Reasoning",q:"'Cities that raised the minimum wage saw no fall in employment, so minimum-wage increases do not cost jobs.' Which most weakens this?",o:["The increases were small and phased in during periods of strong growth","Some cities raised wages more than others","Employers reported concern about the increases","The study covered only five years"],a:0,e:"If conditions were uniquely favourable, the result may not generalise — the effect could be masked by growth."},
+{tp:"Statement–Assumption",q:"Statement: 'To reduce accidents, the government will make the rear seat belt compulsory.' Which assumption is implicit?",o:["Front seat belts are already compulsory","Rear-seat passengers currently suffer avoidable injuries","Cars will become more expensive","Drivers oppose the rule"],a:1,e:"The measure only makes sense if unbelted rear passengers are contributing to the harm being targeted."},
+{tp:"Data Sufficiency",q:"What is the two-digit number? I. The sum of its digits is 9. II. The number is divisible by 9 and its tens digit exceeds its units digit by 3.",o:["I alone","II alone","Both together","Neither"],a:1,e:"I allows 18, 27, 36… II: digit sum 9 with tens − units = 3 → 63 uniquely. II alone suffices."},
+{tp:"Clocks",q:"How many times do the hands of a clock form a right angle in 24 hours?",o:["22","24","44","48"],a:2,e:"Twice in roughly every hour but only 22 times in 12 hours → 44 in a day."},
+{tp:"Cubes",q:"A cube is painted red on all faces and cut into 125 identical smaller cubes. How many have no face painted?",o:["36","64","8","27"],a:3,e:"(5 − 2)³ = 27."},
+{tp:"Logical Sequence",q:"Arrange in logical order: 1. Diagnosis 2. Symptoms 3. Treatment 4. Recovery 5. Consultation",o:["2, 5, 1, 3, 4","5, 2, 1, 3, 4","2, 1, 5, 3, 4","1, 2, 5, 3, 4"],a:0,e:"Symptoms appear, the patient consults, a diagnosis follows, then treatment and recovery."}
+],
+VARC:[
+{tp:"RC · Main Idea",p:0,q:"The passage's principal argument is that:",o:["Language determines the limits of thought","The defensible version of the theory is modest and routinely overstated","The theory was correctly abandoned in the 1970s","Translation between languages is impossible"],a:1,e:"The closing sentence makes the point explicit: the theory is interesting because it is modest, and is reported as though it were not."},
+{tp:"RC · Detail",p:0,q:"According to the passage, having a dedicated word for a colour affects:",o:["How the colour is physically processed by the eye","Whether the colour can be perceived at all","The speed and consistency of sorting it","The number of colours that exist in a culture"],a:2,e:"The stated effects are being faster, more consistent and more confident — not capability."},
+{tp:"RC · Inference",p:0,q:"The author lists three conclusions (impossibility of translation, incapacity of peoples, national character) in order to:",o:["Argue that all three are partly true","Demonstrate the range of modern linguistics","Criticise researchers of the 1940s by name","Show what the strong version licenses and the evidence does not support"],a:3,e:"The sentence that follows says each requires the version of the theory the evidence does not sustain."},
+{tp:"RC · Tone",p:0,q:"The author's attitude to the rehabilitated theory is:",o:["Accepting of it while insisting on its limited scope","Indifferent","Enthusiastically supportive of the strong version","Sceptical of its findings"],a:0,e:"The effects are called real; the insistence is on their small size and narrow claim."},
+{tp:"RC · Main Idea",p:1,q:"The central tension the passage identifies is between:",o:["Cost and quality","Reliability and adaptability","Management and labour","Speed and accuracy"],a:1,e:"Named in the opening sentence and developed throughout."},
+{tp:"RC · Detail",p:1,q:"Why does the author say standardisation carries a hidden cost?",o:["It slows decision-making","It is expensive to document","It suppresses the variation from which learning occurs","It requires extensive training"],a:2,e:"'The same machinery that suppresses error also suppresses variation, and variation is the raw material of adaptation.'"},
+{tp:"RC · Inference",p:1,q:"The author calls a protected innovation unit's output 'a hobby' when:",o:["It is funded separately","Its staff are recruited externally","It has no commercial application","It cannot alter the procedures of the operating core"],a:3,e:"Stated directly — an idea that cannot change the core is not an adaptation."},
+{tp:"RC · Application",p:1,q:"The 'harder resolution' the author favours would most likely involve:",o:["Writing into the procedure who may challenge it, on what evidence, and how often","Expanding the innovation unit's budget","Measuring deviation more accurately","Abolishing standard procedures in high-risk settings"],a:0,e:"This paraphrases the final sentence almost exactly."},
+{tp:"Vocabulary",q:"Choose the word closest in meaning to INTRACTABLE:",o:["Easily solved","Stubbornly difficult to manage","Invisible","Internal"],a:1,e:"Intractable describes a problem or person hard to control or resolve."},
+{tp:"Vocabulary",q:"Choose the word most nearly OPPOSITE in meaning to ANOMALOUS:",o:["Hostile","Unusual","Typical","Anonymous"],a:2,e:"Anomalous = deviating from what is standard; the opposite is typical."},
+{tp:"Grammar",q:"Select the grammatically correct sentence:",o:["Each of the proposal were reviewed by the panel.","Each of the proposals have been review by the panel.","Each of the proposals were reviewed by the panel.","Each of the proposals was reviewed by the panel."],a:3,e:"'Each' is singular regardless of the plural noun that follows in the prepositional phrase."},
+{tp:"Grammar · Comparison",q:"Select the correct sentence:",o:["The results of this trial are better than those of the previous trial.","The results of this trial is better than the previous one.","The results of this trial are more better than the previous trial.","The results of this trial are better than the previous trial."],a:0,e:"Comparisons must be between like items: results with results, hence 'those of'."},
+{tp:"Para Jumble",q:"Arrange: (A) The engineers therefore designed for the worst case they could imagine. (B) None of them imagined two failures occurring together. (C) The reactor had three independent safety systems. (D) Each was designed to cope with a different single failure.",o:["CDBA","CDAB","CADB","ACDB"],a:1,e:"C introduces the three systems, D explains what each handled, A states the design philosophy that followed, and B delivers the closing flaw."},
+{tp:"Sentence Completion",q:"Her objection was not ____ but ____: she agreed with the aim and disputed only the method.",o:["private … public","practical … theoretical","substantive … procedural","minor … serious"],a:2,e:"Agreeing with the aim removes the substantive disagreement; disputing the method is procedural."},
+{tp:"Summary",q:"Best summary of: 'We judge ourselves by our intentions and others by their effects.'",o:["Intentions matter more than outcomes","Others rarely understand our motives","People are generally selfish","Self-assessment and assessment of others use different and inconsistent standards"],a:3,e:"The sentence contrasts two evaluative standards applied asymmetrically."}
+]}
+];
+
+var SECMETA=[{k:"QADI",n:"Quantitative & Data Interpretation",pts:20,raw:90},
+             {k:"LR",n:"Logical Reasoning",pts:30,raw:45},
+             {k:"VARC",n:"Verbal Ability & Reading Comprehension",pts:20,raw:45}];
+var TOTAL_SEC=135*60;
+var M={on:false,paper:null,items:[],ans:[],mark:[],idx:0,left:TOTAL_SEC,timer:null};
+
+function flatten(p){
+  var out=[];
+  SECMETA.forEach(function(m){
+    (p[m.k]||[]).forEach(function(q,i){
+      out.push({sec:m.k,q:q.q,o:q.o,a:q.a,e:q.e,tp:q.tp,p:(typeof q.p==="number"?q.p:null),no:out.length+1});
+    });
+  });
+  return out;
+}
+function bestKey(id){return "m180_mock_"+id}
+
+function renderMockHome(){
+  var box=$("#mockbox"); if(!box) return;
+  clearInterval(M.timer); M.on=false;
+  var cards=MOCKS.map(function(p,i){
+    var b=st.get(bestKey(p.id));
+    var bd=b?JSON.parse(b):null;
+    return '<div class="card">'+
+      '<span class="tag '+(i<2?"grn":i<4?"gld":"red")+'">'+p.lvl+'</span>'+
+      '<h3>'+p.name+'</h3>'+
+      '<p class="small">'+p.note+'</p>'+
+      '<p class="small mono" style="margin-top:8px">60 Q · 135 min · QADI 30 → LR 15 → VARC 15'+
+      (bd?' · <strong style="color:var(--score)">Best: '+bd.raw+'/180 (pre-PI '+bd.pre+'/70)</strong>':' · <span style="color:var(--ink-soft)">not attempted</span>')+'</p>'+
+      '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">'+
+      '<button class="btn mk-start" data-i="'+i+'">▶ Start '+p.name+'</button>'+
+      (bd?'<button class="btn ghost mk-sol" data-i="'+i+'" style="padding:10px 16px">View solutions</button>':'')+
+      '</div></div>';
+  }).join("");
+  box.innerHTML='<div class="card" style="border-left:4px solid var(--marker)">'+
+    '<h3>How these differ from the Quiz Arena</h3>'+
+    '<p class="small">The Quiz Arena locks you into sections with separate timers — useful for discipline, but not what happens on test day. These Mock Papers run the real thing: <strong>one 135-minute clock across all 60 questions</strong>, with the palette grouped by section so you can move wherever you like. That freedom is the hardest part of the new pattern to handle, because a lengthy LR set can silently consume the time you had budgeted for QADI. Take these in a morning slot, in one sitting, with your phone in another room.</p>'+
+    '<p class="small" style="margin-top:8px">Scoring: <span class="mono">+3 / −1 / 0</span>. Each scorecard reports the raw 180-mark aggregate <em>and</em> a proxy for the official 70-point pre-PI test score (QADI 20 · LR 30 · VARC 20), so you can see the difference between the score you feel you got and the score that decides your shortlist.</p>'+
+    '</div>'+'<div class="grid2">'+cards+'</div>';
+  Array.prototype.forEach.call($$(".mk-start"),function(b){b.onclick=function(){startMock(+b.dataset.i)}});
+  Array.prototype.forEach.call($$(".mk-sol"),function(b){b.onclick=function(){
+    var p=MOCKS[+b.dataset.i]; var saved=st.get(bestKey(p.id));
+    showSolutions(p,flatten(p),saved?JSON.parse(saved).ans:null);
+  }});
+}
+
+function startMock(i){
+  var p=MOCKS[i];
+  M.paper=p; M.items=flatten(p);
+  M.ans=M.items.map(function(){return null});
+  M.mark=M.items.map(function(){return false});
+  M.idx=0; M.left=TOTAL_SEC; M.on=true;
+  clearInterval(M.timer);
+  M.timer=setInterval(function(){
+    M.left--;
+    var el=$("#mkt");
+    if(el){el.textContent=fm(M.left); if(M.left<=600)el.classList.add("low")}
+    if(M.left<=0){clearInterval(M.timer);submitMock(true)}
+  },1000);
+  renderMockQ();
+}
+
+function renderMockQ(){
+  var box=$("#mockbox"); if(!box) return;
+  var it=M.items[M.idx], p=M.paper;
+  var counts={QADI:[0,0],LR:[0,0],VARC:[0,0]};
+  M.items.forEach(function(x,i){counts[x.sec][1]++; if(M.ans[i]!==null)counts[x.sec][0]++});
+  var strip=SECMETA.map(function(m){
+    return '<span class="sec-chip'+(it.sec===m.k?" now":"")+'">'+m.k+' '+counts[m.k][0]+'/'+counts[m.k][1]+'</span>';
+  }).join("");
+  var pal="";
+  SECMETA.forEach(function(m){
+    pal+='<div style="margin-bottom:8px"><div class="small mono" style="margin-bottom:4px">'+m.k+'</div><div class="palette">';
+    M.items.forEach(function(x,i){
+      if(x.sec!==m.k)return;
+      pal+='<button class="pal'+(i===M.idx?" cur":"")+(M.ans[i]!==null?" ansd":"")+(M.mark[i]?" markd":"")+'" data-i="'+i+'">'+(i+1)+'</button>';
+    });
+    pal+='</div></div>';
+  });
+  var passage = (it.p!==null && p.psgs && p.psgs[it.p])
+    ? '<div class="ex" style="max-height:none"><div class="exq" style="margin-bottom:6px">Passage '+(it.p+1)+'</div>'+p.psgs[it.p]+'</div>' : '';
+  box.innerHTML=
+  '<div class="card">'+
+    '<div class="sec-strip">'+strip+'</div>'+
+    '<div class="q-meta">'+
+      '<span class="mono"><strong>Q '+(M.idx+1)+' / 60</strong> · '+it.sec+' · <span style="color:var(--ink-soft)">'+(it.tp||"")+'</span></span>'+
+      '<span class="q-timer" id="mkt">'+fm(M.left)+'</span>'+
+    '</div>'+
+    '<div class="legend"><span class="l-a">Answered</span><span class="l-m">Marked</span><span class="l-n">Not answered</span></div>'+
+    pal+
+    passage+
+    '<div class="q-text">'+it.q+'</div>'+
+    it.o.map(function(o,i){return '<button class="opt'+(M.ans[M.idx]===i?" sel":"")+'" data-i="'+i+'">'+String.fromCharCode(65+i)+'. '+o+'</button>'}).join("")+
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;justify-content:space-between">'+
+      '<span>'+
+        '<button class="btn ghost" id="mk-prev" style="padding:10px 14px">← Prev</button> '+
+        '<button class="btn ghost" id="mk-mark" style="padding:10px 14px">'+(M.mark[M.idx]?"Unmark":"Mark")+'</button> '+
+        '<button class="btn ghost" id="mk-clear" style="padding:10px 14px">Clear</button>'+
+      '</span>'+
+      '<span>'+
+        '<button class="btn" id="mk-next">Save &amp; Next →</button> '+
+        '<button class="btn grn" id="mk-submit">Submit paper</button>'+
+      '</span>'+
+    '</div>'+
+  '</div>';
+  Array.prototype.forEach.call($$("#mockbox .opt"),function(b){b.onclick=function(){M.ans[M.idx]=+b.dataset.i;renderMockQ()}});
+  Array.prototype.forEach.call($$("#mockbox .pal"),function(b){b.onclick=function(){M.idx=+b.dataset.i;renderMockQ()}});
+  $("#mk-prev").onclick=function(){if(M.idx>0){M.idx--;renderMockQ()}};
+  $("#mk-next").onclick=function(){if(M.idx<59){M.idx++;renderMockQ()}};
+  $("#mk-mark").onclick=function(){M.mark[M.idx]=!M.mark[M.idx];renderMockQ()};
+  $("#mk-clear").onclick=function(){M.ans[M.idx]=null;renderMockQ()};
+  $("#mk-submit").onclick=function(){
+    var un=M.ans.filter(function(a){return a===null}).length;
+    if(un&&!confirm(un+" question(s) are unanswered. Submit the paper anyway?"))return;
+    clearInterval(M.timer); submitMock(false);
+  };
+}
+
+function submitMock(auto){
+  M.on=false;
+  var p=M.paper, items=M.items;
+  var res={QADI:{c:0,w:0,s:0,n:0},LR:{c:0,w:0,s:0,n:0},VARC:{c:0,w:0,s:0,n:0}};
+  items.forEach(function(it,i){
+    var r=res[it.sec]; r.n++;
+    if(M.ans[i]===null){r.s+=0}
+    else if(M.ans[i]===it.a){r.c++;r.s+=3}
+    else {r.w++;r.s-=1}
+  });
+  var raw=res.QADI.s+res.LR.s+res.VARC.s;
+  var pre=0, preParts=[];
+  SECMETA.forEach(function(m){
+    var frac=Math.max(0,res[m.k].s)/m.raw;
+    var pt=Math.round(frac*m.pts*10)/10;
+    pre+=pt; preParts.push({k:m.k,pt:pt,max:m.pts,s:res[m.k].s,max_raw:m.raw});
+  });
+  pre=Math.round(pre*10)/10;
+  var att=M.ans.filter(function(a){return a!==null}).length;
+  var corr=res.QADI.c+res.LR.c+res.VARC.c;
+  var acc=att?Math.round(corr/att*100):0;
+  var neg=(res.QADI.s<0||res.LR.s<0||res.VARC.s<0);
+
+  var best=st.get(bestKey(p.id)); var bestRaw=best?JSON.parse(best).raw:-999;
+  if(raw>=bestRaw) st.set(bestKey(p.id),JSON.stringify({raw:raw,pre:pre,ans:M.ans,at:Date.now()}));
+  try{ var gb=parseInt(st.get("m180_qbest")||"0",10); if(raw>gb) st.set("m180_qbest",String(raw)); }catch(e){}
+
+  var verdict;
+  if(neg) verdict='<strong style="color:var(--marker)">A section has gone negative.</strong> Under the official rules that ends your candidacy regardless of your total — a positive raw score in every section is a hard gate. Find the section and cut your guessing there before anything else.';
+  else if(raw>=135) verdict='<strong style="color:var(--score)">Safe-zone territory.</strong> You are above the 135 planning target. Hold this and shift effort towards the LR error log and the interview story bank.';
+  else if(raw>=114) verdict='<strong style="color:var(--gold)">Above the published 114 floor, below the competitive bar.</strong> Remember IIMB\'s own note: those actually called for interview scored higher than the published cut-off. Keep climbing.';
+  else if(raw>=90) verdict='<strong>Building.</strong> The gap to 114 is usually accuracy, not coverage. Re-solve every wrong answer within 48 hours and classify the cause: concept, calculation or misread.';
+  else verdict='<strong>Early days.</strong> Do not chase attempts. Pick the two weakest blocks in the Syllabus tab, clear them properly, and retake this paper in three weeks.';
+
+  var box=$("#mockbox");
+  box.innerHTML=
+  '<div class="card" style="text-align:center">'+
+    (auto?'<span class="tag red">⏱ Time over — paper auto-submitted</span>':'<span class="tag grn">Paper submitted</span>')+
+    '<h3 style="margin-top:8px">'+p.name+'</h3>'+
+    '<div class="q-result-big" style="color:'+(raw>=114?"var(--score)":"var(--marker)")+'">'+raw+'</div>'+
+    '<p class="small">raw score out of 180 · pre-PI test score proxy <strong class="mono">'+pre+' / 70</strong></p>'+
+  '</div>'+
+  '<div class="grid2">'+
+    '<div class="card"><span class="tag ink">Section breakdown</span>'+
+      '<table><tr><th>Section</th><th>Correct</th><th>Wrong</th><th>Skipped</th><th>Raw</th><th>Pre-PI</th></tr>'+
+      SECMETA.map(function(m){var r=res[m.k];var pp=preParts.filter(function(x){return x.k===m.k})[0];
+        return '<tr><td><strong>'+m.k+'</strong></td><td class="mono">'+r.c+'</td><td class="mono" style="color:var(--marker)">'+r.w+'</td><td class="mono">'+(r.n-r.c-r.w)+'</td><td class="mono">'+r.s+'/'+m.raw+'</td><td class="mono"><strong>'+pp.pt+'/'+m.pts+'</strong></td></tr>'}).join("")+
+      '<tr><td><strong>Total</strong></td><td class="mono">'+corr+'</td><td class="mono">'+(res.QADI.w+res.LR.w+res.VARC.w)+'</td><td class="mono">'+(60-att)+'</td><td class="mono"><strong>'+raw+'/180</strong></td><td class="mono"><strong>'+pre+'/70</strong></td></tr>'+
+      '</table>'+
+      '<p class="small" style="margin-top:8px">The pre-PI column is a <em>proxy</em>: IIMB standardises scores across the cohort before applying the 20/30/20 split, which cannot be reproduced from a single attempt. Use it to compare sections against each other, not as a prediction.</p>'+
+    '</div>'+
+    '<div class="card"><span class="tag gld">Read-out</span>'+
+      '<table>'+
+        '<tr><td>Attempted</td><td class="mono">'+att+' / 60</td></tr>'+
+        '<tr><td>Accuracy on attempts</td><td class="mono">'+acc+'%</td></tr>'+
+        '<tr><td>Marks lost to wrong answers</td><td class="mono" style="color:var(--marker)">−'+(res.QADI.w+res.LR.w+res.VARC.w)+'</td></tr>'+
+        '<tr><td>Marks forfeited by skipping</td><td class="mono">'+((60-att)*3)+' available</td></tr>'+
+        '<tr><td>All sections positive?</td><td class="mono">'+(neg?'<span style="color:var(--marker)">NO — hard fail</span>':'<span style="color:var(--score)">yes</span>')+'</td></tr>'+
+      '</table>'+
+      '<div class="fb-box" style="margin-top:10px">'+verdict+'</div>'+
+    '</div>'+
+  '</div>'+
+  '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">'+
+    '<button class="btn" id="mk-review">📖 Review all 60 with solutions</button>'+
+    '<button class="btn ghost" id="mk-home">← Back to Mock Papers</button>'+
+  '</div>';
+  $("#mk-home").onclick=renderMockHome;
+  $("#mk-review").onclick=function(){showSolutions(p,items,M.ans)};
+}
+
+function showSolutions(p,items,ans){
+  var box=$("#mockbox");
+  var html='<div class="card"><h3>'+p.name+' — solutions</h3><p class="small">Re-solve every wrong answer on paper before reading the explanation. Then classify the cause in one word: <strong>concept</strong>, <strong>calculation</strong> or <strong>misread</strong>. That single word is what makes an error log useful.</p></div>';
+  var lastP=null;
+  items.forEach(function(it,i){
+    var given=ans?ans[i]:null;
+    var ok=(given===it.a), skipped=(given===null);
+    if(it.p!==null && it.p!==lastP && p.psgs && p.psgs[it.p]){
+      html+='<div class="card" style="background:#FFFDF8"><span class="tag ink">Passage '+(it.p+1)+'</span><p style="font-size:15px;line-height:1.7">'+p.psgs[it.p]+'</p></div>';
+      lastP=it.p;
+    }
+    if(it.p===null) lastP=null;
+    html+='<div class="card" style="border-left:4px solid '+(skipped?"var(--line)":ok?"var(--score)":"var(--marker)")+'">'+
+      '<p class="small mono">Q'+(i+1)+' · '+it.sec+' · '+(it.tp||"")+' · '+(skipped?"skipped":ok?"correct":"wrong")+'</p>'+
+      '<div class="q-text" style="font-size:15px;margin:8px 0 10px">'+it.q+'</div>'+
+      it.o.map(function(o,j){
+        var cls="opt";
+        if(j===it.a)cls+=" correct";
+        else if(j===given)cls+=" wrong";
+        return '<div class="'+cls+'" style="cursor:default">'+String.fromCharCode(65+j)+'. '+o+'</div>';
+      }).join("")+
+      '<div class="expl"><strong>Why:</strong> '+it.e+'</div>'+
+    '</div>';
+  });
+  html+='<button class="btn ghost" id="mk-home2">← Back to Mock Papers</button>';
+  box.innerHTML=html;
+  $("#mk-home2").onclick=renderMockHome;
+  window.scrollTo(0,0);
+}
+
+/* ---------------- boot + nav guard ---------------- */
+function boot(){
+  renderSyll();
+  renderMockHome();
+  Array.prototype.forEach.call($$("nav button"),function(b){
+    b.addEventListener("click",function(){
+      if(M.on && b.dataset.tab!=="mocks"){
+        /* keep the clock running; the user can come back */
+      }
+      if(b.dataset.tab==="mocks" && M.on){ renderMockQ(); }
+    });
+  });
+  window.addEventListener("beforeunload",function(e){
+    if(M.on){e.preventDefault();e.returnValue=""}
+  });
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);
+else boot();
+})();
+
+</script>
 </body>
 </html>
