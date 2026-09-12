@@ -330,6 +330,81 @@ details.res .rb{padding:0 16px 16px;border-top:1px dashed var(--grid)}
 .chat-in button{background:var(--marker);border:none;color:#fff;border-radius:9px;padding:0 16px;font-weight:800}
 .footer-note{margin-top:40px;padding-top:16px;border-top:2px solid var(--ink);font-size:12px;color:var(--ink-soft)}
 </style>
+<style>
+/* ---------- Study Diary ---------- */
+.dy-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.dy-month{font-family:var(--disp);font-weight:900;font-stretch:80%;font-size:clamp(20px,4vw,28px);line-height:1}
+.dy-nav button{background:#fff;border:2px solid var(--line);border-radius:8px;width:38px;height:38px;
+  font-family:var(--mono);font-weight:700;font-size:16px;color:var(--ink)}
+.dy-nav button:hover{border-color:var(--ink)}
+.dy-nav{display:flex;gap:6px;align-items:center}
+.dy-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.dy-dow{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);
+  text-align:center;padding:4px 0}
+.dy-cell{aspect-ratio:1;border:1.5px solid var(--line);border-radius:9px;background:#fff;position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--ink);padding:2px;transition:transform .1s,border-color .12s}
+.dy-cell:hover{border-color:var(--ink);transform:translateY(-1px)}
+.dy-cell.pad{border:none;background:none;pointer-events:none}
+.dy-cell.future{color:#AEB8C4}
+.dy-cell.today{border-color:var(--marker);box-shadow:0 0 0 2px rgba(198,55,31,.18)}
+.dy-cell.sel{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+.dy-cell.logged{background:#EDF6EF;border-color:var(--score)}
+.dy-cell.rest{background:#F2F0FA;border-color:#7A3FB8}
+.dy-dot{width:5px;height:5px;border-radius:99px;background:var(--score)}
+.dy-cell.rest .dy-dot{background:#7A3FB8}
+.dy-key{position:absolute;top:2px;right:4px;font-size:9px;line-height:1}
+@media(max-width:420px){.dy-cell{font-size:12px;border-radius:7px}.dy-grid{gap:3px}}
+
+.dy-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:14px 0 18px}
+.dy-stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:11px 13px;box-shadow:var(--shadow)}
+.dy-stat .n{font-family:var(--mono);font-weight:700;font-size:24px;line-height:1.1}
+.dy-stat .l{font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.07em}
+
+.dy-day{border-radius:16px;overflow:hidden;box-shadow:0 4px 22px rgba(23,38,59,.10);margin-bottom:18px;position:relative}
+.dy-canvas{position:relative;padding:26px 22px 30px;overflow:hidden}
+.dy-canvas::before,.dy-canvas::after{content:"";position:absolute;border-radius:50%;filter:blur(46px);opacity:.55;pointer-events:none}
+.dy-canvas::before{width:260px;height:260px;top:-90px;right:-70px}
+.dy-canvas::after{width:220px;height:220px;bottom:-100px;left:-60px}
+.dy-datebar{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+.dy-dnum{font-family:var(--disp);font-weight:900;font-stretch:75%;font-size:clamp(34px,8vw,52px);line-height:.95}
+.dy-dsub{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+.dy-quote{position:relative;z-index:2;margin-top:20px;max-width:620px}
+.dy-quote p{font-family:var(--disp);font-weight:800;font-stretch:88%;font-size:clamp(17px,3.6vw,22px);line-height:1.38}
+.dy-qtag{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;padding:3px 10px;border-radius:99px;border:1.5px solid currentColor;opacity:.65}
+.dy-countline{position:relative;z-index:2;margin-top:16px;font-family:var(--mono);font-size:12px;opacity:.75}
+
+.dy-form{background:#fff;padding:20px 20px 22px}
+.dy-lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--marker);
+  display:block;margin:16px 0 7px}
+.dy-lbl:first-child{margin-top:0}
+.dy-chips{display:flex;flex-wrap:wrap;gap:7px}
+.dy-chip{border:2px solid var(--line);background:#fff;border-radius:99px;padding:7px 13px;font-size:13px;font-weight:600;color:var(--ink-soft)}
+.dy-chip:hover{border-color:var(--ink)}
+.dy-chip.on{border-color:var(--score);background:#E7F3EB;color:var(--score)}
+.dy-chip.on.rest{border-color:#7A3FB8;background:#F2ECFA;color:#7A3FB8}
+.dy-mins{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:9px}
+.dy-min{border:1.5px solid var(--line);border-radius:9px;padding:8px 10px;background:#FBFCFA}
+.dy-min span{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block}
+.dy-min input{width:100%;border:none;background:none;font-family:var(--mono);font-weight:700;font-size:20px;color:var(--ink);padding:2px 0}
+.dy-min input:focus{outline:none}
+.dy-mood{display:flex;gap:7px;flex-wrap:wrap}
+.dy-mood button{width:44px;height:44px;border-radius:11px;border:2px solid var(--line);background:#fff;font-size:20px}
+.dy-mood button.on{border-color:var(--gold);background:#FFF6E6;transform:scale(1.06)}
+.dy-note{width:100%;min-height:96px;border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;
+  font-family:inherit;font-size:14.5px;line-height:1.6;color:var(--ink);resize:vertical;background:#FFFDF8}
+.dy-note:focus{outline:none;border-color:var(--ink)}
+.dy-save{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.dy-saved{font-family:var(--mono);font-size:12px;color:var(--score);opacity:0;transition:opacity .25s}
+.dy-saved.show{opacity:1}
+.dy-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-soft);margin-top:10px}
+.dy-legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px;border:1.5px solid var(--line)}
+.dy-recent li{list-style:none;padding:9px 0;border-bottom:1px dotted var(--grid);font-size:13.5px}
+.dy-recent li:last-child{border-bottom:none}
+.dy-recent .d{font-family:var(--mono);font-size:11.5px;color:var(--marker);display:block}
+@media (prefers-reduced-motion:reduce){.dy-cell:hover{transform:none}}
+</style>
 </head>
 <body>
 
@@ -354,6 +429,7 @@ details.res .rb{padding:0 16px 16px;border-top:1px dashed var(--grid)}
   <button data-tab="syll">Syllabus &amp; Marks</button>
   <button data-tab="study">Reading &amp; Videos</button>
   <button data-tab="mocks">Mock Papers</button>
+  <button data-tab="diary">Diary</button>
   <button data-tab="quiz">Quiz Arena</button>
   <button data-tab="cards">Memory Cards</button>
   <button data-tab="games">Games</button>
@@ -513,6 +589,12 @@ details.res .rb{padding:0 16px 16px;border-top:1px dashed var(--grid)}
   <h2>Mock Papers</h2>
   <p class="lede">Five full-length papers built on the revised pattern: <strong>60 questions, 135 minutes, one clock, free movement</strong>, sections ordered QADI → LR → VARC, +3 / −1 / 0. Each scorecard converts your raw score into both the 180-mark aggregate and the official 70-point pre-PI test score, so you can see which section actually moved your shortlist position.</p>
   <div id="mockbox"></div>
+</section>
+<!-- ================= DIARY / CALENDAR ================= -->
+<section class="tab" id="tab-diary">
+  <h2>Study Diary</h2>
+  <p class="lede">One page a day, every day, from here to the interview room. Log what you actually did, not what you meant to do — the honest version is the one that turns into evidence. Each day carries its own line and its own quiet background.</p>
+  <div id="diarybox"></div>
 </section>
 
 <!-- ================= ROADMAP ================= -->
@@ -2786,6 +2868,442 @@ function boot(){
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);
 else boot();
+})();
+
+</script>
+<script>
+/* ==================================================================
+   STUDY DIARY — calendar, daily log, per-day quote and calm backdrop
+   ================================================================== */
+(function(){
+"use strict";
+var $=function(s){return document.querySelector(s)},$$=function(s){return document.querySelectorAll(s)};
+var MEMD={};
+var st={get:function(k){try{var v=localStorage.getItem(k);return v!==null?v:(k in MEMD?MEMD[k]:null)}catch(e){return k in MEMD?MEMD[k]:null}},
+        set:function(k,v){MEMD[k]=v;try{localStorage.setItem(k,v)}catch(e){}}};
+var KEY="m180_diary_v1";
+var esc=function(t){return String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")};
+
+/* 150 original lines. Written for this program — not quotations from any published source. */
+var QUOTES=[
+["The 80 seats do not go to the most talented. They go to the most consistent.","Seats"],
+["Jigani is a real place with a real gate. Every drill today is one brick in the road to it.","Destination"],
+["Nobody is admitted on the strength of one brilliant week.","Consistency"],
+["You are not preparing for a paper. You are preparing to be the version of yourself who finds that paper easy.","Identity"],
+["135 minutes will decide a four-year degree. Train the minutes, not the mood.","The Clock"],
+["An LR question is worth three QADI questions at shortlisting. Spend your hours where the marks live.","Leverage"],
+["Accuracy is a decision you make before the exam, not during it.","Accuracy"],
+["Every wrong answer costs you four marks — one taken, three forfeited. Guessing is expensive.","Marking"],
+["The error log is the only notebook that has ever raised anyone's score.","Error Log"],
+["Cover the syllabus once properly. Revise it four times ruthlessly.","Revision"],
+["Calculus is not extra. The official document says NCERT up to Class XII, and it means it.","Syllabus"],
+["A positive score in every section is a gate, not a suggestion. No section can be abandoned.","Gates"],
+["114 is the published floor. The people who walked into the interview room scored well above it.","Cut-off"],
+["Your Class X marks are already in the scorecard. Twenty-five points of your pre-PI score were earned two years ago.","Class X"],
+["Discipline is just a decision you no longer renegotiate every morning.","Discipline"],
+["Two hours done well beat six hours done anxiously.","Quality"],
+["The paper does not reward how much you know. It rewards how fast you recognise.","Recognition"],
+["Recognition is built by volume. Volume is built by showing up.","Volume"],
+["You do not rise to the level of your ambition. You fall to the level of your daily routine.","Routine"],
+["Skip discipline is a skill. Forty seconds without a path, and you move on.","Skipping"],
+["The question you cannot solve is not your enemy. The question you refuse to leave is.","Skipping"],
+["Somebody will take one of those 40 Data Science seats. There is no rule saying it cannot be you.","Seats"],
+["Interviews reward specificity. Start collecting your own stories now, not in December.","Interview"],
+["Be able to explain, in plain words, why data science and economics belong together. That answer is worth 40 points.","Interview"],
+["The panel can tell the difference between a rehearsed answer and a considered one.","Interview"],
+["A mock score is not a verdict. It is a diagnostic.","Mocks"],
+["Analyse every mock within 48 hours or you have merely taken a test, not learned from one.","Mocks"],
+["Classify each error in one word: concept, calculation, or misread. The word is the whole lesson.","Error Log"],
+["Misreads are not carelessness. They are a reading speed set slightly too high.","Misreads"],
+["The strongest candidates are not the fastest. They are the ones who never lose a mark they had already earned.","Accuracy"],
+["Twelve thousand people applied to the first cohort. Be the one who prepared like it.","Competition"],
+["Competition is not a reason to panic. It is a reason to be precise.","Competition"],
+["Today's percentage question will appear in November 2027 wearing a different costume. Learn the shape, not the sum.","Patterns"],
+["Fraction-to-percent conversion is not a trick. It is time, and time is marks.","Arithmetic"],
+["The multiplier method never confuses you about the base. Use it.","Arithmetic"],
+["Read one editorial a day for four hundred days and RC stops being a section.","Reading"],
+["Vocabulary is not a list to memorise. It is a sense of which word fits.","Vocabulary"],
+["Twenty minutes of logical reasoning, every single day. Pattern recognition decays faster than formulas.","LR"],
+["Data sufficiency asks whether you can know, not what you know. Never solve it.","LR"],
+["In critical reasoning, find the conclusion first. Everything else follows from that one move.","LR"],
+["Draw the Venn diagram. Feelings about syllogisms are always wrong.","LR"],
+["Your handwriting in the rough sheet is a system. Make it consistent so you never re-read a clue.","Method"],
+["The lengthy set is the trap. It is easy, which is exactly why it eats your QADI time.","Time"],
+["One clock, no locks. That freedom is the hardest part of the new pattern.","Time"],
+["Budget the sections on paper before test day so you are not deciding under pressure.","Time"],
+["Rest is part of the plan, not a failure of it.","Rest"],
+["A tired brain makes calculation errors that a rested brain would never make.","Rest"],
+["Sleep at a fixed hour. The exam starts in the morning and your body should already know that.","Rest"],
+["You cannot cram a skill. You can only accumulate it.","Skill"],
+["The gap between 100 and 130 is almost never coverage. It is accuracy.","Accuracy"],
+["Attempting 45 questions well beats attempting 58 questions hopefully.","Attempts"],
+["Write the formula notebook by hand. The hand remembers what the eye forgets.","Method"],
+["Bayes' theorem is a tree, not a formula. Draw the branches and multiply along them.","Probability"],
+["Probability is the programme's DNA. Expect it on the paper and again in the interview.","Probability"],
+["Variance measures spread. If you can explain why that matters, you can hold a conversation with the panel.","Statistics"],
+["Matrices are the fastest marks in QADI once the properties are automatic.","Matrices"],
+["The determinant of a matrix with two identical rows is zero. Facts like this cost nothing and save minutes.","Matrices"],
+["Do not derive conics. Recognise them.","Conics"],
+["Standard angles should arrive before the question finishes loading.","Trigonometry"],
+["Complementary angles are the single most common trick in trigonometry. Look for the 90 minus theta.","Trigonometry"],
+["Limits: substitute, then factorise, then reach for the standard forms. In that order.","Calculus"],
+["The chain rule is where marks are lost in integration. Divide by the inner derivative.","Calculus"],
+["Maxima and minima questions are three steps long. Learn the three steps and they become free.","Calculus"],
+["Progress is invisible day to day and obvious month to month. Keep the log.","Tracking"],
+["The log is not a chore. It is evidence, and on a bad day evidence is what you will need.","Tracking"],
+["A streak is not about pride. It is about not having to decide again tomorrow.","Streaks"],
+["Missing one day is an accident. Missing two is a new habit. Return on day two.","Streaks"],
+["Your future classmates are studying today too. That is not a threat. It is company.","Cohort"],
+["Eighty students, twenty states, one campus. Picture the room you want to be standing in.","Cohort"],
+["Residential means four years of people who chose the same hard thing. That is the real prize.","Cohort"],
+["The degree is not the destination. The way of thinking you leave with is.","Perspective"],
+["A rough mock is information. A rough mock you ignore is a wasted afternoon.","Mocks"],
+["Do not compare today's score to your best score. Compare it to your average.","Perspective"],
+["Averages move slowly and then suddenly. Keep feeding it.","Perspective"],
+["There are about four hundred days left. That is four hundred chances, not four hundred problems.","Time Left"],
+["The application window opens in August. The Statement of Purpose should not be written in October.","Application"],
+["Two reference letters are mandatory. Brief your teachers early and make it easy for them.","Application"],
+["Deadlines at five o'clock mean the server is busiest at four. Submit in September.","Application"],
+["Preparation is what lets you be calm. Calm is what lets you use the preparation.","Composure"],
+["On test day, nothing new. Only the notebook and the errors you already fixed.","Taper"],
+["The final mock is five days out. After that, protect the machine.","Taper"],
+["Walk into the hall having already imagined the hall.","Composure"],
+["Do the travel route once before the day it matters.","Logistics"],
+["Every topper has had a week where nothing worked. It is not a sign. It is a Tuesday.","Setbacks"],
+["Difficulty is not the same as impossibility. Sit with the problem ninety seconds longer.","Setbacks"],
+["When motivation goes, structure carries you. Build the structure now while motivation is here.","Structure"],
+["The plan works even on the days you do not feel like it. That is the whole point of a plan.","Structure"],
+["Fix the weakest block, not the most interesting one.","Priorities"],
+["Studying what you already enjoy is rest, not preparation. Know which one you are doing.","Priorities"],
+["The five topics you avoid are the five topics on the paper.","Priorities"],
+["A concept understood is a concept you can rebuild. A formula memorised is a formula you can lose.","Understanding"],
+["If you cannot explain it to someone two years younger, you have not understood it.","Understanding"],
+["Teach the chapter out loud to an empty room. The gaps will announce themselves.","Understanding"],
+["Speed follows understanding. It never leads it.","Speed"],
+["Mental arithmetic is a muscle. Sixty seconds a day keeps it warm.","Speed"],
+["Tables to thirty, squares to forty. Boring, and worth ten marks.","Speed"],
+["Approximation is a skill, not a shortcut. DI rewards the person who knows when close is enough.","DI"],
+["In data interpretation, read the units before the numbers.","DI"],
+["Most DI errors are not arithmetic. They are reading the wrong row.","DI"],
+["Slow down on the question. Speed up on the calculation.","Method"],
+["The person who reads the question twice finishes earlier than the person who solves it twice.","Method"],
+["You will not remember this Tuesday. You will remember whether you kept the promise you made on it.","Integrity"],
+["Nobody is watching. That is exactly what makes it count.","Integrity"],
+["Consistency is not intensity. It is showing up at a reasonable level, repeatedly.","Consistency"],
+["Small sessions compound. Missed sessions compound too.","Consistency"],
+["The work you do on a low-energy day is worth double, because it protects the streak.","Consistency"],
+["Boards and entrance preparation are not rivals. Class X marks are already worth twenty-five points.","School"],
+["Protect your school performance. IIMB reads it twice — before the interview and after.","School"],
+["Mathematics in Class XI and XII is an eligibility gate. Guard it like the exam it is.","School"],
+["Curiosity is the thing the panel is actually looking for. Keep some alive for yourself.","Curiosity"],
+["Read something outside the syllabus each week. That is where interview answers come from.","Curiosity"],
+["Know one dataset story you can narrate. One is enough if it is genuinely yours.","Interview"],
+["The best answer to why this programme is one only you could give.","Interview"],
+["Never criticise the alternative path in an interview. Explain the one you chose.","Interview"],
+["The three-year exit option exists. Know it, and know why you intend to stay four.","Programme"],
+["Stochastic processes, algorithms, econometrics. Read those words until they stop sounding distant.","Programme"],
+["You are applying to the Dorabji Tata School of Undergraduate Studies. Learn its name and its shape.","Programme"],
+["Ambition without a calendar is just a mood.","Planning"],
+["Write the week down on Sunday. Then the week decides itself.","Planning"],
+["Plans that assume perfect days fail on the first imperfect day. Build slack in.","Planning"],
+["Finish one thing completely before starting the next. Half-covered chapters score zero.","Focus"],
+["Phone in another room. It is the cheapest score improvement available.","Focus"],
+["Deep work is not longer work. It is undivided work.","Focus"],
+["Doubt is normal at this stage. It is not evidence about your ability.","Doubt"],
+["Being behind your plan is not the same as being behind. Adjust the plan and continue.","Doubt"],
+["The candidates who succeed are rarely the ones who never fell behind. They are the ones who restarted fastest.","Doubt"],
+["November 2027 is not far away and not close. It is exactly the right distance to do this properly.","Time Left"],
+["Count weeks, not days. Weeks are the unit that progress actually moves in.","Time Left"],
+["There is time. There is not time to waste. Both are true.","Time Left"],
+["The best preparation for the interview is an honest year of work to talk about.","Interview"],
+["You are building a case for yourself. Every logged day is a line of evidence.","Tracking"],
+["When this is over you will own a way of thinking that no result can take back.","Perspective"],
+["Difficult is not unfair. The paper is the same for everyone.","Fairness"],
+["Percentiles mean you are competing against a cohort, not a number. Chase accuracy and let the number follow.","Percentiles"],
+["A hard paper protects the well-prepared. Hope for a hard paper.","Percentiles"],
+["Start today at the level you actually are, not the level you wish you were.","Honesty"],
+["Overestimating yourself costs marks. Underestimating yourself costs attempts.","Honesty"],
+["Mark your own mock honestly or do not mark it at all.","Honesty"],
+["Fifteen minutes is enough to do something. Zero minutes is a choice.","Momentum"],
+["Begin badly rather than not at all. The first ten minutes fix themselves.","Momentum"],
+["Momentum is easier to keep than to create. Protect it.","Momentum"],
+["The interview is forty points. The test that gets you there is forty. Neither alone is enough.","Balance"],
+["Do not become a QADI specialist with a weak section. The gates do not allow it.","Balance"],
+["Strong everywhere beats brilliant somewhere on this particular paper.","Balance"],
+["You have already started. That puts you ahead of most people who wanted this.","Encouragement"],
+["Whatever happened yesterday, today's page is empty. Fill it.","Encouragement"],
+["Keep going. That is the entire secret, and it is not a small one.","Encouragement"],
+["One day you will read this log from a hostel room in Jigani. Write something worth reading.","Destination"],
+["Picture the offer letter in the third week of February. Then close the app and do the drills.","Destination"],
+["The distance between here and that campus is measured in sessions, not in luck.","Destination"],
+["Every serious candidate has a day like this one. What separates them is what they do next.","Encouragement"],
+["Trust the process on the days you cannot see the progress.","Encouragement"]
+];
+
+
+/* 16 calm palettes — soft, low-contrast, easy on the eye at night */
+var PAL=[
+{n:"Dawn Mist",   bg:"linear-gradient(160deg,#FBF6EF 0%,#F1E7DC 100%)", b1:"#F3D9C0", b2:"#DCE7E3", ink:"#3E3A34"},
+{n:"Sea Glass",   bg:"linear-gradient(160deg,#F0F7F5 0%,#DEEDEA 100%)", b1:"#BFDDD6", b2:"#E6F0DC", ink:"#27423D"},
+{n:"Paper Sky",   bg:"linear-gradient(160deg,#F4F7FB 0%,#E3EBF4 100%)", b1:"#C8D9EC", b2:"#E9E3F2", ink:"#2A3648"},
+{n:"Sandstone",   bg:"linear-gradient(160deg,#FAF5EC 0%,#EFE4D2 100%)", b1:"#E8D3B4", b2:"#DFE6DA", ink:"#42392C"},
+{n:"Sage Quiet",  bg:"linear-gradient(160deg,#F3F6EF 0%,#E3EBDC 100%)", b1:"#CBDCC0", b2:"#EBE4D6", ink:"#2F3B2B"},
+{n:"Lavender Hush",bg:"linear-gradient(160deg,#F6F4FA 0%,#E8E3F2 100%)",b1:"#D6CCEA", b2:"#E4EDF0", ink:"#363048"},
+{n:"Warm Linen",  bg:"linear-gradient(160deg,#FCF8F3 0%,#F0E6DA 100%)", b1:"#EBD8C2", b2:"#E1E9E6", ink:"#3F3830"},
+{n:"Still Water", bg:"linear-gradient(160deg,#EFF5F8 0%,#DCE9F0 100%)", b1:"#BFD9E6", b2:"#E7EFE2", ink:"#263A44"},
+{n:"Clay Morning",bg:"linear-gradient(160deg,#FBF3F0 0%,#F0DFD8 100%)", b1:"#EACFC3", b2:"#E2E7DE", ink:"#44352F"},
+{n:"Moss Shade",  bg:"linear-gradient(160deg,#F1F4F0 0%,#DFE8DF 100%)", b1:"#C4D8C6", b2:"#E9E6D7", ink:"#2C3730"},
+{n:"Pale Harbour",bg:"linear-gradient(160deg,#F2F6F7 0%,#E0EAEC 100%)", b1:"#C6DCDF", b2:"#EAE6DD", ink:"#2A3B3D"},
+{n:"Dusk Rose",   bg:"linear-gradient(160deg,#FAF4F5 0%,#EEE0E3 100%)", b1:"#E6CDD3", b2:"#E1E8EE", ink:"#413036"},
+{n:"Wheat Field", bg:"linear-gradient(160deg,#FBF8EE 0%,#F0EAD5 100%)", b1:"#E6DCB6", b2:"#DEE9E0", ink:"#3C3827"},
+{n:"Slate Calm",  bg:"linear-gradient(160deg,#F3F5F7 0%,#E2E7EC 100%)", b1:"#CCD6DF", b2:"#E5EAE0", ink:"#2E3740"},
+{n:"Almond Light",bg:"linear-gradient(160deg,#FCF9F4 0%,#F1E9DE 100%)", b1:"#E9DAC4", b2:"#E0EAE7", ink:"#3E382F"},
+{n:"Mint Shadow", bg:"linear-gradient(160deg,#F0F6F3 0%,#DEEBE5 100%)", b1:"#C3DDD0", b2:"#E8E9DA", ink:"#28403A"}
+];
+
+var ACTS=[
+["qadi","QADI concepts"],["drill","QADI drills"],["lr","LR set"],["rc","RC reading"],
+["vocab","Vocabulary"],["cards","Flashcards"],["mock","Mock / sectional"],["err","Error-log review"],
+["rev","Revision"],["school","School work"],["pi","Interview prep"],["rest","Rest day"]
+];
+var MOODS=["😞","😕","🙂","😀","🔥"];
+
+var KEYDATES={
+ "2027-08-17":"Application window opens (projected)",
+ "2027-10-15":"Application deadline, 5 pm (projected)",
+ "2027-11-15":"UG ADMISSIONS TEST (projected)",
+ "2027-12-15":"Results + first shortlist (projected)",
+ "2028-01-12":"Personal Interview window (projected)",
+ "2028-02-18":"Offers & waitlist (projected)"
+};
+var TEST_DATE=new Date("2027-11-15T09:00:00+05:30");
+
+function two(n){return String(n).padStart(2,"0")}
+function iso(d){return d.getFullYear()+"-"+two(d.getMonth()+1)+"-"+two(d.getDate())}
+function fromIso(s){var p=s.split("-");return new Date(+p[0],+p[1]-1,+p[2])}
+function dayNum(d){return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/864e5)}
+function qIdx(d){var n=dayNum(d);return ((n*71)%QUOTES.length+QUOTES.length)%QUOTES.length}
+function pIdx(d){var n=dayNum(d);return ((n*7)%PAL.length+PAL.length)%PAL.length}
+
+function load(){try{return JSON.parse(st.get(KEY)||"{}")}catch(e){return {}}}
+function save(db){st.set(KEY,JSON.stringify(db))}
+
+var DB=load();
+var view=new Date(); view.setDate(1);
+var sel=iso(new Date());
+
+function totalMins(e){return (+e.qadi||0)+(+e.lr||0)+(+e.varc||0)}
+function isLogged(e){return !!e && (totalMins(e)>0 || (e.acts&&e.acts.length) || (e.note&&e.note.trim()))}
+
+function streak(){
+  var d=new Date(), n=0;
+  /* today only counts if logged; otherwise start from yesterday */
+  if(!isLogged(DB[iso(d)])) d.setDate(d.getDate()-1);
+  while(isLogged(DB[iso(d)])){n++;d.setDate(d.getDate()-1)}
+  return n;
+}
+function longest(){
+  var ks=Object.keys(DB).filter(function(k){return isLogged(DB[k])}).sort();
+  var best=0,run=0,prev=null;
+  ks.forEach(function(k){
+    var d=fromIso(k);
+    if(prev && (dayNum(d)-dayNum(prev))===1) run++; else run=1;
+    if(run>best)best=run; prev=d;
+  });
+  return best;
+}
+
+function render(){
+  var box=$("#diarybox"); if(!box) return;
+  var y=view.getFullYear(), m=view.getMonth();
+  var first=new Date(y,m,1), start=first.getDay(), dim=new Date(y,m+1,0).getDate();
+  var todayIso=iso(new Date());
+  var MN=["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+  var cells="";
+  for(var i=0;i<start;i++) cells+='<div class="dy-cell pad"></div>';
+  var monthMins=0, monthDays=0;
+  for(var d=1;d<=dim;d++){
+    var key=y+"-"+two(m+1)+"-"+two(d);
+    var e=DB[key], lg=isLogged(e);
+    var rest=lg && e.acts && e.acts.indexOf("rest")>-1;
+    if(lg){monthDays++; monthMins+=totalMins(e)}
+    var cls="dy-cell";
+    if(lg) cls+=rest?" rest":" logged";
+    if(key===todayIso) cls+=" today";
+    if(key===sel) cls+=" sel";
+    if(key>todayIso) cls+=" future";
+    cells+='<button class="'+cls+'" data-k="'+key+'">'+
+      (KEYDATES[key]?'<span class="dy-key">📌</span>':'')+
+      '<span>'+d+'</span>'+(lg?'<span class="dy-dot"></span>':'')+'</button>';
+  }
+
+  var dl=Object.keys(DB).filter(function(k){return isLogged(DB[k])}).length;
+  var allMins=0; Object.keys(DB).forEach(function(k){if(isLogged(DB[k]))allMins+=totalMins(DB[k])});
+  var daysLeft=Math.max(0,Math.ceil((TEST_DATE-new Date())/864e5));
+
+  box.innerHTML=
+  '<div class="dy-stats">'+
+    '<div class="dy-stat"><div class="n" style="color:var(--marker)">'+streak()+'</div><div class="l">Day streak</div></div>'+
+    '<div class="dy-stat"><div class="n">'+longest()+'</div><div class="l">Longest streak</div></div>'+
+    '<div class="dy-stat"><div class="n" style="color:var(--score)">'+dl+'</div><div class="l">Days logged</div></div>'+
+    '<div class="dy-stat"><div class="n">'+Math.round(allMins/60)+'h</div><div class="l">Total logged</div></div>'+
+    '<div class="dy-stat"><div class="n">'+monthDays+'</div><div class="l">Logged in '+MN[m].slice(0,3)+'</div></div>'+
+    '<div class="dy-stat"><div class="n">'+daysLeft+'</div><div class="l">Days to test day</div></div>'+
+  '</div>'+
+  '<div class="card">'+
+    '<div class="dy-top">'+
+      '<div class="dy-month">'+MN[m]+' '+y+'</div>'+
+      '<div class="dy-nav">'+
+        '<button id="dy-prev" aria-label="Previous month">‹</button>'+
+        '<button id="dy-today" style="width:auto;padding:0 14px;font-size:12px">Today</button>'+
+        '<button id="dy-next" aria-label="Next month">›</button>'+
+      '</div>'+
+    '</div>'+
+    '<div class="dy-grid">'+["S","M","T","W","T","F","S"].map(function(x){return '<div class="dy-dow">'+x+'</div>'}).join("")+cells+'</div>'+
+    '<div class="dy-legend"><span><i style="background:#EDF6EF;border-color:var(--score)"></i>Logged</span>'+
+      '<span><i style="background:#F2F0FA;border-color:#7A3FB8"></i>Rest day</span>'+
+      '<span><i style="background:#fff;border-color:var(--marker)"></i>Today</span>'+
+      '<span>📌 Admissions milestone</span></div>'+
+  '</div>'+
+  '<div id="dy-dayslot"></div>'+
+  '<div class="card"><h3>Recent entries</h3><ul class="dy-recent" id="dy-recent"></ul>'+
+    '<div class="dy-save"><button class="btn ghost" id="dy-exp" style="padding:8px 14px;font-size:12px">Export diary</button>'+
+    '<button class="btn ghost" id="dy-imp" style="padding:8px 14px;font-size:12px">Import</button></div></div>';
+
+  Array.prototype.forEach.call($$("#diarybox .dy-cell"),function(b){
+    if(!b.dataset.k)return;
+    b.onclick=function(){sel=b.dataset.k;render()};
+  });
+  $("#dy-prev").onclick=function(){view=new Date(y,m-1,1);render()};
+  $("#dy-next").onclick=function(){view=new Date(y,m+1,1);render()};
+  $("#dy-today").onclick=function(){var t=new Date();view=new Date(t.getFullYear(),t.getMonth(),1);sel=iso(t);render()};
+  $("#dy-exp").onclick=function(){
+    var blob=new Blob([JSON.stringify({diary:DB},null,2)],{type:"application/json"});
+    var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mission180-diary.json";a.click();
+  };
+  $("#dy-imp").onclick=function(){
+    var inp=document.createElement("input");inp.type="file";inp.accept=".json";
+    inp.onchange=function(){var f=inp.files[0];if(!f)return;var r=new FileReader();
+      r.onload=function(){try{var j=JSON.parse(r.result);var src=j.diary||j;
+        Object.keys(src).forEach(function(k){if(/^\d{4}-\d{2}-\d{2}$/.test(k))DB[k]=src[k]});
+        save(DB);render();}catch(e){alert("That file could not be read as a Mission 180 diary.")}};
+      r.readAsText(f)};
+    inp.click();
+  };
+  renderDay();
+  renderRecent();
+}
+
+function renderDay(){
+  var slot=$("#dy-dayslot"); if(!slot) return;
+  var d=fromIso(sel), e=DB[sel]||{acts:[],qadi:"",lr:"",varc:"",mood:0,note:""};
+  if(!e.acts) e.acts=[];
+  var p=PAL[pIdx(d)], q=QUOTES[qIdx(d)];
+  var DW=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  var MN=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  var left=Math.ceil((TEST_DATE-d)/864e5);
+  var countline = left>0
+    ? left+" days from this page to test day"
+    : (left===0?"Test day.":Math.abs(left)+" days after test day");
+  var kd=KEYDATES[sel];
+
+  slot.innerHTML=
+  '<div class="dy-day">'+
+    '<div class="dy-canvas" id="dy-canvas" style="background:'+p.bg+';color:'+p.ink+'">'+
+      '<div class="dy-datebar">'+
+        '<div><div class="dy-dnum">'+d.getDate()+'</div>'+
+          '<div class="dy-dsub">'+DW[d.getDay()]+' · '+MN[d.getMonth()]+' '+d.getFullYear()+'</div></div>'+
+        '<div class="dy-dsub" style="text-align:right">'+esc(p.n)+'</div>'+
+      '</div>'+
+      (kd?'<div class="dy-countline" style="font-weight:700">📌 '+esc(kd)+'</div>':'')+
+      '<div class="dy-quote"><p>'+esc(q[0])+'</p><span class="dy-qtag">'+esc(q[1])+'</span></div>'+
+      '<div class="dy-countline">'+countline+'</div>'+
+    '</div>'+
+    '<div class="dy-form">'+
+      '<label class="dy-lbl">What did you actually do?</label>'+
+      '<div class="dy-chips">'+ACTS.map(function(a){
+        return '<button class="dy-chip'+(e.acts.indexOf(a[0])>-1?" on":"")+(a[0]==="rest"?" rest":"")+'" data-a="'+a[0]+'">'+a[1]+'</button>';
+      }).join("")+'</div>'+
+      '<label class="dy-lbl">Minutes by section</label>'+
+      '<div class="dy-mins">'+
+        '<div class="dy-min"><span>QADI</span><input type="number" min="0" max="900" id="dy-qadi" value="'+esc(e.qadi)+'" placeholder="0"></div>'+
+        '<div class="dy-min"><span>Logical Reasoning</span><input type="number" min="0" max="900" id="dy-lr" value="'+esc(e.lr)+'" placeholder="0"></div>'+
+        '<div class="dy-min"><span>VARC</span><input type="number" min="0" max="900" id="dy-varc" value="'+esc(e.varc)+'" placeholder="0"></div>'+
+      '</div>'+
+      '<label class="dy-lbl">How did it feel?</label>'+
+      '<div class="dy-mood">'+MOODS.map(function(m,i){
+        return '<button class="'+(e.mood===i+1?"on":"")+'" data-m="'+(i+1)+'" aria-label="mood '+(i+1)+'">'+m+'</button>';
+      }).join("")+'</div>'+
+      '<label class="dy-lbl">Notes — what worked, what broke, one error worth remembering</label>'+
+      '<textarea class="dy-note" id="dy-note" placeholder="e.g. Percentages fine. Lost 6 minutes on one DI set — should have skipped at 40s. Bayes still shaky, redo tomorrow.">'+esc(e.note)+'</textarea>'+
+      '<div class="dy-save">'+
+        '<button class="btn grn" id="dy-savebtn">Save this day</button>'+
+        '<button class="btn ghost" id="dy-clear" style="padding:10px 16px">Clear</button>'+
+        '<span class="dy-saved" id="dy-savedmsg">Saved ✓</span>'+
+      '</div>'+
+    '</div>'+
+  '</div>';
+
+  var cv=$("#dy-canvas");
+  if(cv){ cv.style.setProperty("--b1",p.b1); cv.style.setProperty("--b2",p.b2); }
+  var sty=document.getElementById("dy-blob-style")||document.createElement("style");
+  sty.id="dy-blob-style";
+  sty.textContent=".dy-canvas::before{background:"+p.b1+"}.dy-canvas::after{background:"+p.b2+"}";
+  if(!sty.parentNode) document.head.appendChild(sty);
+
+  Array.prototype.forEach.call($$("#dy-dayslot .dy-chip"),function(b){
+    b.onclick=function(){
+      var a=b.dataset.a, i=e.acts.indexOf(a);
+      if(i>-1) e.acts.splice(i,1); else e.acts.push(a);
+      b.classList.toggle("on");
+      DB[sel]=e;
+    };
+  });
+  Array.prototype.forEach.call($$("#dy-dayslot .dy-mood button"),function(b){
+    b.onclick=function(){
+      e.mood=+b.dataset.m; DB[sel]=e;
+      Array.prototype.forEach.call($$("#dy-dayslot .dy-mood button"),function(x){x.classList.remove("on")});
+      b.classList.add("on");
+    };
+  });
+  function collect(){
+    e.qadi=$("#dy-qadi").value; e.lr=$("#dy-lr").value; e.varc=$("#dy-varc").value;
+    e.note=$("#dy-note").value; DB[sel]=e;
+  }
+  $("#dy-savebtn").onclick=function(){
+    collect();
+    if(!isLogged(e)) delete DB[sel];
+    save(DB);
+    var m=$("#dy-savedmsg"); if(m){m.classList.add("show");setTimeout(function(){m.classList.remove("show")},1600)}
+    render();
+  };
+  $("#dy-clear").onclick=function(){
+    if(!confirm("Clear the entry for "+sel+"?"))return;
+    delete DB[sel]; save(DB); render();
+  };
+  ["dy-qadi","dy-lr","dy-varc","dy-note"].forEach(function(id){
+    var el=$("#"+id); if(el) el.addEventListener("blur",function(){collect();save(DB)});
+  });
+}
+
+function renderRecent(){
+  var ul=$("#dy-recent"); if(!ul) return;
+  var ks=Object.keys(DB).filter(function(k){return isLogged(DB[k])}).sort().reverse().slice(0,7);
+  if(!ks.length){ul.innerHTML='<li class="small">Nothing logged yet. Pick today on the calendar above and write one line — that is enough to start the streak.</li>';return}
+  ul.innerHTML=ks.map(function(k){
+    var e=DB[k], names=(e.acts||[]).map(function(a){
+      var f=ACTS.filter(function(x){return x[0]===a})[0]; return f?f[1]:a;
+    }).join(" · ");
+    var t=totalMins(e);
+    return '<li><span class="d">'+k+(t?' · '+t+' min':'')+(e.mood?' · '+MOODS[e.mood-1]:'')+'</span>'+
+      (names?'<span class="small">'+esc(names)+'</span><br>':'')+
+      (e.note?esc(e.note):'<span class="small" style="opacity:.6">no note</span>')+'</li>';
+  }).join("");
+}
+
+function boot(){ render(); }
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot); else boot();
 })();
 
 </script>
