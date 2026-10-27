@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mission Control — Bhavin · ISI &amp; IIM Bangalore</title>
-<meta name="description" content="Bhavin's admissions command centre: one rail, four missions. Enter the ISI Coach (B.Stat / B.Math, May 2028), Mission 180 (IIMB BSc Data Science) Curve &amp; Ledger (IIMB BSc Economics) or Mission France (elite French public universities, Fall 2028) without losing your place.">
+<meta name="description" content="Bhavin's admissions command centre: one rail, four missions. Enter the ISI Coach (B.Stat / B.Math, May 2028), Mission 180 (IIMB BSc Data Science) Curve &amp; Ledger (IIMB BSc Economics) or Mission France (elite French public universities, Fall 2028) or Mission Home Ground (foreign university campuses in India) without losing your place.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -27,6 +27,7 @@
   --marker:#FF6B4A;     /* Mission 180 */
   --quill:#4FC7B5;      /* Curve & Ledger */
   --azure:#6C9BFF;      /* Mission France */
+  --orchid:#C08CFF;     /* Mission Home Ground */
   --mint:#7FB77E;       /* done */
   --disp:'Zilla Slab',Georgia,serif;
   --body:'IBM Plex Sans',system-ui,sans-serif;
@@ -76,26 +77,30 @@ button{font-family:inherit;cursor:pointer}
 .rail-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
 .rail-head h2{font-family:var(--disp);font-weight:600;font-size:19px}
 .rail-head span{font-family:var(--mono);font-size:11px;color:var(--paper-faint);letter-spacing:.12em;text-transform:uppercase}
-.track-zone{position:relative;margin:34px 0 0;height:248px;z-index:1}
+.track-zone{position:relative;margin:34px 0 0;height:320px;z-index:1}
 .tick{position:absolute;top:0;height:14px;width:1px;background:var(--rule)}
 .tick b{position:absolute;top:-19px;left:0;transform:translateX(-50%);font-family:var(--mono);font-size:10px;color:var(--paper-faint);white-space:nowrap;font-weight:400;letter-spacing:.08em}
 .track{position:absolute;left:0;right:0;height:7px;border-radius:99px;background:rgba(108,119,150,.18)}
 .track.iimb{top:34px}
 .track.isi{top:62px}
 .track.fr{top:90px}
+.track.gc{top:118px}
 .fill{position:absolute;top:0;bottom:0;left:0;border-radius:99px}
 .fill.iimb{background:linear-gradient(90deg,rgba(255,107,74,.3),var(--marker))}
 .fill.isi{background:linear-gradient(90deg,rgba(227,168,59,.28),var(--brass))}
 .fill.fr{background:linear-gradient(90deg,rgba(108,155,255,.28),var(--azure))}
+.fill.gc{background:linear-gradient(90deg,rgba(192,140,255,.28),var(--orchid))}
 .tlabel{position:absolute;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
 .tlabel.iimb{top:16px;left:0;color:var(--marker)}
 .tlabel.isi{top:44px;left:0;color:var(--brass)}
 .tlabel.fr{top:72px;left:0;color:var(--azure)}
+.tlabel.gc{top:100px;left:0;color:var(--orchid)}
 /* a milestone = dot on its own track + hairline stem + label parked on one of two rows */
 .pdot{position:absolute;width:11px;height:11px;border-radius:50%;transform:translateX(-50%);border:2px solid var(--night);z-index:2}
 .pdot.iimb{background:var(--marker)}
 .pdot.isi{background:var(--brass)}
 .pdot.fr{background:var(--azure)}
+.pdot.gc{background:var(--orchid)}
 .pstem{position:absolute;width:1px;background:linear-gradient(180deg,var(--rule),rgba(42,53,87,.25))}
 .plab{position:absolute;width:108px;transform:translateX(-50%);text-align:center}
 .plab.edge{transform:translateX(-100%);text-align:right}
@@ -105,7 +110,8 @@ button{font-family:inherit;cursor:pointer}
 .plab.iimb .dy{color:var(--marker)}
 .plab.isi .dy{color:var(--brass)}
 .plab.fr .dy{color:var(--azure)}
-.now{position:absolute;top:22px;height:192px;width:2px;background:var(--paper);z-index:3}
+.plab.gc .dy{color:var(--orchid)}
+.now{position:absolute;top:22px;height:264px;width:2px;background:var(--paper);z-index:3}
 .now::before{content:"";position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:9px;height:9px;background:var(--paper);border-radius:50%}
 .now b{position:absolute;top:-26px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;color:var(--paper);background:var(--night);border:1px solid var(--rule);border-radius:99px;padding:2px 8px;white-space:nowrap}
 .rail-list{display:none;list-style:none;margin-top:6px}
@@ -128,16 +134,19 @@ button{font-family:inherit;cursor:pointer}
 .card.iimb:hover{border-color:var(--marker)}
 .card.econ:hover{border-color:var(--quill)}
 .card.fr:hover{border-color:var(--azure)}
+.card.gc:hover{border-color:var(--orchid)}
 .card .stripe{position:absolute;left:0;top:0;bottom:0;width:4px}
 .card.isi .stripe{background:var(--brass)}
 .card.iimb .stripe{background:var(--marker)}
 .card.econ .stripe{background:var(--quill)}
 .card.fr .stripe{background:var(--azure)}
+.card.gc .stripe{background:var(--orchid)}
 .card .kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase}
 .card.isi .kicker{color:var(--brass)}
 .card.iimb .kicker{color:var(--marker)}
 .card.econ .kicker{color:var(--quill)}
 .card.fr .kicker{color:var(--azure)}
+.card.gc .kicker{color:var(--orchid)}
 .card h3{font-family:var(--disp);font-weight:700;font-size:27px;margin:8px 0 2px;letter-spacing:-.01em}
 .card .sub{color:var(--paper-dim);font-size:14px;min-height:42px}
 .clock{display:flex;align-items:baseline;gap:9px;margin:16px 0 4px;font-family:var(--mono)}
@@ -146,6 +155,7 @@ button{font-family:inherit;cursor:pointer}
 .card.iimb .clock .n{color:var(--marker)}
 .card.econ .clock .n{color:var(--quill)}
 .card.fr .clock .n{color:var(--azure)}
+.card.gc .clock .n{color:var(--orchid)}
 .clock .u{font-size:12px;color:var(--paper-faint);letter-spacing:.12em;text-transform:uppercase}
 .when{font-family:var(--mono);font-size:11.5px;color:var(--paper-faint);letter-spacing:.06em}
 .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:9px;overflow:hidden;margin:18px 0 20px}
@@ -162,6 +172,7 @@ button{font-family:inherit;cursor:pointer}
 .card.iimb .enter:hover{background:var(--marker);color:var(--night);border-color:var(--marker)}
 .card.econ .enter:hover{background:var(--quill);color:var(--night);border-color:var(--quill)}
 .card.fr .enter:hover{background:var(--azure);color:var(--night);border-color:var(--azure)}
+.card.gc .enter:hover{background:var(--orchid);color:var(--night);border-color:var(--orchid)}
 .enter .arw{font-family:var(--mono);transition:transform .16s}
 .enter:hover .arw{transform:translateX(3px)}
 
@@ -197,6 +208,7 @@ footer a:hover{text-decoration:underline}
 .cbtn.on.iimb{background:var(--marker);border-color:var(--marker)}
 .cbtn.on.econ{background:var(--quill);border-color:var(--quill)}
 .cbtn.on.fr{background:var(--azure);border-color:var(--azure)}
+.cbtn.on.gc{background:var(--orchid);border-color:var(--orchid)}
 .cbar .spacer{flex:1}
 .console iframe{flex:1;width:100%;border:0;background:#fff}
 @media (max-width:560px){.cbtn{padding:7px 10px;font-size:11px}.cbar .lbl-long{display:none}}
@@ -208,9 +220,9 @@ footer a:hover{text-decoration:underline}
 /* on a phone the four milestones sit inside 25% of the rail — so the rail keeps
    its shape, and the milestones are read as a list instead of overlapping labels */
 @media (max-width:760px){
-  .track-zone{height:96px}
+  .track-zone{height:124px}
   .plab,.pstem{display:none}
-  .now{height:58px}
+  .now{height:86px}
   .rail-list{display:block}
 }
 </style>
@@ -227,9 +239,9 @@ footer a:hover{text-decoration:underline}
 <main class="wrap">
 
   <section class="hero">
-    <div class="eyebrow">Three routes · four missions · one preparation</div>
-    <h1>Four doors.<br><span class="b">One</span> <span class="m">brain</span>.</h1>
-    <p>Everything Bhavin is building toward sits on one rail: the IIM Bangalore UG-AT in December 2027 — one test, two majors to choose between — and the ISI Admission Test the following May. A fourth route runs in parallel: the French public universities, whose Fall 2028 intake opens its portals in October 2027. The mathematics underneath all of it is largely the same. Pick a door; your progress in each is saved on this device.</p>
+    <div class="eyebrow">Four routes · five missions · one preparation</div>
+    <h1>Five doors.<br><span class="b">One</span> <span class="m">brain</span>.</h1>
+    <p>Everything Bhavin is building toward sits on one rail: the IIM Bangalore UG-AT in December 2027 — one test, two majors to choose between — and the ISI Admission Test the following May. A fourth route runs in parallel: the French public universities, whose Fall 2028 intake opens its portals in October 2027 — and a fifth closer to home: UK and Australian universities now teaching their own degrees from campuses in Bengaluru, Mumbai and Gurugram. The mathematics underneath all of it is largely the same. Pick a door; your progress in each is saved on this device.</p>
   </section>
 
   <!-- ===== SIGNATURE: the shared rail ===== -->
@@ -245,6 +257,8 @@ footer a:hover{text-decoration:underline}
       <div class="track isi"><div class="fill isi" id="fillIsi"></div></div>
       <span class="tlabel fr">France · public universities</span>
       <div class="track fr"><div class="fill fr" id="fillFr"></div></div>
+      <span class="tlabel gc">Foreign campuses in India</span>
+      <div class="track gc"><div class="fill gc" id="fillGc"></div></div>
       <!-- ticks, milestone pins and the today-marker are drawn here -->
     </div>
     <ul class="rail-list" id="railList"></ul>
@@ -314,6 +328,21 @@ footer a:hover{text-decoration:underline}
       <button class="enter" data-go="fr">Enter Mission France <span class="arw">→</span></button>
     </article>
 
+    <article class="card gc">
+      <span class="stripe"></span>
+      <div class="kicker">Mission Home Ground · foreign campuses</div>
+      <h3>Global degree, in India</h3>
+      <p class="sub">Southampton, Liverpool, UNSW, Bristol, York, Aberdeen and more. Fit finder against predicted ISC marks, 14 programmes, 2028 windows, contacts.</p>
+      <div class="clock"><span class="n" id="cdGc">—</span><span class="u">days to Round 1 (proj.)</span></div>
+      <div class="when">Windows open Oct 2027 · ISC results May 2028 · classes Aug–Sep 2028</div>
+      <div class="stats" id="statsGc">
+        <div class="stat"><div class="v" id="gcStar">—</div><div class="l">Shortlisted</div></div>
+        <div class="stat"><div class="v" id="gcMs">—</div><div class="l">Milestones cleared</div></div>
+        <div class="stat"><div class="v" id="gcFit">—</div><div class="l">Bars cleared</div></div>
+      </div>
+      <button class="enter" data-go="gc">Enter Home Ground <span class="arw">→</span></button>
+    </article>
+
   </section>
 
   <!-- ===== shared core ===== -->
@@ -344,6 +373,7 @@ footer a:hover{text-decoration:underline}
     <button class="cbtn" data-go="iimb" id="tabIimb"><span class="dot" style="background:var(--marker)"></span>Mission 180</button>
     <button class="cbtn" data-go="econ" id="tabEcon"><span class="dot" style="background:var(--quill)"></span>Curve &amp; Ledger</button>
     <button class="cbtn" data-go="fr" id="tabFr"><span class="dot" style="background:var(--azure)"></span>France</button>
+    <button class="cbtn" data-go="gc" id="tabGc"><span class="dot" style="background:var(--orchid)"></span>Home Ground</button>
     <span class="spacer"></span>
     <a class="cbtn" id="newTab" href="#" target="_blank" rel="noopener">Open in new tab ↗</a>
   </div>
@@ -358,7 +388,8 @@ var MISSIONS = {
   isi : { file:"isi-coach.html",            label:"ISI Coach",       exam:"2028-05-14T10:30:00+05:30", tab:"tabIsi",  cls:"isi"  },
   iimb: { file:"mission-180-iimb-ds.html",  label:"Mission 180",     exam:"2027-12-11T09:00:00+05:30", tab:"tabIimb", cls:"iimb" },
   econ: { file:"curve-and-ledger.html",     label:"Curve & Ledger",  exam:"2027-12-11T09:00:00+05:30", tab:"tabEcon", cls:"econ" },
-  fr  : { file:"france-track.html",         label:"Mission France",  exam:"2027-10-15T09:00:00+02:00", tab:"tabFr",   cls:"fr"   }
+  fr  : { file:"france-track.html",         label:"Mission France",  exam:"2027-10-15T09:00:00+02:00", tab:"tabFr",   cls:"fr"   },
+  gc  : { file:"india-campus.html",         label:"Mission Home Ground", exam:"2027-10-23T09:00:00+05:30", tab:"tabGc", cls:"gc" }
 };
 
 /* rail anchors — start of Class 11 through the last exam */
@@ -371,11 +402,13 @@ var PINS = [
   { t:"2028-05-14T10:30:00+05:30", nm:"ISI admission test",     side:"isi",  row:1 },
   { t:"2027-10-15T09:00:00+02:00", nm:"France portals · Round 1", side:"fr",  row:2 },
   { t:"2028-03-15T09:00:00+02:00", nm:"French faculty review",    side:"fr",  row:2 },
-  { t:"2028-07-15T09:00:00+02:00", nm:"Campus France · visa",     side:"fr",  row:2 }
+  { t:"2028-07-15T09:00:00+02:00", nm:"Campus France · visa",     side:"fr",  row:2 },
+  { t:"2027-10-23T09:00:00+05:30", nm:"India campuses · Round 1", side:"gc",  row:3 },
+  { t:"2028-08-15T09:00:00+05:30", nm:"India campus classes",     side:"gc",  row:3 }
 ];
-var SIDE_COLOR = { isi:"brass", iimb:"marker", fr:"azure" };
-var ROW_Y = [114, 158, 202];              /* two label rows keep the crowded pins legible */
-var TRACK_Y = { iimb: 32, isi: 60, fr: 88 };
+var SIDE_COLOR = { isi:"brass", iimb:"marker", fr:"azure", gc:"orchid" };
+var ROW_Y = [142, 186, 230, 274];              /* two label rows keep the crowded pins legible */
+var TRACK_Y = { iimb: 32, isi: 60, fr: 88, gc: 116 };
 
 /* ---------------- pure helpers (unit-tested) ---------------- */
 function daysTo(iso, now){
@@ -452,9 +485,32 @@ function readCL(raw){
   return out;
 }
 
+function readGC(raw){
+  /* mirrors fitStatus() in india-campus.html for the bars counted on the card */
+  var out = { star:"—", ms:"—", fit:"—" };
+  var BARS = [[78,75,null],[90,90,70],[79,null,null],[65,75,70],[65,null,null],[75,null,70],[78,75,null],[75,null,null],[70,null,75],[70,75,75],[81,null,null],[82,85,null],[61,null,60]];
+  try{
+    var s = JSON.parse(raw || "null"); if(!s) return out;
+    var st = Object.keys(s.star || {}).filter(function(k){ return s.star[k]; }).length;
+    if(st) out.star = String(st);
+    var d = Object.keys(s.done || {}).filter(function(k){ return s.done[k]; }).length;
+    if(d) out.ms = d + "/11";
+    if(s.marks){
+      var mk = [s.marks.o, s.marks.m, s.marks.e], ok = 0;
+      BARS.forEach(function(b){
+        var clear = true;
+        for(var i = 0; i < 3; i++){ if(b[i] != null && mk[i] - b[i] < 3) clear = false; }
+        if(clear) ok++;
+      });
+      out.fit = ok + "/" + BARS.length;
+    }
+  }catch(e){}
+  return out;
+}
+
 /* expose for the test harness */
 if (typeof module !== "undefined" && module.exports){
-  module.exports = { daysTo:daysTo, pct:pct, readIsi:readIsi, readM180:readM180, readCL:readCL, readFR:readFR, MISSIONS:MISSIONS };
+  module.exports = { daysTo:daysTo, pct:pct, readIsi:readIsi, readM180:readM180, readCL:readCL, readFR:readFR, readGC:readGC, MISSIONS:MISSIONS };
 }
 
 /* ---------------- rendering ---------------- */
@@ -519,6 +575,7 @@ function drawRail(){
   $("fillIimb").style.width = Math.min(nowPct, pct(MISSIONS.iimb.exam, now)) + "%";
   $("fillIsi").style.width  = nowPct + "%";
   $("fillFr").style.width   = nowPct + "%";
+  $("fillGc").style.width   = nowPct + "%";
 
   var months = Math.round((RAIL_END - now) / 2629800000);
   $("railSpan").textContent = months + " months of runway left";
@@ -530,6 +587,7 @@ function drawClocks(){
   $("cdIimb").textContent = daysTo(MISSIONS.iimb.exam, now).toLocaleString("en-IN");
   $("cdEcon").textContent = daysTo(MISSIONS.econ.exam, now).toLocaleString("en-IN");
   $("cdFr").textContent   = daysTo(MISSIONS.fr.exam, now).toLocaleString("en-IN");
+  $("cdGc").textContent   = daysTo(MISSIONS.gc.exam, now).toLocaleString("en-IN");
 }
 
 function drawProgress(){
@@ -548,6 +606,11 @@ function drawProgress(){
   $("frMs").textContent    = f.ms;
   $("frPhase").textContent = f.phase;
   $("frNext").textContent  = f.next;
+
+  var h = readGC(g("indiaCampus_v1"));
+  $("gcStar").textContent = h.star;
+  $("gcMs").textContent   = h.ms;
+  $("gcFit").textContent  = h.fit;
 
   var c = readCL(g("curveLedger_v1"));
   $("clMods").textContent = c.mods;
